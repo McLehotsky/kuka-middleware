@@ -4,6 +4,8 @@ date: 2026-10-21
 phase: 4
 backlog: ["4.1 Kontajnerizácia a databáza", "[BE] Kostra .NET riešenia + EF Core DbContext a migrácia podľa ERD", "[FE] Kostra Vue 3 projektu", "[DevOps] Dockerfile pre API a web", "[DevOps] docker-compose.yml + .env.example"]
 agents: [planner, backend-expert, frontend-expert, ops-infra-expert, reviewer, main session]
+pr: 3
+pr_url: https://github.com/McLehotsky/kuka-middleware/pull/3
 ---
 
 # Scaffolding – backend, frontend, Docker, PRODUCT.md
