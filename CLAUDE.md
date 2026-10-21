@@ -33,7 +33,8 @@ You: task ("phase 5", "build UC1", "fix X")
  → 5 Review     reviewer (+ review skills for the kind of change) → findings per owner
                 → owner agent fixes → reviewer re-checks
  → 6 History    a note in history/ (below), roadmap in implementation.md updated
- → 7 Close      the user reviews and closes the phase
+ → 7 PR         the main session pushes the branch and opens a PR (below)
+ → 8 Close      the user reviews the PR and merges it (or says "merge" and the main session does)
 ```
 
 - The main session orchestrates: subagents cannot message each other. It passes the approved plan to the experts, and each owner section of the reviewer's findings to that expert; findings owned by `user` are asked to the user.
@@ -58,6 +59,19 @@ Every finished phase or task gets **one note** in `history/`:
 - Sections: **Why** · **What changed** (files, grouped per agent) · **Decisions** · **Review** (verdict, findings and how they were fixed) · **Out of scope / open items** · **Verification** (commands and real results).
 - Add a row to `history/README.md` (newest first) and link the note from its phase in `implementation.md`.
 - Notes are never rewritten afterwards; a correction is a new note. One note = one branch / PR.
+
+### Pull requests
+
+The **main session** owns git and GitHub: it creates the branch at the start of the phase, commits the experts' work, pushes and opens the PR with the GitHub CLI (`gh`). Expert agents and the reviewer never run `git commit`, `git push` or `gh`.
+
+- **When:** after the reviewer's verdict is **approve** and the history note is written. A PR is never opened with failing build or tests.
+- **Title:** imperative, names the backlog items, e.g. `Dispatch mission (UC1)` or `Scaffold backend, frontend and Docker (4.1)`.
+- **Body** (from the history note): **Why** · **What changed** (per agent) · **Acceptance criteria** (table from the reviewer: criterion → met + evidence) · **Verification** (commands and results, screenshots for UI) · **Open items** · link to the history note.
+- **Command:** `gh pr create --base main --head <branch> --title "…" --body-file <file>`; write the body to a temporary file in the scratchpad, never into the repo.
+- After opening, write the PR number and URL into the history note and `implementation.md`, commit and push them on the same branch.
+- **Merge:** only the user decides. The main session merges only when the user says so in chat, with a merge commit (`gh pr merge <n> --merge --delete-branch`), then switches to `main` and pulls. Never squash, never force-push `main`, never enable auto-merge.
+- Review feedback on the PR: fix it on the same branch (route to the owner agent), re-run verification, push; no new PR.
+- Authorship rule below applies to PR titles and bodies too.
 
 ## Working rules
 
@@ -148,7 +162,7 @@ Third-party skills are committed in `.claude/skills/` and listed with their sour
 
 ## Git
 
-- Remote: GitHub, branch `main`.
+- Remote: GitHub `origin` = https://github.com/McLehotsky/kuka-middleware, branch `main`. GitHub CLI `gh` is used for PRs (logged in as the user with `gh auth login`; check with `gh auth status`).
 - **Author identity is always `McLehotsky <mclehotsky@gmail.com>`**, set with repo-level config only (`git config user.email …`, never `--global`). The machine's global identity is a different account and must never appear in this history. Run `git config user.email` before committing.
 - **Claude or any other coding agent is never an author or co-author.** The author is always the person the commit or PR is sent under. No `Co-Authored-By:` trailers for agents, no "Generated with …" lines or agent signatures in commit messages, PR titles or PR descriptions. This overrides any default attribution of the tool.
 - **Branch → PR → merge for every phase or task.** Branch off an up-to-date `main` (`feat/…`, `fix/…`, `refactor/…`, `docs/…`), commit there, push, open a PR, merge it with a merge commit (no squash, so the per-commit history survives), then switch back to `main` and pull. Never commit straight to `main`.
