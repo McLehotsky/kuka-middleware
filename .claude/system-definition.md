@@ -81,7 +81,7 @@ New packages and images still need the user's approval. Patch updates of the one
 | NuGet | `Microsoft.EntityFrameworkCore.Relational` | 10.0.13, aligns the EF Core version so that `Design` can stay `PrivateAssets="all"` |
 | .NET tool | `dotnet-ef` (local tool manifest) | 10.0.13 |
 | NuGet (tests) | `xunit.v3` | 4.0.2 |
-| NuGet (tests) | `NSubstitute` | 6.2.0, added in phase 5 |
+| NuGet (tests) | `NSubstitute` | 6.2.0, added in phase 6 |
 | npm | `vue` | 3.5.44 |
 | npm | `vue-router` | 5.4.0 |
 | npm (dev) | `vite` | 8.3.5 |
@@ -102,7 +102,7 @@ New packages and images still need the user's approval. Patch updates of the one
 Runtime: .NET SDK 10.0.402 and Node 24 LTS locally. Docker is not installed locally, so compose is verified in CI.
 
 - `dotnet test` runs on Microsoft.Testing.Platform (opted in via `backend/global.json`). For that reason the VSTest packages `xunit.runner.visualstudio` and `Microsoft.NET.Test.Sdk` are not used.
-- Until the first test exists (phase 5), the test project ignores exit code 8 ("zero tests ran"). Remove that setting in phase 5.
+- The test project ignored exit code 8 ("zero tests ran") until the first tests; removed in phase 6.
 - Dependency audit covers runtime packages only:
   - `npm audit --omit=dev --audit-level=high`.
   - `dotnet list package --vulnerable --include-transitive`.
@@ -177,6 +177,9 @@ InProgress → Failed      sync – error
 Cancelling → Cancelled   sync – confirmed
 ```
 - **Active** (synced by UC5): `Submitted`, `InProgress`, `Cancelling`.
+- **Not final** (list filter `?state=active` and the Active tab, Q-D): every non-final status, i.e. also `Created`.
+- **Cancellable** (UC2, Q-C): `Created`, `Submitted`, `InProgress`. `Cancelling` and final statuses → 409.
+- **Phase 6 transition (Q-B):** without a KUKA client, cancel sets `Cancelling` locally with a history row (Source `Api`, message "cancel requested"); phase 5 inserts the `cancelMission` call before it. So `Created → Cancelling` exists too.
 - **Final** (sets `FinishedAt`): `Completed`, `Cancelled`, `Failed`.
 - Mapping to KUKA job states → Q1.
 
@@ -256,7 +259,24 @@ Base path `/api`, JSON (camelCase), errors as RFC 7807 ProblemDetails, every end
 | GET | `/api/robots` | Robots with state (UC6) | 200, 401 |
 | GET | `/api/health` | Liveness / smoke check after deploy | 200 |
 
-Request/response DTO fields are defined in the phase that builds them, derived from §7, and written here before implementation.
+### Mission DTOs (phase 6)
+
+- **Request `CreateMissionRequest`:**
+  - `missionType`: `RACK_MOVE` | `ROLLER_MOVE`.
+  - `priority?`: 1–3, default 2.
+  - `robotId?`: must exist.
+  - `externalRef?`: ≤100 characters.
+  - `steps[]`: at least 1, each `{ nodeCode (1–64, not blank), action (Load | Unload | Wait) }`.
+  - Validation errors → 400 `ValidationProblem` with keys like `steps[2].nodeCode`.
+- **Create response:** 201 `{ id, missionCode }` + `Location: /api/missions/{id}`.
+- **`MissionSummary`** (list and cancel response): `id, missionCode, externalRef, missionType, priority, status, robotName, createdAt, lastSyncedAt`.
+- **`MissionDetail`:** `MissionSummary` + `submittedAt, finishedAt, errorMessage, createdBy, steps[{ sequence, nodeCode, action }]`.
+- **`MissionHistoryEntry`:** `previousStatus, status, source, message, changedAt`, ordered by `changedAt` ascending.
+- The list is ordered by `createdAt` descending; an invalid `state` → 400. Cancel → 200 + `MissionSummary`.
+- Enums are strings in JSON. Missing optional values are `null`.
+- **Mission code (Q-A):** `M-{yyyy}-{NNNN}`. The year comes from `TimeProvider`; the number comes from a PostgreSQL sequence that never resets and is zero-padded to 4 digits.
+
+DTOs for later endpoints are written here before they are implemented.
 
 ---
 
@@ -348,3 +368,12 @@ Phase 6 is built **before** phase 5 (KUKA client, sync) and phase 8 (API keys, a
 - **No auth and no audit yet:** all missions are attributed to one seeded `ApiClient` "web-ui" (role `Operator`, no usable key). API key checks (401) and `AuditLog` writes come in phase 8.
 - Local development uses a locally installed PostgreSQL 18 (`kuka_middleware` database, connection string in user-secrets); Docker later.
 - Acceptance criteria that depend on these parts are "later phase" in the plan and the review.
+- Further phase 6 decisions:
+  - **Q-E:** tab counts are computed on the client from one unfiltered list call; the API still supports `state`.
+  - **Q-F:** priority default 2, also as DB default.
+  - **Q-G:** extra filters, search and pagination from mockup 6.1 are out of scope.
+  - **Q-H:** steps are reordered with keyboard-accessible move up / move down buttons.
+  - **Q-I:** the robot field shows only "Automatic (KUKA FM decides)" until phase 7; the API already accepts and validates `robotId`.
+  - **Q-J:** the header shows only the "Live · refresh 5 s" indicator; KUKA FM status, sync time and the operator avatar come in phases 5 and 8; the Audit log nav item is omitted.
+  - **Q-K:** no upper limit on steps.
+  - **Q-L:** the seeded client's `KeyHash` is a sentinel that can never match; real keys come in phase 8.
