@@ -55,7 +55,7 @@ You: task ("phase 5", "build UC1", "fix X")
 Every finished phase or task gets **one note** in `history/`:
 
 - Name `YYYY-MM-DD-NN-short-slug.md` (`NN` = running number of the note, `01`, `02`, …).
-- Front matter: `title`, `date`, `phase`, `backlog` (User Stories / tasks covered), `agents`.
+- Front matter: `title`, `date`, `phase`, `backlog` (User Stories / tasks covered), `agents`, and `pr` / `pr_url` once the PR is open.
 - Sections: **Why** · **What changed** (files, grouped per agent) · **Decisions** · **Review** (verdict, findings and how they were fixed) · **Out of scope / open items** · **Verification** (commands and real results).
 - Add a row to `history/README.md` (newest first) and link the note from its phase in `implementation.md`.
 - Notes are never rewritten afterwards; a correction is a new note. One note = one branch / PR.
