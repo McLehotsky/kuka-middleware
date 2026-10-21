@@ -129,7 +129,8 @@ The **main session** owns git and GitHub: it creates the branch at the start of 
 - Screens follow the mockups `documentation/mockups/6.1`–`6.5`.
 
 ### Design and motion
-- **Impeccable first:** `PRODUCT.md` and `DESIGN.md` (repo root) are created with `impeccable teach` in the first UI phase; every UI is shaped (`impeccable shape`) before it is built and uses only DESIGN.md tokens.
+- **Impeccable first:** `PRODUCT.md` (product truth, from `impeccable init`/`teach`) exists. `DESIGN.md` (visual system and tokens) is created by Impeccable when the first screen is built (phase 6), **derived from the mockups**. Every UI is shaped (`impeccable shape`) before it is built and uses only DESIGN.md tokens.
+- **The mockups' visual language is binding** (`documentation/mockups/6.1`–`6.5`): layout (top bar, left navigation, content), tables and cards, status pills, battery bars. Copy is translated to English.
 - The product is an **operator dashboard**: clarity, density and readable states beat decoration. Motion is restrained and purposeful (state changes, feedback, list updates).
 - CSS transitions first (`transitions-dev`). GSAP only where CSS is not enough, with Vue lifecycle cleanup (`gsap-frameworks`, `gsap-core`, `gsap-timeline`, `gsap-performance`). GSAP itself is a dependency → approval first.
 - Every animation has a `prefers-reduced-motion` fallback.
@@ -148,13 +149,35 @@ The **main session** owns git and GitHub: it creates the branch at the start of 
 
 ## Commands
 
-Filled in the scaffolding phase (phase 4) with the exact commands, so that agents verify changes the same way CI does:
+Agents verify changes the same way CI does. Tooling: .NET SDK 10.0.402 (pinned in `backend/global.json`), Node 24 LTS. Docker is not installed on the main dev PC, so compose is verified in CI.
 
-| Area | Command (run in) |
+**Backend** (run in `backend/`)
+| Task | Command |
 |---|---|
-| Backend build / test | `dotnet build` / `dotnet test` (`backend/`) |
-| Frontend install / type check / lint / build | `npm ci` / `npm run typecheck` / `npm run lint` / `npm run build` (`frontend/`) |
-| Docker | `docker compose -f docker/docker-compose.yml config` / `up -d --build` (repo root) |
+| Restore tools (dotnet-ef) | `dotnet tool restore` |
+| Build (warnings are errors) | `dotnet build` |
+| Unit tests (Microsoft.Testing.Platform) | `dotnet test` |
+| Vulnerable packages | `dotnet list package --vulnerable --include-transitive` |
+| New migration | `dotnet ef migrations add <Name> --project src/KukaMiddleware.Api --output-dir Data/Migrations` |
+| Model vs. migrations in sync | `dotnet ef migrations has-pending-model-changes --project src/KukaMiddleware.Api` |
+| Local DB connection (once per PC) | `dotnet user-secrets set "ConnectionStrings:Default" "<connection string>" --project src/KukaMiddleware.Api` |
+| Run API locally (http://localhost:5063, needs a local PostgreSQL) | `dotnet run --project src/KukaMiddleware.Api` |
+
+**Frontend** (run in `frontend/`)
+| Task | Command |
+|---|---|
+| Install | `npm ci` |
+| Type check / lint / unit tests / build | `npm run typecheck` / `npm run lint` / `npm run test` / `npm run build` |
+| Dev server (proxies `/api` to http://localhost:5063) | `npm run dev` |
+| Runtime dependency audit | `npm audit --omit=dev --audit-level=high` |
+
+**Docker** (run in repo root; needs `docker/.env` copied from `docker/.env.example`)
+| Task | Command |
+|---|---|
+| Validate compose | `docker compose -f docker/docker-compose.yml config` |
+| Start web, api, postgres (app on http://localhost:8080) | `docker compose -f docker/docker-compose.yml up -d --build` |
+| API logs | `docker compose -f docker/docker-compose.yml logs api` |
+| Stop, keep data | `docker compose -f docker/docker-compose.yml down` |
 
 ## Skills
 

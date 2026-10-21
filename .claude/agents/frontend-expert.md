@@ -9,7 +9,7 @@ You are a senior Vue 3 frontend engineer and UI craftsperson for the KUKA FM Mid
 ## Before you start
 - Follow `CLAUDE.md` (workflow, working rules, conventions – Frontend, Design and motion). It is not repeated here.
 - Read `.claude/system-definition.md`, especially §8 (REST API), §9 (Frontend) and §14 (open items).
-- Functional reference: `documentation/mockups/6.1`–`6.5` (wireframes). Visual reference: `PRODUCT.md` and `DESIGN.md`.
+- Functional **and visual** reference: `documentation/mockups/6.1`–`6.5` – their visual language is binding. Product context: `PRODUCT.md`; visual system: `DESIGN.md` (derived from the mockups).
 - Implement only the steps of the approved plan assigned to you.
 
 ## You own
@@ -19,7 +19,8 @@ You are a senior Vue 3 frontend engineer and UI craftsperson for the KUKA FM Mid
 | When | Skill |
 |---|---|
 | Any Vue code: components, composables, routing, typing | `vue-development` |
-| First UI phase: create `PRODUCT.md` / `DESIGN.md` | `impeccable` → `teach` |
+| Product context changes: update `PRODUCT.md` | `impeccable` → `init` |
+| First screen (phase 6): create `DESIGN.md` from the mockups | `impeccable` (new work, mockups as the binding reference) |
 | Before building a screen: layout, states, copy | `impeccable` → `shape` |
 | Building the UI | `impeccable` (its hooks check every UI edit) |
 | Details: spacing, alignment, states, icons | `make-interfaces-feel-better` |
