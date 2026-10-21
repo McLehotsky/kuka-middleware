@@ -59,9 +59,9 @@ Constraints:
 - Plain scoped CSS with tokens, no UI library.
 - UI language is **English**. The mockup copy is Slovak and gets translated.
 
+Decided since: the UI refreshes by polling every 5 s; mission types `RACK_MOVE` and `ROLLER_MOVE`; steps are a node plus Load / Unload / Wait.
+
 Undecided:
-- Refresh method and interval (Q2). The mockups show "Live · refresh 5 s".
-- Allowed mission types and the fields of a target point (Q9).
 - Audit log screen: marked "optional, later" in the mockups.
 
 ## Brand Commitments

@@ -23,6 +23,8 @@ namespace KukaMiddleware.Api.Data.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.HasSequence("mission_code_seq");
+
             modelBuilder.Entity("KukaMiddleware.Api.Data.Entities.ApiClient", b =>
                 {
                     b.Property<int>("Id")
@@ -66,6 +68,17 @@ namespace KukaMiddleware.Api.Data.Migrations
                         .HasDatabaseName("ix_api_client_key_hash");
 
                     b.ToTable("api_client", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            IsActive = true,
+                            KeyHash = "!disabled-seed-web-ui",
+                            Name = "web-ui",
+                            Role = "Operator"
+                        });
                 });
 
             modelBuilder.Entity("KukaMiddleware.Api.Data.Entities.AuditLog", b =>
@@ -176,7 +189,7 @@ namespace KukaMiddleware.Api.Data.Migrations
                     b.Property<int>("Priority")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasDefaultValue(0)
+                        .HasDefaultValue(2)
                         .HasColumnName("priority");
 
                     b.Property<int?>("RobotId")

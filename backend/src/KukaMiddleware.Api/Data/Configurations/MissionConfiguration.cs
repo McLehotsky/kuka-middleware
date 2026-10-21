@@ -11,7 +11,7 @@ public class MissionConfiguration : IEntityTypeConfiguration<Mission>
         builder.Property(m => m.MissionCode).HasMaxLength(64);
         builder.Property(m => m.ExternalRef).HasMaxLength(100);
         builder.Property(m => m.MissionType).HasMaxLength(64);
-        builder.Property(m => m.Priority).HasDefaultValue(0);
+        builder.Property(m => m.Priority).HasDefaultValue(2);
         builder.Property(m => m.Status).HasConversion<string>().HasMaxLength(32);
         builder.Property(m => m.ErrorMessage).HasMaxLength(1000);
 

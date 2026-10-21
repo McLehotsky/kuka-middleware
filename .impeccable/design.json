@@ -1,0 +1,479 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-21T00:00:00Z",
+  "title": "Design System: ITS Middleware",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Harbor Navy",
+        "canonical": "#1F4E79",
+        "tonalRamp": [
+          "#10273D",
+          "#1B446A",
+          "#266196",
+          "#327EC3",
+          "#5D9CD5",
+          "#8DB9E2",
+          "#BED7EE",
+          "#EBF3FA"
+        ]
+      },
+      "nav-active": {
+        "role": "primary",
+        "displayName": "Mist Blue",
+        "canonical": "#DCE6F1",
+        "tonalRamp": [
+          "#162537",
+          "#26415F",
+          "#365C87",
+          "#4678AF",
+          "#6D97C5",
+          "#99B6D6",
+          "#C5D5E8",
+          "#EDF2F8"
+        ]
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#1E2A36",
+        "tonalRamp": [
+          "#1B2631",
+          "#2F4255",
+          "#435E79",
+          "#577A9D",
+          "#7C99B6",
+          "#A3B8CC",
+          "#CBD6E2",
+          "#EFF2F6"
+        ]
+      },
+      "text-muted": {
+        "role": "neutral",
+        "displayName": "Slate",
+        "canonical": "#5E6A78",
+        "tonalRamp": [
+          "#22262B",
+          "#3A424A",
+          "#535D6A",
+          "#6C7989",
+          "#8D98A5",
+          "#AFB7C0",
+          "#D1D6DB",
+          "#F1F2F4"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Steel Border",
+        "canonical": "#C9D1DB",
+        "tonalRamp": [
+          "#1F252E",
+          "#354150",
+          "#4B5C71",
+          "#627893",
+          "#8597AD",
+          "#A9B6C6",
+          "#CED5DE",
+          "#F0F2F5"
+        ]
+      },
+      "panel": {
+        "role": "neutral",
+        "displayName": "Cool Panel",
+        "canonical": "#F3F5F8",
+        "tonalRamp": [
+          "#1C2430",
+          "#313F54",
+          "#465977",
+          "#5A749B",
+          "#7E94B4",
+          "#A5B4CA",
+          "#CBD4E1",
+          "#EFF2F6"
+        ]
+      },
+      "danger": {
+        "role": "semantic",
+        "displayName": "Signal Red",
+        "canonical": "#B42318",
+        "tonalRamp": [
+          "#440D09",
+          "#751710",
+          "#A62016",
+          "#D82A1D",
+          "#E7564B",
+          "#EE8981",
+          "#F5BBB7",
+          "#FCEAE8"
+        ]
+      },
+      "warning-text": {
+        "role": "semantic",
+        "displayName": "Amber Ochre",
+        "canonical": "#8A5A00",
+        "tonalRamp": [
+          "#4C3200",
+          "#855600",
+          "#BD7B00",
+          "#F5A000",
+          "#FFB833",
+          "#FFCD70",
+          "#FFE3AD",
+          "#FFF6E5"
+        ]
+      },
+      "success": {
+        "role": "semantic",
+        "displayName": "Live Green",
+        "canonical": "#22A559",
+        "tonalRamp": [
+          "#0D3F22",
+          "#176E3B",
+          "#209C54",
+          "#2ACB6D",
+          "#56DC8E",
+          "#89E7B0",
+          "#BBF1D2",
+          "#EAFBF1"
+        ]
+      },
+      "dark-bg": {
+        "role": "neutral",
+        "displayName": "Night Slate (derived)",
+        "canonical": "#0F1720",
+        "tonalRamp": [
+          "#182534",
+          "#2A415A",
+          "#3C5C80",
+          "#4E78A7",
+          "#7497BE",
+          "#9EB6D1",
+          "#C7D5E5",
+          "#EEF2F7"
+        ]
+      },
+      "dark-primary-text": {
+        "role": "primary",
+        "displayName": "Night Sky Blue (derived)",
+        "canonical": "#8CB8E6",
+        "tonalRamp": [
+          "#0E263F",
+          "#18416D",
+          "#225D9B",
+          "#2C79C9",
+          "#5798DB",
+          "#8AB7E5",
+          "#BCD6F0",
+          "#EAF2FA"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "page-title": {
+        "displayName": "Page title",
+        "purpose": "One per screen."
+      },
+      "brand": {
+        "displayName": "Brand",
+        "purpose": "Product name in the top bar."
+      },
+      "dialog-title": {
+        "displayName": "Dialog title",
+        "purpose": "Dialog heading, robot card name."
+      },
+      "stat-value": {
+        "displayName": "Stat value",
+        "purpose": "Numbers in summary tiles."
+      },
+      "section-title": {
+        "displayName": "Section title",
+        "purpose": "Card titles, active tab."
+      },
+      "nav": {
+        "displayName": "Nav",
+        "purpose": "Sidebar items, inactive tabs."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Table cells, inputs, dialog copy."
+      },
+      "value": {
+        "displayName": "Value",
+        "purpose": "Values in detail grids."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Form labels."
+      },
+      "pill": {
+        "displayName": "Pill",
+        "purpose": "Status pills."
+      },
+      "meta": {
+        "displayName": "Meta",
+        "purpose": "Keys in detail grids."
+      },
+      "table-header": {
+        "displayName": "Table header",
+        "purpose": "Uppercase column heads."
+      },
+      "nav-section": {
+        "displayName": "Nav section",
+        "purpose": "Uppercase sidebar section label."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Text of all buttons."
+      },
+      "strong": {
+        "displayName": "Strong",
+        "purpose": "Error-panel heading, \"Add step\" link, step numbers."
+      },
+      "body-small": {
+        "displayName": "Body small",
+        "purpose": "Secondary body: error-panel and dialog messages, stale-data notes, timeline messages, type codes."
+      },
+      "body-small-strong": {
+        "displayName": "Body small strong",
+        "purpose": "Timeline timestamps."
+      },
+      "small": {
+        "displayName": "Small",
+        "purpose": "Breadcrumb, card meta, footnotes, Live indicator, \"cancelling…\"."
+      },
+      "hint": {
+        "displayName": "Hint",
+        "purpose": "Field hints and card footers."
+      },
+      "error": {
+        "displayName": "Error",
+        "purpose": "Inline field error messages."
+      },
+      "tag": {
+        "displayName": "Tag",
+        "purpose": "Source tag (API / Sync) in the history timeline."
+      },
+      "count": {
+        "displayName": "Count",
+        "purpose": "Count badges on tabs, numbers in step circles."
+      },
+      "pill-sm": {
+        "displayName": "Pill sm",
+        "purpose": "Status pills inside the history timeline."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Version line and the \"coming soon\" note in the sidebar."
+      },
+      "brand-compact": {
+        "displayName": "Brand compact",
+        "purpose": "Product name in the top bar below 768 px."
+      },
+      "mark": {
+        "displayName": "Mark",
+        "purpose": "The \"ITS\" letters in the brand mark."
+      },
+      "control-touch": {
+        "displayName": "Control touch",
+        "purpose": "Inputs below 768 px (16 px prevents iOS zoom on focus)."
+      }
+    },
+    "shadows": [
+      {
+        "name": "dialog",
+        "value": "0 6px 20px rgba(0, 0, 0, 0.25)",
+        "purpose": "Modal dialog only, over scrim #0B1620 at 45 % (extracted from 6.4)."
+      }
+    ],
+    "motion": [
+      {
+        "name": "duration-fast",
+        "value": "120ms",
+        "purpose": "Hover, press, focus (derived)."
+      },
+      {
+        "name": "duration-base",
+        "value": "180ms",
+        "purpose": "Status pill colour change, tab underline, row insert fade (derived)."
+      },
+      {
+        "name": "duration-slow",
+        "value": "240ms",
+        "purpose": "Dialog and drawer enter (derived)."
+      },
+      {
+        "name": "duration-exit",
+        "value": "160ms",
+        "purpose": "Dialog and drawer exit (derived)."
+      },
+      {
+        "name": "ease-standard",
+        "value": "cubic-bezier(0.2, 0, 0, 1)",
+        "purpose": "Enter and state change (derived)."
+      },
+      {
+        "name": "ease-exit",
+        "value": "cubic-bezier(0.4, 0, 1, 1)",
+        "purpose": "Exit (derived)."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "0ms; opacity fades <= 120ms; no transforms",
+        "purpose": "prefers-reduced-motion: reduce fallback."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile",
+        "value": "375px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1100px"
+      },
+      {
+        "name": "desktop-canvas",
+        "value": "1280px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one main action per view (New mission, Send mission).",
+      "html": "<button class=\"ds-btn-primary\">+ New mission</button>",
+      "css": ".ds-btn-primary{font:600 13px/1 'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif;height:34px;padding:0 16px;border-radius:5px;border:1px solid #1F4E79;background:#1F4E79;color:#FFFFFF;cursor:pointer;transition:background-color 120ms cubic-bezier(0.2,0,0,1)}.ds-btn-primary:hover{background:#173D60}.ds-btn-primary:focus-visible{outline:2px solid #1F4E79;outline-offset:2px}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Neutral actions: Detail, Refresh, Back.",
+      "html": "<button class=\"ds-btn-secondary\">Detail</button>",
+      "css": ".ds-btn-secondary{font:600 13px/1 'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif;height:34px;padding:0 16px;border-radius:5px;border:1px solid #8A96A3;background:#FFFFFF;color:#1E2A36;cursor:pointer;transition:background-color 120ms cubic-bezier(0.2,0,0,1)}.ds-btn-secondary:hover{background:#F3F5F8}.ds-btn-secondary:focus-visible{outline:2px solid #1F4E79;outline-offset:2px}"
+    },
+    {
+      "name": "Danger Outline Button",
+      "kind": "button",
+      "refersTo": "button-danger-outline",
+      "description": "Starts a cancel; opens the confirmation dialog.",
+      "html": "<button class=\"ds-btn-danger\">Cancel mission</button>",
+      "css": ".ds-btn-danger{font:600 13px/1 'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif;height:34px;padding:0 16px;border-radius:5px;border:1px solid #B42318;background:#FFFFFF;color:#B42318;cursor:pointer;transition:background-color 120ms cubic-bezier(0.2,0,0,1)}.ds-btn-danger:hover{background:#FDECEC}.ds-btn-danger:focus-visible{outline:2px solid #1F4E79;outline-offset:2px}"
+    },
+    {
+      "name": "Danger Solid Button",
+      "kind": "button",
+      "refersTo": "button-danger-solid",
+      "description": "Only the confirm button inside the cancel dialog.",
+      "html": "<button class=\"ds-btn-danger-solid\">Yes, cancel mission</button>",
+      "css": ".ds-btn-danger-solid{font:600 13px/1 'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif;height:34px;padding:0 16px;border-radius:5px;border:1px solid #B42318;background:#B42318;color:#FFFFFF;cursor:pointer;transition:background-color 120ms cubic-bezier(0.2,0,0,1)}.ds-btn-danger-solid:hover{background:#9B1C1C}.ds-btn-danger-solid:focus-visible{outline:2px solid #1F4E79;outline-offset:2px}"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Labelled field; error state with red border and message.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-label\">Node *</span><input class=\"ds-input\" placeholder=\"Enter node…\"></label><label class=\"ds-field\"><span class=\"ds-label\">Node *</span><input class=\"ds-input ds-input--error\" aria-invalid=\"true\"><span class=\"ds-error\">Node is required</span></label>",
+      "css": ".ds-field{display:grid;gap:8px;margin-bottom:16px}.ds-label{font:600 12px/1.4 'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif;color:#5E6A78}.ds-input{font:400 13px/1 'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif;height:34px;padding:0 10px;border:1px solid #8A96A3;border-radius:4px;background:#FFFFFF;color:#1E2A36;transition:border-color 120ms cubic-bezier(0.2,0,0,1)}.ds-input::placeholder{color:#5E6A78;font-style:italic}.ds-input:focus-visible{border-color:#1F4E79;outline:2px solid #1F4E79;outline-offset:2px}.ds-input--error{border-color:#B42318}.ds-error{font:400 11px/1.3 'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif;color:#B42318}"
+    },
+    {
+      "name": "Sidebar Navigation",
+      "kind": "nav",
+      "refersTo": "nav-item-active",
+      "description": "Left navigation; active item has a tint and a 4px navy bar.",
+      "html": "<nav class=\"ds-nav\"><div class=\"ds-nav-sec\">NAVIGATION</div><a class=\"ds-nav-item is-active\" aria-current=\"page\" href=\"#\">Missions</a><a class=\"ds-nav-item\" href=\"#\">New mission</a><a class=\"ds-nav-item\" href=\"#\">Robots</a></nav>",
+      "css": ".ds-nav{width:200px;background:#F3F5F8;padding:24px 10px}.ds-nav-sec{font:700 10.5px/1.2 'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif;letter-spacing:.06em;color:#5E6A78;padding:0 10px 14px}.ds-nav-item{display:flex;align-items:center;height:36px;margin-bottom:6px;padding:0 12px 0 20px;border-radius:5px;font:400 14px/1 'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif;color:#1E2A36;text-decoration:none;position:relative}.ds-nav-item:hover{background:#E4E8EE}.ds-nav-item.is-active{background:#DCE6F1;color:#1F4E79;font-weight:700}.ds-nav-item.is-active::before{content:\"\";position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:2px;background:#1F4E79}.ds-nav-item:focus-visible{outline:2px solid #1F4E79;outline-offset:2px}"
+    },
+    {
+      "name": "Status Pills",
+      "kind": "chip",
+      "refersTo": "status-pill",
+      "description": "Mission and robot state; always text plus tint.",
+      "html": "<span class=\"ds-pill\" style=\"background:#ECEFF3;color:#4A5563\">Created</span> <span class=\"ds-pill\" style=\"background:#E3ECFA;color:#2B5BA8\">Submitted</span> <span class=\"ds-pill\" style=\"background:#DCEBFF;color:#1F4E79\">InProgress</span> <span class=\"ds-pill\" style=\"background:#FFF1D6;color:#8A5A00\">Cancelling</span> <span class=\"ds-pill\" style=\"background:#DDF3E4;color:#1E6B3A\">Completed</span> <span class=\"ds-pill\" style=\"background:#F3F5F8;border:1px solid #C9D1DB;color:#5E6A78\">× Cancelled</span> <span class=\"ds-pill\" style=\"background:#FBE0E0;color:#9B1C1C\">Failed</span>",
+      "css": ".ds-pill{display:inline-flex;align-items:center;height:20px;padding:0 9px;border-radius:999px;font:600 12px/1 'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif;white-space:nowrap;transition:background-color 180ms cubic-bezier(0.2,0,0,1),color 180ms cubic-bezier(0.2,0,0,1)}"
+    },
+    {
+      "name": "Live Indicator",
+      "kind": "custom",
+      "refersTo": "live-indicator",
+      "description": "Shows that polling is running.",
+      "html": "<span class=\"ds-live\"><span class=\"ds-live-dot\"></span>Live · refresh 5 s</span>",
+      "css": ".ds-live{display:inline-flex;align-items:center;gap:8px;height:26px;padding:0 14px 0 10px;border-radius:999px;background:#F0F7F2;border:1px solid #B7DFC4;color:#1E6B3A;font:400 12px/1 'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif}.ds-live-dot{width:8px;height:8px;border-radius:50%;background:#22A559}"
+    },
+    {
+      "name": "Robot Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Robot state, battery, node and mission.",
+      "html": "<article class=\"ds-card\"><header class=\"ds-card-h\"><div><div class=\"ds-card-name\">KMP-01</div><div class=\"ds-card-id\">KUKA-AMR-1001</div></div><span class=\"ds-card-pill\">Busy</span></header><div class=\"ds-row\"><span class=\"ds-k\">Battery</span><span class=\"ds-bar\" role=\"meter\" aria-valuenow=\"78\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"Battery\"><span style=\"width:78%\"></span></span><b>78 %</b></div><div class=\"ds-row\"><span class=\"ds-k\">Node</span><b>C-03-WAIT</b><span></span></div><footer class=\"ds-card-f\">updated 2 s ago</footer></article>",
+      "css": ".ds-card{width:300px;border:1px solid #C9D1DB;border-radius:6px;background:#FFFFFF;color:#1E2A36;font:400 13px/1.4 'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif;font-variant-numeric:tabular-nums}.ds-card-h{display:flex;justify-content:space-between;align-items:flex-start;padding:16px 16px 8px}.ds-card-name{font:700 17px/1.3 'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif}.ds-card-id{font-size:11.5px;color:#5E6A78}.ds-card-pill{height:20px;padding:0 9px;border-radius:999px;background:#DCEBFF;color:#1F4E79;font:600 12px/20px 'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif}.ds-row{display:grid;grid-template-columns:64px 1fr auto;gap:8px;align-items:center;padding:6px 16px}.ds-k{font:600 11.5px/1.4 'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif;color:#5E6A78}.ds-bar{height:12px;border-radius:6px;background:#ECEFF3;overflow:hidden}.ds-bar span{display:block;height:100%;border-radius:6px;background:#22A559}.ds-card-f{margin-top:8px;border-top:1px solid #E4E8EE;padding:10px 16px;font-size:11.5px;color:#5E6A78}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Quiet Control Room",
+    "overview": "A navy-capped, white, flat workspace that an operator can leave open for a whole shift. The screen is mostly white and pale grey-blue; colour is spent almost entirely on **state**: status pills, battery bars, the Live indicator and the single navy accent. Everything else is text, thin borders and whitespace. Density is moderate-to-high (46 px table rows, 13 px body text), tuned for a desktop PC at arm's length rather than for touch.\n\nThe layout is a classic app shell: a 56 px navy top bar with the product name and connection/sync chips, a 200 px pale sidebar, and a content column with a breadcrumb, a 24 px page title and cards or a bordered table. Depth comes from 1 px borders and tonal panels, not shadows; the only lifted object is the confirmation dialog.\n\nUpdates arrive every 5 s without drama: values change in place, the \"synced n s ago\" chip ticks, and nothing slides, bounces or flashes.",
+    "keyCharacteristics": [
+      "Navy top bar + pale sidebar + white content; one accent colour (`primary`).",
+      "State is always a tinted pill **with its English status text**, never a colour alone.",
+      "Flat surfaces, 1 px cool-grey borders, small consistent radii (4–8 px, pills fully round).",
+      "System font stack, no web fonts; hierarchy by size and weight, not by typeface.",
+      "Calm motion: short CSS transitions on state change only."
+    ],
+    "rules": [
+      {
+        "name": "The State Owns Colour Rule",
+        "body": "Tinted colour (green, amber, red, the status blues) appears only to express a state. Decoration never borrows a state colour.",
+        "section": "colors"
+      },
+      {
+        "name": "The Word Beside the Colour Rule",
+        "body": "Every coloured state carries its text: pills show the status name, battery bars show \"78 %\", stat tiles show the label, offline cards add \"⚠ last seen …\". Removing the colour must lose nothing.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Muted Rule",
+        "body": "There is a single muted text colour (`text-muted`, dark: `dark-text-muted`) and it is AA on every surface; never lighten it for a subtler look.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tabular Numbers Rule",
+        "body": "Times, counts, percentages and codes use `font-variant-numeric: tabular-nums` so live updates do not jitter.",
+        "section": "typography"
+      },
+      {
+        "name": "The Italic Means Pending Rule",
+        "body": "Italic is reserved for transient or placeholder text: placeholders, \"cancelling…\", \"waiting for the next change…\", \"last seen …\".",
+        "section": "typography"
+      },
+      {
+        "name": "The One Lifted Object Rule",
+        "body": "Only a modal dialog may cast a shadow. If something needs emphasis, use a border, a tint or a 4 px accent bar – not elevation.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** take every colour, radius and size from the frontmatter tokens (as CSS custom properties); light values are the mockups' values.",
+      "**Do** show every status as a pill with its name, and every battery level with its percentage.",
+      "**Do** keep one primary button per view; cancel actions use danger outline, and only the dialog's confirm button is danger solid.",
+      "**Do** use `control-border` for form controls and `border` only for cards, tables and dividers.",
+      "**Do** update polled data in place, with tabular numbers, without loaders or flashes.",
+      "**Do** provide both themes, the 375 px layout, visible focus and the reduced-motion fallback for every screen."
+    ],
+    "donts": [
+      "**Don't** build the yellow dashed developer notes (`#FFF8C5` / `#D4B106`) from the mockups – they are annotations, not UI.",
+      "**Don't** add shadows to cards, tables or buttons; only the dialog is lifted.",
+      "**Don't** introduce new accent hues, gradients or a web font.",
+      "**Don't** use `text-disabled` for readable content or colour as the only carrier of state.",
+      "**Don't** add KUKA or FEI logos or brand identity; the \"ITS\" mark is the only logo.",
+      "**Don't** present the mockups' robot and mission codes as real data."
+    ]
+  }
+}

@@ -6,6 +6,12 @@ namespace KukaMiddleware.Api.Data;
 // singular, e.g. mission_status_history) and FK constraint names stay consistent. Use Set<T>().
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
-    protected override void OnModelCreating(ModelBuilder modelBuilder) =>
+    // Number part of Mission.MissionCode (M-{yyyy}-{NNNN}); never reset (system-definition §8, Q-A).
+    public const string MissionCodeSequence = "mission_code_seq";
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.HasSequence<long>(MissionCodeSequence);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+    }
 }
