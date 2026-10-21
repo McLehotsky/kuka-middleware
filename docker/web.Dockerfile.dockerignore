@@ -1,0 +1,10 @@
+# Context is the repo root; send only the frontend sources and the nginx config.
+*
+!frontend/
+!docker/nginx.conf
+**/node_modules/
+**/dist/
+**/coverage/
+**/*.local
+**/.env
+**/.env.*

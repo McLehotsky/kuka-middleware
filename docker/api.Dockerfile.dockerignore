@@ -1,0 +1,11 @@
+# Context is the repo root; send only the backend sources.
+*
+!backend/
+backend/tests/
+**/bin/
+**/obj/
+**/TestResults/
+**/.vs/
+**/*.user
+**/.env
+**/.env.*
