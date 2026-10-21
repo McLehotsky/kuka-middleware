@@ -78,10 +78,9 @@ New packages and images still need the user's approval. Patch updates of the one
 | NuGet | `Microsoft.EntityFrameworkCore.Design` | 10.0.13 |
 | NuGet | `Npgsql.EntityFrameworkCore.PostgreSQL` | 10.0.3 |
 | NuGet | `EFCore.NamingConventions` | 10.0.1 |
+| NuGet | `Microsoft.EntityFrameworkCore.Relational` | 10.0.13, aligns the EF Core version so that `Design` can stay `PrivateAssets="all"` |
 | .NET tool | `dotnet-ef` (local tool manifest) | 10.0.13 |
 | NuGet (tests) | `xunit.v3` | 4.0.2 |
-| NuGet (tests) | `xunit.runner.visualstudio` | 4.0.1 |
-| NuGet (tests) | `Microsoft.NET.Test.Sdk` | 18.11.0 |
 | NuGet (tests) | `NSubstitute` | 6.2.0, added in phase 5 |
 | npm | `vue` | 3.5.44 |
 | npm | `vue-router` | 5.4.0 |
@@ -101,6 +100,13 @@ New packages and images still need the user's approval. Patch updates of the one
 | Docker | `postgres` | 18.6-alpine |
 
 Runtime: .NET SDK 10.0.402 and Node 24 LTS locally. Docker is not installed locally, so compose is verified in CI.
+
+- `dotnet test` runs on Microsoft.Testing.Platform (opted in via `backend/global.json`). For that reason the VSTest packages `xunit.runner.visualstudio` and `Microsoft.NET.Test.Sdk` are not used.
+- Until the first test exists (phase 5), the test project ignores exit code 8 ("zero tests ran"). Remove that setting in phase 5.
+- Dependency audit covers runtime packages only:
+  - `npm audit --omit=dev --audit-level=high`.
+  - `dotnet list package --vulnerable --include-transitive`.
+  - Known dev-only finding: GHSA-vfj7-8cjw-p6xm (`braces` via `@vue/eslint-config-typescript`), no fixed version yet; re-check on every update.
 
 ---
 
@@ -256,7 +262,7 @@ Request/response DTO fields are defined in the phase that builds them, derived f
 
 ## 9. Frontend
 
-Screens follow the mockups in `documentation/mockups/` (simple wireframes, not final design – visual design comes from `DESIGN.md`).
+Screens follow the mockups in `documentation/mockups/`. Their **visual language is binding** (user decision 2026-10-21): top bar with app name and KUKA FM / sync status, left navigation, tables and cards, status pills, battery bars. `DESIGN.md` is derived from them when the first screen is built. Product context: `PRODUCT.md`.
 
 | Mockup | Screen | Use case |
 |---|---|---|
@@ -328,6 +334,7 @@ Questions, not decisions. Ask the user before implementing anything that depends
 | Q7 | Azure DevOps: agent / pool, deployment target, static analysis tools. | 8 |
 | Q8 | How the web UI gets its API key without exposing it (e.g. injected by nginx for same-origin requests). | 8 |
 | Q9 | Mission types allowed in UC1 and the fields of a target point (node code, action). | 6 |
+| Q10 | Container hardening: run nginx as non-root (e.g. `nginxinc/nginx-unprivileged`, needs approval) and give the api a compose healthcheck (aspnet image has no curl). | 8 |
 
 ### Decided
 | # | Decision | Date |
