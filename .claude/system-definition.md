@@ -267,7 +267,8 @@ Base path `/api`, JSON (camelCase), errors as RFC 7807 ProblemDetails, every end
   - `robotId?`: must exist.
   - `externalRef?`: ≤100 characters.
   - `steps[]`: at least 1, each `{ nodeCode (1–64, not blank), action (Load | Unload | Wait) }`.
-  - Validation errors → 400 `ValidationProblem` with keys like `steps[2].nodeCode`.
+  - Validation errors → 400 `ValidationProblem` with keys like `steps[2].nodeCode`. The index is 0-based, matching the JSON array; the stored `sequence` is 1-based.
+  - `missionType`, `action` and `state` match exactly and are case-sensitive.
 - **Create response:** 201 `{ id, missionCode }` + `Location: /api/missions/{id}`.
 - **`MissionSummary`** (list and cancel response): `id, missionCode, externalRef, missionType, priority, status, robotName, createdAt, lastSyncedAt`.
 - **`MissionDetail`:** `MissionSummary` + `submittedAt, finishedAt, errorMessage, createdBy, steps[{ sequence, nodeCode, action }]`.
