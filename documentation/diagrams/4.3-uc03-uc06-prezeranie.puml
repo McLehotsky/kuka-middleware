@@ -1,0 +1,26 @@
+@startuml
+|Obsluha|
+start
+:Otvoriť obrazovku
+(UC03 / UC04 / UC05 / UC06);
+|Middleware|
+if (Request autorizovaný?) then (nie)
+  |Obsluha|
+  :Zobraziť chybu 401;
+  stop
+else (áno)
+endif
+repeat
+  |Middleware|
+  :Spracovať GET request;
+  |Databáza|
+  :Načítať dáta podľa obrazovky;
+  |Middleware|
+  :Vrátiť JSON;
+  |Obsluha|
+  :Zobraziť zoznam
+  + čas poslednej synchronizácie;
+  :Počkať interval obnovy (napr. 5 s);
+repeat while (Obrazovka otvorená?) is (áno) not (nie)
+stop
+@enduml

@@ -1,0 +1,36 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecase {
+  BackgroundColor #F0F5FA
+  BorderColor #1F4E79
+}
+
+actor "Obsluha\n(webové UI)" as OP
+actor "Externý systém\n(REST API)" as EXT
+actor "KUKA FM\n(podporný aktér)" as KUKA
+
+rectangle "Middleware pre KUKA AMR Fleet Manager" {
+  usecase "UC01\nZadať novú misiu" as UC01
+  usecase "UC02\nPožiadať o zrušenie misie" as UC02
+  usecase "UC03\nPrezrieť aktívne misie" as UC03
+  usecase "UC04\nPrezrieť ukončené misie" as UC04
+  usecase "UC05\nPrezrieť históriu stavov misie" as UC05
+}
+
+OP -- UC01
+OP -- UC02
+OP -- UC03
+OP -- UC04
+OP -- UC05
+
+UC01 -- EXT
+UC02 -- EXT
+UC01 -- KUKA
+UC02 -- KUKA
+
+note as N1
+  Čiary sú asociácie aktér – prípad použitia, nevyjadrujú poradie volaní.
+  UC03 – UC05 čítajú lokálne údaje, ich aktualizáciu zabezpečuje UC07.
+end note
+@enduml

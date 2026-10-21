@@ -1,0 +1,93 @@
+﻿ID,Work Item Type,Title 1,Title 2,Title 3,Title 4,Description,Acceptance Criteria,Tags,Activity,Original Estimate
+,Epic,KUKA FM Middleware,,,,"Middleware medzi externým systémom / operátorom a KUKA AMR Fleet Manager: zadanie a zrušenie misie, synchronizácia stavov misií a robotov, webové UI, nasadenie cez CI/CD.","• Je možné zadať novú misiu.
+• Je možné zrušiť prebiehajúcu misiu.
+• Je možné prezrieť stav prebiehajúcich misií, ktoré sa aktualizujú v reálnom čase, a ukončených misií.
+• Je možné prezrieť stav robotov, ktoré sa aktualizujú v reálnom čase.
+• Prístup ku KUKA FM API volaniu je zabezpečený access tokenom.
+• Všetky operácie vykonané používateľom sú logované.
+• Proces testovania a nasadenia je plne automatizovaný využitím CI/CD pipeline.",,,
+,Feature,,Správa misií,,,"Zadanie, zrušenie a prehľad misií vrátane histórie stavov (UC1–UC4, wiki 3.1).","• Misie sa dajú zadať, zrušiť a sledovať cez middleware bez použitia UI KUKA FM.
+• Každá misia má aktuálny stav aj celú históriu zmien.",FR1; FR2; FR5; FR6,,
+,User Story,,,UC1 – Zadať misiu,,"Ako operátor / externý systém chcem zadať novú misiu robotovi, aby ju KUKA FM vykonal.","• Formulár / POST /api/missions prijme typ misie, cieľové body a voliteľne robota.
+• Neplatný vstup vráti 400, neautorizovaný request 401; KUKA FM sa nevolá.
+• Po úspešnom submitMission je misia uložená so stavom Created/Submitted, má prvý záznam v histórii a aktér dostane jej ID.
+• Ak KUKA FM misiu odmietne alebo je nedostupné, misia je Failed, chyba sa zaloguje a API vráti 502.",UC1,,
+,Task,,,,[BE] Endpoint POST /api/missions + validácia vstupu,"Validácia typu misie, cieľových bodov a existencie robota (ak je zadaný). Odpoveď 201 s ID misie alebo 400.",,BE,Development,4
+,Task,,,,[BE] Volanie submitMission + uloženie misie a histórie,"Vygenerovať MissionCode, uložiť Mission + MissionStep (Created), zavolať submitMission, nastaviť Submitted alebo Failed (ErrorMessage) a zapísať MissionStatusHistory (diagram 4.1).",,BE,Development,5
+,Task,,,,[FE] Obrazovka Nová misia (mockup 6.2),"Formulár: typ, cieľové body, voliteľne robot z GET /api/robots. Zobrazenie ID misie alebo chybového hlásenia.",,FE,Development,6
+,Task,,,,[TEST] Unit testy zadania misie,"Validácia, mapovanie na submitMission request, úspech aj chyba KUKA FM (klient a DB mockované).",,TEST,Testing,4
+,User Story,,,UC2 – Zrušiť misiu,,Ako operátor / externý systém chcem zrušiť rozbehnutú misiu.,"• Zrušiť je možné len misiu, ktorá nie je ukončená; v UI vyžaduje potvrdenie.
+• Neexistujúca misia vráti 404, ukončená 409.
+• Po úspešnom cancelMission je misia v stave Cancelling a zmena je v histórii.
+• Finálny stav Cancelled potvrdí synchronizácia (UC5).",UC2,,
+,Task,,,,[BE] Endpoint POST /api/missions/{id}/cancel + kontroly 404/409,"Načítať misiu, overiť že existuje a nie je ukončená.",,BE,Development,3
+,Task,,,,[BE] Volanie cancelMission + stav Cancelling,"Zavolať cancelMission na KUKA FM, nastaviť Cancelling a zapísať históriu (diagram 4.2).",,BE,Development,3
+,Task,,,,[FE] Tlačidlo Zrušiť s potvrdením (mockup 6.4),"Tlačidlo len pri aktívnych misiách, potvrdzovací dialóg, zobrazenie výsledku.",,FE,Development,3
+,Task,,,,[TEST] Unit testy zrušenia misie,"Prípady: aktívna, ukončená (409), neexistujúca (404).",,TEST,Testing,3
+,User Story,,,UC3 – Zobraziť zoznam misií,,Ako operátor / externý systém chcem vidieť prebiehajúce aj ukončené misie s aktuálnym stavom.,"• Zoznam zobrazuje misie s aktuálnym stavom, voliteľne filter aktívne / ukončené.
+• Dáta sa čítajú len z vlastnej DB, KUKA FM sa nevolá.
+• UI sa priebežne obnovuje (real-time aktualizácia).",UC3,,
+,Task,,,,[BE] Endpoint GET /api/missions?state=active|finished,"Čítanie z DB (diagram 4.3), zoradenie podľa CreatedAt desc.",,BE,Development,3
+,Task,,,,[FE] Obrazovka Zoznam misií + filter + auto-refresh (mockup 6.1),"Tabuľka misií so stavom, filter aktívne / ukončené, periodické obnovovanie.",,FE,Development,6
+,Task,,,,[TEST] Unit testy filtra aktívne / ukončené,,,TEST,Testing,2
+,User Story,,,UC4 – Zobraziť históriu stavov misie,,Ako operátor chcem vidieť časovú os zmien stavu konkrétnej misie.,"• Z detailu misie je vidieť všetky záznamy histórie stavov zoradené podľa času.
+• Neexistujúca misia vráti 404.",UC4,,
+,Task,,,,[BE] Endpointy GET /api/missions/{id} a /api/missions/{id}/history,Detail misie s MissionStep a záznamy MissionStatusHistory zoradené podľa ChangedAt.,,BE,Development,3
+,Task,,,,[FE] Obrazovka Detail misie s časovou osou (mockup 6.3),,,FE,Development,5
+,Task,,,,"[TEST] Unit testy histórie (poradie, 404)",,,TEST,Testing,2
+,Feature,,Prehľad robotov,,,"Zoznam robotov a ich aktuálneho stavu (UC6, wiki 3.2).",• UI zobrazuje všetky roboty so stavom Dostupný / Zaneprázdnený / Offline.,FR7,,
+,User Story,,,UC6 – Zobraziť zoznam robotov,,Ako operátor chcem vidieť roboty a ich aktuálny stav.,"• Zoznam zobrazuje roboty a ich stav (dostupný / zaneprázdnený / offline).
+• Dáta sa čítajú len z vlastnej DB a UI sa priebežne obnovuje.",UC6,,
+,Task,,,,[BE] Endpoint GET /api/robots,,,BE,Development,2
+,Task,,,,[FE] Obrazovka Roboty + auto-refresh (mockup 6.5),,,FE,Development,5
+,Task,,,,[TEST] Unit testy endpointu robotov,,,TEST,Testing,2
+,Feature,,Synchronizácia s KUKA FM,,,"Prístup ku KUKA FM s tokenom a periodická synchronizácia stavov misií a robotov (UC5, UC7, wiki 3.3 a 4.0).","• Stavy misií a robotov v DB sú aktuálne bez zásahu používateľa.
+• Každé volanie na KUKA FM obsahuje platný access token.",FR3; FR4; FR5; NFR3,,
+,User Story,,,Prístup ku KUKA FM API s access tokenom,,Ako middleware potrebujem pri každom volaní na KUKA FM platný token (diagram 4.0).,"• Všetky volania (submitMission, cancelMission, Query jobs, query robotov) idú cez jedného klienta.
+• Pred volaním sa overí token v cache; ak nie je platný, vydá sa nový a uloží do cache.
+• Každé volanie má hlavičku Authorization.
+• Pri odpovedi 401 sa token zneplatní a obnoví najviac raz.
+• Úspešné aj neúspešné volania a chyba autentifikácie sa zalogujú.",NFR3,,
+,Task,,,,"[BE] Typovaný klient KUKA FM (submitMission, cancelMission, Query jobs, query robotov)","URL a prístupové údaje z konfigurácie, logovanie každého volania.",,BE,Development,5
+,Task,,,,"[BE] Token – vydanie, cache, hlavička Authorization, obnova pri 401",Podľa diagramu 4.0.,,BE,Development,4
+,Task,,,,[TEST] Unit testy klienta a tokenu,"Platný token v cache, vydanie nového, 401 + obnova, opakovaná 401, chyba autentifikácie.",,TEST,Testing,3
+,User Story,,,UC7 – Synchronizovať stav robotov,,Ako plánovač chcem periodicky načítať stav robotov z KUKA FM.,"• Plánovač v intervale zavolá query API robotov na KUKA FM.
+• Stav KUKA FM sa namapuje na dostupný / zaneprázdnený / offline.
+• Nové roboty sa vložia, existujúcim sa aktualizuje stav a LastSeenAt.
+• Pri neúspešnom volaní sa chyba zaloguje a dáta sa nemenia.",UC7,,
+,Task,,,,"[BE] Background služba – query robotov, mapovanie stavov, vloženie / aktualizácia",Podľa diagramu 4.5.,,BE,Development,5
+,Task,,,,[TEST] Unit testy synchronizácie robotov,"Nový robot, zmena stavu, bez zmeny, výpadok KUKA FM.",,TEST,Testing,3
+,User Story,,,UC5 – Synchronizovať stav misií,,Ako plánovač chcem periodicky aktualizovať stav aktívnych misií z KUKA FM.,"• Plánovač v intervale (napr. 5 s) načíta aktívne misie (Submitted, InProgress, Cancelling) a zavolá Query jobs API.
+• Pri zmene stavu sa aktualizuje Mission.Status a pridá sa záznam do histórie.
+• Koncový stav (Completed, Cancelled, Failed) nastaví FinishedAt.
+• Každej spracovanej misii sa nastaví LastSyncedAt a zmeny sa uložia v transakcii.
+• Ak je KUKA FM nedostupné, chyba sa zaloguje a ďalší pokus prebehne v nasledujúcom cykle.",UC5,,
+,Task,,,,"[BE] Background služba – Query jobs, porovnanie stavov, zápis histórie",Podľa diagramu 4.4.,,BE,Development,6
+,Task,,,,[TEST] Unit testy synchronizácie misií,"Zmena stavu, koncový stav, bez zmeny, výpadok KUKA FM.",,TEST,Testing,3
+,Feature,,Nasadenie a prevádzka,,,"Kontajnerizácia, databáza, zabezpečenie API, logovanie a CI/CD.","• Aplikácia beží v Dockeri a je zbuildovaná, otestovaná a nasadená pipeline bez ručných krokov.",NFR1; NFR2; NFR4; NFR5,,
+,User Story,,,Kontajnerizácia a databáza,,Ako tím chceme spustiť celé riešenie jedným príkazom s perzistentnou DB.,"• docker compose up spustí web, api a PostgreSQL.
+• Schéma DB zodpovedá ERD (wiki 5) a vzniká EF Core migráciou pri štarte API.
+• Dáta prežijú reštart kontajnerov.",NFR1,,
+,Task,,,,[BE] Kostra .NET riešenia + EF Core DbContext a migrácia podľa ERD,,,BE,Development,5
+,Task,,,,"[FE] Kostra Vue 3 projektu (Vite, Vue Router)",,,FE,Development,2
+,Task,,,,"[DevOps] Dockerfile pre API a web (nginx, proxy /api)",,,DevOps,Deployment,4
+,Task,,,,"[DevOps] docker-compose.yml (web, api, postgres s volume) + .env.example",,,DevOps,Deployment,3
+,User Story,,,Zabezpečenie API a logovanie,,"Ako prevádzkovateľ chcem, aby API prijímalo len autorizované requesty a všetky operácie boli zalogované.","• Request bez platného API kľúča dostane 401.
+• Middleware zapisuje štruktúrované logy o vlastnej činnosti a chybách na stdout.
+• Každé zadanie a zrušenie misie (aj neúspešné) má záznam v AuditLog.",NFR2; NFR4,,
+,Task,,,,"[BE] Autentifikácia API kľúčom (ApiClient, hash v DB, seed pre web UI a externý systém)",,,BE,Development,4
+,Task,,,,[BE] Štruktúrované logy na stdout,,,BE,Development,2
+,Task,,,,"[BE] Audit operácií do AuditLog (UC1, UC2)",,,BE,Development,3
+,Task,,,,[TEST] Testy API kľúča a auditu,,,TEST,Testing,2
+,User Story,,,CI pipeline,,"Ako tím chceme, aby sa každá zmena automaticky zbuildovala a otestovala.","• Pipeline zbuilduje backend aj frontend a spustí testy.
+• Prebehne statická analýza; pri chybe buildu, testov alebo analýzy pipeline zlyhá.
+• PR do main nejde zmergovať bez úspešnej pipeline.",NFR5,,
+,Task,,,,"[DevOps] Azure Pipeline – build, testy, publikovanie výsledkov",,,DevOps,Deployment,3
+,Task,,,,[DevOps] Statická analýza backendu a frontendu,,,DevOps,Deployment,2
+,Task,,,,[DevOps] Branch policy na main s povinnou pipeline,,,DevOps,Deployment,1
+,User Story,,,CD pipeline,,"Ako tím chceme, aby sa nová verzia nasadila automaticky.","• Po merge do main sa aplikácia nasadí bez ručného zásahu.
+• Tajné hodnoty (KUKA token, DB heslo, API kľúče) sú v secret premenných, nie v repozitári.
+• Po nasadení prebehne kontrola web aj /api/health, inak pipeline zlyhá.",NFR5,,
+,Task,,,,[DevOps] Deploy stage – build image + docker compose up,,,DevOps,Deployment,3
+,Task,,,,[DevOps] Secrets cez variable group,,,DevOps,Deployment,2
+,Task,,,,[BE] Health endpoint /api/health + smoke test po nasadení,,,BE,Deployment,2

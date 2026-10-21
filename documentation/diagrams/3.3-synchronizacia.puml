@@ -1,0 +1,19 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecase {
+  BackgroundColor #F0F5FA
+  BorderColor #1F4E79
+}
+
+actor "KUKA FM\n(podporný aktér)" as KUKA
+
+rectangle "Middleware pre KUKA AMR Fleet Manager" {
+  usecase "UC07\nSynchronizovať stavy misií" as UC07
+  usecase "UC08\nSynchronizovať stavy robotov" as UC08
+  note "Spúšťač: interný plánovač pollingu" as NS
+}
+
+UC07 -- KUKA
+UC08 -- KUKA
+@enduml

@@ -1,0 +1,33 @@
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+*.pfx
+*.key
+
+# Claude Code / Impeccable machine-local files
+.claude/settings.local.json
+.impeccable/config.local.json
+
+# .NET
+bin/
+obj/
+TestResults/
+*.user
+.vs/
+
+# Node / Vite
+node_modules/
+dist/
+*.local
+coverage/
+
+# Editors and OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# Office lock files
+~$*

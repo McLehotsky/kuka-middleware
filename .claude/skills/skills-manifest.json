@@ -1,0 +1,19 @@
+{
+  "$comment": "Third-party skills committed in .claude/skills/. Copied from the source repo at the given commit on 2026-10-21. Adding, updating or removing a skill needs the user's approval and an update of this file (see CLAUDE.md -> Skills).",
+  "skills": [
+    { "name": "vue-development", "source": "alexanderop/claude-skill-vue-development", "path": "skills/vue-development", "commit": "a9a663a", "used_by": ["frontend-expert", "planner"] },
+    { "name": "impeccable", "source": "pbakaus/impeccable", "path": ".claude/skills/impeccable", "commit": "dad8dbb", "version": "4.7.0 (engine 0.1.16)", "used_by": ["frontend-expert", "planner", "reviewer"], "needs": ["hooks in .claude/settings.json", ".claude/agents/impeccable-*.md", "engine binary downloaded on first run into ~/.impeccable/bin/"] },
+    { "name": "gsap-core", "source": "greensock/gsap-skills", "path": "skills/gsap-core", "commit": "aed9cfd", "used_by": ["frontend-expert"] },
+    { "name": "gsap-frameworks", "source": "greensock/gsap-skills", "path": "skills/gsap-frameworks", "commit": "aed9cfd", "used_by": ["frontend-expert"] },
+    { "name": "gsap-timeline", "source": "greensock/gsap-skills", "path": "skills/gsap-timeline", "commit": "aed9cfd", "used_by": ["frontend-expert"] },
+    { "name": "gsap-performance", "source": "greensock/gsap-skills", "path": "skills/gsap-performance", "commit": "aed9cfd", "used_by": ["frontend-expert"] },
+    { "name": "transitions-dev", "source": "Jakubantalik/transitions.dev", "path": "skills/transitions-dev", "commit": "7ec0b0b", "used_by": ["frontend-expert"] },
+    { "name": "transitions-polish", "source": "Jakubantalik/transitions.dev", "path": "skills/transitions-polish", "commit": "7ec0b0b", "used_by": ["reviewer"] },
+    { "name": "make-interfaces-feel-better", "source": "jakubkrehel/make-interfaces-feel-better", "path": "skills/make-interfaces-feel-better", "commit": "35545ea", "used_by": ["frontend-expert", "reviewer"] },
+    { "name": "simplify-code", "source": "lactuphong/antigravity-awesome-skills", "path": "plugins/antigravity-awesome-skills-claude/skills/simplify-code", "commit": "a9e6b3e", "used_by": ["backend-expert", "reviewer"] }
+  ],
+  "agents": [
+    { "name": "impeccable-asset-producer, impeccable-documenter, impeccable-finish-reviewer, impeccable-manual-edit-applier", "source": "pbakaus/impeccable", "path": ".claude/agents", "commit": "dad8dbb" }
+  ],
+  "built_in": ["code-review", "simplify", "security-review", "Explore", "Plan"]
+}

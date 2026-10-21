@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="1280" height="800" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1" />
+<rect x="0" y="0" width="1280" height="56" rx="0" fill="#1F4E79" stroke="none" stroke-width="1" />
+<rect x="20" y="16" width="24" height="24" rx="5" fill="#FFFFFF" stroke="none" stroke-width="1" />
+<text x="32" y="33" font-size="9" fill="#1F4E79" font-weight="800" text-anchor="middle">ITS</text>
+<text x="56" y="34" font-size="17" fill="#FFFFFF" font-weight="700" text-anchor="start">ITS Middleware</text>
+<text x="188" y="34" font-size="13" fill="#B9CDE2" font-weight="normal" text-anchor="start">KUKA AMR Fleet Manager</text>
+<rect x="800" y="15" width="168" height="26" rx="13" fill="#2C628F" stroke="none" stroke-width="1" />
+<circle cx="816" cy="28" r="5" fill="#4ADE80"/>
+<text x="828" y="33" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="start">KUKA FM pripojené</text>
+<rect x="978" y="15" width="150" height="26" rx="13" fill="#2C628F" stroke="none" stroke-width="1" />
+<text x="1053" y="33" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="middle">⟳ sync pred 3 s</text>
+<circle cx="1158" cy="28" r="14" fill="#FFFFFF"/>
+<text x="1158" y="33" font-size="11" fill="#1F4E79" font-weight="700" text-anchor="middle">OP</text>
+<text x="1180" y="33" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="start">Operátor</text>
+<rect x="0" y="56" width="200" height="744" rx="0" fill="#F3F5F8" stroke="none" stroke-width="1" />
+<line x1="200" y1="56" x2="200" y2="800" stroke="#C9D1DB" stroke-width="1"/>
+<text x="20" y="80" font-size="10.5" fill="#6B7785" font-weight="700" text-anchor="start">NAVIGÁCIA</text>
+<text x="30" y="117" font-size="14" fill="#1E2A36" font-weight="700" text-anchor="middle">▤</text>
+<text x="46" y="117" font-size="14" fill="#1E2A36" font-weight="normal" text-anchor="start">Misie</text>
+<text x="30" y="159" font-size="14" fill="#1E2A36" font-weight="700" text-anchor="middle">+</text>
+<text x="46" y="159" font-size="14" fill="#1E2A36" font-weight="normal" text-anchor="start">Nová misia</text>
+<rect x="10" y="178" width="180" height="36" rx="5" fill="#DCE6F1" stroke="none" stroke-width="1" />
+<rect x="10" y="178" width="4" height="36" rx="2" fill="#1F4E79" stroke="none" stroke-width="1" />
+<text x="30" y="201" font-size="14" fill="#1F4E79" font-weight="700" text-anchor="middle">◉</text>
+<text x="46" y="201" font-size="14" fill="#1F4E79" font-weight="700" text-anchor="start">Roboty</text>
+<line x1="16" y1="226" x2="184" y2="226" stroke="#C9D1DB" stroke-width="1"/>
+<text x="30" y="254" font-size="14" fill="#A0AAB6" font-weight="normal" text-anchor="middle">≡</text>
+<text x="46" y="254" font-size="14" fill="#A0AAB6" font-weight="normal" text-anchor="start">Audit log</text>
+<text x="46" y="270" font-size="10.5" fill="#A0AAB6" font-weight="normal" text-anchor="start" font-style="italic">(voliteľné, neskôr)</text>
+<text x="20" y="780" font-size="10.5" fill="#6B7785" font-weight="normal" text-anchor="start">v0.1 · build #42</text>
+<text x="224" y="84" font-size="12" fill="#6B7785" font-weight="normal" text-anchor="start">Roboty</text>
+<text x="224" y="118" font-size="24" fill="#1E2A36" font-weight="700" text-anchor="start">Roboty</text>
+<rect x="1106" y="98" width="150" height="26" rx="13" fill="#F0F7F2" stroke="#B7DFC4" stroke-width="1" />
+<circle cx="1120" cy="111" r="4" fill="#22A559"/>
+<text x="1130" y="116" font-size="12" fill="#1E6B3A" font-weight="normal" text-anchor="start">Live · obnova 5 s</text>
+<rect x="224.0" y="138" width="246.0" height="72" rx="6" fill="#F3F5F8" stroke="#C9D1DB" stroke-width="1" />
+<text x="242.0" y="166" font-size="12.5" fill="#6B7785" font-weight="600" text-anchor="start">Spolu</text>
+<text x="242.0" y="196" font-size="26" fill="#1E2A36" font-weight="700" text-anchor="start">6</text>
+<rect x="486.0" y="138" width="246.0" height="72" rx="6" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<rect x="486.0" y="138" width="4" height="72" rx="2" fill="#1E6B3A" stroke="none" stroke-width="1" />
+<text x="504.0" y="166" font-size="12.5" fill="#6B7785" font-weight="600" text-anchor="start">Dostupné</text>
+<text x="504.0" y="196" font-size="26" fill="#1E6B3A" font-weight="700" text-anchor="start">3</text>
+<rect x="748.0" y="138" width="246.0" height="72" rx="6" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<rect x="748.0" y="138" width="4" height="72" rx="2" fill="#1F4E79" stroke="none" stroke-width="1" />
+<text x="766.0" y="166" font-size="12.5" fill="#6B7785" font-weight="600" text-anchor="start">Zaneprázdnené</text>
+<text x="766.0" y="196" font-size="26" fill="#1F4E79" font-weight="700" text-anchor="start">2</text>
+<rect x="1010.0" y="138" width="246.0" height="72" rx="6" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<rect x="1010.0" y="138" width="4" height="72" rx="2" fill="#4A5563" stroke="none" stroke-width="1" />
+<text x="1028.0" y="166" font-size="12.5" fill="#6B7785" font-weight="600" text-anchor="start">Offline</text>
+<text x="1028.0" y="196" font-size="26" fill="#4A5563" font-weight="700" text-anchor="start">1</text>
+<rect x="224" y="230" width="260" height="34" rx="4" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="236" y="252" font-size="13" fill="#6B7785" font-weight="normal" text-anchor="start" font-style="italic">⌕  Hľadať robota…</text>
+<text x="496" y="222" font-size="12" fill="#6B7785" font-weight="600" text-anchor="start"></text>
+<rect x="496" y="230" width="170" height="34" rx="4" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="506" y="252.0" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="start">Stav: všetky</text>
+<path d="M648 245.0 l5 5 l5 -5" fill="none" stroke="#6B7785" stroke-width="1.5"/>
+<rect x="1100" y="230" width="156" height="34" rx="5" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<rect x="1101" y="231" width="77" height="32" rx="4" fill="#DCE6F1" stroke="none" stroke-width="1" />
+<text x="1139" y="252" font-size="12.5" fill="#1F4E79" font-weight="700" text-anchor="middle">▦ Karty</text>
+<text x="1217" y="252" font-size="12.5" fill="#6B7785" font-weight="normal" text-anchor="middle">☰ Tabuľka</text>
+<rect x="224.0" y="280" width="333.3333333333333" height="176" rx="6" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="240.0" y="310" font-size="17" fill="#1E2A36" font-weight="700" text-anchor="start">KMP-01</text>
+<text x="240.0" y="328" font-size="11.5" fill="#6B7785" font-weight="normal" text-anchor="start">KUKA-AMR-1001</text>
+<rect x="430.33333333333326" y="294" width="111" height="20" rx="10" fill="#DCEBFF" stroke="#DCEBFF" stroke-width="1" />
+<text x="485.83333333333326" y="309" font-size="12" fill="#1F4E79" font-weight="600" text-anchor="middle">Zaneprázdnený</text>
+<text x="240.0" y="360" font-size="11.5" fill="#6B7785" font-weight="600" text-anchor="start">Batéria</text>
+<rect x="304.0" y="350" width="183.33333333333331" height="12" rx="6" fill="#ECEFF3" stroke="none" stroke-width="1" />
+<rect x="304.0" y="350" width="142.99999999999997" height="12" rx="6" fill="#22A559" stroke="none" stroke-width="1" />
+<text x="541.3333333333333" y="361" font-size="12.5" fill="#1E2A36" font-weight="700" text-anchor="end">78 %</text>
+<text x="240.0" y="390" font-size="11.5" fill="#6B7785" font-weight="600" text-anchor="start">Uzol</text>
+<text x="304.0" y="390" font-size="13" fill="#1E2A36" font-weight="600" text-anchor="start">C-03-WAIT</text>
+<text x="240.0" y="414" font-size="11.5" fill="#6B7785" font-weight="600" text-anchor="start">Misia</text>
+<text x="304.0" y="414" font-size="13" fill="#1F4E79" font-weight="600" text-anchor="start">M-2026-0142  ›</text>
+<line x1="224.0" y1="428" x2="557.3333333333333" y2="428" stroke="#E4E8EE" stroke-width="1"/>
+<text x="240.0" y="447" font-size="11.5" fill="#6B7785" font-weight="normal" text-anchor="start">aktualizované pred 2 s</text>
+<rect x="573.3333333333333" y="280" width="333.3333333333333" height="176" rx="6" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="589.3333333333333" y="310" font-size="17" fill="#1E2A36" font-weight="700" text-anchor="start">KMP-02</text>
+<text x="589.3333333333333" y="328" font-size="11.5" fill="#6B7785" font-weight="normal" text-anchor="start">KUKA-AMR-1002</text>
+<rect x="779.6666666666665" y="294" width="111" height="20" rx="10" fill="#DCEBFF" stroke="#DCEBFF" stroke-width="1" />
+<text x="835.1666666666665" y="309" font-size="12" fill="#1F4E79" font-weight="600" text-anchor="middle">Zaneprázdnený</text>
+<text x="589.3333333333333" y="360" font-size="11.5" fill="#6B7785" font-weight="600" text-anchor="start">Batéria</text>
+<rect x="653.3333333333333" y="350" width="183.33333333333331" height="12" rx="6" fill="#ECEFF3" stroke="none" stroke-width="1" />
+<rect x="653.3333333333333" y="350" width="98.99999999999999" height="12" rx="6" fill="#22A559" stroke="none" stroke-width="1" />
+<text x="890.6666666666665" y="361" font-size="12.5" fill="#1E2A36" font-weight="700" text-anchor="end">54 %</text>
+<text x="589.3333333333333" y="390" font-size="11.5" fill="#6B7785" font-weight="600" text-anchor="start">Uzol</text>
+<text x="653.3333333333333" y="390" font-size="13" fill="#1E2A36" font-weight="600" text-anchor="start">D-11</text>
+<text x="589.3333333333333" y="414" font-size="11.5" fill="#6B7785" font-weight="600" text-anchor="start">Misia</text>
+<text x="653.3333333333333" y="414" font-size="13" fill="#1F4E79" font-weight="600" text-anchor="start">M-2026-0140  ›</text>
+<line x1="573.3333333333333" y1="428" x2="906.6666666666665" y2="428" stroke="#E4E8EE" stroke-width="1"/>
+<text x="589.3333333333333" y="447" font-size="11.5" fill="#6B7785" font-weight="normal" text-anchor="start">aktualizované pred 2 s</text>
+<rect x="922.6666666666666" y="280" width="333.3333333333333" height="176" rx="6" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="938.6666666666666" y="310" font-size="17" fill="#1E2A36" font-weight="700" text-anchor="start">KMP-03</text>
+<text x="938.6666666666666" y="328" font-size="11.5" fill="#6B7785" font-weight="normal" text-anchor="start">KUKA-AMR-1003</text>
+<rect x="1165.0" y="294" width="75" height="20" rx="10" fill="#DDF3E4" stroke="#DDF3E4" stroke-width="1" />
+<text x="1202.5" y="309" font-size="12" fill="#1E6B3A" font-weight="600" text-anchor="middle">Dostupný</text>
+<text x="938.6666666666666" y="360" font-size="11.5" fill="#6B7785" font-weight="600" text-anchor="start">Batéria</text>
+<rect x="1002.6666666666666" y="350" width="183.33333333333331" height="12" rx="6" fill="#ECEFF3" stroke="none" stroke-width="1" />
+<rect x="1002.6666666666666" y="350" width="166.83333333333331" height="12" rx="6" fill="#22A559" stroke="none" stroke-width="1" />
+<text x="1240.0" y="361" font-size="12.5" fill="#1E2A36" font-weight="700" text-anchor="end">91 %</text>
+<text x="938.6666666666666" y="390" font-size="11.5" fill="#6B7785" font-weight="600" text-anchor="start">Uzol</text>
+<text x="1002.6666666666666" y="390" font-size="13" fill="#1E2A36" font-weight="600" text-anchor="start">CHARGE-01</text>
+<text x="938.6666666666666" y="414" font-size="11.5" fill="#6B7785" font-weight="600" text-anchor="start">Misia</text>
+<text x="1002.6666666666666" y="414" font-size="13" fill="#6B7785" font-weight="normal" text-anchor="start">—</text>
+<line x1="922.6666666666666" y1="428" x2="1256.0" y2="428" stroke="#E4E8EE" stroke-width="1"/>
+<text x="938.6666666666666" y="447" font-size="11.5" fill="#6B7785" font-weight="normal" text-anchor="start">aktualizované pred 2 s</text>
+<rect x="224.0" y="472" width="333.3333333333333" height="176" rx="6" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="240.0" y="502" font-size="17" fill="#1E2A36" font-weight="700" text-anchor="start">KMP-04</text>
+<text x="240.0" y="520" font-size="11.5" fill="#6B7785" font-weight="normal" text-anchor="start">KUKA-AMR-1004</text>
+<rect x="466.33333333333326" y="486" width="75" height="20" rx="10" fill="#DDF3E4" stroke="#DDF3E4" stroke-width="1" />
+<text x="503.83333333333326" y="501" font-size="12" fill="#1E6B3A" font-weight="600" text-anchor="middle">Dostupný</text>
+<text x="240.0" y="552" font-size="11.5" fill="#6B7785" font-weight="600" text-anchor="start">Batéria</text>
+<rect x="304.0" y="542" width="183.33333333333331" height="12" rx="6" fill="#ECEFF3" stroke="none" stroke-width="1" />
+<rect x="304.0" y="542" width="120.99999999999999" height="12" rx="6" fill="#22A559" stroke="none" stroke-width="1" />
+<text x="541.3333333333333" y="553" font-size="12.5" fill="#1E2A36" font-weight="700" text-anchor="end">66 %</text>
+<text x="240.0" y="582" font-size="11.5" fill="#6B7785" font-weight="600" text-anchor="start">Uzol</text>
+<text x="304.0" y="582" font-size="13" fill="#1E2A36" font-weight="600" text-anchor="start">A-02</text>
+<text x="240.0" y="606" font-size="11.5" fill="#6B7785" font-weight="600" text-anchor="start">Misia</text>
+<text x="304.0" y="606" font-size="13" fill="#6B7785" font-weight="normal" text-anchor="start">—</text>
+<line x1="224.0" y1="620" x2="557.3333333333333" y2="620" stroke="#E4E8EE" stroke-width="1"/>
+<text x="240.0" y="639" font-size="11.5" fill="#6B7785" font-weight="normal" text-anchor="start">aktualizované pred 2 s</text>
+<rect x="573.3333333333333" y="472" width="333.3333333333333" height="176" rx="6" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="589.3333333333333" y="502" font-size="17" fill="#1E2A36" font-weight="700" text-anchor="start">KMP-05</text>
+<text x="589.3333333333333" y="520" font-size="11.5" fill="#6B7785" font-weight="normal" text-anchor="start">KUKA-AMR-1005</text>
+<rect x="815.6666666666665" y="486" width="75" height="20" rx="10" fill="#DDF3E4" stroke="#DDF3E4" stroke-width="1" />
+<text x="853.1666666666665" y="501" font-size="12" fill="#1E6B3A" font-weight="600" text-anchor="middle">Dostupný</text>
+<text x="589.3333333333333" y="552" font-size="11.5" fill="#6B7785" font-weight="600" text-anchor="start">Batéria</text>
+<rect x="653.3333333333333" y="542" width="183.33333333333331" height="12" rx="6" fill="#ECEFF3" stroke="none" stroke-width="1" />
+<rect x="653.3333333333333" y="542" width="42.16666666666666" height="12" rx="6" fill="#B42318" stroke="none" stroke-width="1" />
+<text x="890.6666666666665" y="553" font-size="12.5" fill="#1E2A36" font-weight="700" text-anchor="end">23 %</text>
+<text x="589.3333333333333" y="582" font-size="11.5" fill="#6B7785" font-weight="600" text-anchor="start">Uzol</text>
+<text x="653.3333333333333" y="582" font-size="13" fill="#1E2A36" font-weight="600" text-anchor="start">B-01</text>
+<text x="589.3333333333333" y="606" font-size="11.5" fill="#6B7785" font-weight="600" text-anchor="start">Misia</text>
+<text x="653.3333333333333" y="606" font-size="13" fill="#6B7785" font-weight="normal" text-anchor="start">—</text>
+<line x1="573.3333333333333" y1="620" x2="906.6666666666665" y2="620" stroke="#E4E8EE" stroke-width="1"/>
+<text x="589.3333333333333" y="639" font-size="11.5" fill="#6B7785" font-weight="normal" text-anchor="start">aktualizované pred 2 s</text>
+<rect x="922.6666666666666" y="472" width="333.3333333333333" height="176" rx="6" fill="#FAFBFC" stroke="#C9D1DB" stroke-width="1" />
+<text x="938.6666666666666" y="502" font-size="17" fill="#6B7785" font-weight="700" text-anchor="start">KMP-06</text>
+<text x="938.6666666666666" y="520" font-size="11.5" fill="#6B7785" font-weight="normal" text-anchor="start">KUKA-AMR-1006</text>
+<rect x="1172.0" y="486" width="68" height="20" rx="10" fill="#ECEFF3" stroke="#ECEFF3" stroke-width="1" />
+<text x="1206.0" y="501" font-size="12" fill="#4A5563" font-weight="600" text-anchor="middle">Offline</text>
+<text x="938.6666666666666" y="552" font-size="11.5" fill="#6B7785" font-weight="600" text-anchor="start">Batéria</text>
+<rect x="1002.6666666666666" y="542" width="183.33333333333331" height="12" rx="6" fill="#ECEFF3" stroke="none" stroke-width="1" />
+<rect x="1002.6666666666666" y="542" width="22.0" height="12" rx="6" fill="#A0AAB6" stroke="none" stroke-width="1" />
+<text x="1240.0" y="553" font-size="12.5" fill="#6B7785" font-weight="700" text-anchor="end">12 %</text>
+<text x="938.6666666666666" y="582" font-size="11.5" fill="#6B7785" font-weight="600" text-anchor="start">Uzol</text>
+<text x="1002.6666666666666" y="582" font-size="13" fill="#6B7785" font-weight="600" text-anchor="start">B-07-DROP</text>
+<text x="938.6666666666666" y="606" font-size="11.5" fill="#6B7785" font-weight="600" text-anchor="start">Misia</text>
+<text x="1002.6666666666666" y="606" font-size="13" fill="#6B7785" font-weight="normal" text-anchor="start">—</text>
+<line x1="922.6666666666666" y1="620" x2="1256.0" y2="620" stroke="#E4E8EE" stroke-width="1"/>
+<text x="938.6666666666666" y="639" font-size="11.5" fill="#8A5A00" font-weight="normal" text-anchor="start" font-style="italic">⚠ naposledy videný pred 14 min</text>
+<rect x="756" y="760" width="500" height="32" rx="3" fill="#FFF8C5" stroke="#D4B106" stroke-width="1" stroke-dasharray="4 3"/>
+<text x="766" y="781" font-size="11.5" fill="#5C4A00" font-weight="normal" text-anchor="start">GET /api/robots z DB (UC6). Stav plní UC7 – polling KUKA FM.</text>
+</svg>

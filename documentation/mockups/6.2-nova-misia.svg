@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="1280" height="800" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1" />
+<rect x="0" y="0" width="1280" height="56" rx="0" fill="#1F4E79" stroke="none" stroke-width="1" />
+<rect x="20" y="16" width="24" height="24" rx="5" fill="#FFFFFF" stroke="none" stroke-width="1" />
+<text x="32" y="33" font-size="9" fill="#1F4E79" font-weight="800" text-anchor="middle">ITS</text>
+<text x="56" y="34" font-size="17" fill="#FFFFFF" font-weight="700" text-anchor="start">ITS Middleware</text>
+<text x="188" y="34" font-size="13" fill="#B9CDE2" font-weight="normal" text-anchor="start">KUKA AMR Fleet Manager</text>
+<rect x="800" y="15" width="168" height="26" rx="13" fill="#2C628F" stroke="none" stroke-width="1" />
+<circle cx="816" cy="28" r="5" fill="#4ADE80"/>
+<text x="828" y="33" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="start">KUKA FM pripojené</text>
+<rect x="978" y="15" width="150" height="26" rx="13" fill="#2C628F" stroke="none" stroke-width="1" />
+<text x="1053" y="33" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="middle">⟳ sync pred 3 s</text>
+<circle cx="1158" cy="28" r="14" fill="#FFFFFF"/>
+<text x="1158" y="33" font-size="11" fill="#1F4E79" font-weight="700" text-anchor="middle">OP</text>
+<text x="1180" y="33" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="start">Operátor</text>
+<rect x="0" y="56" width="200" height="744" rx="0" fill="#F3F5F8" stroke="none" stroke-width="1" />
+<line x1="200" y1="56" x2="200" y2="800" stroke="#C9D1DB" stroke-width="1"/>
+<text x="20" y="80" font-size="10.5" fill="#6B7785" font-weight="700" text-anchor="start">NAVIGÁCIA</text>
+<text x="30" y="117" font-size="14" fill="#1E2A36" font-weight="700" text-anchor="middle">▤</text>
+<text x="46" y="117" font-size="14" fill="#1E2A36" font-weight="normal" text-anchor="start">Misie</text>
+<rect x="10" y="136" width="180" height="36" rx="5" fill="#DCE6F1" stroke="none" stroke-width="1" />
+<rect x="10" y="136" width="4" height="36" rx="2" fill="#1F4E79" stroke="none" stroke-width="1" />
+<text x="30" y="159" font-size="14" fill="#1F4E79" font-weight="700" text-anchor="middle">+</text>
+<text x="46" y="159" font-size="14" fill="#1F4E79" font-weight="700" text-anchor="start">Nová misia</text>
+<text x="30" y="201" font-size="14" fill="#1E2A36" font-weight="700" text-anchor="middle">◉</text>
+<text x="46" y="201" font-size="14" fill="#1E2A36" font-weight="normal" text-anchor="start">Roboty</text>
+<line x1="16" y1="226" x2="184" y2="226" stroke="#C9D1DB" stroke-width="1"/>
+<text x="30" y="254" font-size="14" fill="#A0AAB6" font-weight="normal" text-anchor="middle">≡</text>
+<text x="46" y="254" font-size="14" fill="#A0AAB6" font-weight="normal" text-anchor="start">Audit log</text>
+<text x="46" y="270" font-size="10.5" fill="#A0AAB6" font-weight="normal" text-anchor="start" font-style="italic">(voliteľné, neskôr)</text>
+<text x="20" y="780" font-size="10.5" fill="#6B7785" font-weight="normal" text-anchor="start">v0.1 · build #42</text>
+<text x="224" y="84" font-size="12" fill="#6B7785" font-weight="normal" text-anchor="start">Misie  /  Nová misia</text>
+<text x="224" y="118" font-size="24" fill="#1E2A36" font-weight="700" text-anchor="start">Nová misia</text>
+<text x="224" y="140" font-size="13" fill="#6B7785" font-weight="normal" text-anchor="start">Misia sa uloží do DB a odošle na KUKA FM (submitMission).</text>
+<rect x="224" y="162" width="600" height="206" rx="6" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="240" y="188" font-size="14" fill="#1E2A36" font-weight="700" text-anchor="start">Parametre misie</text>
+<line x1="224" y1="202" x2="824" y2="202" stroke="#C9D1DB" stroke-width="1"/>
+<text x="240" y="230" font-size="12" fill="#6B7785" font-weight="600" text-anchor="start">Typ misie *</text>
+<rect x="240" y="238" width="276" height="34" rx="4" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="250" y="260.0" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="start">RACK_MOVE</text>
+<path d="M498 253.0 l5 5 l5 -5" fill="none" stroke="#6B7785" stroke-width="1.5"/>
+<text x="532" y="230" font-size="12" fill="#6B7785" font-weight="600" text-anchor="start">Priorita *</text>
+<rect x="532" y="238" width="276" height="34" rx="4" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="542" y="260.0" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="start">2 – normálna</text>
+<path d="M790 253.0 l5 5 l5 -5" fill="none" stroke="#6B7785" stroke-width="1.5"/>
+<text x="240" y="304" font-size="12" fill="#6B7785" font-weight="600" text-anchor="start">Robot</text>
+<rect x="240" y="312" width="276" height="34" rx="4" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="250" y="334.0" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="start">Automaticky (určí KUKA FM)</text>
+<path d="M498 327.0 l5 5 l5 -5" fill="none" stroke="#6B7785" stroke-width="1.5"/>
+<text x="532" y="304" font-size="12" fill="#6B7785" font-weight="600" text-anchor="start">ExternalRef</text>
+<rect x="532" y="312" width="276" height="34" rx="4" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="542" y="334.0" font-size="13" fill="#6B7785" font-weight="normal" text-anchor="start" font-style="italic">napr. číslo objednávky z ERP</text>
+<rect x="224" y="386" width="600" height="280" rx="6" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="240" y="412" font-size="14" fill="#1E2A36" font-weight="700" text-anchor="start">Cieľové body (kroky)</text>
+<line x1="224" y1="426" x2="824" y2="426" stroke="#C9D1DB" stroke-width="1"/>
+<text x="808" y="412" font-size="12" fill="#6B7785" font-weight="normal" text-anchor="end">min. 1 krok</text>
+<text x="240" y="450" font-size="11" fill="#6B7785" font-weight="700" text-anchor="start">#</text>
+<text x="276" y="450" font-size="11" fill="#6B7785" font-weight="700" text-anchor="start">UZOL (NodeCode)</text>
+<text x="536" y="450" font-size="11" fill="#6B7785" font-weight="700" text-anchor="start">AKCIA</text>
+<text x="250" y="484" font-size="12" fill="#A0AAB6" font-weight="normal" text-anchor="middle">⋮⋮</text>
+<text x="262" y="484" font-size="13" fill="#1E2A36" font-weight="700" text-anchor="start">1</text>
+<rect x="276" y="462" width="244" height="34" rx="4" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="286" y="484" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="start">A-01-PICK</text>
+<rect x="536" y="462" width="200" height="34" rx="4" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="546" y="484" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="start">Naložiť</text>
+<path d="M718 477 l5 5 l5 -5" fill="none" stroke="#6B7785" stroke-width="1.5"/>
+<rect x="752" y="464" width="30" height="30" rx="4" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="767" y="484" font-size="13" fill="#6B7785" font-weight="normal" text-anchor="middle">✕</text>
+<text x="250" y="534" font-size="12" fill="#A0AAB6" font-weight="normal" text-anchor="middle">⋮⋮</text>
+<text x="262" y="534" font-size="13" fill="#1E2A36" font-weight="700" text-anchor="start">2</text>
+<rect x="276" y="512" width="244" height="34" rx="4" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="286" y="534" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="start">B-07-DROP</text>
+<rect x="536" y="512" width="200" height="34" rx="4" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="546" y="534" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="start">Vyložiť</text>
+<path d="M718 527 l5 5 l5 -5" fill="none" stroke="#6B7785" stroke-width="1.5"/>
+<rect x="752" y="514" width="30" height="30" rx="4" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="767" y="534" font-size="13" fill="#6B7785" font-weight="normal" text-anchor="middle">✕</text>
+<text x="250" y="584" font-size="12" fill="#A0AAB6" font-weight="normal" text-anchor="middle">⋮⋮</text>
+<text x="262" y="584" font-size="13" fill="#1E2A36" font-weight="700" text-anchor="start">3</text>
+<rect x="276" y="562" width="244" height="34" rx="4" fill="#FFFFFF" stroke="#B42318" stroke-width="1" />
+<text x="286" y="584" font-size="13" fill="#6B7785" font-weight="normal" text-anchor="start" font-style="italic">Zadajte uzol…</text>
+<text x="276" y="609" font-size="11" fill="#B42318" font-weight="normal" text-anchor="start">Uzol je povinný</text>
+<rect x="536" y="562" width="200" height="34" rx="4" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="546" y="584" font-size="13" fill="#6B7785" font-weight="normal" text-anchor="start">Vybrať akciu</text>
+<path d="M718 577 l5 5 l5 -5" fill="none" stroke="#6B7785" stroke-width="1.5"/>
+<rect x="752" y="564" width="30" height="30" rx="4" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="767" y="584" font-size="13" fill="#6B7785" font-weight="normal" text-anchor="middle">✕</text>
+<text x="240" y="648" font-size="13" fill="#1F4E79" font-weight="700" text-anchor="start">+ Pridať krok</text>
+<rect x="848" y="162" width="408" height="230" rx="6" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="864" y="188" font-size="14" fill="#1E2A36" font-weight="700" text-anchor="start">Súhrn</text>
+<line x1="848" y1="202" x2="1256" y2="202" stroke="#C9D1DB" stroke-width="1"/>
+<text x="864" y="232" font-size="13" fill="#6B7785" font-weight="normal" text-anchor="start">Typ</text>
+<text x="988" y="232" font-size="13" fill="#1E2A36" font-weight="600" text-anchor="start">RACK_MOVE</text>
+<text x="864" y="262" font-size="13" fill="#6B7785" font-weight="normal" text-anchor="start">Priorita</text>
+<text x="988" y="262" font-size="13" fill="#1E2A36" font-weight="600" text-anchor="start">2</text>
+<text x="864" y="292" font-size="13" fill="#6B7785" font-weight="normal" text-anchor="start">Robot</text>
+<text x="988" y="292" font-size="13" fill="#1E2A36" font-weight="600" text-anchor="start">automaticky</text>
+<text x="864" y="322" font-size="13" fill="#6B7785" font-weight="normal" text-anchor="start">Počet krokov</text>
+<text x="988" y="322" font-size="13" fill="#1E2A36" font-weight="600" text-anchor="start">3</text>
+<text x="864" y="352" font-size="13" fill="#6B7785" font-weight="normal" text-anchor="start">Trasa</text>
+<text x="988" y="352" font-size="13" fill="#1E2A36" font-weight="600" text-anchor="start">A-01-PICK → B-07-DROP → ?</text>
+<rect x="848" y="410" width="408" height="112" rx="6" fill="#FDECEC" stroke="#F3B4B4" stroke-width="1" />
+<text x="864" y="436" font-size="13" fill="#9B1C1C" font-weight="700" text-anchor="start">⚠  Formulár obsahuje chyby</text>
+<text x="864" y="460" font-size="12.5" fill="#9B1C1C" font-weight="normal" text-anchor="start">• Krok 3: uzol je povinný</text>
+<text x="864" y="488" font-size="12" fill="#7A2E2E" font-weight="normal" text-anchor="start">Chyby z API (400 / 502) sa zobrazia tu,</text>
+<text x="864" y="506" font-size="12" fill="#7A2E2E" font-weight="normal" text-anchor="start">napr. „KUKA FM nedostupné – skúste znova“.</text>
+<rect x="848" y="540" width="198" height="40" rx="5" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="947.0" y="565.0" font-size="13" fill="#1E2A36" font-weight="600" text-anchor="middle">Zrušiť</text>
+<rect x="1058" y="540" width="198" height="40" rx="5" fill="#1F4E79" stroke="#1F4E79" stroke-width="1" />
+<text x="1157.0" y="565.0" font-size="13" fill="#FFFFFF" font-weight="600" text-anchor="middle">Odoslať misiu</text>
+<text x="1052.0" y="602" font-size="12" fill="#6B7785" font-weight="normal" text-anchor="middle">Po úspechu → presmerovanie na detail misie</text>
+<rect x="848" y="704" width="408" height="68" rx="3" fill="#FFF8C5" stroke="#D4B106" stroke-width="1" stroke-dasharray="4 3"/>
+<text x="858" y="725" font-size="11.5" fill="#5C4A00" font-weight="normal" text-anchor="start">POST /api/missions → 201 + Id misie.</text>
+<text x="858" y="743" font-size="11.5" fill="#5C4A00" font-weight="normal" text-anchor="start">Klientska validácia + serverová (400).</text>
+<text x="858" y="761" font-size="11.5" fill="#5C4A00" font-weight="normal" text-anchor="start">Číselníky (typy, roboty) z GET /api/robots…</text>
+</svg>

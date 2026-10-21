@@ -1,0 +1,26 @@
+@startuml
+|Middleware|
+start
+:Tick plánovača;
+:Overiť / obnoviť token (4.0);
+|KUKA FM|
+:Query robotov;
+|Middleware|
+if (Úspech?) then (nie)
+  :Zalogovať chybu
+  (stav robotov sa nemení);
+  stop
+else (áno)
+endif
+while (Ďalší robot v odpovedi?) is (áno)
+  :Namapovať stav KUKA FM
+  na Available / Busy / Offline / Error;
+  if (Robot existuje v DB?) then (nie)
+    :Vložiť nového robota;
+  else (áno)
+    :Aktualizovať stav a LastSeenAt;
+  endif
+endwhile (nie)
+:Uložiť zmeny;
+stop
+@enduml

@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="1280" height="800" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1" />
+<rect x="0" y="0" width="1280" height="56" rx="0" fill="#1F4E79" stroke="none" stroke-width="1" />
+<rect x="20" y="16" width="24" height="24" rx="5" fill="#FFFFFF" stroke="none" stroke-width="1" />
+<text x="32" y="33" font-size="9" fill="#1F4E79" font-weight="800" text-anchor="middle">ITS</text>
+<text x="56" y="34" font-size="17" fill="#FFFFFF" font-weight="700" text-anchor="start">ITS Middleware</text>
+<text x="188" y="34" font-size="13" fill="#B9CDE2" font-weight="normal" text-anchor="start">KUKA AMR Fleet Manager</text>
+<rect x="800" y="15" width="168" height="26" rx="13" fill="#2C628F" stroke="none" stroke-width="1" />
+<circle cx="816" cy="28" r="5" fill="#4ADE80"/>
+<text x="828" y="33" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="start">KUKA FM pripojené</text>
+<rect x="978" y="15" width="150" height="26" rx="13" fill="#2C628F" stroke="none" stroke-width="1" />
+<text x="1053" y="33" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="middle">⟳ sync pred 3 s</text>
+<circle cx="1158" cy="28" r="14" fill="#FFFFFF"/>
+<text x="1158" y="33" font-size="11" fill="#1F4E79" font-weight="700" text-anchor="middle">OP</text>
+<text x="1180" y="33" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="start">Operátor</text>
+<rect x="0" y="56" width="200" height="744" rx="0" fill="#F3F5F8" stroke="none" stroke-width="1" />
+<line x1="200" y1="56" x2="200" y2="800" stroke="#C9D1DB" stroke-width="1"/>
+<text x="20" y="80" font-size="10.5" fill="#6B7785" font-weight="700" text-anchor="start">NAVIGÁCIA</text>
+<rect x="10" y="94" width="180" height="36" rx="5" fill="#DCE6F1" stroke="none" stroke-width="1" />
+<rect x="10" y="94" width="4" height="36" rx="2" fill="#1F4E79" stroke="none" stroke-width="1" />
+<text x="30" y="117" font-size="14" fill="#1F4E79" font-weight="700" text-anchor="middle">▤</text>
+<text x="46" y="117" font-size="14" fill="#1F4E79" font-weight="700" text-anchor="start">Misie</text>
+<text x="30" y="159" font-size="14" fill="#1E2A36" font-weight="700" text-anchor="middle">+</text>
+<text x="46" y="159" font-size="14" fill="#1E2A36" font-weight="normal" text-anchor="start">Nová misia</text>
+<text x="30" y="201" font-size="14" fill="#1E2A36" font-weight="700" text-anchor="middle">◉</text>
+<text x="46" y="201" font-size="14" fill="#1E2A36" font-weight="normal" text-anchor="start">Roboty</text>
+<line x1="16" y1="226" x2="184" y2="226" stroke="#C9D1DB" stroke-width="1"/>
+<text x="30" y="254" font-size="14" fill="#A0AAB6" font-weight="normal" text-anchor="middle">≡</text>
+<text x="46" y="254" font-size="14" fill="#A0AAB6" font-weight="normal" text-anchor="start">Audit log</text>
+<text x="46" y="270" font-size="10.5" fill="#A0AAB6" font-weight="normal" text-anchor="start" font-style="italic">(voliteľné, neskôr)</text>
+<text x="20" y="780" font-size="10.5" fill="#6B7785" font-weight="normal" text-anchor="start">v0.1 · build #42</text>
+<text x="224" y="84" font-size="12" fill="#6B7785" font-weight="normal" text-anchor="start">Misie</text>
+<text x="224" y="118" font-size="24" fill="#1E2A36" font-weight="700" text-anchor="start">Misie</text>
+<rect x="1116" y="92" width="140" height="34" rx="5" fill="#1F4E79" stroke="#1F4E79" stroke-width="1" />
+<text x="1186.0" y="114.0" font-size="13" fill="#FFFFFF" font-weight="600" text-anchor="middle">+ Nová misia</text>
+<text x="236" y="166" font-size="14" fill="#6B7785" font-weight="normal" text-anchor="start">Aktívne</text>
+<rect x="295.4" y="153" width="24" height="18" rx="9" fill="#ECEFF3" stroke="none" stroke-width="1" />
+<text x="307.4" y="166" font-size="11" fill="#6B7785" font-weight="700" text-anchor="middle">3</text>
+<text x="354" y="166" font-size="14" fill="#6B7785" font-weight="normal" text-anchor="start">Ukončené</text>
+<rect x="421.6" y="153" width="24" height="18" rx="9" fill="#ECEFF3" stroke="none" stroke-width="1" />
+<text x="433.6" y="166" font-size="11" fill="#6B7785" font-weight="700" text-anchor="middle">4</text>
+<text x="472" y="166" font-size="14" fill="#1F4E79" font-weight="700" text-anchor="start">Všetky</text>
+<rect x="523.2" y="153" width="24" height="18" rx="9" fill="#DCE6F1" stroke="none" stroke-width="1" />
+<text x="535.2" y="166" font-size="11" fill="#1F4E79" font-weight="700" text-anchor="middle">7</text>
+<rect x="460" y="178" width="112" height="3" rx="1" fill="#1F4E79" stroke="none" stroke-width="1" />
+<line x1="224" y1="181" x2="1256" y2="181" stroke="#C9D1DB" stroke-width="1"/>
+<rect x="224" y="196" width="320" height="34" rx="4" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="236" y="218" font-size="13" fill="#6B7785" font-weight="normal" text-anchor="start" font-style="italic">⌕  Hľadať MissionCode / ExternalRef…</text>
+<text x="558" y="188" font-size="12" fill="#6B7785" font-weight="600" text-anchor="start"></text>
+<rect x="558" y="196" width="170" height="34" rx="4" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="568" y="218.0" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="start">Stav: všetky</text>
+<path d="M710 211.0 l5 5 l5 -5" fill="none" stroke="#6B7785" stroke-width="1.5"/>
+<text x="740" y="188" font-size="12" fill="#6B7785" font-weight="600" text-anchor="start"></text>
+<rect x="740" y="196" width="170" height="34" rx="4" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="750" y="218.0" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="start">Robot: všetky</text>
+<path d="M892 211.0 l5 5 l5 -5" fill="none" stroke="#6B7785" stroke-width="1.5"/>
+<text x="922" y="188" font-size="12" fill="#6B7785" font-weight="600" text-anchor="start"></text>
+<rect x="922" y="196" width="170" height="34" rx="4" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="932" y="218.0" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="start">Dnes</text>
+<path d="M1074 211.0 l5 5 l5 -5" fill="none" stroke="#6B7785" stroke-width="1.5"/>
+<rect x="1106" y="200" width="150" height="26" rx="13" fill="#F0F7F2" stroke="#B7DFC4" stroke-width="1" />
+<circle cx="1120" cy="213" r="4" fill="#22A559"/>
+<text x="1130" y="218" font-size="12" fill="#1E6B3A" font-weight="normal" text-anchor="start">Live · obnova 5 s</text>
+<rect x="224" y="248" width="1032" height="360" rx="6" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<rect x="225" y="249" width="1030" height="37" rx="5" fill="#F3F5F8" stroke="none" stroke-width="1" />
+<line x1="224" y1="286" x2="1256" y2="286" stroke="#C9D1DB" stroke-width="1"/>
+<text x="240" y="272" font-size="11" fill="#6B7785" font-weight="700" text-anchor="start">MISSIONCODE</text>
+<text x="360" y="272" font-size="11" fill="#6B7785" font-weight="700" text-anchor="start">EXTERNALREF</text>
+<text x="460" y="272" font-size="11" fill="#6B7785" font-weight="700" text-anchor="start">TYP</text>
+<text x="576" y="272" font-size="11" fill="#6B7785" font-weight="700" text-anchor="start">ROBOT</text>
+<text x="646" y="272" font-size="11" fill="#6B7785" font-weight="700" text-anchor="start">PRIO</text>
+<text x="696" y="272" font-size="11" fill="#6B7785" font-weight="700" text-anchor="start">STAV</text>
+<text x="820" y="272" font-size="11" fill="#6B7785" font-weight="700" text-anchor="start">VYTVORENÁ</text>
+<text x="954" y="272" font-size="11" fill="#6B7785" font-weight="700" text-anchor="start">POSL. SYNC</text>
+<text x="1070" y="272" font-size="11" fill="#6B7785" font-weight="700" text-anchor="start">AKCIE</text>
+<text x="894" y="272" font-size="11" fill="#6B7785" font-weight="700" text-anchor="start">↓</text>
+<rect x="225" y="286" width="1030" height="46" rx="0" fill="#F7FAFD" stroke="none" stroke-width="1" />
+<text x="240" y="314.0" font-size="13" fill="#1F4E79" font-weight="600" text-anchor="start">M-2026-0142</text>
+<text x="360" y="314.0" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="start">ERP-88121</text>
+<text x="460" y="314.0" font-size="12.5" fill="#1E2A36" font-weight="normal" text-anchor="start">RACK_MOVE</text>
+<text x="576" y="314.0" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="start">KMP-01</text>
+<text x="656" y="314.0" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="middle">2</text>
+<rect x="696" y="299.0" width="90" height="20" rx="10" fill="#DCEBFF" stroke="#DCEBFF" stroke-width="1" />
+<text x="741.0" y="314.0" font-size="12" fill="#1F4E79" font-weight="600" text-anchor="middle">InProgress</text>
+<text x="820" y="314.0" font-size="12.5" fill="#1E2A36" font-weight="normal" text-anchor="start">14.10. 13:40:12</text>
+<text x="954" y="314.0" font-size="12.5" fill="#6B7785" font-weight="normal" text-anchor="start">pred 2 s</text>
+<rect x="1070" y="296" width="64" height="26" rx="5" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="1102.0" y="314.0" font-size="13" fill="#1E2A36" font-weight="600" text-anchor="middle">Detail</text>
+<rect x="1142" y="296" width="70" height="26" rx="5" fill="#FFFFFF" stroke="#B42318" stroke-width="1" />
+<text x="1177.0" y="314.0" font-size="13" fill="#B42318" font-weight="600" text-anchor="middle">Zrušiť</text>
+<line x1="224" y1="332" x2="1256" y2="332" stroke="#E4E8EE" stroke-width="1"/>
+<text x="240" y="360.0" font-size="13" fill="#1F4E79" font-weight="600" text-anchor="start">M-2026-0141</text>
+<text x="360" y="360.0" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="start">ERP-88120</text>
+<text x="460" y="360.0" font-size="12.5" fill="#1E2A36" font-weight="normal" text-anchor="start">RACK_MOVE</text>
+<text x="576" y="360.0" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="start">KMP-03</text>
+<text x="656" y="360.0" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="middle">1</text>
+<rect x="696" y="345.0" width="82" height="20" rx="10" fill="#E3ECFA" stroke="#E3ECFA" stroke-width="1" />
+<text x="737.0" y="360.0" font-size="12" fill="#2B5BA8" font-weight="600" text-anchor="middle">Submitted</text>
+<text x="820" y="360.0" font-size="12.5" fill="#1E2A36" font-weight="normal" text-anchor="start">14.10. 13:38:55</text>
+<text x="954" y="360.0" font-size="12.5" fill="#6B7785" font-weight="normal" text-anchor="start">pred 2 s</text>
+<rect x="1070" y="342" width="64" height="26" rx="5" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="1102.0" y="360.0" font-size="13" fill="#1E2A36" font-weight="600" text-anchor="middle">Detail</text>
+<rect x="1142" y="342" width="70" height="26" rx="5" fill="#FFFFFF" stroke="#B42318" stroke-width="1" />
+<text x="1177.0" y="360.0" font-size="13" fill="#B42318" font-weight="600" text-anchor="middle">Zrušiť</text>
+<line x1="224" y1="378" x2="1256" y2="378" stroke="#E4E8EE" stroke-width="1"/>
+<text x="240" y="406.0" font-size="13" fill="#1F4E79" font-weight="600" text-anchor="start">M-2026-0140</text>
+<text x="360" y="406.0" font-size="13" fill="#6B7785" font-weight="normal" text-anchor="start">—</text>
+<text x="460" y="406.0" font-size="12.5" fill="#1E2A36" font-weight="normal" text-anchor="start">ROLLER_MOVE</text>
+<text x="576" y="406.0" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="start">KMP-02</text>
+<text x="656" y="406.0" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="middle">3</text>
+<rect x="696" y="391.0" width="90" height="20" rx="10" fill="#FFF1D6" stroke="#FFF1D6" stroke-width="1" />
+<text x="741.0" y="406.0" font-size="12" fill="#8A5A00" font-weight="600" text-anchor="middle">Cancelling</text>
+<text x="820" y="406.0" font-size="12.5" fill="#1E2A36" font-weight="normal" text-anchor="start">14.10. 13:31:07</text>
+<text x="954" y="406.0" font-size="12.5" fill="#6B7785" font-weight="normal" text-anchor="start">pred 2 s</text>
+<rect x="1070" y="388" width="64" height="26" rx="5" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="1102.0" y="406.0" font-size="13" fill="#1E2A36" font-weight="600" text-anchor="middle">Detail</text>
+<text x="1146" y="406.0" font-size="12" fill="#8A5A00" font-weight="normal" text-anchor="start" font-style="italic">rušenie…</text>
+<line x1="224" y1="424" x2="1256" y2="424" stroke="#E4E8EE" stroke-width="1"/>
+<text x="240" y="452.0" font-size="13" fill="#1F4E79" font-weight="600" text-anchor="start">M-2026-0139</text>
+<text x="360" y="452.0" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="start">ERP-88117</text>
+<text x="460" y="452.0" font-size="12.5" fill="#1E2A36" font-weight="normal" text-anchor="start">RACK_MOVE</text>
+<text x="576" y="452.0" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="start">KMP-04</text>
+<text x="656" y="452.0" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="middle">2</text>
+<rect x="696" y="437.0" width="82" height="20" rx="10" fill="#DDF3E4" stroke="#DDF3E4" stroke-width="1" />
+<text x="737.0" y="452.0" font-size="12" fill="#1E6B3A" font-weight="600" text-anchor="middle">Completed</text>
+<text x="820" y="452.0" font-size="12.5" fill="#1E2A36" font-weight="normal" text-anchor="start">14.10. 13:12:40</text>
+<text x="954" y="452.0" font-size="12.5" fill="#6B7785" font-weight="normal" text-anchor="start">—</text>
+<rect x="1070" y="434" width="64" height="26" rx="5" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="1102.0" y="452.0" font-size="13" fill="#1E2A36" font-weight="600" text-anchor="middle">Detail</text>
+<line x1="224" y1="470" x2="1256" y2="470" stroke="#E4E8EE" stroke-width="1"/>
+<text x="240" y="498.0" font-size="13" fill="#1F4E79" font-weight="600" text-anchor="start">M-2026-0138</text>
+<text x="360" y="498.0" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="start">ERP-88115</text>
+<text x="460" y="498.0" font-size="12.5" fill="#1E2A36" font-weight="normal" text-anchor="start">RACK_MOVE</text>
+<text x="576" y="498.0" font-size="13" fill="#6B7785" font-weight="normal" text-anchor="start">—</text>
+<text x="656" y="498.0" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="middle">2</text>
+<rect x="696" y="483.0" width="61" height="20" rx="10" fill="#FBE0E0" stroke="#FBE0E0" stroke-width="1" />
+<text x="726.5" y="498.0" font-size="12" fill="#9B1C1C" font-weight="600" text-anchor="middle">Failed</text>
+<text x="820" y="498.0" font-size="12.5" fill="#1E2A36" font-weight="normal" text-anchor="start">14.10. 13:05:22</text>
+<text x="954" y="498.0" font-size="12.5" fill="#6B7785" font-weight="normal" text-anchor="start">—</text>
+<rect x="1070" y="480" width="64" height="26" rx="5" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="1102.0" y="498.0" font-size="13" fill="#1E2A36" font-weight="600" text-anchor="middle">Detail</text>
+<line x1="224" y1="516" x2="1256" y2="516" stroke="#E4E8EE" stroke-width="1"/>
+<text x="240" y="544.0" font-size="13" fill="#1F4E79" font-weight="600" text-anchor="start">M-2026-0137</text>
+<text x="360" y="544.0" font-size="13" fill="#6B7785" font-weight="normal" text-anchor="start">—</text>
+<text x="460" y="544.0" font-size="12.5" fill="#1E2A36" font-weight="normal" text-anchor="start">ROLLER_MOVE</text>
+<text x="576" y="544.0" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="start">KMP-01</text>
+<text x="656" y="544.0" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="middle">3</text>
+<rect x="696" y="529.0" width="82" height="20" rx="10" fill="#ECEFF3" stroke="#ECEFF3" stroke-width="1" />
+<text x="737.0" y="544.0" font-size="12" fill="#4A5563" font-weight="600" text-anchor="middle">Cancelled</text>
+<text x="820" y="544.0" font-size="12.5" fill="#1E2A36" font-weight="normal" text-anchor="start">14.10. 12:58:03</text>
+<text x="954" y="544.0" font-size="12.5" fill="#6B7785" font-weight="normal" text-anchor="start">—</text>
+<rect x="1070" y="526" width="64" height="26" rx="5" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="1102.0" y="544.0" font-size="13" fill="#1E2A36" font-weight="600" text-anchor="middle">Detail</text>
+<line x1="224" y1="562" x2="1256" y2="562" stroke="#E4E8EE" stroke-width="1"/>
+<text x="240" y="590.0" font-size="13" fill="#1F4E79" font-weight="600" text-anchor="start">M-2026-0136</text>
+<text x="360" y="590.0" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="start">ERP-88110</text>
+<text x="460" y="590.0" font-size="12.5" fill="#1E2A36" font-weight="normal" text-anchor="start">RACK_MOVE</text>
+<text x="576" y="590.0" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="start">KMP-02</text>
+<text x="656" y="590.0" font-size="13" fill="#1E2A36" font-weight="normal" text-anchor="middle">1</text>
+<rect x="696" y="575.0" width="82" height="20" rx="10" fill="#DDF3E4" stroke="#DDF3E4" stroke-width="1" />
+<text x="737.0" y="590.0" font-size="12" fill="#1E6B3A" font-weight="600" text-anchor="middle">Completed</text>
+<text x="820" y="590.0" font-size="12.5" fill="#1E2A36" font-weight="normal" text-anchor="start">14.10. 12:40:51</text>
+<text x="954" y="590.0" font-size="12.5" fill="#6B7785" font-weight="normal" text-anchor="start">—</text>
+<rect x="1070" y="572" width="64" height="26" rx="5" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="1102.0" y="590.0" font-size="13" fill="#1E2A36" font-weight="600" text-anchor="middle">Detail</text>
+<text x="224" y="632" font-size="12" fill="#6B7785" font-weight="normal" text-anchor="start">Zobrazené 1–7 zo 7</text>
+<rect x="1160" y="614" width="28" height="26" rx="4" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="1174" y="632" font-size="12" fill="#1E2A36" font-weight="normal" text-anchor="middle">‹</text>
+<rect x="1192" y="614" width="28" height="26" rx="4" fill="#1F4E79" stroke="#1F4E79" stroke-width="1" />
+<text x="1206" y="632" font-size="12" fill="#FFF" font-weight="normal" text-anchor="middle">1</text>
+<rect x="1224" y="614" width="28" height="26" rx="4" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="1238" y="632" font-size="12" fill="#1E2A36" font-weight="normal" text-anchor="middle">›</text>
+<rect x="224" y="742" width="593.6" height="50" rx="3" fill="#FFF8C5" stroke="#D4B106" stroke-width="1" stroke-dasharray="4 3"/>
+<text x="234" y="763" font-size="11.5" fill="#5C4A00" font-weight="normal" text-anchor="start">Dáta z DB middlewaru (GET /api/missions), KUKA FM sa nevolá. Aktívne riadky sa obnovujú</text>
+<text x="234" y="781" font-size="11.5" fill="#5C4A00" font-weight="normal" text-anchor="start">pollingom každých 5 s. „Zrušiť“ len pre Submitted/InProgress → potvrdzovací dialóg (6.4).</text>
+</svg>

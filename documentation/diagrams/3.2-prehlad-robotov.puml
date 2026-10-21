@@ -1,0 +1,22 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecase {
+  BackgroundColor #F0F5FA
+  BorderColor #1F4E79
+}
+
+actor "Obsluha\n(webové UI)" as OP
+
+rectangle "Middleware pre KUKA AMR Fleet Manager" {
+  usecase "UC06\nPrezrieť roboty a ich stav" as UC06
+}
+
+OP -- UC06
+
+note bottom of UC06
+  Zobrazuje sa posledný známy stav a čas jeho získania.
+  Výpadok pollingu = neaktuálne údaje, nie automaticky "offline".
+  Synchronizáciu zabezpečuje UC08.
+end note
+@enduml

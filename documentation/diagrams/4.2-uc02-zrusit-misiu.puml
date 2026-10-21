@@ -1,0 +1,44 @@
+@startuml
+|Klient (Obsluha / Externý systém)|
+start
+:Vybrať aktívnu misiu;
+:POST /api/missions/{id}/cancel;
+|Middleware|
+if (API kľúč platný?) then (nie)
+  |Klient (Obsluha / Externý systém)|
+  :401 Unauthorized;
+  stop
+else (áno)
+endif
+|Middleware|
+if (Misia existuje?) then (nie)
+  |Klient (Obsluha / Externý systém)|
+  :404 Not Found;
+  stop
+else (áno)
+endif
+|Middleware|
+if (Misia je aktívna?) then (nie)
+  |Klient (Obsluha / Externý systém)|
+  :409 Conflict;
+  stop
+else (áno)
+endif
+|Middleware|
+:Overiť / obnoviť token (4.0);
+|KUKA FM|
+:cancelMission;
+|Middleware|
+if (Úspech?) then (áno)
+  :Stav Cancelling + StatusHistory;
+  :Zapísať AuditLog (OK);
+  |Klient (Obsluha / Externý systém)|
+  :202 Accepted;
+else (nie)
+  |Middleware|
+  :Zapísať AuditLog (chyba);
+  |Klient (Obsluha / Externý systém)|
+  :502 Bad Gateway;
+endif
+stop
+@enduml

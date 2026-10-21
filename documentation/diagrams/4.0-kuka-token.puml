@@ -1,0 +1,32 @@
+@startuml
+|Middleware|
+start
+if (Token v cache platný?) then (nie)
+  |KUKA FM|
+  :Vydať nový token;
+  |Middleware|
+  if (Token získaný?) then (nie)
+    :Zalogovať chybu autentifikácie;
+    stop
+  else (áno)
+  endif
+  :Uložiť token do cache;
+else (áno)
+endif
+|Middleware|
+:Pridať hlavičku Authorization;
+|KUKA FM|
+:Spracovať volanie API;
+|Middleware|
+if (Odpoveď 401?) then (áno)
+  :Zneplatniť token, obnoviť ho
+  a volanie zopakovať (najviac 1x);
+else (nie)
+endif
+if (Úspech 2xx?) then (áno)
+  :Zalogovať úspešné volanie;
+else (nie)
+  :Zalogovať chybu volania;
+endif
+stop
+@enduml

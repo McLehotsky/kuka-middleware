@@ -1,0 +1,35 @@
+@startuml
+|Middleware|
+start
+:Tick plánovača;
+:Načítať aktívne misie z DB
+(Submitted / InProgress / Cancelling);
+if (Existujú aktívne misie?) then (nie)
+  stop
+else (áno)
+endif
+:Overiť / obnoviť token (4.0);
+|KUKA FM|
+:Query jobs;
+|Middleware|
+if (Úspech?) then (nie)
+  :Zalogovať chybu
+  (údaje ostávajú neaktuálne);
+  stop
+else (áno)
+endif
+while (Ďalšia misia v odpovedi?) is (áno)
+  if (Stav sa zmenil?) then (áno)
+    :Aktualizovať Mission.Status
+    + StatusHistory (Source = KukaSync);
+    if (Koncový stav?) then (áno)
+      :Nastaviť FinishedAt;
+    else (nie)
+    endif
+  else (nie)
+  endif
+  :Nastaviť LastSyncedAt;
+endwhile (nie)
+:Uložiť zmeny v transakcii;
+stop
+@enduml

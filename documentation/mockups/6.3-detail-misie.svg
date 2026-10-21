@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="1280" height="800" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1" />
+<rect x="0" y="0" width="1280" height="56" rx="0" fill="#1F4E79" stroke="none" stroke-width="1" />
+<rect x="20" y="16" width="24" height="24" rx="5" fill="#FFFFFF" stroke="none" stroke-width="1" />
+<text x="32" y="33" font-size="9" fill="#1F4E79" font-weight="800" text-anchor="middle">ITS</text>
+<text x="56" y="34" font-size="17" fill="#FFFFFF" font-weight="700" text-anchor="start">ITS Middleware</text>
+<text x="188" y="34" font-size="13" fill="#B9CDE2" font-weight="normal" text-anchor="start">KUKA AMR Fleet Manager</text>
+<rect x="800" y="15" width="168" height="26" rx="13" fill="#2C628F" stroke="none" stroke-width="1" />
+<circle cx="816" cy="28" r="5" fill="#4ADE80"/>
+<text x="828" y="33" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="start">KUKA FM pripojené</text>
+<rect x="978" y="15" width="150" height="26" rx="13" fill="#2C628F" stroke="none" stroke-width="1" />
+<text x="1053" y="33" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="middle">⟳ sync pred 3 s</text>
+<circle cx="1158" cy="28" r="14" fill="#FFFFFF"/>
+<text x="1158" y="33" font-size="11" fill="#1F4E79" font-weight="700" text-anchor="middle">OP</text>
+<text x="1180" y="33" font-size="12" fill="#FFFFFF" font-weight="normal" text-anchor="start">Operátor</text>
+<rect x="0" y="56" width="200" height="744" rx="0" fill="#F3F5F8" stroke="none" stroke-width="1" />
+<line x1="200" y1="56" x2="200" y2="800" stroke="#C9D1DB" stroke-width="1"/>
+<text x="20" y="80" font-size="10.5" fill="#6B7785" font-weight="700" text-anchor="start">NAVIGÁCIA</text>
+<rect x="10" y="94" width="180" height="36" rx="5" fill="#DCE6F1" stroke="none" stroke-width="1" />
+<rect x="10" y="94" width="4" height="36" rx="2" fill="#1F4E79" stroke="none" stroke-width="1" />
+<text x="30" y="117" font-size="14" fill="#1F4E79" font-weight="700" text-anchor="middle">▤</text>
+<text x="46" y="117" font-size="14" fill="#1F4E79" font-weight="700" text-anchor="start">Misie</text>
+<text x="30" y="159" font-size="14" fill="#1E2A36" font-weight="700" text-anchor="middle">+</text>
+<text x="46" y="159" font-size="14" fill="#1E2A36" font-weight="normal" text-anchor="start">Nová misia</text>
+<text x="30" y="201" font-size="14" fill="#1E2A36" font-weight="700" text-anchor="middle">◉</text>
+<text x="46" y="201" font-size="14" fill="#1E2A36" font-weight="normal" text-anchor="start">Roboty</text>
+<line x1="16" y1="226" x2="184" y2="226" stroke="#C9D1DB" stroke-width="1"/>
+<text x="30" y="254" font-size="14" fill="#A0AAB6" font-weight="normal" text-anchor="middle">≡</text>
+<text x="46" y="254" font-size="14" fill="#A0AAB6" font-weight="normal" text-anchor="start">Audit log</text>
+<text x="46" y="270" font-size="10.5" fill="#A0AAB6" font-weight="normal" text-anchor="start" font-style="italic">(voliteľné, neskôr)</text>
+<text x="20" y="780" font-size="10.5" fill="#6B7785" font-weight="normal" text-anchor="start">v0.1 · build #42</text>
+<text x="224" y="84" font-size="12" fill="#6B7785" font-weight="normal" text-anchor="start">Misie  /  M-2026-0142</text>
+<text x="224" y="118" font-size="24" fill="#1E2A36" font-weight="700" text-anchor="start">M-2026-0142</text>
+<rect x="392" y="97" width="96" height="20" rx="10" fill="#DCEBFF" stroke="#DCEBFF" stroke-width="1" />
+<text x="440.0" y="112" font-size="13" fill="#1F4E79" font-weight="600" text-anchor="middle">InProgress</text>
+<text x="224" y="140" font-size="13" fill="#6B7785" font-weight="normal" text-anchor="start">ExternalRef ERP-88121 · RACK_MOVE · vytvoril: web-ui</text>
+<rect x="1128" y="92" width="128" height="34" rx="5" fill="#FFFFFF" stroke="#B42318" stroke-width="1" />
+<text x="1192.0" y="114.0" font-size="13" fill="#B42318" font-weight="600" text-anchor="middle">Zrušiť misiu</text>
+<rect x="1024" y="92" width="92" height="34" rx="5" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="1070.0" y="114.0" font-size="13" fill="#1E2A36" font-weight="600" text-anchor="middle">⟳ Obnoviť</text>
+<rect x="224" y="162" width="560" height="222" rx="6" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="240" y="188" font-size="14" fill="#1E2A36" font-weight="700" text-anchor="start">Informácie</text>
+<line x1="224" y1="202" x2="784" y2="202" stroke="#C9D1DB" stroke-width="1"/>
+<text x="240" y="228" font-size="11.5" fill="#6B7785" font-weight="600" text-anchor="start">Robot</text>
+<text x="240" y="246" font-size="13.5" fill="#1F4E79" font-weight="600" text-anchor="start">KMP-01</text>
+<text x="512" y="228" font-size="11.5" fill="#6B7785" font-weight="600" text-anchor="start">Priorita</text>
+<text x="512" y="246" font-size="13.5" fill="#1E2A36" font-weight="600" text-anchor="start">2</text>
+<text x="240" y="270" font-size="11.5" fill="#6B7785" font-weight="600" text-anchor="start">Vytvorená</text>
+<text x="240" y="288" font-size="13.5" fill="#1E2A36" font-weight="600" text-anchor="start">14.10.2026 13:40:12</text>
+<text x="512" y="270" font-size="11.5" fill="#6B7785" font-weight="600" text-anchor="start">Odoslaná (Submitted)</text>
+<text x="512" y="288" font-size="13.5" fill="#1E2A36" font-weight="600" text-anchor="start">14.10.2026 13:40:13</text>
+<text x="240" y="312" font-size="11.5" fill="#6B7785" font-weight="600" text-anchor="start">Ukončená</text>
+<text x="240" y="330" font-size="13.5" fill="#1E2A36" font-weight="600" text-anchor="start">—</text>
+<text x="512" y="312" font-size="11.5" fill="#6B7785" font-weight="600" text-anchor="start">Posledná synchronizácia</text>
+<text x="512" y="330" font-size="13.5" fill="#1E2A36" font-weight="600" text-anchor="start">pred 2 s</text>
+<text x="240" y="354" font-size="11.5" fill="#6B7785" font-weight="600" text-anchor="start">Chyba</text>
+<text x="240" y="372" font-size="13.5" fill="#1E2A36" font-weight="600" text-anchor="start">—</text>
+<rect x="224" y="402" width="560" height="200" rx="6" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="240" y="428" font-size="14" fill="#1E2A36" font-weight="700" text-anchor="start">Kroky misie</text>
+<line x1="224" y1="442" x2="784" y2="442" stroke="#C9D1DB" stroke-width="1"/>
+<line x1="254" y1="484" x2="254" y2="506" stroke="#C9D1DB" stroke-width="2"/>
+<circle cx="254" cy="470" r="10" fill="#22A559" stroke="#22A559" stroke-width="1.5"/>
+<text x="254" y="475" font-size="11" fill="#FFF" font-weight="700" text-anchor="middle">✓</text>
+<text x="276" y="475" font-size="13.5" fill="#1E2A36" font-weight="600" text-anchor="start">A-01-PICK</text>
+<text x="404" y="475" font-size="13" fill="#6B7785" font-weight="normal" text-anchor="start">Naložiť</text>
+<line x1="254" y1="526" x2="254" y2="548" stroke="#C9D1DB" stroke-width="2"/>
+<circle cx="254" cy="512" r="10" fill="#1F4E79" stroke="#1F4E79" stroke-width="1.5"/>
+<text x="254" y="517" font-size="11" fill="#FFF" font-weight="700" text-anchor="middle">2</text>
+<text x="276" y="517" font-size="13.5" fill="#1E2A36" font-weight="600" text-anchor="start">C-03-WAIT</text>
+<text x="404" y="517" font-size="13" fill="#6B7785" font-weight="normal" text-anchor="start">Čakať</text>
+<text x="768" y="517" font-size="12" fill="#1F4E79" font-weight="normal" text-anchor="end" font-style="italic">robot je tu</text>
+<circle cx="254" cy="554" r="10" fill="#FFFFFF" stroke="#1F4E79" stroke-width="1.5"/>
+<text x="254" y="559" font-size="11" fill="#1F4E79" font-weight="700" text-anchor="middle">3</text>
+<text x="276" y="559" font-size="13.5" fill="#1E2A36" font-weight="600" text-anchor="start">B-07-DROP</text>
+<text x="404" y="559" font-size="13" fill="#6B7785" font-weight="normal" text-anchor="start">Vyložiť</text>
+<text x="240" y="590" font-size="11" fill="#6B7785" font-weight="normal" text-anchor="start" font-style="italic">Priebeh krokov – len ak ho Query jobs API poskytne (inak len zoznam).</text>
+<rect x="808" y="162" width="448" height="440" rx="6" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="1" />
+<text x="824" y="188" font-size="14" fill="#1E2A36" font-weight="700" text-anchor="start">História stavov</text>
+<line x1="808" y1="202" x2="1256" y2="202" stroke="#C9D1DB" stroke-width="1"/>
+<text x="1240" y="188" font-size="11" fill="#6B7785" font-weight="normal" text-anchor="end">MissionStatusHistory</text>
+<line x1="836" y1="246" x2="836" y2="322" stroke="#C9D1DB" stroke-width="2"/>
+<circle cx="836" cy="234" r="7" fill="#4A5563"/>
+<text x="856" y="239" font-size="12.5" fill="#6B7785" font-weight="600" text-anchor="start">13:40:12</text>
+<rect x="924" y="224" width="64" height="20" rx="10" fill="#ECEFF3" stroke="#ECEFF3" stroke-width="1" />
+<text x="956.0" y="239" font-size="11" fill="#4A5563" font-weight="600" text-anchor="middle">Created</text>
+<rect x="1190" y="224" width="50" height="20" rx="3" fill="#F3F5F8" stroke="#C9D1DB" stroke-width="1" />
+<text x="1215" y="239" font-size="11" fill="#6B7785" font-weight="600" text-anchor="middle">API</text>
+<text x="856" y="264" font-size="12.5" fill="#1E2A36" font-weight="normal" text-anchor="start">Misia vytvorená cez web UI</text>
+<line x1="836" y1="338" x2="836" y2="414" stroke="#C9D1DB" stroke-width="2"/>
+<circle cx="836" cy="326" r="7" fill="#2B5BA8"/>
+<text x="856" y="331" font-size="12.5" fill="#6B7785" font-weight="600" text-anchor="start">13:40:13</text>
+<rect x="924" y="316" width="64" height="20" rx="10" fill="#ECEFF3" stroke="#ECEFF3" stroke-width="1" />
+<text x="956.0" y="331" font-size="11" fill="#4A5563" font-weight="600" text-anchor="middle">Created</text>
+<text x="998" y="331" font-size="13" fill="#6B7785" font-weight="normal" text-anchor="middle">→</text>
+<rect x="1008" y="316" width="77" height="20" rx="10" fill="#E3ECFA" stroke="#E3ECFA" stroke-width="1" />
+<text x="1046.5" y="331" font-size="11" fill="#2B5BA8" font-weight="600" text-anchor="middle">Submitted</text>
+<rect x="1190" y="316" width="50" height="20" rx="3" fill="#F3F5F8" stroke="#C9D1DB" stroke-width="1" />
+<text x="1215" y="331" font-size="11" fill="#6B7785" font-weight="600" text-anchor="middle">API</text>
+<text x="856" y="356" font-size="12.5" fill="#1E2A36" font-weight="normal" text-anchor="start">submitMission OK (KUKA 200)</text>
+<circle cx="836" cy="418" r="7" fill="#1F4E79"/>
+<text x="856" y="423" font-size="12.5" fill="#6B7785" font-weight="600" text-anchor="start">13:40:31</text>
+<rect x="924" y="408" width="77" height="20" rx="10" fill="#E3ECFA" stroke="#E3ECFA" stroke-width="1" />
+<text x="962.5" y="423" font-size="11" fill="#2B5BA8" font-weight="600" text-anchor="middle">Submitted</text>
+<text x="1011" y="423" font-size="13" fill="#6B7785" font-weight="normal" text-anchor="middle">→</text>
+<rect x="1021" y="408" width="84" height="20" rx="10" fill="#DCEBFF" stroke="#DCEBFF" stroke-width="1" />
+<text x="1063.0" y="423" font-size="11" fill="#1F4E79" font-weight="600" text-anchor="middle">InProgress</text>
+<rect x="1190" y="408" width="50" height="20" rx="3" fill="#F3F5F8" stroke="#C9D1DB" stroke-width="1" />
+<text x="1215" y="423" font-size="11" fill="#6B7785" font-weight="600" text-anchor="middle">Sync</text>
+<text x="856" y="448" font-size="12.5" fill="#1E2A36" font-weight="normal" text-anchor="start">Robot KMP-01 prevzal misiu</text>
+<circle cx="836" cy="510" r="7" fill="#FFFFFF" stroke="#C9D1DB" stroke-width="2" stroke-dasharray="3 2"/>
+<text x="856" y="515" font-size="12.5" fill="#6B7785" font-weight="normal" text-anchor="start" font-style="italic">čaká sa na ďalšiu zmenu (polling 5 s)…</text>
+<rect x="224" y="742" width="664.0" height="50" rx="3" fill="#FFF8C5" stroke="#D4B106" stroke-width="1" stroke-dasharray="4 3"/>
+<text x="234" y="763" font-size="11.5" fill="#5C4A00" font-weight="normal" text-anchor="start">GET /api/missions/{id} + GET /api/missions/{id}/history. Pri aktívnej misii sa stránka obnovuje</text>
+<text x="234" y="781" font-size="11.5" fill="#5C4A00" font-weight="normal" text-anchor="start">pollingom; „Zrušiť misiu“ len pre Submitted/InProgress. Source: API = akcia klienta, Sync = polling.</text>
+</svg>

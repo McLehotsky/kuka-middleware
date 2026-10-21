@@ -1,0 +1,41 @@
+@startuml
+|Klient (Obsluha / Externý systém)|
+start
+:Zadať parametre misie
+(typ, cieľové body, priorita);
+:POST /api/missions;
+|Middleware|
+if (API kľúč platný?) then (nie)
+  |Klient (Obsluha / Externý systém)|
+  :401 Unauthorized;
+  stop
+else (áno)
+endif
+|Middleware|
+if (Vstup validný?) then (nie)
+  |Klient (Obsluha / Externý systém)|
+  :400 Bad Request;
+  stop
+else (áno)
+endif
+|Middleware|
+:Uložiť Mission (Created)
++ StatusHistory;
+:Overiť / obnoviť token (4.0);
+|KUKA FM|
+:submitMission;
+|Middleware|
+if (Úspech?) then (áno)
+  :Stav Submitted + StatusHistory;
+  :Zapísať AuditLog (OK);
+  |Klient (Obsluha / Externý systém)|
+  :201 Created + ID misie;
+else (nie)
+  |Middleware|
+  :Stav Failed + StatusHistory;
+  :Zapísať AuditLog (chyba);
+  |Klient (Obsluha / Externý systém)|
+  :502 Bad Gateway;
+endif
+stop
+@enduml
