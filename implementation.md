@@ -6,7 +6,7 @@ How the KUKA FM Middleware is built, phase by phase. Each finished phase links i
 |---|---|---|---|---|
 | 1 | Specification – requirements, use cases, activity diagrams, ERD, mockups | – | done | `documentation/wiki.md` |
 | 2 | Backlog – Epic → Features → User Stories → Tasks with acceptance criteria | – | done | `documentation/backlog.md` |
-| 3 | Claude workflow – `CLAUDE.md`, system definition, 5 agents, skills, empty structure | – | done | [01](history/2026-10-21-01-claude-workflow.md) |
+| 3 | Claude workflow – `CLAUDE.md`, system definition, 5 agents, skills, empty structure | – | done | [01](history/2026-10-21-01-claude-workflow.md), [02](history/2026-10-21-02-readme.md) |
 | 4 | Scaffolding – .NET solution + EF Core migration per ERD, Vue 3 project, Dockerfiles, compose; `PRODUCT.md` / `DESIGN.md` with `impeccable teach` | 4.1 Kontajnerizácia a databáza | planned | |
 | 5 | KUKA FM access and sync – typed client with token, robot sync, mission sync | 3.1, 3.2 (UC7), 3.3 (UC5) | planned | |
 | 6 | Mission management – dispatch, cancel, list, detail with history | 1.1–1.4 (UC1–UC4) | planned | |
