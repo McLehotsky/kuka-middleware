@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useTheme, type ThemeChoice } from '../composables/useTheme'
 import AppIcon, { type IconName } from './AppIcon.vue'
 
@@ -9,6 +10,11 @@ const OPTIONS: readonly { value: ThemeChoice; label: string; icon: IconName }[] 
   { value: 'dark', label: 'Dark theme', icon: 'moon' },
   { value: 'system', label: 'System theme', icon: 'monitor' },
 ]
+
+// Below 768 px the three options collapse into one 44 px button that cycles through them.
+const currentIndex = computed(() => Math.max(0, OPTIONS.findIndex((o) => o.value === theme.value)))
+const current = computed(() => OPTIONS[currentIndex.value]!)
+const next = computed(() => OPTIONS[(currentIndex.value + 1) % OPTIONS.length]!)
 </script>
 
 <template>
@@ -33,6 +39,18 @@ const OPTIONS: readonly { value: ThemeChoice; label: string; icon: IconName }[] 
       />
     </button>
   </div>
+  <button
+    type="button"
+    class="theme-cycle"
+    :aria-label="`${current.label}. Switch to ${next.label.toLowerCase()}`"
+    :title="current.label"
+    @click="setTheme(next.value)"
+  >
+    <AppIcon
+      :name="current.icon"
+      :size="18"
+    />
+  </button>
 </template>
 
 <style scoped>
@@ -61,7 +79,7 @@ const OPTIONS: readonly { value: ThemeChoice; label: string; icon: IconName }[] 
   transition-timing-function: var(--ease-standard);
 }
 
-/* Extends the hit area to 40 px tall without changing the look. */
+/* Desktop: extends the hit area to 40 px tall without changing the look. */
 .theme-toggle__option::after {
   content: '';
   position: absolute;
@@ -77,7 +95,32 @@ const OPTIONS: readonly { value: ThemeChoice; label: string; icon: IconName }[] 
   color: var(--color-topbar);
 }
 
-.theme-toggle__option:focus-visible {
+.theme-toggle__option:focus-visible,
+.theme-cycle:focus-visible {
   outline-color: var(--color-focus-ring-on-dark);
+}
+
+.theme-cycle {
+  display: none;
+  place-items: center;
+  width: var(--touch-target);
+  height: var(--touch-target);
+  margin-right: -10px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-on-primary);
+  cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  .theme-toggle {
+    display: none;
+  }
+
+  .theme-cycle {
+    display: grid;
+  }
 }
 </style>

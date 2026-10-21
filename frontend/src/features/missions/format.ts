@@ -45,6 +45,20 @@ export function formatTime(value: string | Date | null | undefined): string {
   return d ? timeOnly.format(d) : EMPTY
 }
 
+function sameLocalDay(a: Date, b: Date): boolean {
+  return (
+    a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate()
+  )
+}
+
+/** History timestamp: time only on the mission's creation day, date and time on any later day. */
+export function formatHistoryTime(changedAt: string, createdAt: string): string {
+  const changed = parse(changedAt)
+  const created = parse(createdAt)
+  if (!changed) return EMPTY
+  return created && sameLocalDay(changed, created) ? timeOnly.format(changed) : shortDateTime.format(changed)
+}
+
 /** "2 s ago", "4 min ago", "3 h ago"; falls back to the date after a day. */
 export function formatRelative(value: string | null | undefined, now: Date): string {
   const d = parse(value)

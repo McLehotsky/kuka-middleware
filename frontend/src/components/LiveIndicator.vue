@@ -30,7 +30,7 @@ const { failing } = useLiveStatus()
   border-radius: var(--radius-pill);
   background: var(--color-live-surface);
   color: var(--color-success-text);
-  font: 400 12px/1 var(--font-sans);
+  font: var(--text-small);
   white-space: nowrap;
   transition-property: background-color, color, border-color;
   transition-duration: var(--duration-base);

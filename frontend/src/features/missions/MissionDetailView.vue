@@ -9,7 +9,7 @@ import StatusPill from '../../components/StatusPill.vue'
 import { reportPollingError } from '../../composables/useLiveStatus'
 import { usePolling } from '../../composables/usePolling'
 import CancelMissionDialog from './CancelMissionDialog.vue'
-import { EMPTY, formatDateTime, formatRelative, formatTime, orEmpty } from './format'
+import { EMPTY, formatDateTime, formatHistoryTime, formatRelative, formatTime, orEmpty } from './format'
 import { isCancellable, isFinal, statusTone } from './missionStatus'
 
 const props = defineProps<{ missionId: string }>()
@@ -324,7 +324,7 @@ watch(
                   :datetime="entry.changedAt"
                   :title="formatDateTime(entry.changedAt)"
                 >
-                  {{ formatTime(entry.changedAt) }}
+                  {{ formatHistoryTime(entry.changedAt, mission.createdAt) }}
                 </time>
                 <span class="event__change">
                   <template v-if="entry.previousStatus">
@@ -387,7 +387,7 @@ watch(
   display: flex;
   gap: var(--space-sm);
   padding-top: 18px;
-  font: 400 12px/1.4 var(--font-sans);
+  font: var(--text-small);
   color: var(--color-text-muted);
 }
 
@@ -436,7 +436,7 @@ watch(
   gap: var(--space-sm);
   margin-top: var(--space-md);
   color: var(--color-warning-text);
-  font: 400 12.5px/1.4 var(--font-sans);
+  font: var(--text-body-small);
 }
 
 .pending-note {
@@ -529,7 +529,7 @@ watch(
   border: 1.5px solid var(--color-primary-text);
   border-radius: 50%;
   color: var(--color-primary-text);
-  font: 700 11px/1 var(--font-sans);
+  font: var(--text-count);
 }
 
 .step__node {
@@ -597,7 +597,7 @@ watch(
 
 .event__time {
   color: var(--color-text-muted);
-  font: 600 12.5px/1.4 var(--font-sans);
+  font: var(--text-body-small-strong);
 }
 
 .event__change {
@@ -617,18 +617,19 @@ watch(
   border-radius: var(--radius-tag);
   background: var(--color-panel);
   color: var(--color-text-muted);
-  font: 600 11px/1.3 var(--font-sans);
+  font: var(--text-tag);
 }
 
 .event__message {
   margin-top: var(--space-xs);
-  font-size: 12.5px;
+  font: var(--text-body-small);
   overflow-wrap: anywhere;
 }
 
 .event__waiting {
   color: var(--color-text-muted);
-  font: italic 400 12.5px/1.4 var(--font-sans);
+  font: var(--text-body-small);
+  font-style: italic;
 }
 
 @media (max-width: 1099px) {

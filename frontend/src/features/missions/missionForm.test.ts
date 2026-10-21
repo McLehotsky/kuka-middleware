@@ -16,14 +16,18 @@ function validDraft(): MissionDraft {
   return draft
 }
 
+describe('newDraft', () => {
+  it('defaults the priority to 2 (normal)', () => {
+    expect(newDraft().priority).toBe(2)
+  })
+})
+
 describe('validateDraft', () => {
-  it('accepts a minimal valid mission with the default priority 2', () => {
-    const draft = validDraft()
-    expect(draft.priority).toBe(2)
-    expect(validateDraft(draft)).toEqual({})
+  it('accepts a minimal valid mission', () => {
+    expect(validateDraft(validDraft())).toEqual({})
   })
 
-  it('uses the API keys, with steps indexed from 0', () => {
+  it('keys step errors like the API, indexed from 0', () => {
     const draft = validDraft()
     draft.steps.push({ key: 99, nodeCode: '   ', action: '' })
     expect(validateDraft(draft)).toEqual({
@@ -32,30 +36,53 @@ describe('validateDraft', () => {
     })
   })
 
-  it('checks the length boundaries: node 64, external ref 100', () => {
+  it('accepts a node code of exactly 64 characters', () => {
     const draft = validDraft()
     draft.steps[0]!.nodeCode = 'N'.repeat(64)
+    expect(validateDraft(draft)).toEqual({})
+  })
+
+  it('rejects a node code of 65 characters', () => {
+    const draft = validDraft()
+    draft.steps[0]!.nodeCode = 'N'.repeat(65)
+    expect(Object.keys(validateDraft(draft))).toEqual(['steps[0].nodeCode'])
+  })
+
+  it('accepts an external reference of exactly 100 characters', () => {
+    const draft = validDraft()
     draft.externalRef = 'E'.repeat(100)
     expect(validateDraft(draft)).toEqual({})
-
-    draft.steps[0]!.nodeCode = 'N'.repeat(65)
-    draft.externalRef = 'E'.repeat(101)
-    expect(Object.keys(validateDraft(draft)).sort()).toEqual(['externalRef', 'steps[0].nodeCode'])
   })
 
-  it('rejects a priority outside 1–3, a missing type and an empty step list', () => {
+  it('rejects an external reference of 101 characters', () => {
     const draft = validDraft()
-    draft.priority = 4
-    draft.missionType = ''
-    draft.steps = []
-    expect(Object.keys(validateDraft(draft)).sort()).toEqual(['missionType', 'priority', 'steps'])
+    draft.externalRef = 'E'.repeat(101)
+    expect(Object.keys(validateDraft(draft))).toEqual(['externalRef'])
   })
 
-  it('treats mission type and action as exact, case-sensitive values', () => {
+  it.each([0, 4])('rejects priority %i', (priority) => {
+    const draft = validDraft()
+    draft.priority = priority
+    expect(Object.keys(validateDraft(draft))).toEqual(['priority'])
+  })
+
+  it('rejects a missing mission type', () => {
+    const draft = validDraft()
+    draft.missionType = ''
+    expect(Object.keys(validateDraft(draft))).toEqual(['missionType'])
+  })
+
+  it('rejects an empty step list', () => {
+    const draft = validDraft()
+    draft.steps = []
+    expect(Object.keys(validateDraft(draft))).toEqual(['steps'])
+  })
+
+  it('treats the action as an exact, case-sensitive value', () => {
     const draft = validDraft()
     // @ts-expect-error – simulates a wrong-case value reaching the form
     draft.steps[0]!.action = 'load'
-    expect(validateDraft(draft)).toHaveProperty(['steps[0].action'])
+    expect(Object.keys(validateDraft(draft))).toEqual(['steps[0].action'])
   })
 })
 
@@ -74,27 +101,39 @@ describe('toCreateRequest', () => {
   })
 })
 
-describe('server errors and labels', () => {
-  it('keeps the first message per key', () => {
+describe('fromServerErrors', () => {
+  it('keeps the first message per key and drops empty lists', () => {
     expect(fromServerErrors({ 'steps[2].nodeCode': ['first', 'second'], robotId: [] })).toEqual({
       'steps[2].nodeCode': 'first',
     })
   })
+})
 
-  it('names fields in plain words with 1-based step numbers', () => {
-    expect(fieldLabel('steps[2].nodeCode')).toBe('Step 3 – node')
-    expect(fieldLabel('steps[0].action')).toBe('Step 1 – action')
-    expect(fieldLabel('robotId')).toBe('Robot')
+describe('fieldLabel', () => {
+  it.each([
+    ['steps[2].nodeCode', 'Step 3 – node'],
+    ['steps[0].action', 'Step 1 – action'],
+    ['robotId', 'Robot'],
+  ])('names %s as "%s"', (key, label) => {
+    expect(fieldLabel(key)).toBe(label)
   })
 })
 
 describe('moveStep', () => {
   const steps = [1, 2, 3].map((key) => ({ key, nodeCode: `N${key}`, action: 'Wait' as const }))
 
-  it('moves a step up or down and ignores moves past the ends', () => {
+  it('moves a step up', () => {
     expect(moveStep(steps, 1, -1).map((s) => s.key)).toEqual([2, 1, 3])
+  })
+
+  it('moves a step down', () => {
     expect(moveStep(steps, 1, 1).map((s) => s.key)).toEqual([1, 3, 2])
-    expect(moveStep(steps, 0, -1)).toBe(steps)
-    expect(moveStep(steps, 2, 1)).toBe(steps)
+  })
+
+  it.each([
+    [0, -1],
+    [2, 1],
+  ] as const)('leaves the list unchanged when step %i moves past the end (%i)', (index, delta) => {
+    expect(moveStep(steps, index, delta)).toBe(steps)
   })
 })

@@ -141,7 +141,7 @@ function isMissionsSection() {
             <AppIcon name="robot" />
             <span>
               Robots
-              <span class="nav-item__note">phase 7</span>
+              <span class="nav-item__note">– coming soon</span>
             </span>
           </span>
         </li>
@@ -208,9 +208,9 @@ function isMissionsSection() {
 .topbar__menu {
   display: none;
   place-items: center;
-  width: 40px;
-  height: 40px;
-  margin-left: -10px;
+  width: var(--touch-target);
+  height: var(--touch-target);
+  margin-left: -12px;
   padding: 0;
   border: 0;
   border-radius: var(--radius-button);
@@ -236,7 +236,7 @@ function isMissionsSection() {
   border-radius: var(--radius-button);
   background: var(--color-on-primary);
   color: var(--color-topbar);
-  font: 800 9px/1 var(--font-sans);
+  font: var(--text-mark);
 }
 
 .topbar__name {
@@ -244,7 +244,7 @@ function isMissionsSection() {
 }
 
 .topbar__subtitle {
-  font: 400 13px/1 var(--font-sans);
+  font: var(--text-body);
   color: var(--color-topbar-subtitle);
 }
 
@@ -327,13 +327,14 @@ a.nav-item--active:hover {
 
 .nav-item__note {
   margin-left: var(--space-xxs);
-  font: italic 400 10.5px/1 var(--font-sans);
+  font: var(--text-caption);
+  font-style: italic;
 }
 
 .sidebar__version {
   margin-top: auto;
   padding: 0 10px;
-  font: 400 10.5px/1.2 var(--font-sans);
+  font: var(--text-caption);
   color: var(--color-text-muted);
 }
 
@@ -366,7 +367,7 @@ a.nav-item--active:hover {
   }
 
   .topbar__name {
-    font-size: 15px;
+    font: var(--text-brand-compact);
   }
 
   .topbar__end {

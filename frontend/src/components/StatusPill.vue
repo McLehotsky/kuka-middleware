@@ -45,7 +45,7 @@ const tone = computed(() => statusTone(props.status))
 .pill--sm {
   height: 18px;
   padding: 0 7px;
-  font-size: 11px;
+  font: var(--text-pill-sm);
 }
 
 .pill--created {

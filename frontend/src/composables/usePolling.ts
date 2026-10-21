@@ -28,7 +28,7 @@ export interface Polling<T> {
   /** True while any request is in flight. */
   refreshing: Ref<boolean>
   lastUpdated: Ref<Date | null>
-  /** Runs a request now (or joins the one in flight) and restarts the interval. */
+  /** Runs a request now (or right after the one in flight) and restarts the interval. */
   refresh: () => Promise<void>
   start: () => void
   stop: () => void
@@ -117,9 +117,22 @@ export function usePolling<T>(
     refreshing.value = false
   }
 
+  let queued: Promise<void> | null = null
+
+  /**
+   * Fresh data now. If a request is in flight it may have started before the caller changed
+   * something (e.g. a cancel), so one new request is queued right after it – never in parallel.
+   */
   function refresh(): Promise<void> {
     if (!running) running = true
-    return tick()
+    if (!inFlight) return tick()
+    if (!queued) {
+      queued = inFlight.then(() => {
+        queued = null
+        return running ? tick() : undefined
+      })
+    }
+    return queued
   }
 
   watch(

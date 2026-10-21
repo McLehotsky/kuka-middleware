@@ -36,14 +36,14 @@ defineProps<{ title: string }>()
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-  font: 700 13px/1.4 var(--font-sans);
+  font: var(--text-strong);
 }
 
 .error-panel__body {
   display: grid;
   gap: var(--space-sm);
   margin-top: var(--space-sm);
-  font: 400 12.5px/1.5 var(--font-sans);
+  font: var(--text-body-small);
   color: var(--color-danger-text-soft);
 }
 

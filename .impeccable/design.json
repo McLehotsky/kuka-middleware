@@ -175,21 +175,109 @@
         "displayName": "Page title",
         "purpose": "One per screen."
       },
+      "brand": {
+        "displayName": "Brand",
+        "purpose": "Product name in the top bar."
+      },
+      "dialog-title": {
+        "displayName": "Dialog title",
+        "purpose": "Dialog heading, robot card name."
+      },
+      "stat-value": {
+        "displayName": "Stat value",
+        "purpose": "Numbers in summary tiles."
+      },
       "section-title": {
         "displayName": "Section title",
         "purpose": "Card titles, active tab."
+      },
+      "nav": {
+        "displayName": "Nav",
+        "purpose": "Sidebar items, inactive tabs."
       },
       "body": {
         "displayName": "Body",
         "purpose": "Table cells, inputs, dialog copy."
       },
+      "value": {
+        "displayName": "Value",
+        "purpose": "Values in detail grids."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Form labels."
+      },
+      "pill": {
+        "displayName": "Pill",
+        "purpose": "Status pills."
+      },
+      "meta": {
+        "displayName": "Meta",
+        "purpose": "Keys in detail grids."
+      },
       "table-header": {
         "displayName": "Table header",
         "purpose": "Uppercase column heads."
       },
-      "meta": {
-        "displayName": "Meta",
-        "purpose": "Keys in detail grids, card footers."
+      "nav-section": {
+        "displayName": "Nav section",
+        "purpose": "Uppercase sidebar section label."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Text of all buttons."
+      },
+      "strong": {
+        "displayName": "Strong",
+        "purpose": "Error-panel heading, \"Add step\" link, step numbers."
+      },
+      "body-small": {
+        "displayName": "Body small",
+        "purpose": "Secondary body: error-panel and dialog messages, stale-data notes, timeline messages, type codes."
+      },
+      "body-small-strong": {
+        "displayName": "Body small strong",
+        "purpose": "Timeline timestamps."
+      },
+      "small": {
+        "displayName": "Small",
+        "purpose": "Breadcrumb, card meta, footnotes, Live indicator, \"cancelling…\"."
+      },
+      "hint": {
+        "displayName": "Hint",
+        "purpose": "Field hints and card footers."
+      },
+      "error": {
+        "displayName": "Error",
+        "purpose": "Inline field error messages."
+      },
+      "tag": {
+        "displayName": "Tag",
+        "purpose": "Source tag (API / Sync) in the history timeline."
+      },
+      "count": {
+        "displayName": "Count",
+        "purpose": "Count badges on tabs, numbers in step circles."
+      },
+      "pill-sm": {
+        "displayName": "Pill sm",
+        "purpose": "Status pills inside the history timeline."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Version line and the \"coming soon\" note in the sidebar."
+      },
+      "brand-compact": {
+        "displayName": "Brand compact",
+        "purpose": "Product name in the top bar below 768 px."
+      },
+      "mark": {
+        "displayName": "Mark",
+        "purpose": "The \"ITS\" letters in the brand mark."
+      },
+      "control-touch": {
+        "displayName": "Control touch",
+        "purpose": "Inputs below 768 px (16 px prevents iOS zoom on focus)."
       }
     },
     "shadows": [

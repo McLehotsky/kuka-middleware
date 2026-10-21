@@ -148,7 +148,7 @@ function discard() {
       New mission
     </h1>
     <p class="page__lead">
-      The mission is saved and sent to KUKA FM, which carries it out.
+      The mission is saved. Dispatch to KUKA FM is not connected yet.
     </p>
 
     <form
@@ -301,6 +301,7 @@ function discard() {
           <div class="card__body">
             <p
               v-if="errorFor('steps')"
+              id="steps-error"
               class="field__error steps-error"
             >
               {{ errorFor('steps') }}
@@ -418,6 +419,7 @@ function discard() {
             <button
               type="button"
               class="add-step"
+              :aria-describedby="errorFor('steps') ? 'steps-error' : undefined"
               @click="addStep"
             >
               <AppIcon
@@ -519,7 +521,7 @@ function discard() {
   display: flex;
   gap: var(--space-sm);
   padding-top: 18px;
-  font: 400 12px/1.4 var(--font-sans);
+  font: var(--text-small);
   color: var(--color-text-muted);
 }
 
@@ -591,7 +593,7 @@ function discard() {
   height: var(--control-height);
   display: grid;
   place-items: center;
-  font: 700 13px/1 var(--font-sans);
+  font: var(--text-strong);
 }
 
 .step__node,
@@ -616,7 +618,7 @@ function discard() {
   border-radius: var(--radius-control);
   background: transparent;
   color: var(--color-primary-text);
-  font: 700 13px/1 var(--font-sans);
+  font: var(--text-strong);
   cursor: pointer;
 }
 
@@ -664,7 +666,7 @@ function discard() {
 
 .form-note {
   text-align: center;
-  font: 400 12px/1.4 var(--font-sans);
+  font: var(--text-small);
   color: var(--color-text-muted);
 }
 
@@ -696,7 +698,7 @@ function discard() {
   }
 
   .step__number {
-    height: 40px;
+    height: var(--touch-target);
   }
 
   .step__tools {

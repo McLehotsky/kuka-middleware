@@ -18,21 +18,34 @@ function mission(status: MissionStatus, n = 1): MissionSummary {
 
 describe('mission status rules', () => {
   it.each([
-    ['Created', false, true],
-    ['Submitted', false, true],
-    ['InProgress', false, true],
-    ['Cancelling', false, false],
-    ['Completed', true, false],
-    ['Cancelled', true, false],
-    ['Failed', true, false],
-  ] as const)('%s: final=%s, cancellable=%s', (status, final, cancellable) => {
+    ['Created', false],
+    ['Submitted', false],
+    ['InProgress', false],
+    ['Cancelling', false],
+    ['Completed', true],
+    ['Cancelled', true],
+    ['Failed', true],
+  ] as const)('isFinal(%s) is %s', (status, final) => {
     expect(isFinal(status)).toBe(final)
+  })
+
+  it.each([
+    ['Created', true],
+    ['Submitted', true],
+    ['InProgress', true],
+    ['Cancelling', false],
+    ['Completed', false],
+    ['Cancelled', false],
+    ['Failed', false],
+  ] as const)('isCancellable(%s) is %s', (status, cancellable) => {
     expect(isCancellable(status)).toBe(cancellable)
   })
 
   it('gives every status its own tone, so Created and Cancelled look different', () => {
-    const tones = MISSION_STATUSES.map(statusTone)
-    expect(new Set(tones).size).toBe(MISSION_STATUSES.length)
+    expect(new Set(MISSION_STATUSES.map(statusTone)).size).toBe(MISSION_STATUSES.length)
+  })
+
+  it('maps a status to its lower-case tone', () => {
     expect(statusTone('InProgress')).toBe('inprogress')
   })
 })
@@ -49,17 +62,23 @@ describe('mission tabs', () => {
     ])
   })
 
-  it('Finished holds the final statuses and All keeps the order', () => {
+  it('Finished holds the final statuses', () => {
     expect(filterMissions(list, 'finished').map((m) => m.status)).toEqual([
       'Completed',
       'Cancelled',
       'Failed',
     ])
+  })
+
+  it('All keeps every mission in the API order', () => {
     expect(filterMissions(list, 'all')).toEqual(list)
   })
 
   it('counts all tabs from one unfiltered list', () => {
     expect(countMissions(list)).toEqual({ active: 4, finished: 3, all: 7 })
+  })
+
+  it('counts zero for an empty list', () => {
     expect(countMissions([])).toEqual({ active: 0, finished: 0, all: 0 })
   })
 })

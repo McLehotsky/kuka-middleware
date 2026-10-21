@@ -162,14 +162,16 @@ textarea {
   color: var(--color-text-muted);
 }
 
+/* Below 768 px every control is at least 44 × 44 px (touch). */
 @media (max-width: 767px) {
-  .btn {
-    min-height: 40px;
+  .btn,
+  .btn--small {
+    min-height: var(--touch-target);
   }
 
   .btn--icon {
-    width: 40px;
-    height: 40px;
+    width: var(--touch-target);
+    height: var(--touch-target);
   }
 }
 
@@ -192,12 +194,12 @@ textarea {
 }
 
 .field__hint {
-  font: 400 11.5px/1.4 var(--font-sans);
+  font: var(--text-hint);
   color: var(--color-text-muted);
 }
 
 .field__error {
-  font: 400 11px/1.3 var(--font-sans);
+  font: var(--text-error);
   color: var(--color-danger);
 }
 
@@ -241,8 +243,8 @@ select.control {
 
 @media (max-width: 767px) {
   .control {
-    height: 40px;
-    font-size: 16px; /* prevents iOS zoom on focus */
+    height: var(--touch-target);
+    font: var(--text-control-touch);
   }
 }
 
@@ -268,7 +270,7 @@ select.control {
 }
 
 .card__meta {
-  font: 400 12px/1.4 var(--font-sans);
+  font: var(--text-small);
   color: var(--color-text-muted);
 }
 

@@ -86,6 +86,20 @@
   --text-meta: 600 11.5px/1.4 var(--font-sans);
   --text-table-header: 700 11px/1.2 var(--font-sans);
   --text-nav-section: 700 10.5px/1.2 var(--font-sans);
+  --text-stat-value: 700 26px/1.1 var(--font-sans);
+  --text-strong: 700 13px/1.4 var(--font-sans);
+  --text-body-small: 400 12.5px/1.45 var(--font-sans);
+  --text-body-small-strong: 600 12.5px/1.4 var(--font-sans);
+  --text-small: 400 12px/1.4 var(--font-sans);
+  --text-hint: 400 11.5px/1.4 var(--font-sans);
+  --text-error: 400 11px/1.3 var(--font-sans);
+  --text-tag: 600 11px/1.3 var(--font-sans);
+  --text-count: 700 11px/1 var(--font-sans);
+  --text-pill-sm: 600 11px/1 var(--font-sans);
+  --text-caption: 400 10.5px/1.2 var(--font-sans);
+  --text-brand-compact: 700 15px/1.3 var(--font-sans);
+  --text-mark: 800 9px/1 var(--font-sans);
+  --text-control-touch: 400 16px/1.2 var(--font-sans);
   --tracking-table-header: 0.04em;
   --tracking-nav-section: 0.06em;
 
@@ -116,6 +130,7 @@
   --table-header-height: 38px;
   --table-row-height: 46px;
   --content-padding: 24px;
+  --touch-target: 44px; /* minimum control size below 768 px */
 
   /* Elevation (only the dialog is lifted) */
   --shadow-dialog: 0 6px 20px rgb(0 0 0 / 0.25);

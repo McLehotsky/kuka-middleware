@@ -175,6 +175,76 @@ typography:
     fontWeight: 700
     lineHeight: 1.2
     letterSpacing: "0.06em"
+  button:
+    fontFamily: "Segoe UI, system-ui, -apple-system, Helvetica, Arial, sans-serif"
+    fontSize: "13px"
+    fontWeight: 600
+    lineHeight: 1
+  strong:
+    fontFamily: "Segoe UI, system-ui, -apple-system, Helvetica, Arial, sans-serif"
+    fontSize: "13px"
+    fontWeight: 700
+    lineHeight: 1.4
+  body-small:
+    fontFamily: "Segoe UI, system-ui, -apple-system, Helvetica, Arial, sans-serif"
+    fontSize: "12.5px"
+    fontWeight: 400
+    lineHeight: 1.45
+  body-small-strong:
+    fontFamily: "Segoe UI, system-ui, -apple-system, Helvetica, Arial, sans-serif"
+    fontSize: "12.5px"
+    fontWeight: 600
+    lineHeight: 1.4
+  small:
+    fontFamily: "Segoe UI, system-ui, -apple-system, Helvetica, Arial, sans-serif"
+    fontSize: "12px"
+    fontWeight: 400
+    lineHeight: 1.4
+  hint:
+    fontFamily: "Segoe UI, system-ui, -apple-system, Helvetica, Arial, sans-serif"
+    fontSize: "11.5px"
+    fontWeight: 400
+    lineHeight: 1.4
+  error:
+    fontFamily: "Segoe UI, system-ui, -apple-system, Helvetica, Arial, sans-serif"
+    fontSize: "11px"
+    fontWeight: 400
+    lineHeight: 1.3
+  tag:
+    fontFamily: "Segoe UI, system-ui, -apple-system, Helvetica, Arial, sans-serif"
+    fontSize: "11px"
+    fontWeight: 600
+    lineHeight: 1.3
+  count:
+    fontFamily: "Segoe UI, system-ui, -apple-system, Helvetica, Arial, sans-serif"
+    fontSize: "11px"
+    fontWeight: 700
+    lineHeight: 1
+  pill-sm:
+    fontFamily: "Segoe UI, system-ui, -apple-system, Helvetica, Arial, sans-serif"
+    fontSize: "11px"
+    fontWeight: 600
+    lineHeight: 1
+  caption:
+    fontFamily: "Segoe UI, system-ui, -apple-system, Helvetica, Arial, sans-serif"
+    fontSize: "10.5px"
+    fontWeight: 400
+    lineHeight: 1.2
+  brand-compact:
+    fontFamily: "Segoe UI, system-ui, -apple-system, Helvetica, Arial, sans-serif"
+    fontSize: "15px"
+    fontWeight: 700
+    lineHeight: 1.3
+  mark:
+    fontFamily: "Segoe UI, system-ui, -apple-system, Helvetica, Arial, sans-serif"
+    fontSize: "9px"
+    fontWeight: 800
+    lineHeight: 1
+  control-touch:
+    fontFamily: "Segoe UI, system-ui, -apple-system, Helvetica, Arial, sans-serif"
+    fontSize: "16px"
+    fontWeight: 400
+    lineHeight: 1.2
 rounded:
   hairline: "2px"
   tag: "3px"
@@ -193,6 +263,7 @@ spacing:
   xxl: "32px"
   topbar-height: "56px"
   sidebar-width: "200px"
+  touch-target: "44px"
 components:
   topbar:
     backgroundColor: "{colors.topbar}"
@@ -440,6 +511,23 @@ All text pairs above are ≥ 4.5:1 in both themes, e.g. text/bg 14.6 light, 14.7
 
 Letter-spacing on the two uppercase roles and all line-heights are derived (the SVGs do not define them).
 
+### Supporting roles
+Each role is a CSS custom property `--text-<name>` in `frontend/src/styles/tokens.css`; components never write a literal `font:` value.
+- **button** (600, 13 px): Text of all buttons.
+- **strong** (700, 13 px): Error-panel heading, "Add step" link, step numbers.
+- **body-small** (400, 12.5 px): Secondary body: error-panel and dialog messages, stale-data notes, timeline messages, type codes.
+- **body-small-strong** (600, 12.5 px): Timeline timestamps.
+- **small** (400, 12 px): Breadcrumb, card meta, footnotes, Live indicator, "cancelling…".
+- **hint** (400, 11.5 px): Field hints and card footers.
+- **error** (400, 11 px): Inline field error messages.
+- **tag** (600, 11 px): Source tag (API / Sync) in the history timeline.
+- **count** (700, 11 px): Count badges on tabs, numbers in step circles.
+- **pill-sm** (600, 11 px): Status pills inside the history timeline.
+- **caption** (400, 10.5 px): Version line and the "coming soon" note in the sidebar.
+- **brand-compact** (700, 15 px): Product name in the top bar below 768 px.
+- **mark** (800, 9 px): The "ITS" letters in the brand mark.
+- **control-touch** (400, 16 px): Inputs below 768 px (16 px prevents iOS zoom on focus).
+
 ### Named Rules
 **The Tabular Numbers Rule.** Times, counts, percentages and codes use `font-variant-numeric: tabular-nums` so live updates do not jitter.
 
@@ -461,7 +549,7 @@ Letter-spacing on the two uppercase roles and all line-heights are derived (the 
 **Responsive (derived – not in the mockups):**
 - **≥ 1100 px:** as the mockups.
 - **768–1099 px:** robot grid 2 columns, stat tiles 2 × 2, two-column screens become one column (summary/history card moves below the main card), filter row wraps.
-- **< 768 px (designed at 375 px):** sidebar collapses into an off-canvas drawer opened by a menu button at the left of the top bar (focus trapped, closes on Escape and on navigation); top bar keeps the brand and a compact connection dot + sync time, subtitle and user name hide. Content padding 16 px. Tables reflow into one stacked row-card per item: code + status pill on the first line, key/value pairs below, actions as full-width buttons at the bottom. Filters stack full-width. Robot grid 1 column. Dialog becomes full-width minus 16 px margins, buttons stacked (primary action last on the right on desktop, first on top on mobile). Interactive targets at least 40 px tall on this width.
+- **< 768 px (designed at 375 px):** sidebar collapses into an off-canvas drawer opened by a menu button at the left of the top bar (focus trapped, closes on Escape and on navigation); top bar keeps the brand and a compact connection dot + sync time, subtitle and user name hide. Content padding 16 px. Tables reflow into one stacked row-card per item: code + status pill on the first line, key/value pairs below, actions as full-width buttons at the bottom. Filters stack full-width. Robot grid 1 column. Dialog becomes full-width minus 16 px margins, buttons stacked (primary action last on the right on desktop, first on top on mobile). Every interactive control is at least 44 × 44 px on this width (`touch-target`); the theme toggle collapses into one button that cycles Light → Dark → System.
 - No horizontal page scroll at any width.
 
 ## Elevation & Depth

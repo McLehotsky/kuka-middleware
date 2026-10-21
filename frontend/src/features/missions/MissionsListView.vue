@@ -174,55 +174,86 @@ async function onCancelClosed() {
         </p>
 
         <div class="table-wrap">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">
+          <table
+            class="table"
+            role="table"
+          >
+            <thead role="rowgroup">
+              <tr role="row">
+                <th
+                  role="columnheader"
+                  scope="col"
+                >
                   Mission code
                 </th>
-                <th scope="col">
+                <th
+                  role="columnheader"
+                  scope="col"
+                >
                   External ref
                 </th>
-                <th scope="col">
+                <th
+                  role="columnheader"
+                  scope="col"
+                >
                   Type
                 </th>
-                <th scope="col">
+                <th
+                  role="columnheader"
+                  scope="col"
+                >
                   Robot
                 </th>
                 <th
+                  role="columnheader"
                   scope="col"
                   class="num"
                 >
                   Priority
                 </th>
-                <th scope="col">
+                <th
+                  role="columnheader"
+                  scope="col"
+                >
                   Status
                 </th>
                 <th
+                  role="columnheader"
                   scope="col"
                   aria-sort="descending"
                 >
                   Created <span aria-hidden="true">↓</span>
                 </th>
-                <th scope="col">
+                <th
+                  role="columnheader"
+                  scope="col"
+                >
                   Last sync
                 </th>
-                <th scope="col">
+                <th
+                  role="columnheader"
+                  scope="col"
+                >
                   Actions
                 </th>
               </tr>
             </thead>
 
-            <tbody v-if="polling.loading.value">
+            <tbody
+              v-if="polling.loading.value"
+              role="rowgroup"
+            >
               <tr
                 v-for="n in 5"
                 :key="n"
+                role="row"
                 class="row--skeleton"
                 aria-hidden="true"
               >
                 <td
                   v-for="c in 9"
                   :key="c"
+                  role="cell"
                 >
                   <span
                     class="skeleton"
@@ -232,12 +263,17 @@ async function onCancelClosed() {
               </tr>
             </tbody>
 
-            <tbody v-else-if="visible.length > 0">
+            <tbody
+              v-else-if="visible.length > 0"
+              role="rowgroup"
+            >
               <tr
                 v-for="mission in visible"
                 :key="mission.id"
+                role="row"
               >
                 <td
+                  role="cell"
                   data-label="Mission code"
                   class="cell-code"
                 >
@@ -250,48 +286,58 @@ async function onCancelClosed() {
                   </RouterLink>
                 </td>
                 <td
+                  role="cell"
                   data-label="External ref"
                   :class="{ muted: !mission.externalRef }"
                 >
                   {{ orEmpty(mission.externalRef) }}
                 </td>
                 <td
+                  role="cell"
                   data-label="Type"
                   class="cell-type"
                 >
                   {{ mission.missionType }}
                 </td>
                 <td
+                  role="cell"
                   data-label="Robot"
                   :class="{ muted: !mission.robotName }"
                 >
                   {{ mission.robotName ?? 'Automatic' }}
                 </td>
                 <td
+                  role="cell"
                   data-label="Priority"
                   class="num tabular"
                 >
                   {{ mission.priority }}
                 </td>
                 <td
+                  role="cell"
                   data-label="Status"
                   class="cell-status"
                 >
                   <StatusPill :status="mission.status" />
                 </td>
                 <td
+                  role="cell"
                   data-label="Created"
                   class="tabular"
                 >
                   {{ formatShortDateTime(mission.createdAt) }}
                 </td>
                 <td
+                  role="cell"
                   data-label="Last sync"
                   class="muted tabular"
                 >
                   {{ mission.lastSyncedAt ? formatRelative(mission.lastSyncedAt, now) : EMPTY }}
                 </td>
-                <td class="cell-actions">
+                <td
+                  role="cell"
+                  class="cell-actions"
+                >
                   <div class="actions">
                     <RouterLink
                       :to="`/missions/${mission.id}`"
@@ -318,9 +364,18 @@ async function onCancelClosed() {
               </tr>
             </tbody>
 
-            <tbody v-else>
-              <tr class="row--empty">
-                <td colspan="9">
+            <tbody
+              v-else
+              role="rowgroup"
+            >
+              <tr
+                role="row"
+                class="row--empty"
+              >
+                <td
+                  role="cell"
+                  colspan="9"
+                >
                   <div class="empty">
                     <p>{{ EMPTY_TEXT[activeTab] }}</p>
                     <RouterLink
@@ -360,7 +415,7 @@ async function onCancelClosed() {
 <style scoped>
 .breadcrumb {
   padding-top: 18px;
-  font: 400 12px/1.4 var(--font-sans);
+  font: var(--text-small);
   color: var(--color-text-muted);
 }
 
@@ -432,7 +487,7 @@ async function onCancelClosed() {
   border-radius: var(--radius-pill);
   background: var(--color-skeleton);
   color: var(--color-text-muted);
-  font: 700 11px/1 var(--font-sans);
+  font: var(--text-count);
 }
 
 .tab[aria-selected='true'] .tab__count {
@@ -451,7 +506,7 @@ async function onCancelClosed() {
   gap: var(--space-sm);
   margin-bottom: var(--space-md);
   color: var(--color-warning-text);
-  font: 400 12.5px/1.4 var(--font-sans);
+  font: var(--text-body-small);
 }
 
 .table-wrap {
@@ -499,7 +554,7 @@ async function onCancelClosed() {
 }
 
 .cell-type {
-  font-size: 12.5px;
+  font: var(--text-body-small);
 }
 
 .muted {
@@ -525,7 +580,8 @@ async function onCancelClosed() {
 .pending {
   padding-left: var(--space-xxs);
   color: var(--color-warning-text);
-  font: italic 400 12px/1 var(--font-sans);
+  font: var(--text-small);
+  font-style: italic;
 }
 
 .empty {
@@ -543,7 +599,7 @@ async function onCancelClosed() {
 
 .table-foot {
   margin-top: var(--space-md);
-  font: 400 12px/1.4 var(--font-sans);
+  font: var(--text-small);
   color: var(--color-text-muted);
 }
 
@@ -642,7 +698,6 @@ async function onCancelClosed() {
 
   .table td.cell-code {
     order: -2;
-    font-size: 14px;
   }
 
   .table td.cell-status {

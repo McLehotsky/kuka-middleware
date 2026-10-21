@@ -115,6 +115,7 @@ async function confirm() {
         ref="keepButton"
         type="button"
         class="btn"
+        :disabled="busy"
         @click="open = false"
       >
         Keep mission
@@ -237,7 +238,7 @@ async function confirm() {
   border-radius: var(--radius-card);
   background: var(--color-danger-surface);
   color: var(--color-danger-text);
-  font: 400 12.5px/1.45 var(--font-sans);
+  font: var(--text-body-small);
 }
 
 .dialog__error :deep(svg) {
