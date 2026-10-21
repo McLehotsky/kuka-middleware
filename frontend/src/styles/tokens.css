@@ -1,0 +1,246 @@
+/*
+ * Design tokens from DESIGN.md (frontmatter is normative).
+ * Light values come from the mockups 6.1–6.5; the dark theme is derived (DESIGN.md → Colors → Dark theme).
+ * Theme: follows prefers-color-scheme; [data-theme] on <html> overrides it (set by useTheme).
+ */
+:root {
+  color-scheme: light;
+
+  /* Accent */
+  --color-primary: #1f4e79;
+  --color-primary-hover: #173d60;
+  --color-primary-text: #1f4e79;
+  --color-on-primary: #ffffff;
+  --color-nav-active: #dce6f1;
+
+  /* Top bar */
+  --color-topbar: #1f4e79;
+  --color-topbar-subtitle: #b9cde2;
+  --color-topbar-chip: #2c628f;
+
+  /* Surfaces */
+  --color-bg: #ffffff;
+  --color-surface: #ffffff;
+  --color-panel: #f3f5f8;
+  --color-row-highlight: #f7fafd;
+
+  /* Lines */
+  --color-border: #c9d1db;
+  --color-control-border: #8a96a3;
+  --color-divider: #e4e8ee;
+
+  /* Text */
+  --color-text: #1e2a36;
+  --color-text-muted: #5e6a78;
+  --color-text-disabled: #a0aab6;
+
+  /* Semantic */
+  --color-danger: #b42318;
+  --color-danger-solid: #b42318;
+  --color-danger-solid-hover: #9b1c1c;
+  --color-danger-text: #9b1c1c;
+  --color-danger-text-soft: #7a2e2e;
+  --color-danger-surface: #fdecec;
+  --color-danger-border: #f3b4b4;
+  --color-warning-text: #8a5a00;
+  --color-success: #22a559;
+  --color-success-text: #1e6b3a;
+  --color-live-surface: #f0f7f2;
+  --color-live-border: #b7dfc4;
+  --color-skeleton: #eceff3;
+  --color-scrim: rgb(11 22 32 / 0.45);
+
+  /* Status pills */
+  --status-created-bg: #eceff3;
+  --status-created-fg: #4a5563;
+  --status-submitted-bg: #e3ecfa;
+  --status-submitted-fg: #2b5ba8;
+  --status-inprogress-bg: #dcebff;
+  --status-inprogress-fg: #1f4e79;
+  --status-cancelling-bg: #fff1d6;
+  --status-cancelling-fg: #8a5a00;
+  --status-completed-bg: #ddf3e4;
+  --status-completed-fg: #1e6b3a;
+  --status-cancelled-bg: #f3f5f8;
+  --status-cancelled-fg: #5e6a78;
+  --status-cancelled-border: #c9d1db;
+  --status-failed-bg: #fbe0e0;
+  --status-failed-fg: #9b1c1c;
+
+  /* Focus */
+  --color-focus-ring: #1f4e79;
+  --color-focus-ring-on-dark: #ffffff;
+
+  /* Typography */
+  --font-sans: 'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif;
+  --text-page-title: 700 24px/1.25 var(--font-sans);
+  --text-brand: 700 17px/1.3 var(--font-sans);
+  --text-dialog-title: 700 17px/1.3 var(--font-sans);
+  --text-section-title: 700 14px/1.4 var(--font-sans);
+  --text-nav: 400 14px/1.4 var(--font-sans);
+  --text-body: 400 13px/1.45 var(--font-sans);
+  --text-value: 600 13.5px/1.4 var(--font-sans);
+  --text-label: 600 12px/1.4 var(--font-sans);
+  --text-button: 600 13px/1 var(--font-sans);
+  --text-pill: 600 12px/1 var(--font-sans);
+  --text-meta: 600 11.5px/1.4 var(--font-sans);
+  --text-table-header: 700 11px/1.2 var(--font-sans);
+  --text-nav-section: 700 10.5px/1.2 var(--font-sans);
+  --tracking-table-header: 0.04em;
+  --tracking-nav-section: 0.06em;
+
+  /* Radii */
+  --radius-hairline: 2px;
+  --radius-tag: 3px;
+  --radius-control: 4px;
+  --radius-button: 5px;
+  --radius-card: 6px;
+  --radius-dialog: 8px;
+  --radius-pill: 999px;
+
+  /* Spacing */
+  --space-xxs: 4px;
+  --space-xs: 6px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-xxl: 32px;
+
+  /* Sizes */
+  --topbar-height: 56px;
+  --sidebar-width: 200px;
+  --control-height: 34px;
+  --button-small-height: 26px;
+  --button-large-height: 40px;
+  --table-header-height: 38px;
+  --table-row-height: 46px;
+  --content-padding: 24px;
+
+  /* Elevation (only the dialog is lifted) */
+  --shadow-dialog: 0 6px 20px rgb(0 0 0 / 0.25);
+
+  /* Motion (derived, DESIGN.md → Components → Motion) */
+  --duration-fast: 120ms;
+  --duration-base: 180ms;
+  --duration-slow: 240ms;
+  --duration-exit: 160ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* Dark theme (derived) – written twice: system preference and explicit choice. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --color-primary: #2f6aa0;
+    --color-primary-hover: #28608f;
+    --color-primary-text: #8cb8e6;
+    --color-on-primary: #ffffff;
+    --color-nav-active: #1c3550;
+    --color-topbar: #132a40;
+    --color-topbar-subtitle: #9db6cf;
+    --color-topbar-chip: #22476a;
+    --color-bg: #0f1720;
+    --color-surface: #161f2a;
+    --color-panel: #121a24;
+    --color-row-highlight: #1c2632;
+    --color-border: #3a4756;
+    --color-control-border: #6b7785;
+    --color-divider: #263140;
+    --color-text: #e3e8ee;
+    --color-text-muted: #9aa6b4;
+    --color-text-disabled: #6e7b8a;
+    --color-danger: #f28b82;
+    --color-danger-solid: #b8362c;
+    --color-danger-solid-hover: #a32e25;
+    --color-danger-text: #f4a3a3;
+    --color-danger-text-soft: #f4a3a3;
+    --color-danger-surface: #3a1a1c;
+    --color-danger-border: #6e2e30;
+    --color-warning-text: #e8b75a;
+    --color-success: #34c46f;
+    --color-success-text: #7fd7a0;
+    --color-live-surface: #132b1e;
+    --color-live-border: #245c3a;
+    --color-skeleton: #2a333e;
+    --color-scrim: rgb(0 0 0 / 0.6);
+    --status-created-bg: #2a333e;
+    --status-created-fg: #c3ccd6;
+    --status-submitted-bg: #1e2e4a;
+    --status-submitted-fg: #a9c4f2;
+    --status-inprogress-bg: #173452;
+    --status-inprogress-fg: #8ec1f5;
+    --status-cancelling-bg: #3a2c0e;
+    --status-cancelling-fg: #f2c76b;
+    --status-completed-bg: #143524;
+    --status-completed-fg: #7fd7a0;
+    --status-cancelled-bg: #20262d;
+    --status-cancelled-fg: #a9b2bc;
+    --status-cancelled-border: #3a4756;
+    --status-failed-bg: #43191b;
+    --status-failed-fg: #f4a3a3;
+    --color-focus-ring: #8cb8e6;
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --color-primary: #2f6aa0;
+  --color-primary-hover: #28608f;
+  --color-primary-text: #8cb8e6;
+  --color-on-primary: #ffffff;
+  --color-nav-active: #1c3550;
+  --color-topbar: #132a40;
+  --color-topbar-subtitle: #9db6cf;
+  --color-topbar-chip: #22476a;
+  --color-bg: #0f1720;
+  --color-surface: #161f2a;
+  --color-panel: #121a24;
+  --color-row-highlight: #1c2632;
+  --color-border: #3a4756;
+  --color-control-border: #6b7785;
+  --color-divider: #263140;
+  --color-text: #e3e8ee;
+  --color-text-muted: #9aa6b4;
+  --color-text-disabled: #6e7b8a;
+  --color-danger: #f28b82;
+  --color-danger-solid: #b8362c;
+  --color-danger-solid-hover: #a32e25;
+  --color-danger-text: #f4a3a3;
+  --color-danger-text-soft: #f4a3a3;
+  --color-danger-surface: #3a1a1c;
+  --color-danger-border: #6e2e30;
+  --color-warning-text: #e8b75a;
+  --color-success: #34c46f;
+  --color-success-text: #7fd7a0;
+  --color-live-surface: #132b1e;
+  --color-live-border: #245c3a;
+  --color-skeleton: #2a333e;
+  --color-scrim: rgb(0 0 0 / 0.6);
+  --status-created-bg: #2a333e;
+  --status-created-fg: #c3ccd6;
+  --status-submitted-bg: #1e2e4a;
+  --status-submitted-fg: #a9c4f2;
+  --status-inprogress-bg: #173452;
+  --status-inprogress-fg: #8ec1f5;
+  --status-cancelling-bg: #3a2c0e;
+  --status-cancelling-fg: #f2c76b;
+  --status-completed-bg: #143524;
+  --status-completed-fg: #7fd7a0;
+  --status-cancelled-bg: #20262d;
+  --status-cancelled-fg: #a9b2bc;
+  --status-cancelled-border: #3a4756;
+  --status-failed-bg: #43191b;
+  --status-failed-fg: #f4a3a3;
+  --color-focus-ring: #8cb8e6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+    --duration-slow: 0ms;
+    --duration-exit: 0ms;
+  }
+}
