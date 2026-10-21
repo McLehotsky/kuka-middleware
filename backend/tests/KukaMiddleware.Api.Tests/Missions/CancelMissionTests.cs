@@ -26,6 +26,14 @@ public class CancelMissionTests
         Assert.IsType<CancelMissionResult.NotFound>(await Cancel(Guid.NewGuid()));
     }
 
+    [Fact]
+    public async Task Unknown_mission_saves_nothing()
+    {
+        await Cancel(Guid.NewGuid());
+
+        await _store.DidNotReceive().SaveChangesAsync(Arg.Any<CancellationToken>());
+    }
+
     [Theory]
     [InlineData(MissionStatus.Completed)]
     [InlineData(MissionStatus.Cancelled)]

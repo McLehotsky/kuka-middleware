@@ -136,6 +136,18 @@ public class CreateMissionTests
     }
 
     [Fact]
+    public async Task Unknown_robot_stores_nothing()
+    {
+        _store.RobotExistsAsync(7, Arg.Any<CancellationToken>()).Returns(false);
+
+        await Create(Request with { RobotId = 7 });
+
+        _store.DidNotReceive().Add(Arg.Any<Mission>());
+        await _store.DidNotReceive().NextMissionCodeNumberAsync(Arg.Any<CancellationToken>());
+        await _store.DidNotReceive().SaveChangesAsync(Arg.Any<CancellationToken>());
+    }
+
+    [Fact]
     public async Task Invalid_request_stores_nothing()
     {
         var result = await Create(Request with { Steps = [] });

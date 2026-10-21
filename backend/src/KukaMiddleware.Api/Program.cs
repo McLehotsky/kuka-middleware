@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using KukaMiddleware.Api;
 using KukaMiddleware.Api.Data;
 using KukaMiddleware.Api.Missions;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ builder.Services.AddDbContext<AppDbContext>(options => options
     .UseSnakeCaseNamingConvention());
 builder.Services.AddHealthChecks();
 builder.Services.AddProblemDetails();
+builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
 builder.Services.ConfigureHttpJsonOptions(options =>
     options.SerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 builder.Services.AddSingleton(TimeProvider.System);
@@ -23,11 +25,7 @@ using (var scope = app.Services.CreateScope())
     scope.ServiceProvider.GetRequiredService<AppDbContext>().Database.Migrate();
 }
 
-// Malformed JSON / unbindable parameters stay 400 (in Development minimal APIs throw them).
-app.UseExceptionHandler(new ExceptionHandlerOptions
-{
-    StatusCodeSelector = ex => ex is BadHttpRequestException bad ? bad.StatusCode : StatusCodes.Status500InternalServerError,
-});
+app.UseExceptionHandler();
 app.UseStatusCodePages();
 
 app.MapHealthChecks("/api/health");
