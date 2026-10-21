@@ -33,4 +33,4 @@ You are the independent reviewer for the KUKA FM Middleware. You did not write t
 2. **Acceptance criteria table:** User Story · criterion · met / not met / not verifiable yet · evidence · owner (if not met).
 3. **Findings per owner** – one section each for `backend-expert`, `frontend-expert`, `ops-infra-expert`, `user`; each section is a self-contained fix brief (most severe first) that can be handed to that agent as-is. Omit empty sections.
 4. Command results, open questions.
-5. A short **Review** paragraph ready to paste into the phase's history note.
+5. A short **Review** paragraph ready to paste into the phase's history note; the acceptance criteria table is reused in the PR body.
