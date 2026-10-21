@@ -4,6 +4,8 @@ date: 2026-10-21
 phase: 6
 backlog: ["1.1 UC1 Zadať misiu", "1.2 UC2 Zrušiť misiu", "1.3 UC3 Zobraziť zoznam misií", "1.4 UC4 Zobraziť históriu stavov misie", "6a DESIGN.md"]
 agents: [planner, backend-expert, frontend-expert, reviewer, main session]
+pr: 4
+pr_url: https://github.com/McLehotsky/kuka-middleware/pull/4
 ---
 
 # Mission management – API and screens (UC1–UC4) + DESIGN.md
