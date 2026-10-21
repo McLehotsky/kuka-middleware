@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/KukaMiddleware.Api/KukaMiddleware.Api.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/KukaMiddleware.Api.Tests/KukaMiddleware.Api.Tests.csproj" />
+  </Folder>
+</Solution>
