@@ -125,7 +125,7 @@ The **main session** owns git and GitHub: it creates the branch at the start of 
 - Components never call `fetch` directly – only through `src/api/`. Relative `/api/...` URLs (nginx proxy in Docker, Vite proxy in dev).
 - Logic lives in composables; polling stops on unmount and never overlaps requests.
 - Errors (ProblemDetails 400/401/404/409/502) are shown to the user in plain words.
-- No UI component library or state library without approval (see dependency rule).
+- Shared state lives in composables – no Pinia. Styling is plain scoped CSS with CSS custom properties from `DESIGN.md` – no Tailwind, no UI component library.
 - Screens follow the mockups `documentation/mockups/6.1`–`6.5`.
 
 ### Design and motion
@@ -144,7 +144,7 @@ The **main session** owns git and GitHub: it creates the branch at the start of 
 - Backend unit tests for every acceptance criterion of a backend User Story, written **before** the code, failing first. A bug fix starts with a test that reproduces it.
 - **Edge cases first:** validation boundaries, KUKA failures and 401 token refresh (max once), 404 / 409 rules, every sync transition, robot state mapping.
 - One behaviour per test; no tests for trivial DTOs or framework code.
-- Test framework and frontend tests: see system-definition §14 (open until decided).
+- Backend: xUnit + NSubstitute, plain `Assert`. Frontend: Vitest for composables and pure functions only (system-definition §12).
 
 ## Commands
 

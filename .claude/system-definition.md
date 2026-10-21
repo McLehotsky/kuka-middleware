@@ -61,7 +61,9 @@ External system ──REST──► Middleware API ──REST + token──► K
 | Backend | ASP.NET Core minimal API (C#, current .NET LTS) |
 | ORM / DB | Entity Framework Core + PostgreSQL |
 | Background jobs | hosted / `BackgroundService` |
-| Frontend | Vue 3 + Vite + TypeScript, Vue Router |
+| Backend tests | xUnit + NSubstitute, plain `Assert` (no FluentAssertions), unit tests only |
+| Frontend | Vue 3 + Vite + TypeScript, Vue Router; state in composables (no Pinia); plain scoped CSS with CSS custom properties from `DESIGN.md` (no Tailwind, no UI component library) |
+| Frontend tests | Vitest – unit tests for composables and pure functions only (no component or E2E tests) |
 | Web server | nginx (serves the SPA, proxies `/api`) |
 | Containers | Docker + docker compose |
 | CI/CD | Azure DevOps Pipelines (YAML) |
@@ -238,6 +240,9 @@ All KUKA FM parameters (base URL, credentials, timeouts, mission defaults), sync
   - UC5: no change, status change, each final status sets `FinishedAt`, `LastSyncedAt` set, KUKA unreachable.
   - UC7: new robot, existing robot updated, every KUKA state mapped, failed call leaves data unchanged.
   - Auth: missing / wrong / inactive API key → 401.
+- Backend: **xUnit + NSubstitute**, plain `Assert`, no FluentAssertions, no EF InMemory / Testcontainers / integration tests. Use `[Theory]` for boundary sets.
+- Frontend: **Vitest** unit tests for composables and pure functions only (polling start/stop and no overlap, form validation, state badge mapping). No component, snapshot or E2E tests.
+- One behaviour per test; no tests for trivial DTOs or framework code.
 
 ---
 
@@ -265,9 +270,13 @@ Questions, not decisions. Ask the user before implementing anything that depends
 | Q1 | Exact KUKA FM API: endpoint names and payloads (`submitMission`, `cancelMission`, Query jobs, robot query), how the token is obtained, job and robot status codes and their mapping to our states. Source document? | 5 |
 | Q2 | Real-time UI: periodic polling (interval?) or SignalR push? | 6 |
 | Q3 | Sync intervals for missions and robots (wiki example 5 s). | 5 |
-| Q4 | Backend test stack (e.g. xUnit + NSubstitute) and whether the frontend gets tests (e.g. Vitest). | 4 |
-| Q5 | Frontend state library (Pinia or plain composables) and CSS approach (plain CSS with tokens or a utility framework). | 4 |
 | Q6 | Log sink: stdout only, or also Seq / another viewer. | 8 |
 | Q7 | Azure DevOps: agent / pool, deployment target, static analysis tools. | 8 |
 | Q8 | How the web UI gets its API key without exposing it (e.g. injected by nginx for same-origin requests). | 8 |
 | Q9 | Mission types allowed in UC1 and the fields of a target point (node code, action). | 6 |
+
+### Decided
+| # | Decision | Date |
+|---|---|---|
+| Q4 | Backend tests xUnit + NSubstitute (plain `Assert`); frontend Vitest for composables and pure functions only. | 2026-10-21 |
+| Q5 | Frontend state in composables (no Pinia); plain scoped CSS with tokens from `DESIGN.md` (no Tailwind, no UI library). | 2026-10-21 |
