@@ -4,6 +4,8 @@ date: 2026-10-22
 phase: 6
 backlog: []
 agents: [main session]
+pr: 5
+pr_url: https://github.com/McLehotsky/kuka-middleware/pull/5
 ---
 
 # Local development guide
