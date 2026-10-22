@@ -4,6 +4,7 @@ One note per finished phase or task, newest first. Format and rules: [CLAUDE.md 
 
 | Date | Note | Phase | Summary |
 |---|---|---|---|
+| 2026-10-22 | [06 · Local development guide](2026-10-22-06-local-development.md) | 6 | `LOCAL-DEVELOPMENT.md` with the commands to run the app locally |
 | 2026-10-21 | [05 · Mission management](2026-10-21-05-mission-management.md) | 6 | Mission API (UC1–UC4) with 76 tests, DESIGN.md from the mockups, missions screens with 69 tests |
 | 2026-10-21 | [04 · Scaffolding](2026-10-21-04-scaffolding.md) | 4 | .NET API + EF migration per ERD, Vue 3 skeleton, Docker files, PRODUCT.md |
 | 2026-10-21 | [03 · Pull requests in the workflow](2026-10-21-03-pr-workflow.md) | 3 | Agents open PRs with `gh`, user merges; PR format in `CLAUDE.md` |

@@ -79,7 +79,9 @@ The full rules are in [CLAUDE.md](CLAUDE.md), and the phases and their status ar
 
 ## Getting started
 
-Build, test and run commands are added to [CLAUDE.md → Commands](CLAUDE.md#commands) in the scaffolding phase. Until then, after cloning:
+To run the app on your PC, follow [LOCAL-DEVELOPMENT.md](LOCAL-DEVELOPMENT.md). It covers the prerequisites, the local PostgreSQL, the connection string, starting the API and the web UI, the tests and troubleshooting. All build and test commands are also in [CLAUDE.md → Commands](CLAUDE.md#commands).
+
+After cloning, set your git identity for this repository:
 
 ```bash
 git config user.name "Your Name"
