@@ -149,7 +149,7 @@ The **main session** owns git and GitHub: it creates the branch at the start of 
 
 ## Commands
 
-Agents verify changes the same way CI does. Tooling: .NET SDK 10.0.402 (pinned in `backend/global.json`), Node 24 LTS. Docker is not installed on the main dev PC, so compose is verified in CI.
+Agents verify changes the same way CI does. Step-by-step local setup for people: [LOCAL-DEVELOPMENT.md](LOCAL-DEVELOPMENT.md). Keep it in sync when these commands change. Tooling: .NET SDK 10.0.402 (pinned in `backend/global.json`), Node 24 LTS. Docker is not installed on the main dev PC, so compose is verified in CI.
 
 **Backend** (run in `backend/`)
 | Task | Command |
