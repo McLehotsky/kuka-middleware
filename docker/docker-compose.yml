@@ -20,7 +20,7 @@ services:
       dockerfile: docker/api.Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Production}
-      ConnectionStrings__Default: "Host=postgres;Port=5432;Database=${POSTGRES_DB:?set POSTGRES_DB in docker/.env};Username=${POSTGRES_USER:?set POSTGRES_USER in docker/.env};Password=${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in docker/.env}"
+      ConnectionStrings__Default: "Host=postgres;Port=5432;Database=${POSTGRES_DB:?set POSTGRES_DB in docker/.env};Username=${POSTGRES_USER:?set POSTGRES_USER in docker/.env};Password=${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in docker/.env};Gss Encryption Mode=Disable"
     depends_on:
       postgres:
         condition: service_healthy
@@ -36,7 +36,7 @@ services:
       # PostgreSQL 18+ images: PGDATA=/var/lib/postgresql/18/docker, VOLUME /var/lib/postgresql.
       - pgdata:/var/lib/postgresql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
       interval: 5s
       timeout: 5s
       retries: 10

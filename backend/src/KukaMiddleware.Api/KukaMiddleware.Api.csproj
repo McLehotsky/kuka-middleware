@@ -1,9 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <UserSecretsId>7c1d5e2a-4b8f-4f0e-9a3d-6e2b8c41f5a7</UserSecretsId>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="EFCore.NamingConventions" Version="10.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.13">

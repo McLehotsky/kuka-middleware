@@ -7,7 +7,7 @@ How the KUKA FM Middleware is built, phase by phase. Each finished phase links i
 | 1 | Specification – requirements, use cases, activity diagrams, ERD, mockups | – | done | `documentation/wiki.md` |
 | 2 | Backlog – Epic → Features → User Stories → Tasks with acceptance criteria | – | done | `documentation/backlog.md` |
 | 3 | Claude workflow – `CLAUDE.md`, system definition, 5 agents, skills, empty structure | – | done | [01](history/2026-10-21-01-claude-workflow.md), [02](history/2026-10-21-02-readme.md), [03](history/2026-10-21-03-pr-workflow.md) |
-| 4 | Scaffolding – .NET solution + EF Core migration per ERD, Vue 3 project, Dockerfiles, compose; `PRODUCT.md` with `impeccable init` | 4.1 Kontajnerizácia a databáza | done (compose verified in CI later) | [04](history/2026-10-21-04-scaffolding.md) |
+| 4 | Scaffolding – .NET solution + EF Core migration per ERD, Vue 3 project, Dockerfiles, compose; `PRODUCT.md` with `impeccable init` | 4.1 Kontajnerizácia a databáza | done; compose run and verified locally, app runs only in Docker | [04](history/2026-10-21-04-scaffolding.md), [08](history/2026-10-28-08-docker.md), PR [#7](https://github.com/McLehotsky/kuka-middleware/pull/7) |
 | 5 | KUKA FM access and sync – typed client with token, robot sync, mission sync | 3.1, 3.2 (UC7), 3.3 (UC5) | planned | |
 | 6 | Mission management – create, cancel (local), list, detail with history; DESIGN.md from the mockups (6a). Built before phase 5; KUKA calls, 401 and audit follow in 5 and 8 | 1.1–1.4 (UC1–UC4) | done | [05](history/2026-10-21-05-mission-management.md), [06](history/2026-10-22-06-local-development.md) |
 | 7 | Robots – robots API and view, robot picker in New mission. Built before phase 5 (no KUKA FM credentials yet); robot data comes from UC7 | 2.1 (UC6), 1.1 follow-up | done | [07](history/2026-10-28-07-robots.md), PR [#6](https://github.com/McLehotsky/kuka-middleware/pull/6) |
@@ -32,7 +32,7 @@ Last checked: 2026-10-28 (phase 7).
 | 3.1 | KUKA FM access with access token | open | – | Everything (5), blocked: no KUKA FM credentials yet |
 | 3.2 | UC7 – Sync robots | open | – | Everything (5), blocked: no KUKA FM credentials yet |
 | 3.3 | UC5 – Sync missions | open | – | Everything (5), blocked: no KUKA FM credentials yet |
-| 4.1 | Containers and database | partial | .NET solution, EF migration per ERD applied on API start, Vue 3 skeleton, Dockerfiles (nginx proxies /api), compose with postgres volume, `.env.example` | `docker compose up` and data surviving a restart never run (no Docker on the dev PC; verified in CI, 8) |
+| 4.1 | Containers and database | done | `docker compose up` starts web, api, postgres; EF migrations create the schema per ERD on API start; data survives restart and down / up (verified locally); `docker/start.bat` sets up `.env` and starts the stack | – |
 | 4.2 | API security and logging | partial | `api_client` and `audit_log` tables, `web-ui` client seed | API key authentication + 401, structured stdout logs, audit of create / cancel, tests (8) |
 | 4.3 | CI pipeline | open | – | Everything (8) |
 | 4.4 | CD pipeline | partial | `/api/health` endpoint | Deploy stage, secrets in a variable group, post-deploy smoke test (8) |
