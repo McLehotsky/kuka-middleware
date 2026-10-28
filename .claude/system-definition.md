@@ -363,6 +363,10 @@ Questions, not decisions. Ask the user before implementing anything that depends
 | Q8 | How the web UI gets its API key without exposing it (e.g. injected by nginx for same-origin requests). | 8 |
 | Q11 | Cancel race: two parallel cancels both pass the Cancellable check. Add a concurrency token (e.g. PostgreSQL `xmin`) mapped to 409, together with `cancelMission`. | 5 |
 | Q10 | Container hardening: run nginx as non-root (e.g. `nginxinc/nginx-unprivileged`, needs approval) and give the api a compose healthcheck (aspnet image has no curl). | 8 |
+| Q12 | Robot name ordering is case-sensitive (`StringComparer.Ordinal`); switch to case-insensitive? | any |
+| Q13 | New mission: if the chosen robot goes Offline while the form is open, the form warns but still submits. Block the submit instead? | any |
+| Q14 | Mobile nav drawer visibly slides out when the viewport crosses 768 px (transition runs on the breakpoint change, since phase 6). Suppress the transition on media change? | 9 |
+| Q15 | `.impeccable/design.json` is older than `DESIGN.md` (phase 7 added `dark-offline-surface`). Re-sync with `impeccable document`? | any |
 
 ### Decided
 | # | Decision | Date |
