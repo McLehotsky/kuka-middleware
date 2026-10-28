@@ -29,7 +29,7 @@ You: task ("phase 5", "build UC1", "fix X")
  → 2 Approve    the user approves the plan – nothing is written before that
  → 3 Implement  expert agent(s) in their folders, in parallel where independent;
                 backend writes the unit tests for each acceptance criterion first
- → 4 Verify     build, tests, lint / type check, compose config; UI in the browser preview
+ → 4 Verify     build, tests, lint / type check, compose config; UI in the browser on the rebuilt Docker stack (http://localhost:8080)
  → 5 Review     reviewer (+ review skills for the kind of change) → findings per owner
                 → owner agent fixes → reviewer re-checks
  → 6 History    a note in history/ (below), roadmap in implementation.md updated
@@ -171,7 +171,7 @@ Agents verify changes the same way CI does. Step-by-step local setup for people:
 **Docker** (run in repo root; needs `docker/.env` copied from `docker/.env.example`)
 | Task | Command |
 |---|---|
-| Validate compose | `docker compose -f docker/docker-compose.yml config` |
+| Validate compose (never without `--quiet`: the full output shows the DB password) | `docker compose -f docker/docker-compose.yml config --quiet` |
 | Start web, api, postgres (app on http://localhost:8080); rerun after code changes | `docker compose -f docker/docker-compose.yml up -d --build` |
 | Database shell | `docker compose -f docker/docker-compose.yml exec postgres psql -U kuka -d kuka_middleware` |
 | API logs | `docker compose -f docker/docker-compose.yml logs api` |

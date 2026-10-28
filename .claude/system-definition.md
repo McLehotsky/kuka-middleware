@@ -367,6 +367,8 @@ Questions, not decisions. Ask the user before implementing anything that depends
 | Q13 | New mission: if the chosen robot goes Offline while the form is open, the form warns but still submits. Block the submit instead? | any |
 | Q14 | Mobile nav drawer visibly slides out when the viewport crosses 768 px (transition runs on the breakpoint change, since phase 6). Suppress the transition on media change? | 9 |
 | Q15 | `.impeccable/design.json` is older than `DESIGN.md` (phase 7 added `dark-offline-surface`). Re-sync with `impeccable document`? | any |
+| Q17 | In Production every EF SQL command is logged at Information (the UI polls every 5 s), burying the middleware's own logs. Set `Microsoft.EntityFrameworkCore.Database.Command` to Warning. | 8 |
+| Q18 | Docker publishes the web port on all interfaces (`0.0.0.0:8080`) while the API has no authentication until phase 8, so other PCs on the network can create and cancel missions. Bind to `127.0.0.1` by default (e.g. a `WEB_BIND` variable)? | any |
 | Q16 | While the api container is down, nginx answers with its own HTML 502 and the UI says "KUKA FM did not respond". Return a distinct "API unavailable" (nginx `error_page`) or tell the cases apart in the UI? | 9 |
 
 ### Decided
@@ -381,7 +383,7 @@ Questions, not decisions. Ask the user before implementing anything that depends
 Phase 6 is built **before** phase 5 (KUKA client, sync) and phase 8 (API keys, audit, Docker):
 - **No KUKA FM call yet:** UC1 stores the mission as `Created` with its first history row; `submitMission`, the 502 path and `Submitted` come in phase 5. UC2's KUKA call (`cancelMission`) also comes in phase 5.
 - **No auth and no audit yet:** all missions are attributed to one seeded `ApiClient` "web-ui" (role `Operator`, no usable key). API key checks (401) and `AuditLog` writes come in phase 8.
-- Local development uses a locally installed PostgreSQL 18 (`kuka_middleware` database, connection string in user-secrets); Docker later.
+- Local development uses a locally installed PostgreSQL 18 (`kuka_middleware` database, connection string in user-secrets); Docker later. *(Superseded by the Docker scope, 2026-10-28.)*
 - Acceptance criteria that depend on these parts are "later phase" in the plan and the review.
 - Further phase 6 decisions:
   - **Q-E:** tab counts are computed on the client from one unfiltered list call; the API still supports `state`.

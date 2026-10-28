@@ -79,7 +79,7 @@ The full rules are in [CLAUDE.md](CLAUDE.md), and the phases and their status ar
 
 ## Getting started
 
-To run the app on your PC, follow [LOCAL-DEVELOPMENT.md](LOCAL-DEVELOPMENT.md). It covers the prerequisites, the local PostgreSQL, the connection string, starting the API and the web UI, the tests and troubleshooting. All build and test commands are also in [CLAUDE.md → Commands](CLAUDE.md#commands).
+To run the app on your PC, follow [LOCAL-DEVELOPMENT.md](LOCAL-DEVELOPMENT.md). It covers the prerequisites, running the app with Docker Compose, logs and the database, the tests and troubleshooting. All build and test commands are also in [CLAUDE.md → Commands](CLAUDE.md#commands).
 
 After cloning, set your git identity for this repository:
 
