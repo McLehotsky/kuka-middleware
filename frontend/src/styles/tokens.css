@@ -49,6 +49,14 @@
   --color-live-border: #b7dfc4;
   --color-skeleton: #eceff3;
   --color-scrim: rgb(11 22 32 / 0.45);
+  --color-offline-surface: #fafbfc;
+
+  /* Battery (fills darkened for >= 3:1 on the track) */
+  --color-battery-track: #eceff3;
+  --color-battery-high: #1e9a52;
+  --color-battery-mid: #b07f00;
+  --color-battery-low: #b42318;
+  --color-battery-offline: #7a8591;
 
   /* Status pills */
   --status-created-bg: #eceff3;
@@ -179,6 +187,12 @@
     --color-live-surface: #132b1e;
     --color-live-border: #245c3a;
     --color-skeleton: #2a333e;
+    --color-offline-surface: #121a24;
+    --color-battery-track: #2a333e;
+    --color-battery-high: #34c46f;
+    --color-battery-mid: #e0aa1a;
+    --color-battery-low: #e5534b;
+    --color-battery-offline: #7d8895;
     --color-scrim: rgb(0 0 0 / 0.6);
     --status-created-bg: #2a333e;
     --status-created-fg: #c3ccd6;
@@ -233,6 +247,12 @@
   --color-live-border: #245c3a;
   --color-skeleton: #2a333e;
   --color-scrim: rgb(0 0 0 / 0.6);
+  --color-offline-surface: #121a24;
+  --color-battery-track: #2a333e;
+  --color-battery-high: #34c46f;
+  --color-battery-mid: #e0aa1a;
+  --color-battery-low: #e5534b;
+  --color-battery-offline: #7d8895;
   --status-created-bg: #2a333e;
   --status-created-fg: #c3ccd6;
   --status-submitted-bg: #1e2e4a;

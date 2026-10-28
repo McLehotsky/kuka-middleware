@@ -33,6 +33,8 @@ export interface StepDraft {
 export interface MissionDraft {
   missionType: MissionType | ''
   priority: number
+  /** null = Automatic, KUKA FM decides (Q9, Q-R). */
+  robotId: number | null
   externalRef: string
   steps: StepDraft[]
 }
@@ -45,7 +47,7 @@ export function newStep(): StepDraft {
 }
 
 export function newDraft(): MissionDraft {
-  return { missionType: 'RACK_MOVE', priority: 2, externalRef: '', steps: [newStep()] }
+  return { missionType: 'RACK_MOVE', priority: 2, robotId: null, externalRef: '', steps: [newStep()] }
 }
 
 export function stepFieldKey(index: number, field: 'nodeCode' | 'action'): string {
@@ -85,7 +87,7 @@ export function toCreateRequest(draft: MissionDraft): CreateMissionRequest {
   return {
     missionType: draft.missionType as MissionType,
     priority: draft.priority,
-    robotId: null, // Q-I: KUKA FM decides until phase 7
+    robotId: draft.robotId,
     externalRef: externalRef || null,
     steps: draft.steps.map((s) => ({ nodeCode: s.nodeCode.trim(), action: s.action as StepAction })),
   }

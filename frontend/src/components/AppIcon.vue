@@ -17,6 +17,8 @@ export type IconName =
   | 'monitor'
   | 'chevron-right'
   | 'arrow-left'
+  | 'search'
+  | 'grid'
 
 withDefaults(defineProps<{ name: IconName; size?: number; strokeWidth?: number }>(), {
   size: 16,
@@ -57,6 +59,8 @@ const PATHS: Record<IconName, string[]> = {
   monitor: ['M3 5h18v11H3z', 'M8 20h8', 'M12 16v4'],
   'chevron-right': ['M9 6l6 6-6 6'],
   'arrow-left': ['M19 12H5', 'M11 6l-6 6 6 6'],
+  search: ['M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14z', 'M20 20l-4-4'],
+  grid: ['M4 4h7v7H4z', 'M13 4h7v7h-7z', 'M4 13h7v7H4z', 'M13 13h7v7h-7z'],
 }
 </script>
 

@@ -1,4 +1,4 @@
-// DTOs of the middleware REST API (system-definition §8, "Mission DTOs (phase 6)").
+// DTOs of the middleware REST API (system-definition §8, "Mission DTOs" and "Robot DTOs").
 // Enum values are exact and case-sensitive. Missing optional values are null.
 
 export const MISSION_TYPES = ['RACK_MOVE', 'ROLLER_MOVE'] as const
@@ -73,4 +73,28 @@ export interface MissionHistoryEntry {
   source: StatusSource
   message: string | null
   changedAt: IsoDateTime
+}
+
+// ---- Robot DTOs (phase 7) -------------------------------------------------
+
+export const ROBOT_STATUSES = ['Available', 'Busy', 'Offline'] as const
+export type RobotStatus = (typeof ROBOT_STATUSES)[number]
+
+export interface RobotMissionRef {
+  id: string
+  missionCode: string
+}
+
+export interface RobotSummary {
+  id: number
+  kukaRobotId: string
+  name: string | null
+  status: RobotStatus
+  /** 0–100, null when KUKA FM did not report it. */
+  batteryLevel: number | null
+  currentNode: string | null
+  /** Newest non-final mission of the robot (Q-N). */
+  currentMission: RobotMissionRef | null
+  lastSeenAt: IsoDateTime | null
+  updatedAt: IsoDateTime
 }

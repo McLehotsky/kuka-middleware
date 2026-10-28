@@ -20,6 +20,10 @@ describe('newDraft', () => {
   it('defaults the priority to 2 (normal)', () => {
     expect(newDraft().priority).toBe(2)
   })
+
+  it('defaults the robot to automatic (none)', () => {
+    expect(newDraft().robotId).toBeNull()
+  })
 })
 
 describe('validateDraft', () => {
@@ -98,6 +102,14 @@ describe('toCreateRequest', () => {
       externalRef: null,
       steps: [{ nodeCode: 'A-01-PICK', action: 'Load' }],
     })
+  })
+})
+
+describe('toCreateRequest robot (Q-R)', () => {
+  it('sends the chosen robot id', () => {
+    const draft = validDraft()
+    draft.robotId = 7
+    expect(toCreateRequest(draft).robotId).toBe(7)
   })
 })
 

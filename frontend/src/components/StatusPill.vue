@@ -1,14 +1,18 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { MissionStatus } from '../api/types'
+import type { MissionStatus, RobotStatus } from '../api/types'
 import { statusTone } from '../features/missions/missionStatus'
+import { isRobotStatus, robotStatusTone } from '../features/robots/robotStatus'
 import AppIcon from './AppIcon.vue'
 
-const props = withDefaults(defineProps<{ status: MissionStatus; size?: 'md' | 'sm' }>(), {
+const props = withDefaults(defineProps<{ status: MissionStatus | RobotStatus; size?: 'md' | 'sm' }>(), {
   size: 'md',
 })
 
-const tone = computed(() => statusTone(props.status))
+// Robot states reuse the mission palette (DESIGN.md → Status pill palette).
+const tone = computed(() =>
+  isRobotStatus(props.status) ? robotStatusTone(props.status) : statusTone(props.status),
+)
 </script>
 
 <template>
