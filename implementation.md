@@ -10,7 +10,7 @@ How the KUKA FM Middleware is built, phase by phase. Each finished phase links i
 | 4 | Scaffolding – .NET solution + EF Core migration per ERD, Vue 3 project, Dockerfiles, compose; `PRODUCT.md` with `impeccable init` | 4.1 Kontajnerizácia a databáza | done (compose verified in CI later) | [04](history/2026-10-21-04-scaffolding.md) |
 | 5 | KUKA FM access and sync – typed client with token, robot sync, mission sync | 3.1, 3.2 (UC7), 3.3 (UC5) | planned | |
 | 6 | Mission management – create, cancel (local), list, detail with history; DESIGN.md from the mockups (6a). Built before phase 5; KUKA calls, 401 and audit follow in 5 and 8 | 1.1–1.4 (UC1–UC4) | done | [05](history/2026-10-21-05-mission-management.md), [06](history/2026-10-22-06-local-development.md) |
-| 7 | Robots – robots API and view, robot picker in New mission. Built before phase 5 (no KUKA FM credentials yet); robot data comes from UC7 | 2.1 (UC6), 1.1 follow-up | done | [07](history/2026-10-28-07-robots.md) |
+| 7 | Robots – robots API and view, robot picker in New mission. Built before phase 5 (no KUKA FM credentials yet); robot data comes from UC7 | 2.1 (UC6), 1.1 follow-up | done | [07](history/2026-10-28-07-robots.md), PR [#6](https://github.com/McLehotsky/kuka-middleware/pull/6) |
 | 8 | Security, logging, CI/CD – API keys, AuditLog, structured logs, CI, CD | 4.2, 4.3, 4.4 | planned | |
 | 9 | Hardening and final review – edge cases, end-to-end run, Epic acceptance criteria | Epic | planned | |
 
