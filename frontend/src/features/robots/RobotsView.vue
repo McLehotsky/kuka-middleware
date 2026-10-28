@@ -855,7 +855,7 @@ function lastSeenText(robot: RobotSummary): string {
   }
 
   .view-toggle__btn {
-    height: 40px;
+    height: var(--touch-target);
   }
 
   .table-wrap {

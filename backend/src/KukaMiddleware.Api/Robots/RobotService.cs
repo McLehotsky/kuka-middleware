@@ -17,7 +17,7 @@ public class RobotService(IRobotStore store) : IRobotService
             .ToDictionary(g => g.Key, g => g.MaxBy(m => m.CreatedAt)!);
 
         return [.. robots
-            .OrderBy(r => r.Name ?? r.KukaRobotId, StringComparer.Ordinal)
+            .OrderBy(r => string.IsNullOrWhiteSpace(r.Name) ? r.KukaRobotId : r.Name, StringComparer.Ordinal)
             .Select(r => ToSummary(r, current.GetValueOrDefault(r.Id)))];
     }
 

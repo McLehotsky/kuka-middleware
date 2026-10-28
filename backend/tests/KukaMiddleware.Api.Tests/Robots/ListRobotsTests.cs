@@ -104,6 +104,20 @@ public class ListRobotsTests
         Assert.Equal([3, 2, 1, 4], result.Select(r => r.Id));
     }
 
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public async Task Blank_name_falls_back_to_kuka_robot_id_for_ordering(string name)
+    {
+        StoreReturns(
+            Robot(id: 1, kukaRobotId: "Z-1", name: name),
+            Robot(id: 2, kukaRobotId: "B-2", name: "Bravo"));
+
+        var result = await List();
+
+        Assert.Equal([2, 1], result.Select(r => r.Id));
+    }
+
     [Fact]
     public async Task No_missions_gives_no_current_mission()
     {

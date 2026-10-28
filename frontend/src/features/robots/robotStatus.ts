@@ -15,7 +15,7 @@ export function isRobotStatus(value: unknown): value is RobotStatus {
 
 /** Robot states reuse the mission pill palette (DESIGN.md). */
 export function robotStatusTone(status: RobotStatus): StatusTone {
-  return TONES[status] ?? 'created'
+  return TONES[status]
 }
 
 export type BatteryTone = 'high' | 'mid' | 'low' | 'offline'
