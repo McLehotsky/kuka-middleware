@@ -15,3 +15,26 @@ How the KUKA FM Middleware is built, phase by phase. Each finished phase links i
 | 9 | Hardening and final review – edge cases, end-to-end run, Epic acceptance criteria | Epic | planned | |
 
 Phase order can change; the planner proposes it and the user decides. Open questions per phase: system-definition §14.
+
+## Backlog status
+
+State of every User Story in [documentation/backlog.md](documentation/backlog.md) against the code on `main`. Updated with each phase's history note. **done** = all acceptance criteria met · **partial** = some criteria or tasks met, the rest named · **open** = not started.
+
+Last checked: 2026-10-28 (after PR #5).
+
+| Backlog | User Story | Status | Done | Missing (phase) |
+|---|---|---|---|---|
+| 1.1 | UC1 – Create mission | partial | POST /api/missions with validation (400), mission stored with the first history entry and its ID returned; New mission screen | Robot selection in the form (7); `submitMission` call, `Submitted`, `Failed` + 502 (5); 401 (8) |
+| 1.2 | UC2 – Cancel mission | partial | POST /api/missions/{id}/cancel with 404 / 409, `Cancelling` + history entry; cancel button with confirmation | `cancelMission` call, final `Cancelled` set by sync (5); concurrency token Q11 (5) |
+| 1.3 | UC3 – Missions list | done | GET /api/missions?state=active\|finished from our DB, list screen with filter and auto-refresh, filter tests | – (real-time source data needs UC5) |
+| 1.4 | UC4 – Mission status history | done | GET /api/missions/{id} and /history ordered by time, 404; detail screen with timeline, tests | – |
+| 2.1 | UC6 – Robots list | open | `robot` table and status enum in the migration | Endpoint, screen, tests (7); data comes from UC7 (5) |
+| 3.1 | KUKA FM access with access token | open | – | Everything (5), blocked: no KUKA FM credentials yet |
+| 3.2 | UC7 – Sync robots | open | – | Everything (5), blocked: no KUKA FM credentials yet |
+| 3.3 | UC5 – Sync missions | open | – | Everything (5), blocked: no KUKA FM credentials yet |
+| 4.1 | Containers and database | partial | .NET solution, EF migration per ERD applied on API start, Vue 3 skeleton, Dockerfiles (nginx proxies /api), compose with postgres volume, `.env.example` | `docker compose up` and data surviving a restart never run (no Docker on the dev PC; verified in CI, 8) |
+| 4.2 | API security and logging | partial | `api_client` and `audit_log` tables, `web-ui` client seed | API key authentication + 401, structured stdout logs, audit of create / cancel, tests (8) |
+| 4.3 | CI pipeline | open | – | Everything (8) |
+| 4.4 | CD pipeline | partial | `/api/health` endpoint | Deploy stage, secrets in a variable group, post-deploy smoke test (8) |
+
+**Epic acceptance criteria:** create mission – partial (no KUKA FM call) · cancel mission – partial (local only) · missions view – done in the UI, real-time data needs UC5 · robots view – open · KUKA FM access token – open · user operations logged – open · automated CI/CD – open.

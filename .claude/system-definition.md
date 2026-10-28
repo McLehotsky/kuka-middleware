@@ -277,6 +277,14 @@ Base path `/api`, JSON (camelCase), errors as RFC 7807 ProblemDetails, every end
 - Enums are strings in JSON. Missing optional values are `null`.
 - **Mission code (Q-A):** `M-{yyyy}-{NNNN}`. The year comes from `TimeProvider`; the number comes from a PostgreSQL sequence that never resets and is zero-padded to 4 digits.
 
+### Robot DTOs (phase 7)
+
+- **`RobotSummary`** (`GET /api/robots` returns an array): `id, kukaRobotId, name, status, batteryLevel, currentNode, currentMission, lastSeenAt, updatedAt`.
+  - `status`: `Available` | `Busy` | `Offline`.
+  - `currentMission`: `{ id, missionCode }` of the robot's newest non-final mission (by `createdAt`), or `null` (Q-N).
+- The list is ordered by `name` ascending, robots without a name by `kukaRobotId` (Q-O). Empty table → `[]`.
+- Enums are strings in JSON. Missing optional values are `null`.
+
 DTOs for later endpoints are written here before they are implemented.
 
 ---
@@ -379,3 +387,13 @@ Phase 6 is built **before** phase 5 (KUKA client, sync) and phase 8 (API keys, a
   - **Q-J:** the header shows only the "Live · refresh 5 s" indicator; KUKA FM status, sync time and the operator avatar come in phases 5 and 8; the Audit log nav item is omitted.
   - **Q-K:** no upper limit on steps.
   - **Q-L:** the seeded client's `KeyHash` is a sentinel that can never match; real keys come in phase 8.
+
+### Phase 7 scope (user decision 2026-10-28)
+Phase 7 (UC6) is built **before** phase 5: there are no KUKA FM credentials yet, so the `robot` table is filled only by UC7 later.
+- **Q-M:** no seed data for robots (no script, no seeder, no migration seed). Without UC7 the Robots screen shows its empty state.
+- **Q-N:** the API derives each robot's current mission (newest non-final mission) for the "Mission" row of the card, linked to the mission detail.
+- **Q-O:** robots are ordered by name, falling back to `kukaRobotId`, ascending.
+- **Q-P:** cards show "updated X ago" from `updatedAt`; Offline cards show "last seen X ago" from `lastSeenAt` ("—" if null). The header sync chip still waits for phase 5 (Q-J).
+- **Q-R:** the New mission robot field lists "Automatic (KUKA FM decides)" plus all robots with their state; Offline robots are disabled in the UI. The API rule stays "`robotId` must exist". Replaces Q-I.
+- **Q-S:** the Robots screen follows mockup 6.5 fully: 4 stat tiles (Total / Available / Busy / Offline), search by name or KUKA ID, status filter, and a Cards / Table view toggle. Tiles, search and filter work on the client from one `GET /api/robots` call (as Q-E); the API has no query parameters.
+- Robot states in the UI: Available, Busy, Offline (stat tiles: Total / Available / Busy / Offline).
