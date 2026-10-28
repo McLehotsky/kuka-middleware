@@ -1,4 +1,4 @@
-// The only place in the app that calls fetch. Relative /api URLs (Vite proxy in dev, nginx in Docker).
+// The only place in the app that calls fetch. Relative /api URLs (proxied to the API by nginx).
 // The API key header is added in phase 8 (system-definition Q8).
 import { toProblemInfo, type ProblemInfo } from './problem'
 
