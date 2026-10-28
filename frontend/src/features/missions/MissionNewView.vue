@@ -3,9 +3,12 @@ import { computed, nextTick, reactive, ref, useTemplateRef, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { problemOf } from '../../api/http'
 import { createMission } from '../../api/missions'
+import { listRobots } from '../../api/robots'
 import { MISSION_TYPES, STEP_ACTIONS } from '../../api/types'
 import AppIcon from '../../components/AppIcon.vue'
 import ErrorPanel from '../../components/ErrorPanel.vue'
+import { usePolling } from '../../composables/usePolling'
+import { robotDisplayName, robotOptionLabel } from '../robots/robotStatus'
 import {
   ACTION_LABELS,
   PRIORITIES,
@@ -36,6 +39,12 @@ const errors = computed<FieldErrors>(() =>
 const errorList = computed(() =>
   Object.entries(errors.value).map(([key, message]) => ({ key, message, label: fieldLabel(key) })),
 )
+
+// Robot picker (Q-R): robots with their current state, refreshed every 5 s; Offline is disabled.
+// A failed load leaves only "Automatic", which always works.
+const robotList = usePolling((signal) => listRobots(signal))
+const robots = computed(() => robotList.data.value ?? [])
+const selectedRobot = computed(() => robots.value.find((r) => r.id === draft.robotId) ?? null)
 
 // Server errors refer to the draft as it was sent; any edit makes them stale.
 watch(
@@ -235,19 +244,40 @@ function discard() {
               >Robot</label>
               <select
                 id="field-robotId"
+                v-model="draft.robotId"
                 class="control"
-                aria-describedby="field-robotId-hint"
+                :aria-describedby="errorFor('robotId') ? 'field-robotId-hint field-robotId-error' : 'field-robotId-hint'"
                 :aria-invalid="!!errorFor('robotId')"
               >
-                <option value="">
+                <option :value="null">
                   Automatic (KUKA FM decides)
+                </option>
+                <option
+                  v-for="robot in robots"
+                  :key="robot.id"
+                  :value="robot.id"
+                  :disabled="robot.status === 'Offline'"
+                >
+                  {{ robotOptionLabel(robot) }}
                 </option>
               </select>
               <p
                 id="field-robotId-hint"
                 class="field__hint"
+                :class="{ 'field__hint--warning': selectedRobot?.status === 'Offline' }"
               >
-                KUKA FM assigns a free robot.
+                <template v-if="selectedRobot?.status === 'Offline'">
+                  This robot went offline. Choose another robot or Automatic.
+                </template>
+                <template v-else-if="selectedRobot">
+                  The mission is sent to this robot.
+                </template>
+                <template v-else-if="robotList.error.value && robots.length === 0">
+                  The robot list could not be loaded. Automatic still works.
+                </template>
+                <template v-else>
+                  KUKA FM assigns a free robot. Offline robots cannot be chosen.
+                </template>
               </p>
               <p
                 v-if="errorFor('robotId')"
@@ -451,7 +481,9 @@ function discard() {
           <dl class="card__body summary">
             <div><dt>Type</dt><dd>{{ draft.missionType || '—' }}</dd></div>
             <div><dt>Priority</dt><dd>{{ priorityLabel }}</dd></div>
-            <div><dt>Robot</dt><dd>Automatic</dd></div>
+            <div>
+              <dt>Robot</dt><dd>{{ selectedRobot ? robotDisplayName(selectedRobot) : 'Automatic' }}</dd>
+            </div>
             <div>
               <dt>Steps</dt><dd class="tabular">
                 {{ draft.steps.length }}
@@ -709,5 +741,9 @@ function discard() {
   .add-step {
     min-height: 44px;
   }
+}
+
+.field__hint--warning {
+  color: var(--color-warning-text);
 }
 </style>

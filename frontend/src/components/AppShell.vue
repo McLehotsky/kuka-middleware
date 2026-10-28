@@ -134,16 +134,14 @@ function isMissionsSection() {
           </RouterLink>
         </li>
         <li>
-          <span
-            class="nav-item nav-item--disabled"
-            aria-disabled="true"
+          <RouterLink
+            to="/robots"
+            class="nav-item"
+            active-class="nav-item--active"
           >
             <AppIcon name="robot" />
-            <span>
-              Robots
-              <span class="nav-item__note">– coming soon</span>
-            </span>
-          </span>
+            Robots
+          </RouterLink>
         </li>
       </ul>
       <p class="sidebar__version">
@@ -318,17 +316,6 @@ a.nav-item--active:hover {
   width: 4px;
   border-radius: var(--radius-hairline);
   background: var(--color-primary-text);
-}
-
-.nav-item--disabled {
-  color: var(--color-text-disabled);
-  cursor: default;
-}
-
-.nav-item__note {
-  margin-left: var(--space-xxs);
-  font: var(--text-caption);
-  font-style: italic;
 }
 
 .sidebar__version {

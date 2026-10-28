@@ -20,6 +20,12 @@ export const router = createRouter({
       meta: { title: 'Mission' },
     },
     {
+      path: '/robots',
+      name: 'robots',
+      component: () => import('../features/robots/RobotsView.vue'),
+      meta: { title: 'Robots' },
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'not-found',
       component: () => import('../features/NotFoundView.vue'),

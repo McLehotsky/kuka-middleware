@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "frontend/src/features/robots/RobotsView.vue"
+        ],
+        "createdAt": "2026-10-28T13:11:55.967Z",
+        "reason": "Binding mockup 6.5 (CLAUDE.md: mockups' visual language is binding) and DESIGN.md stat tiles define the 4 px state bar on the stat tiles"
+      }
+    ]
+  }
+}

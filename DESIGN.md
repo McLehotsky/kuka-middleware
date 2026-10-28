@@ -67,6 +67,7 @@ colors:
   dark-panel: "#121A24"
   dark-panel-raised: "#1A2531"
   dark-row-highlight: "#1C2632"
+  dark-offline-surface: "#121A24"     # derived (phase 7): same as dark-panel, one step below dark-surface
   dark-nav-active: "#1C3550"
   dark-border: "#3A4756"
   dark-control-border: "#6B7785"
