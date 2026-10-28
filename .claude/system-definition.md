@@ -99,7 +99,7 @@ New packages and images still need the user's approval. Patch updates of the one
 | Docker | `nginx` | 1.30.6-alpine |
 | Docker | `postgres` | 18.6-alpine |
 
-Runtime: .NET SDK 10.0.402 and Node 24 LTS locally. Docker is not installed locally, so compose is verified in CI.
+Runtime: the app runs only in Docker Compose (Docker Desktop on the dev PC); .NET SDK 10.0.402 and Node 24 LTS on the host for builds, tests, lint and migrations.
 
 - `dotnet test` runs on Microsoft.Testing.Platform (opted in via `backend/global.json`). For that reason the VSTest packages `xunit.runner.visualstudio` and `Microsoft.NET.Test.Sdk` are not used.
 - The test project ignored exit code 8 ("zero tests ran") until the first tests; removed in phase 6.
@@ -367,6 +367,7 @@ Questions, not decisions. Ask the user before implementing anything that depends
 | Q13 | New mission: if the chosen robot goes Offline while the form is open, the form warns but still submits. Block the submit instead? | any |
 | Q14 | Mobile nav drawer visibly slides out when the viewport crosses 768 px (transition runs on the breakpoint change, since phase 6). Suppress the transition on media change? | 9 |
 | Q15 | `.impeccable/design.json` is older than `DESIGN.md` (phase 7 added `dark-offline-surface`). Re-sync with `impeccable document`? | any |
+| Q16 | While the api container is down, nginx answers with its own HTML 502 and the UI says "KUKA FM did not respond". Return a distinct "API unavailable" (nginx `error_page`) or tell the cases apart in the UI? | 9 |
 
 ### Decided
 | # | Decision | Date |
@@ -401,3 +402,10 @@ Phase 7 (UC6) is built **before** phase 5: there are no KUKA FM credentials yet,
 - **Q-R:** the New mission robot field lists "Automatic (KUKA FM decides)" plus all robots with their state; Offline robots are disabled in the UI. The API rule stays "`robotId` must exist". Replaces Q-I.
 - **Q-S:** the Robots screen follows mockup 6.5 fully: 4 stat tiles (Total / Available / Busy / Offline), search by name or KUKA ID, status filter, and a Cards / Table view toggle. Tiles, search and filter work on the client from one `GET /api/robots` call (as Q-E); the API has no query parameters.
 - Robot states in the UI: Available, Busy, Offline (stat tiles: Total / Available / Busy / Offline).
+
+### Docker scope (user decision 2026-10-28)
+Backlog 4.1 is finished by running the compose stack on the dev PC (Docker Desktop is now installed):
+- **Docker only:** the app runs only in Docker Compose. The local PostgreSQL + user-secrets + `dotnet run` + Vite dev server flow from phase 6 is dropped from the repo. Code changes are picked up by a manual `docker compose … up -d --build`.
+- Builds, unit tests, lint, type check and `dotnet ef migrations add` stay on the host (they need no database).
+- Web port 8080 (`WEB_PORT`); only `web` is published, PostgreSQL is reached with `docker compose exec postgres psql`.
+- Q10 (non-root nginx, api healthcheck) and image names / tags for CD stay in phase 8; the nginx 502 wording is Q16.

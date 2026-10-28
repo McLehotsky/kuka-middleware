@@ -1,82 +1,112 @@
 # Local development
 
-How to run the KUKA FM Middleware on your own PC: the API on `dotnet run` and the web UI on the Vite dev server, against a local PostgreSQL. Docker is not needed for this. The Docker setup is at the end.
+How to run the KUKA FM Middleware on your own PC. The app runs **only in Docker Compose**: `web` (nginx with the built Vue app, proxies `/api`), `api` (ASP.NET Core) and `postgres` (PostgreSQL with a persistent volume). Builds, unit tests, lint and new migrations run on the host with the .NET SDK and Node.
 
 All commands are PowerShell, run from the **repository root** unless the step says otherwise.
 
 | What | URL |
 |---|---|
-| Web UI (Vite dev server) | http://localhost:5173 |
-| API (`dotnet run`) | http://localhost:5063 |
-| API health check | http://localhost:5063/api/health |
+| Web UI | http://localhost:8080 |
+| API (through nginx) | http://localhost:8080/api/... |
+| API health check | http://localhost:8080/api/health |
 
-The Vite dev server forwards every `/api/...` request to the API on port 5063, so the browser only needs http://localhost:5173.
+Only the web container is published to the host. The API and PostgreSQL are reachable only inside the compose network.
 
 ---
 
 ## 1. Prerequisites (once per PC)
 
-| Tool | Version | Install |
-|---|---|---|
-| .NET SDK | 10.0.402 (pinned in `backend/global.json`) | `winget install --id Microsoft.DotNet.SDK.10 -e` |
-| Node.js | 24 LTS | `winget install --id OpenJS.NodeJS.LTS -e` |
-| PostgreSQL | 18 | `winget install --id PostgreSQL.PostgreSQL.18 -e` (you choose the `postgres` superuser password during install) |
+| Tool | Version | Install | Used for |
+|---|---|---|---|
+| Docker Desktop | with Compose v2 | `winget install --id Docker.DockerDesktop -e` | running the app |
+| .NET SDK | 10.0.402 (pinned in `backend/global.json`) | `winget install --id Microsoft.DotNet.SDK.10 -e` | backend build, tests, migrations |
+| Node.js | 24 LTS | `winget install --id OpenJS.NodeJS.LTS -e` | frontend type check, lint, tests, build |
 
-Check them in a new terminal:
+Docker Desktop must be running (the engine status says "running") before any `docker` command. Check the tools in a new terminal:
+
+```powershell
+docker version
+```
 
 ```powershell
 dotnet --list-sdks
+```
+
+```powershell
 node -v
-& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' --version
-```
-
-The PostgreSQL installer runs it as a Windows service, `postgresql-x64-18`, on port 5432. If the service is stopped, start it again:
-
-```powershell
-Start-Service postgresql-x64-18
 ```
 
 ---
 
-## 2. Database and connection string (once per PC)
+## 2. Configuration (once per PC)
 
-### 2.1 Create the app role and database
-
-Pick your own password for the `kuka` role (no `;` in it). Run psql as the `postgres` superuser; it asks for the superuser password:
+Copy the template. `docker/.env` is git-ignored and never committed:
 
 ```powershell
-& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -h localhost -U postgres -c "CREATE ROLE kuka LOGIN PASSWORD '<your-password>';"
+Copy-Item docker/.env.example docker/.env
 ```
 
-```powershell
-& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -h localhost -U postgres -c "CREATE DATABASE kuka_middleware OWNER kuka;"
-```
+Open `docker/.env` and set `POSTGRES_PASSWORD` to a strong password of your own (no `;` in it). The other defaults are fine. The database password is only used inside Docker.
 
-If the role and database already exist and you only need a new password, run:
-
-```powershell
-& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -h localhost -U postgres -c "ALTER ROLE kuka PASSWORD '<your-password>';"
-```
-
-### 2.2 Store the connection string in user-secrets
-
-The connection string never goes into the repo. In Development the API reads it from .NET user-secrets, which are stored in your Windows profile and not in the repo:
-
-```powershell
-dotnet user-secrets set "ConnectionStrings:Default" "Host=localhost;Port=5432;Database=kuka_middleware;Username=kuka;Password=<your-password>" --project backend/src/KukaMiddleware.Api
-```
-
-To check that it is set, list the keys. This prints the secret value too, so don't share the output:
-
-```powershell
-dotnet user-secrets list --project backend/src/KukaMiddleware.Api
-```
-
-The tables don't need to be created by hand. The API applies all EF Core migrations on startup, including the seeded `web-ui` client.
+Don't paste the output of `docker compose config` anywhere: it shows the resolved password. Use `config --quiet` to only validate the file.
 
 ---
 
-## 3. Install dependencies (after cloning, and after `package.json` or tool changes)
+## 3. Run the app
+
+Build the images and start all three containers in the background:
+
+```powershell
+docker compose -f docker/docker-compose.yml up -d --build
+```
+
+Then open http://localhost:8080. On the first start the API applies all EF Core migrations, including the seeded `web-ui` client; there is nothing to create by hand.
+
+**After changing code**, run the same command again. It rebuilds only the images whose files changed and recreates those containers. The database is kept.
+
+Check that everything runs (`postgres` shows `healthy`):
+
+```powershell
+docker compose -f docker/docker-compose.yml ps
+```
+
+```powershell
+Invoke-RestMethod http://localhost:8080/api/health
+```
+
+Stop the containers and **keep** the data:
+
+```powershell
+docker compose -f docker/docker-compose.yml down
+```
+
+---
+
+## 4. Logs and database
+
+API logs (add `-f` to follow them):
+
+```powershell
+docker compose -f docker/docker-compose.yml logs api
+```
+
+Open psql inside the database container (user and database from `docker/.env`, defaults `kuka` / `kuka_middleware`):
+
+```powershell
+docker compose -f docker/docker-compose.yml exec postgres psql -U kuka -d kuka_middleware
+```
+
+**Start from an empty database.** This deletes all data in the Docker volume. The next `up` recreates the schema:
+
+```powershell
+docker compose -f docker/docker-compose.yml down -v
+```
+
+---
+
+## 5. Tests and checks (on the host)
+
+Install the tools and packages after cloning, and after `package.json` or tool changes:
 
 ```powershell
 dotnet tool restore --tool-manifest backend/.config/dotnet-tools.json
@@ -85,40 +115,6 @@ dotnet tool restore --tool-manifest backend/.config/dotnet-tools.json
 ```powershell
 npm --prefix frontend ci
 ```
-
----
-
-## 4. Run the app
-
-You need **two terminals**, one for the API and one for the web UI.
-
-**Terminal 1: API** (http://localhost:5063)
-
-```powershell
-dotnet run --project backend/src/KukaMiddleware.Api
-```
-
-Wait for `Now listening on: http://localhost:5063`. On the first start the log shows the migrations being applied.
-
-**Terminal 2: web UI** (http://localhost:5173)
-
-```powershell
-npm --prefix frontend run dev
-```
-
-Then open http://localhost:5173. Stop either server with `Ctrl+C` in its terminal.
-
-Quick check that the API is up:
-
-```powershell
-Invoke-RestMethod http://localhost:5063/api/health
-```
-
----
-
-## 5. Tests and checks
-
-These run the same checks CI runs.
 
 **Backend** (run in `backend/`)
 
@@ -152,6 +148,12 @@ npm run test
 npm run build
 ```
 
+**Compose file**
+
+```powershell
+docker compose -f docker/docker-compose.yml config --quiet
+```
+
 ---
 
 ## 6. Useful extras
@@ -159,23 +161,13 @@ npm run build
 **Create a mission from the command line** (the same as the New mission form):
 
 ```powershell
-Invoke-RestMethod -Method Post http://localhost:5063/api/missions -ContentType 'application/json' -Body '{"missionType":"RACK_MOVE","priority":2,"steps":[{"nodeCode":"A-01-PICK","action":"Load"},{"nodeCode":"B-07-DROP","action":"Unload"}]}'
+Invoke-RestMethod -Method Post http://localhost:8080/api/missions -ContentType 'application/json' -Body '{"missionType":"RACK_MOVE","priority":2,"steps":[{"nodeCode":"A-01-PICK","action":"Load"},{"nodeCode":"B-07-DROP","action":"Unload"}]}'
 ```
 
 **List missions:**
 
 ```powershell
-Invoke-RestMethod 'http://localhost:5063/api/missions?state=active'
-```
-
-**Start from an empty database.** This drops all local data. Stop the API first, then run both commands and start the API again; the migrations recreate the schema:
-
-```powershell
-& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -h localhost -U postgres -c "DROP DATABASE kuka_middleware;"
-```
-
-```powershell
-& 'C:\Program Files\PostgreSQL\18\bin\psql.exe' -h localhost -U postgres -c "CREATE DATABASE kuka_middleware OWNER kuka;"
+Invoke-RestMethod 'http://localhost:8080/api/missions?state=active'
 ```
 
 ---
@@ -184,28 +176,9 @@ Invoke-RestMethod 'http://localhost:5063/api/missions?state=active'
 
 | Problem | Cause and fix |
 |---|---|
-| `The ConnectionString property has not been initialized` when the API starts | No connection string in user-secrets for **your** Windows profile. Do step 2.2. Secrets set from another environment (for example a sandboxed Claude session) are not visible in your terminal. |
-| `password authentication failed for user "kuka"` | The password in user-secrets differs from the role's password. Set it again with `ALTER ROLE` (2.1) and `user-secrets set` (2.2). |
-| `Connection refused` on port 5432 | PostgreSQL is not running: `Start-Service postgresql-x64-18`. |
-| Web UI shows "Paused · retrying", or Vite logs `http proxy error ... ECONNREFUSED` | The API is not running on 5063. Start terminal 1. |
-| `address already in use` on 5063 or 5173 | An old server is still running. Close its terminal, or find the process with `Get-NetTCPConnection -LocalPort 5063` and stop it. |
-| `dotnet ef` not found | Run the `dotnet tool restore` command from step 3. |
-
----
-
-## 8. With Docker (later)
-
-Docker Desktop is not installed on the main dev PC yet; the full stack is verified in CI. Once Docker is available:
-
-1. Copy the template and fill in your own values: `Copy-Item docker/.env.example docker/.env`.
-2. Start web, api and postgres. The app runs on http://localhost:8080:
-
-```powershell
-docker compose -f docker/docker-compose.yml up -d --build
-```
-
-To stop, keeping the data:
-
-```powershell
-docker compose -f docker/docker-compose.yml down
-```
+| `error during connect` / `Docker Desktop is unable to start` | The Docker engine is not running. Start Docker Desktop and wait until it says "running"; a PC restart helps after a fresh install. |
+| `set POSTGRES_PASSWORD in docker/.env` | `docker/.env` is missing or incomplete. Do step 2. |
+| `port is already allocated` on 8080 | Another program uses port 8080. Set another `WEB_PORT` in `docker/.env` and run `up` again. |
+| Web UI shows "Paused · retrying" or errors on every screen | The API container is down or restarting. Check `ps` and `logs api`. |
+| `password authentication failed for user "kuka"` in the API log | `POSTGRES_PASSWORD` was changed after the volume was created; PostgreSQL keeps the first password. Put the old one back, or reset the data with `down -v`. |
+| `dotnet ef` not found | Run the `dotnet tool restore` command from step 5. |

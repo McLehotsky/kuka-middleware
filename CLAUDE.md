@@ -122,7 +122,7 @@ The **main session** owns git and GitHub: it creates the branch at the start of 
     router/
     styles/       design tokens from DESIGN.md, global styles
   ```
-- Components never call `fetch` directly – only through `src/api/`. Relative `/api/...` URLs (nginx proxy in Docker, Vite proxy in dev).
+- Components never call `fetch` directly – only through `src/api/`. Relative `/api/...` URLs (proxied to the API by nginx).
 - Logic lives in composables; polling stops on unmount and never overlaps requests.
 - Errors (ProblemDetails 400/401/404/409/502) are shown to the user in plain words.
 - Shared state lives in composables – no Pinia. Styling is plain scoped CSS with CSS custom properties from `DESIGN.md` – no Tailwind, no UI component library.
@@ -149,7 +149,7 @@ The **main session** owns git and GitHub: it creates the branch at the start of 
 
 ## Commands
 
-Agents verify changes the same way CI does. Step-by-step local setup for people: [LOCAL-DEVELOPMENT.md](LOCAL-DEVELOPMENT.md). Keep it in sync when these commands change. Tooling: .NET SDK 10.0.402 (pinned in `backend/global.json`), Node 24 LTS. Docker is not installed on the main dev PC, so compose is verified in CI.
+Agents verify changes the same way CI does. Step-by-step local setup for people: [LOCAL-DEVELOPMENT.md](LOCAL-DEVELOPMENT.md). Keep it in sync when these commands change. Tooling: .NET SDK 10.0.402 (pinned in `backend/global.json`), Node 24 LTS, Docker Desktop. The app runs **only in Docker Compose**; builds, unit tests, lint and migrations run on the host.
 
 **Backend** (run in `backend/`)
 | Task | Command |
@@ -160,22 +160,20 @@ Agents verify changes the same way CI does. Step-by-step local setup for people:
 | Vulnerable packages | `dotnet list package --vulnerable --include-transitive` |
 | New migration | `dotnet ef migrations add <Name> --project src/KukaMiddleware.Api --output-dir Data/Migrations` |
 | Model vs. migrations in sync | `dotnet ef migrations has-pending-model-changes --project src/KukaMiddleware.Api` |
-| Local DB connection (once per PC) | `dotnet user-secrets set "ConnectionStrings:Default" "<connection string>" --project src/KukaMiddleware.Api` |
-| Run API locally (http://localhost:5063, needs a local PostgreSQL) | `dotnet run --project src/KukaMiddleware.Api` |
 
 **Frontend** (run in `frontend/`)
 | Task | Command |
 |---|---|
 | Install | `npm ci` |
 | Type check / lint / unit tests / build | `npm run typecheck` / `npm run lint` / `npm run test` / `npm run build` |
-| Dev server (proxies `/api` to http://localhost:5063) | `npm run dev` |
 | Runtime dependency audit | `npm audit --omit=dev --audit-level=high` |
 
 **Docker** (run in repo root; needs `docker/.env` copied from `docker/.env.example`)
 | Task | Command |
 |---|---|
 | Validate compose | `docker compose -f docker/docker-compose.yml config` |
-| Start web, api, postgres (app on http://localhost:8080) | `docker compose -f docker/docker-compose.yml up -d --build` |
+| Start web, api, postgres (app on http://localhost:8080); rerun after code changes | `docker compose -f docker/docker-compose.yml up -d --build` |
+| Database shell | `docker compose -f docker/docker-compose.yml exec postgres psql -U kuka -d kuka_middleware` |
 | API logs | `docker compose -f docker/docker-compose.yml logs api` |
 | Stop, keep data | `docker compose -f docker/docker-compose.yml down` |
 
