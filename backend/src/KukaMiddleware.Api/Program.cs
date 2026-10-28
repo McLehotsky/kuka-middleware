@@ -2,6 +2,7 @@ using System.Text.Json.Serialization;
 using KukaMiddleware.Api;
 using KukaMiddleware.Api.Data;
 using KukaMiddleware.Api.Missions;
+using KukaMiddleware.Api.Robots;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,8 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 builder.Services.AddSingleton(TimeProvider.System);
 builder.Services.AddScoped<IMissionStore, MissionStore>();
 builder.Services.AddScoped<IMissionService, MissionService>();
+builder.Services.AddScoped<IRobotStore, RobotStore>();
+builder.Services.AddScoped<IRobotService, RobotService>();
 
 var app = builder.Build();
 
@@ -30,5 +33,6 @@ app.UseStatusCodePages();
 
 app.MapHealthChecks("/api/health");
 app.MapMissionEndpoints();
+app.MapRobotEndpoints();
 
 app.Run();
