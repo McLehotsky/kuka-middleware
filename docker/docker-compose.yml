@@ -20,7 +20,7 @@ services:
       dockerfile: docker/api.Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Production}
-      ConnectionStrings__Default: "Host=postgres;Port=5432;Database=${POSTGRES_DB:?set POSTGRES_DB in docker/.env};Username=${POSTGRES_USER:?set POSTGRES_USER in docker/.env};Password=${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in docker/.env}"
+      ConnectionStrings__Default: "Host=postgres;Port=5432;Database=${POSTGRES_DB:?set POSTGRES_DB in docker/.env};Username=${POSTGRES_USER:?set POSTGRES_USER in docker/.env};Password=${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in docker/.env};Gss Encryption Mode=Disable"
     depends_on:
       postgres:
         condition: service_healthy
