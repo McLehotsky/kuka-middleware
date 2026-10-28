@@ -4,6 +4,7 @@ One note per finished phase or task, newest first. Format and rules: [CLAUDE.md 
 
 | Date | Note | Phase | Summary |
 |---|---|---|---|
+| 2026-10-28 | [08 · Docker](2026-10-28-08-docker.md) | 4 | App runs only in Docker Compose; 4.1 verified (start, schema, persistence); local dev flow dropped; `docker/start.bat` |
 | 2026-10-28 | [07 · Robots](2026-10-28-07-robots.md) | 7 | Robots API and screen (UC6) with 18 tests, robot picker in New mission, backlog status in `implementation.md` |
 | 2026-10-22 | [06 · Local development guide](2026-10-22-06-local-development.md) | 6 | `LOCAL-DEVELOPMENT.md` with the commands to run the app locally |
 | 2026-10-21 | [05 · Mission management](2026-10-21-05-mission-management.md) | 6 | Mission API (UC1–UC4) with 76 tests, DESIGN.md from the mockups, missions screens with 69 tests |

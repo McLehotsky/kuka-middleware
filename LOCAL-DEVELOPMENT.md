@@ -38,6 +38,12 @@ node -v
 
 ---
 
+## Quick start (Windows)
+
+With Docker Desktop running, double-click `docker/start.bat` (or run it from a terminal). It creates `docker/.env` with a random database password if the file doesn't exist yet, builds the images, starts the stack and prints the app URL. Run it again after code changes. Steps 2 and 3 below do the same by hand.
+
+---
+
 ## 2. Configuration (once per PC)
 
 Copy the template. `docker/.env` is git-ignored and never committed:
