@@ -155,5 +155,18 @@ public class CreateMissionTests
         Assert.IsType<CreateMissionResult.Invalid>(result);
         _store.DidNotReceive().Add(Arg.Any<Mission>());
         await _store.DidNotReceive().NextMissionCodeNumberAsync(Arg.Any<CancellationToken>());
+        await _store.DidNotReceive().SaveChangesAsync(Arg.Any<CancellationToken>());
+    }
+
+    [Fact]
+    public async Task Null_step_is_invalid_and_stores_nothing()
+    {
+        var result = await Create(Request with { Steps = [null!] });
+
+        var invalid = Assert.IsType<CreateMissionResult.Invalid>(result);
+        Assert.Contains("steps[0].nodeCode", invalid.Errors.Keys);
+        _store.DidNotReceive().Add(Arg.Any<Mission>());
+        await _store.DidNotReceive().NextMissionCodeNumberAsync(Arg.Any<CancellationToken>());
+        await _store.DidNotReceive().SaveChangesAsync(Arg.Any<CancellationToken>());
     }
 }

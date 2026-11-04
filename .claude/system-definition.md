@@ -120,7 +120,11 @@ Runtime: the app runs only in Docker Compose (Docker Desktop on the dev PC); .NE
   4. On a `401` response, invalidate the token, obtain a new one and retry **at most once** (no infinite loop).
   5. Log successful and failed calls and authentication errors (never the token itself).
 - KUKA FM base URL, credentials and intervals come from configuration (§11), never hardcoded.
-- Endpoint names, payloads, token endpoint and KUKA status codes → **open item Q1** (needs the KUKA FM API documentation).
+- **Vendor API reference (provided 2026-11-04):** `documentation/KUKA_AMR_Fleet_2.15_en-API (1)-1.pdf`, KUKA.AMR Fleet 2.15 V1, chapter 7. Use this reference for the vendor contract; our middleware API in §8 stays unchanged.
+  - All four vendor operations use POST under `/interfaces/api/amr/`: `submitMission` (§7.1.1), `missionCancel` (§7.1.2), `jobQuery` (§7.1.5), `robotQuery` (§7.3.2). Our logical `cancelMission` operation maps to the vendor's `missionCancel`.
+  - The reference specifies `Authorization: ${accessToken}`. Token acquisition is referred to §4.7 "Interface platform" / Authentication (manual page 131), which is outside this supplied chapter-7 excerpt. Do not guess the token endpoint or add a `Bearer` prefix without that documentation.
+  - Vendor payloads and numeric status codes must be mapped to the middleware DTOs and states; the middleware's mission types, actions and priority range are not changed just because the vendor supports more values. Remaining mapping decisions are tracked in Q1.
+- **Live verification is currently blocked by unavailable KUKA FM licenses** (user confirmation 2026-11-04). Local unit tests do not need those licenses. A passing local test suite must not be reported as a successful live KUKA integration test.
 
 ---
 
@@ -356,7 +360,7 @@ Questions, not decisions. Ask the user before implementing anything that depends
 
 | # | Question | Needed in phase |
 |---|---|---|
-| Q1 | Exact KUKA FM API: endpoint names and payloads (`submitMission`, `cancelMission`, Query jobs, robot query), how the token is obtained, job and robot status codes and their mapping to our states. Source document? | 5 |
+| Q1 | Chapter-7 API reference is now available (see §4): vendor endpoints, payloads and status codes are documented. Still needed: §4.7 Authentication for token acquisition; agreed mapping of vendor job/robot states and middleware step actions (including Wait), and cancel mode. Live verification requires KUKA FM licenses, currently unavailable. | 5 |
 | Q3 | Sync intervals for missions and robots (wiki example 5 s). | 5 |
 | Q6 | Log sink: stdout only, or also Seq / another viewer. | 8 |
 | Q7 | Azure DevOps: agent / pool, deployment target, static analysis tools. | 8 |

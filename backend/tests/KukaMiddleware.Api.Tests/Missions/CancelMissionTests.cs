@@ -103,6 +103,39 @@ public class CancelMissionTests
         await _store.Received(1).SaveChangesAsync(Arg.Any<CancellationToken>());
     }
 
+    [Theory]
+    [InlineData(MissionStatus.Created)]
+    [InlineData(MissionStatus.Submitted)]
+    [InlineData(MissionStatus.InProgress)]
+    public async Task Cancel_preserves_existing_history(MissionStatus status)
+    {
+        var mission = Stored(status);
+        var original = new MissionStatusHistory
+        {
+            Id = 42,
+            MissionId = mission.Id,
+            Status = status,
+            Source = StatusSource.Api,
+            Message = "existing history",
+            ChangedAt = TestData.Now.AddMinutes(-10),
+        };
+        mission.StatusHistory.Add(original);
+
+        await Cancel(mission.Id);
+
+        Assert.Equal(2, mission.StatusHistory.Count);
+        var preserved = Assert.Single(mission.StatusHistory, row => row.Id == 42);
+        Assert.Equal(mission.Id, preserved.MissionId);
+        Assert.Null(preserved.PreviousStatus);
+        Assert.Equal(status, preserved.Status);
+        Assert.Equal(StatusSource.Api, preserved.Source);
+        Assert.Equal("existing history", preserved.Message);
+        Assert.Equal(TestData.Now.AddMinutes(-10), preserved.ChangedAt);
+        var added = Assert.Single(mission.StatusHistory, row => row.Id != 42);
+        Assert.Equal(status, added.PreviousStatus);
+        Assert.Equal(MissionStatus.Cancelling, added.Status);
+    }
+
     [Fact]
     public async Task Cancel_returns_summary_with_cancelling_status()
     {
