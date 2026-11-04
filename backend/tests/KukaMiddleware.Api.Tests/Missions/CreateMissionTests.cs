@@ -17,7 +17,7 @@ public class CreateMissionTests
     {
         _store.NextMissionCodeNumberAsync(Arg.Any<CancellationToken>()).Returns(42L);
         _store.Add(Arg.Do<Mission>(m => _added = m));
-        _service = new MissionService(_store, TestData.Time());
+        _service = new MissionService(_store, TestData.Time(), TestData.Client());
     }
 
     private Task<CreateMissionResult> Create(CreateMissionRequest request) =>
@@ -62,11 +62,15 @@ public class CreateMissionTests
     }
 
     [Fact]
-    public async Task Attributes_mission_to_seeded_web_ui_client()
+    public async Task Attributes_mission_to_authenticated_client()
     {
-        await Create(Request);
+        var client = TestData.Client();
+        client.Client!.Id = 7;
+        var service = new MissionService(_store, TestData.Time(), client);
 
-        Assert.Equal(1, _added!.CreatedByClientId);
+        await service.CreateAsync(Request, TestContext.Current.CancellationToken);
+
+        Assert.Equal(7, _added!.CreatedByClientId);
     }
 
     [Fact]

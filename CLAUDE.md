@@ -172,7 +172,8 @@ Agents verify changes the same way CI does. Step-by-step local setup for people:
 | Task | Command |
 |---|---|
 | Validate compose (never without `--quiet`: the full output shows the DB password) | `docker compose -f docker/docker-compose.yml config --quiet` |
-| Start web, api, postgres (app on http://localhost:8080); rerun after code changes | `docker compose -f docker/docker-compose.yml up -d --build` |
+| Initialize local DB password and API keys (preserves existing settings) | `powershell -NoProfile -ExecutionPolicy Bypass -File docker/initialize-env.ps1` |
+| Start web, api, postgres (app on http://localhost:8080, localhost only); rerun after code changes | `docker compose -f docker/docker-compose.yml up -d --build` |
 | Database shell | `docker compose -f docker/docker-compose.yml exec postgres psql -U kuka -d kuka_middleware` |
 | API logs | `docker compose -f docker/docker-compose.yml logs api` |
 | Stop, keep data | `docker compose -f docker/docker-compose.yml down` |

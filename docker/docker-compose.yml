@@ -9,7 +9,10 @@ services:
       context: ..
       dockerfile: docker/web.Dockerfile
     ports:
-      - "${WEB_PORT:-8080}:80"
+      - "127.0.0.1:${WEB_PORT:-8080}:80"
+    environment:
+      WEB_UI_API_KEY: ${WEB_UI_API_KEY:?run docker/start.bat to configure API keys}
+      NGINX_ENVSUBST_FILTER: "^WEB_UI_API_KEY$$"
     depends_on:
       - api
     restart: unless-stopped
@@ -20,6 +23,8 @@ services:
       dockerfile: docker/api.Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Production}
+      ApiKeys__WebUi: ${WEB_UI_API_KEY:?run docker/start.bat to configure API keys}
+      ApiKeys__ExternalSystem: ${EXTERNAL_SYSTEM_API_KEY:?run docker/start.bat to configure API keys}
       ConnectionStrings__Default: "Host=postgres;Port=5432;Database=${POSTGRES_DB:?set POSTGRES_DB in docker/.env};Username=${POSTGRES_USER:?set POSTGRES_USER in docker/.env};Password=${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in docker/.env};Gss Encryption Mode=Disable"
     depends_on:
       postgres:

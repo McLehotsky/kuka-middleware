@@ -195,6 +195,15 @@ Cancelling → Cancelled   sync – confirmed
 - If operator login is introduced later, `ApiClient` is replaced / extended by `User` and the FKs in `Mission` and `AuditLog` are redirected.
 - **Audit vs. technical logs:** user operations (dispatch, cancel) go to the `AuditLog` table, including failed ones (acceptance criterion "all user operations are logged"). Technical structured logs (NFR4) go to stdout, not to the DB.
 
+### Phase 8 security decisions (approved 2026-11-04)
+
+- API keys use the `X-API-Key` header. All `/api` requests except `/api/health` require an active client. The authenticated client owns newly created missions.
+- Q8: nginx supplies the `web-ui` key when no key header is supplied. An explicit header is forwarded unchanged, so the external system can authenticate with its own key and invalid keys are rejected. The web port is bound to `127.0.0.1`; access to the local UI authorizes operations as `web-ui`. This does not identify individual operators.
+- Keys are independent random 32-byte lowercase hex values, provided through environment configuration. Only SHA-256 hashes are stored in the DB; startup updates configured key hashes without changing client IDs or reactivating disabled clients. No keys are bundled into frontend assets or image layers.
+- Anonymous/missing/unknown-key 401 attempts go to technical logs only. `AuditLog.ApiClientId` remains required. Identified clients' failed create/cancel attempts, including invalid JSON and 404/409 responses, are audited.
+- Q6/Q17: structured JSON logs go to stdout; EF SQL command logging is Warning. Never log key/header/body values.
+- Read endpoints and health checks do not create audit rows. Audit rows contain the action, client, final HTTP status, success flag, UTC timestamp and correlation ID; a nonexistent mission ID is retained in details rather than used as a foreign key.
+
 ---
 
 ## 7. Data model (PostgreSQL)
@@ -362,22 +371,20 @@ Questions, not decisions. Ask the user before implementing anything that depends
 |---|---|---|
 | Q1 | Chapter-7 API reference is now available (see §4): vendor endpoints, payloads and status codes are documented. Still needed: §4.7 Authentication for token acquisition; agreed mapping of vendor job/robot states and middleware step actions (including Wait), and cancel mode. Live verification requires KUKA FM licenses, currently unavailable. | 5 |
 | Q3 | Sync intervals for missions and robots (wiki example 5 s). | 5 |
-| Q6 | Log sink: stdout only, or also Seq / another viewer. | 8 |
 | Q7 | Azure DevOps: agent / pool, deployment target, static analysis tools. | 8 |
-| Q8 | How the web UI gets its API key without exposing it (e.g. injected by nginx for same-origin requests). | 8 |
 | Q11 | Cancel race: two parallel cancels both pass the Cancellable check. Add a concurrency token (e.g. PostgreSQL `xmin`) mapped to 409, together with `cancelMission`. | 5 |
 | Q10 | Container hardening: run nginx as non-root (e.g. `nginxinc/nginx-unprivileged`, needs approval) and give the api a compose healthcheck (aspnet image has no curl). | 8 |
 | Q12 | Robot name ordering is case-sensitive (`StringComparer.Ordinal`); switch to case-insensitive? | any |
 | Q13 | New mission: if the chosen robot goes Offline while the form is open, the form warns but still submits. Block the submit instead? | any |
 | Q14 | Mobile nav drawer visibly slides out when the viewport crosses 768 px (transition runs on the breakpoint change, since phase 6). Suppress the transition on media change? | 9 |
 | Q15 | `.impeccable/design.json` is older than `DESIGN.md` (phase 7 added `dark-offline-surface`). Re-sync with `impeccable document`? | any |
-| Q17 | In Production every EF SQL command is logged at Information (the UI polls every 5 s), burying the middleware's own logs. Set `Microsoft.EntityFrameworkCore.Database.Command` to Warning. | 8 |
-| Q18 | Docker publishes the web port on all interfaces (`0.0.0.0:8080`) while the API has no authentication until phase 8, so other PCs on the network can create and cancel missions. Bind to `127.0.0.1` by default (e.g. a `WEB_BIND` variable)? | any |
 | Q16 | While the api container is down, nginx answers with its own HTML 502 and the UI says "KUKA FM did not respond". Return a distinct "API unavailable" (nginx `error_page`) or tell the cases apart in the UI? | 9 |
 
 ### Decided
 | # | Decision | Date |
 |---|---|---|
+| Q8, Q18 | nginx supplies the web-ui key for the trusted localhost-only UI; explicit X-API-Key headers are forwarded unchanged. Anonymous 401s are technically logged; the audit schema stays unchanged. See §6. | 2026-11-04 |
+| Q6, Q17 | Structured JSON stdout logs, no additional log service; EF SQL command logging at Warning. | 2026-11-04 |
 | Q4 | Backend tests xUnit + NSubstitute (plain `Assert`); frontend Vitest for composables and pure functions only. | 2026-10-21 |
 | Q5 | Frontend state in composables (no Pinia); plain scoped CSS with tokens from `DESIGN.md` (no Tailwind, no UI library). | 2026-10-21 |
 | Q2 | Real-time UI by **polling every 5 s** (no SignalR), as in the mockups. | 2026-10-21 |

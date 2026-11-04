@@ -1,10 +1,16 @@
 using KukaMiddleware.Api.Data.Entities;
 using NSubstitute;
+using KukaMiddleware.Api.Auth;
 
 namespace KukaMiddleware.Api.Tests.Missions;
 
 internal static class TestData
 {
+    public static CurrentApiClient Client() => new()
+    {
+        Client = new ApiClient { Id = 1, Name = "web-ui", KeyHash = "hash", IsActive = true },
+    };
+
     public static readonly DateTimeOffset Now = new(2026, 10, 21, 12, 0, 0, TimeSpan.Zero);
 
     public static TimeProvider Time()

@@ -9,6 +9,6 @@ COPY frontend/ ./
 RUN npm run build
 
 FROM nginx:1.30.6-alpine AS runtime
-COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+COPY docker/nginx.conf /etc/nginx/templates/default.conf.template
 COPY --from=build /src/dist /usr/share/nginx/html
 EXPOSE 80

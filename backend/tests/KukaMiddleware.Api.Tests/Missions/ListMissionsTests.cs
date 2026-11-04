@@ -14,7 +14,7 @@ public class ListMissionsTests
     {
         _store.ListAsync(Arg.Do<IReadOnlyCollection<MissionStatus>?>(s => _requested = s), Arg.Any<CancellationToken>())
             .Returns([]);
-        _service = new MissionService(_store, TestData.Time());
+        _service = new MissionService(_store, TestData.Time(), TestData.Client());
     }
 
     private Task<IReadOnlyList<MissionSummary>?> List(string? state) =>
