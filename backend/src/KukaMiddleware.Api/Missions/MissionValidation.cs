@@ -28,10 +28,17 @@ public static class MissionValidation
 
         for (var i = 0; i < steps.Count; i++)
         {
-            if (string.IsNullOrWhiteSpace(steps[i].NodeCode) || steps[i].NodeCode!.Length > 64)
+            var step = steps[i];
+            if (step is null)
+            {
+                errors[$"steps[{i}].nodeCode"] = ["A step is required."];
+                continue;
+            }
+
+            if (string.IsNullOrWhiteSpace(step.NodeCode) || step.NodeCode!.Length > 64)
                 errors[$"steps[{i}].nodeCode"] = ["Must be 1 to 64 characters and not blank."];
 
-            if (!Actions.Contains(steps[i].Action))
+            if (!Actions.Contains(step.Action))
                 errors[$"steps[{i}].action"] = [$"Must be one of: {string.Join(", ", Actions)}."];
         }
 

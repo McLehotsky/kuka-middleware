@@ -9,7 +9,7 @@ public class MissionDetailTests
     private readonly IMissionStore _store = Substitute.For<IMissionStore>();
     private readonly MissionService _service;
 
-    public MissionDetailTests() => _service = new MissionService(_store, TestData.Time());
+    public MissionDetailTests() => _service = new MissionService(_store, TestData.Time(), TestData.Client());
 
     private static CancellationToken Ct => TestContext.Current.CancellationToken;
 

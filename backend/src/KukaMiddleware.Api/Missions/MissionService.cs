@@ -1,12 +1,10 @@
 using KukaMiddleware.Api.Data.Entities;
+using KukaMiddleware.Api.Auth;
 
 namespace KukaMiddleware.Api.Missions;
 
-public class MissionService(IMissionStore store, TimeProvider time) : IMissionService
+public class MissionService(IMissionStore store, TimeProvider time, CurrentApiClient client) : IMissionService
 {
-    // Phase 6 has no authentication: every mission belongs to the seeded "web-ui" client.
-    // Phase 8 replaces this with the authenticated ApiClient.
-    private const int WebUiClientId = 1;
     private const int DefaultPriority = 2;
 
     public async Task<CreateMissionResult> CreateAsync(CreateMissionRequest request, CancellationToken ct)
@@ -28,7 +26,7 @@ public class MissionService(IMissionStore store, TimeProvider time) : IMissionSe
             Priority = request.Priority ?? DefaultPriority,
             Status = MissionStatus.Created,
             RobotId = request.RobotId,
-            CreatedByClientId = WebUiClientId,
+            CreatedByClientId = client.Id,
             CreatedAt = now,
         };
         mission.Steps.AddRange(request.Steps!.Select((step, i) =>

@@ -13,8 +13,7 @@ public class ApiClientConfiguration : IEntityTypeConfiguration<ApiClient>
         builder.Property(c => c.Role).HasConversion<string>().HasMaxLength(32);
         builder.HasIndex(c => c.KeyHash).IsUnique();
 
-        // Phase 6 has no authentication: all missions belong to this client (system-definition §14, Q-L).
-        // The KeyHash is a sentinel that no real key hash can match; phase 8 replaces it with a real key.
+        // Migrations contain only a disabled-key sentinel. Startup loads the configured key hash.
         builder.HasData(new ApiClient
         {
             Id = 1,

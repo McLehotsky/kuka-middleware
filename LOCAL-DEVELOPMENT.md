@@ -10,7 +10,7 @@ All commands are PowerShell, run from the **repository root** unless the step sa
 | API (through nginx) | http://localhost:8080/api/... |
 | API health check | http://localhost:8080/api/health |
 
-Only the web container is published to the host. The API and PostgreSQL are reachable only inside the compose network.
+Only the web container is published to the host, bound to `127.0.0.1`. The API and PostgreSQL are reachable only inside the compose network. URLs use the default port; substitute `WEB_PORT` from `docker/.env` if changed (for example, 8081).
 
 ---
 
@@ -40,21 +40,21 @@ node -v
 
 ## Quick start (Windows)
 
-With Docker Desktop running, double-click `docker/start.bat` (or run it from a terminal). It creates `docker/.env` with a random database password if the file doesn't exist yet, builds the images, starts the stack and prints the app URL. Run it again after code changes. Steps 2 and 3 below do the same by hand.
+With Docker Desktop running, double-click `docker/start.bat` (or run it from a terminal). It creates `docker/.env` with a random database password and independent API keys if missing, builds the images, starts the stack and prints the app URL. Existing passwords, configured keys, ports and database data are preserved. Run it again after code changes. Steps 2 and 3 below do the same by hand.
 
 ---
 
 ## 2. Configuration (once per PC)
 
-Copy the template. `docker/.env` is git-ignored and never committed:
+Initialize local configuration and random secrets. `docker/.env` is git-ignored and never committed:
 
 ```powershell
-Copy-Item docker/.env.example docker/.env
+powershell -NoProfile -ExecutionPolicy Bypass -File docker/initialize-env.ps1
 ```
 
-Open `docker/.env` and set `POSTGRES_PASSWORD` to a strong password of your own (no `;` in it). The other defaults are fine. The database password is only used inside Docker.
+The initializer also upgrades an existing `.env` with missing API keys without changing the database password. API keys must be distinct 64-character lowercase hex values. The API fails startup if keys are missing, placeholders, invalid or equal. The database password is only used inside Docker.
 
-Don't paste the output of `docker compose config` anywhere: it shows the resolved password. Use `config --quiet` to only validate the file.
+Don't paste the output of `docker compose config` anywhere: it shows resolved secrets. Use `config --quiet` to only validate the file. Do not paste `docker inspect` environment output or `nginx -T`: runtime configuration contains keys.
 
 ---
 
@@ -66,7 +66,15 @@ Build the images and start all three containers in the background:
 docker compose -f docker/docker-compose.yml up -d --build
 ```
 
-Then open http://localhost:8080. On the first start the API applies all EF Core migrations, including the seeded `web-ui` client; there is nothing to create by hand.
+Then open http://localhost:8080. On startup the API applies EF Core migrations and configures the `web-ui` and `external-system` clients from secret configuration. Only key hashes enter the database; IDs and disabled states are preserved across restarts.
+
+### Local UI and API authentication
+
+The local UI is trusted: nginx adds its `web-ui` key when the request has no `X-API-Key` header. Access to this UI permits mission operations as `web-ui`; there is no individual operator login. The key is supplied at container startup, not built into browser JavaScript or image layers. Nginx rejects foreign Host/Origin and cross-site browser requests.
+
+An external client supplies its own `X-API-Key` header; nginx forwards explicit keys unchanged. Invalid keys return 401. Direct API requests inside the compose network require a key except for `/api/health`. The same health URL through nginx is public too.
+
+Authorized create/cancel attempts, including 400/404/409 failures, are written to `audit_log`. Unknown/missing/inactive keys are rejected and logged to stdout without an audit row. JSON technical logs contain no key/header/body values; ordinary read requests do not create audit rows.
 
 **After changing code**, run the same command again. It rebuilds only the images whose files changed and recreates those containers. The database is kept.
 
@@ -184,6 +192,9 @@ Invoke-RestMethod 'http://localhost:8080/api/missions?state=active'
 |---|---|
 | `error during connect` / `Docker Desktop is unable to start` | The Docker engine is not running. Start Docker Desktop and wait until it says "running"; a PC restart helps after a fresh install. |
 | `set POSTGRES_PASSWORD in docker/.env` | `docker/.env` is missing or incomplete. Do step 2. |
+| `ApiKeys:WebUi` / `ApiKeys:ExternalSystem` startup error | Run `docker/start.bat` to initialize missing keys. If keys were edited manually, each must be a distinct 64-character lowercase hex value. |
+| 401 with an explicit API key | The key is unknown or the client is inactive. Check configuration and `api_client.is_active`; never paste the key into logs or chat. |
+| 403 from nginx | Use the local UI hostname (`localhost` or `127.0.0.1`) and matching Origin; cross-site browser requests are rejected. |
 | `port is already allocated` on 8080 | Another program uses port 8080. Set another `WEB_PORT` in `docker/.env` and run `up` again. |
 | Web UI shows "Paused · retrying" or errors on every screen | The API container is down or restarting. Check `ps` and `logs api`. |
 | `password authentication failed for user "kuka"` in the API log | `POSTGRES_PASSWORD` was changed after the volume was created; PostgreSQL keeps the first password. Put the old one back, or reset the data with `down -v`. |

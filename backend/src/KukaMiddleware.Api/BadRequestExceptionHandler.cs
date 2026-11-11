@@ -12,7 +12,7 @@ public class BadRequestExceptionHandler(IProblemDetailsService problemDetails, I
         if (exception is not BadHttpRequestException bad)
             return false;
 
-        logger.LogWarning("Bad request {Method} {Path}: {Reason}", context.Request.Method, context.Request.Path, bad.Message);
+        logger.LogWarning("Bad request {Method} {Path}", context.Request.Method, context.Request.Path);
         context.Response.StatusCode = bad.StatusCode;
         return await problemDetails.TryWriteAsync(new ProblemDetailsContext { HttpContext = context, Exception = exception });
     }

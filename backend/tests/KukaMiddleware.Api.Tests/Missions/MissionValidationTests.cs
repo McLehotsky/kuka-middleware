@@ -50,6 +50,20 @@ public class MissionValidationTests
         Assert.Contains("steps", MissionValidation.Validate(Valid with { Steps = [] }).Keys);
 
     [Theory]
+    [InlineData(0)]
+    [InlineData(1)]
+    public void Null_step_is_invalid_with_step_index_key(int index)
+    {
+        // JSON arrays can contain null even when their element type is non-nullable.
+        CreateMissionStep[] steps = [new("N-01", "Load"), new("N-02", "Unload")];
+        steps[index] = null!;
+
+        var errors = MissionValidation.Validate(Valid with { Steps = steps });
+
+        Assert.Contains($"steps[{index}].nodeCode", errors.Keys);
+    }
+
+    [Theory]
     [InlineData(null)]
     [InlineData("")]
     [InlineData("   ")]

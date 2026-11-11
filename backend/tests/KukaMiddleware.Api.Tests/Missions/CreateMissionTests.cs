@@ -17,7 +17,7 @@ public class CreateMissionTests
     {
         _store.NextMissionCodeNumberAsync(Arg.Any<CancellationToken>()).Returns(42L);
         _store.Add(Arg.Do<Mission>(m => _added = m));
-        _service = new MissionService(_store, TestData.Time());
+        _service = new MissionService(_store, TestData.Time(), TestData.Client());
     }
 
     private Task<CreateMissionResult> Create(CreateMissionRequest request) =>
@@ -62,11 +62,15 @@ public class CreateMissionTests
     }
 
     [Fact]
-    public async Task Attributes_mission_to_seeded_web_ui_client()
+    public async Task Attributes_mission_to_authenticated_client()
     {
-        await Create(Request);
+        var client = TestData.Client();
+        client.Client!.Id = 7;
+        var service = new MissionService(_store, TestData.Time(), client);
 
-        Assert.Equal(1, _added!.CreatedByClientId);
+        await service.CreateAsync(Request, TestContext.Current.CancellationToken);
+
+        Assert.Equal(7, _added!.CreatedByClientId);
     }
 
     [Fact]
@@ -155,5 +159,18 @@ public class CreateMissionTests
         Assert.IsType<CreateMissionResult.Invalid>(result);
         _store.DidNotReceive().Add(Arg.Any<Mission>());
         await _store.DidNotReceive().NextMissionCodeNumberAsync(Arg.Any<CancellationToken>());
+        await _store.DidNotReceive().SaveChangesAsync(Arg.Any<CancellationToken>());
+    }
+
+    [Fact]
+    public async Task Null_step_is_invalid_and_stores_nothing()
+    {
+        var result = await Create(Request with { Steps = [null!] });
+
+        var invalid = Assert.IsType<CreateMissionResult.Invalid>(result);
+        Assert.Contains("steps[0].nodeCode", invalid.Errors.Keys);
+        _store.DidNotReceive().Add(Arg.Any<Mission>());
+        await _store.DidNotReceive().NextMissionCodeNumberAsync(Arg.Any<CancellationToken>());
+        await _store.DidNotReceive().SaveChangesAsync(Arg.Any<CancellationToken>());
     }
 }
