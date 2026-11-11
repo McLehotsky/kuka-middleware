@@ -4,6 +4,7 @@ One note per finished phase or task, newest first. Format and rules: [CLAUDE.md 
 
 | Date | Note | Phase | Summary |
 |---|---|---|---|
+| 2026-11-11 | [11 · Azure CI](2026-11-11-11-azure-ci.md) | 8 | GitHub push/PR pipeline with build, static checks, 134 backend / 95 frontend tests and XML reports; Azure run and branch protection pending |
 | 2026-11-04 | [10 · API security and audit](2026-11-04-10-api-security-audit.md) | 8 | Backlog 4.2: API keys, authenticated ownership, audit, JSON logs, trusted localhost-only UI; 134 backend / 95 frontend tests |
 | 2026-11-04 | [09 · Test regressions](2026-11-04-09-test-regressions.md) | 6 | Null steps return 400; cancellation preserves history; 100 backend / 95 frontend tests pass; KUKA API reference and license limitation recorded |
 | 2026-10-28 | [08 · Docker](2026-10-28-08-docker.md) | 4 | App runs only in Docker Compose; 4.1 verified (start, schema, persistence); local dev flow dropped; `docker/start.bat` |

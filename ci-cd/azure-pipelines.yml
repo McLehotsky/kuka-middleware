@@ -1,0 +1,107 @@
+# Azure Pipelines CI for the GitHub repository. No secret variables or live services required.
+# Uses a Microsoft-hosted Ubuntu agent; requires hosted parallel-job access in Azure DevOps.
+trigger:
+  batch: true
+  branches:
+    include:
+      - '*'
+
+pr:
+  autoCancel: true
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: ubuntu-24.04
+
+variables:
+  DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+  DOTNET_NOLOGO: '1'
+  CI: 'true'
+
+jobs:
+  - job: Backend
+    displayName: Backend build and tests
+    timeoutInMinutes: 20
+    steps:
+      - checkout: self
+        fetchDepth: 1
+
+      - task: UseDotNet@2
+        displayName: Install pinned .NET SDK
+        inputs:
+          packageType: sdk
+          useGlobalJson: true
+          workingDirectory: '$(Build.SourcesDirectory)/backend'
+
+      - bash: dotnet restore
+        displayName: Restore backend packages
+        workingDirectory: '$(Build.SourcesDirectory)/backend'
+
+      - bash: dotnet build --configuration Release --no-restore -warnaserror -p:EnableNETAnalyzers=true
+        displayName: Build backend with analyzers and warnings as errors
+        workingDirectory: '$(Build.SourcesDirectory)/backend'
+
+      - bash: >-
+          dotnet test --configuration Release --no-build --no-restore
+          --results-directory "$(Common.TestResultsDirectory)/backend"
+          --report-xunit-xml --report-xunit-xml-filename backend.xml
+        displayName: Run backend unit tests
+        workingDirectory: '$(Build.SourcesDirectory)/backend'
+
+      - task: PublishTestResults@2
+        displayName: Publish backend test results
+        condition: succeededOrFailed()
+        inputs:
+          testResultsFormat: XUnit
+          testResultsFiles: '$(Common.TestResultsDirectory)/backend/backend.xml'
+          testRunTitle: Backend unit tests
+          failTaskOnFailedTests: true
+          failTaskOnMissingResultsFile: true
+          failTaskOnFailureToPublishResults: true
+
+  - job: Frontend
+    displayName: Frontend checks and tests
+    timeoutInMinutes: 20
+    steps:
+      - checkout: self
+        fetchDepth: 1
+
+      - task: NodeTool@0
+        displayName: Install Node.js 24
+        inputs:
+          versionSpec: '24.22.1'
+
+      - bash: npm ci --no-audit --no-fund
+        displayName: Install locked frontend packages
+        workingDirectory: '$(Build.SourcesDirectory)/frontend'
+
+      - bash: npm run typecheck
+        displayName: Check frontend types
+        workingDirectory: '$(Build.SourcesDirectory)/frontend'
+
+      - bash: npm run lint
+        displayName: Lint frontend
+        workingDirectory: '$(Build.SourcesDirectory)/frontend'
+
+      - bash: >-
+          npm run test -- --reporter=default --reporter=junit
+          --outputFile="$(Common.TestResultsDirectory)/frontend.xml"
+        displayName: Run frontend unit tests
+        workingDirectory: '$(Build.SourcesDirectory)/frontend'
+
+      - task: PublishTestResults@2
+        displayName: Publish frontend test results
+        condition: succeededOrFailed()
+        inputs:
+          testResultsFormat: JUnit
+          testResultsFiles: '$(Common.TestResultsDirectory)/frontend.xml'
+          testRunTitle: Frontend unit tests
+          failTaskOnFailedTests: true
+          failTaskOnMissingResultsFile: true
+          failTaskOnFailureToPublishResults: true
+
+      - bash: npm run build
+        displayName: Build frontend for production
+        workingDirectory: '$(Build.SourcesDirectory)/frontend'
