@@ -322,6 +322,7 @@ API calls via relative `/api/...`; the web UI uses its own API key (how it is pr
 
 - `docker compose up` starts **web** (nginx + built SPA, proxies `/api`), **api** and **PostgreSQL** with a named volume; data survives container restarts.
 - **CI:** build backend and frontend, run tests, static analysis; fails on any error; PR into main only with a green pipeline.
+- CI configuration: `ci-cd/azure-pipelines.yml`, Microsoft-hosted `ubuntu-24.04`, built-in `UseDotNet@2`, `NodeTool@0` and `PublishTestResults@2` tasks. Existing SDK/Node/package versions are used. No application secrets or live services are required. The setup and required GitHub status-check configuration are in `ci-cd/README.md`; the first Azure run and branch protection still need verification.
 - **CD:** after merge into main, deploy without manual steps; secrets (KUKA credentials, DB password, API keys) only in secret variables (variable group); after deploy check the web and `/api/health`, otherwise the pipeline fails.
 
 ---
@@ -371,7 +372,7 @@ Questions, not decisions. Ask the user before implementing anything that depends
 |---|---|---|
 | Q1 | Chapter-7 API reference is now available (see §4): vendor endpoints, payloads and status codes are documented. Still needed: §4.7 Authentication for token acquisition; agreed mapping of vendor job/robot states and middleware step actions (including Wait), and cancel mode. Live verification requires KUKA FM licenses, currently unavailable. | 5 |
 | Q3 | Sync intervals for missions and robots (wiki example 5 s). | 5 |
-| Q7 | Azure DevOps: agent / pool, deployment target, static analysis tools. | 8 |
+| Q7 | CI YAML uses a Microsoft-hosted Ubuntu 24.04 agent and existing .NET analyzers/TypeScript/ESLint; verify hosted-job access and GitHub required checks. CD deployment target, agent/pool and secret variable group remain to be decided. | 8 |
 | Q11 | Cancel race: two parallel cancels both pass the Cancellable check. Add a concurrency token (e.g. PostgreSQL `xmin`) mapped to 409, together with `cancelMission`. | 5 |
 | Q10 | Container hardening: run nginx as non-root (e.g. `nginxinc/nginx-unprivileged`, needs approval) and give the api a compose healthcheck (aspnet image has no curl). | 8 |
 | Q12 | Robot name ordering is case-sensitive (`StringComparer.Ordinal`); switch to case-insensitive? | any |
