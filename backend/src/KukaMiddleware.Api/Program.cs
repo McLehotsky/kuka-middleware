@@ -6,10 +6,13 @@ using KukaMiddleware.Api.Data;
 using KukaMiddleware.Api.Missions;
 using KukaMiddleware.Api.Robots;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Logging.ClearProviders();
-builder.Logging.AddJsonConsole(options => options.IncludeScopes = true);
+builder.Services.AddSerilog((services, logger) => logger
+    .ReadFrom.Configuration(builder.Configuration)
+    .ReadFrom.Services(services)
+    .Enrich.FromLogContext());
 var keys = new ApiKeySettings(builder.Configuration["ApiKeys:WebUi"]!, builder.Configuration["ApiKeys:ExternalSystem"]!);
 
 builder.Services.AddDbContext<AppDbContext>(options => options
