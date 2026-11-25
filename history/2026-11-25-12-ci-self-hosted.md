@@ -4,6 +4,8 @@ date: 2026-11-25
 phase: 8
 backlog: ["4.3 CI pipeline - build, tests, static analysis on the self-hosted agent"]
 agents: [main session, planner, ops-infra-expert, reviewer]
+pr: 10
+pr_url: https://github.com/McLehotsky/kuka-middleware/pull/10
 ---
 
 # CI on the self-hosted Windows agent
