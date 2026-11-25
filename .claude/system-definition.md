@@ -98,6 +98,9 @@ New packages and images still need the user's approval. Patch updates of the one
 | Docker | `node` | 24.22.1-alpine |
 | Docker | `nginx` | 1.30.6-alpine |
 | Docker | `postgres` | 18.6-alpine |
+| NuGet | `Serilog.AspNetCore` | 11.0.0, added in phase 8 (Seq logging) |
+| NuGet | `Serilog.Sinks.Seq` | 9.1.0, added in phase 8 |
+| Docker | `datalust/seq` | 2026.1.17182, added in phase 8 |
 
 Runtime: the app runs only in Docker Compose (Docker Desktop on the dev PC); .NET SDK 10.0.402 and Node 24 LTS on the host for builds, tests, lint and migrations.
 
@@ -193,7 +196,7 @@ Cancelling → Cancelled   sync – confirmed
 
 - **API key per client (`ApiClient`):** one key for the operator web UI, one for the external system. Only the key **hash** is stored. A request without a valid key → **401**. Seeded keys come from configuration/secrets, never from the repo.
 - If operator login is introduced later, `ApiClient` is replaced / extended by `User` and the FKs in `Mission` and `AuditLog` are redirected.
-- **Audit vs. technical logs:** user operations (dispatch, cancel) go to the `AuditLog` table, including failed ones (acceptance criterion "all user operations are logged"). Technical structured logs (NFR4) go to stdout, not to the DB.
+- **Audit vs. technical logs:** user operations (dispatch, cancel) go to the `AuditLog` table, including failed ones (acceptance criterion "all user operations are logged"). Technical structured logs (NFR4) go to stdout (compact JSON) and to Seq, not to the DB.
 
 ### Phase 8 security decisions (approved 2026-11-04)
 
@@ -201,7 +204,7 @@ Cancelling → Cancelled   sync – confirmed
 - Q8: nginx supplies the `web-ui` key when no key header is supplied. An explicit header is forwarded unchanged, so the external system can authenticate with its own key and invalid keys are rejected. The web port is bound to `127.0.0.1`; access to the local UI authorizes operations as `web-ui`. This does not identify individual operators.
 - Keys are independent random 32-byte lowercase hex values, provided through environment configuration. Only SHA-256 hashes are stored in the DB; startup updates configured key hashes without changing client IDs or reactivating disabled clients. No keys are bundled into frontend assets or image layers.
 - Anonymous/missing/unknown-key 401 attempts go to technical logs only. `AuditLog.ApiClientId` remains required. Identified clients' failed create/cancel attempts, including invalid JSON and 404/409 responses, are audited.
-- Q6/Q17: structured JSON logs go to stdout; EF SQL command logging is Warning. Never log key/header/body values.
+- Logging (Serilog, decided 2026-11-25, replaces Q6/Q17): compact JSON to stdout and the same events to Seq (`http://seq:5341`, compose service `seq`, UI on http://localhost:5341 bound to 127.0.0.1, no Seq login). EF SQL command and `System.Net.Http` logging at Warning. Never log key/header/body values.
 - Read endpoints and health checks do not create audit rows. Audit rows contain the action, client, final HTTP status, success flag, UTC timestamp and correlation ID; a nonexistent mission ID is retained in details rather than used as a foreign key.
 
 ---
@@ -323,7 +326,7 @@ API calls via relative `/api/...`; the web UI uses its own API key (how it is pr
 - `docker compose up` starts **web** (nginx + built SPA, proxies `/api`), **api** and **PostgreSQL** with a named volume; data survives container restarts.
 - **CI:** build backend and frontend, run tests, static analysis; fails on any error; PR into main only with a green pipeline.
 - CI configuration: `ci-cd/ci.yml` (Azure pipeline `kuka-middleware-ci`) on the team's self-hosted Windows agent (pool and agent name from the pipeline variables `AgentPoolName` / `AgentName`, Windows PowerShell 5.1 steps), built-in `UseDotNet@2`, `NodeTool@0` and `PublishTestResults@2` tasks. Existing SDK/Node/package versions are used. No application secrets or live services are required. Setup and the required GitHub status check are in `ci-cd/README.md`.
-- **CD:** after merge into main, deploy without manual steps; secrets (KUKA credentials, DB password, API keys) only in secret variables (variable group); after deploy check the web and `/api/health`, otherwise the pipeline fails.
+- **CD:** `ci-cd/cd.yml` (Azure pipeline `kuka-middleware-cd`) on the same self-hosted agent, triggered by a successful `kuka-middleware-ci` run on `main` (manual runs possible). It mirrors the sources to `DeployPath`, fills `docker/.env.prod` placeholders from pipeline variables (secrets marked secret; teacher style, not a variable group), runs `docker compose build` + `up -d` on the local Docker Desktop (same compose project and volumes as local development, never `down -v`) and smoke-checks the web, `/api/health` and Seq; otherwise the pipeline fails. Secrets never enter appsettings or images. KUKA FM credentials will be added as further secret pipeline variables and `.env.prod` placeholders when the KUKA client is built (phase 5, Q1).
 
 ---
 
@@ -372,7 +375,7 @@ Questions, not decisions. Ask the user before implementing anything that depends
 |---|---|---|
 | Q1 | Chapter-7 API reference is now available (see §4): vendor endpoints, payloads and status codes are documented. Still needed: §4.7 Authentication for token acquisition; agreed mapping of vendor job/robot states and middleware step actions (including Wait), and cancel mode. Live verification requires KUKA FM licenses, currently unavailable. | 5 |
 | Q3 | Sync intervals for missions and robots (wiki example 5 s). | 5 |
-| Q7 | CI runs on the self-hosted Windows agent (decided 2026-11-25, teacher's sample project style). Still to verify: first Azure run on the agent and the GitHub required status check. CD (4.4): deployment target, agent and secret handling to decide in the CD step of phase 8. | 8 |
+| Q7 | CI and CD run on the self-hosted Windows agent (decided 2026-11-25). Still to verify: first CD run (Docker Desktop reachable from the Local System service) and the GitHub required status check. | 8 |
 | Q11 | Cancel race: two parallel cancels both pass the Cancellable check. Add a concurrency token (e.g. PostgreSQL `xmin`) mapped to 409, together with `cancelMission`. | 5 |
 | Q10 | Container hardening: run nginx as non-root (e.g. `nginxinc/nginx-unprivileged`, needs approval) and give the api a compose healthcheck (aspnet image has no curl). | 8 |
 | Q12 | Robot name ordering is case-sensitive (`StringComparer.Ordinal`); switch to case-insensitive? | any |
@@ -385,7 +388,8 @@ Questions, not decisions. Ask the user before implementing anything that depends
 | # | Decision | Date |
 |---|---|---|
 | Q8, Q18 | nginx supplies the web-ui key for the trusted localhost-only UI; explicit X-API-Key headers are forwarded unchanged. Anonymous 401s are technically logged; the audit schema stays unchanged. See §6. | 2026-11-04 |
-| Q6, Q17 | Structured JSON stdout logs, no additional log service; EF SQL command logging at Warning. | 2026-11-04 |
+| Seq | Serilog with compact JSON stdout plus Seq (`datalust/seq`, localhost-only UI, no login); supersedes Q6/Q17 "no additional log service". CD secrets as pipeline (secret) variables instead of a variable group (teacher style). | 2026-11-25 |
+| Q6, Q17 | Structured JSON stdout logs, no additional log service; EF SQL command logging at Warning. *(Log service part superseded by Seq, 2026-11-25.)* | 2026-11-04 |
 | Q4 | Backend tests xUnit + NSubstitute (plain `Assert`); frontend Vitest for composables and pure functions only. | 2026-10-21 |
 | Q5 | Frontend state in composables (no Pinia); plain scoped CSS with tokens from `DESIGN.md` (no Tailwind, no UI library). | 2026-10-21 |
 | Q2 | Real-time UI by **polling every 5 s** (no SignalR), as in the mockups. | 2026-10-21 |

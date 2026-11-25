@@ -9,8 +9,9 @@ All commands are PowerShell, run from the **repository root** unless the step sa
 | Web UI | http://localhost:8080 |
 | API (through nginx) | http://localhost:8080/api/... |
 | API health check | http://localhost:8080/api/health |
+| Seq (API logs) | http://localhost:5341 |
 
-Only the web container is published to the host, bound to `127.0.0.1`. The API and PostgreSQL are reachable only inside the compose network. URLs use the default port; substitute `WEB_PORT` from `docker/.env` if changed (for example, 8081).
+Only the web and Seq containers are published to the host, bound to `127.0.0.1`. The API and PostgreSQL are reachable only inside the compose network. URLs use the default port; substitute `WEB_PORT` from `docker/.env` if changed (for example, 8081).
 
 ---
 
@@ -98,7 +99,9 @@ docker compose -f docker/docker-compose.yml down
 
 ## 4. Logs and database
 
-API logs (add `-f` to follow them):
+Searchable API logs: open Seq at http://localhost:5341 (no login, localhost only).
+
+Raw API logs (add `-f` to follow them):
 
 ```powershell
 docker compose -f docker/docker-compose.yml logs api

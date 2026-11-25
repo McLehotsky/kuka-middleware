@@ -104,7 +104,7 @@ The **main session** owns git and GitHub: it creates the branch at the start of 
 - Services depend on interfaces (KUKA client, token provider, data access, `TimeProvider`) so they are unit-testable.
 - Async all the way, `CancellationToken` passed through.
 - EF Core + Npgsql: enums stored as `string` (`HasConversion<string>()`), timestamps `timestamptz` in UTC, indexes and unique constraints from system-definition §7. Migrations are created by `backend-expert` and applied by the API on startup.
-- Structured logs to stdout; never log the KUKA token or API keys.
+- Structured logs (Serilog) to stdout and Seq; never log the KUKA token or API keys.
 - No mediators, generic repositories, mapping libraries or extra layers; plain methods and records are enough.
 
 ### Frontend (`frontend/`)
@@ -173,7 +173,7 @@ Agents verify changes the same way CI does. Step-by-step local setup for people:
 |---|---|
 | Validate compose (never without `--quiet`: the full output shows the DB password) | `docker compose -f docker/docker-compose.yml config --quiet` |
 | Initialize local DB password and API keys (preserves existing settings) | `powershell -NoProfile -ExecutionPolicy Bypass -File docker/initialize-env.ps1` |
-| Start web, api, postgres (app on http://localhost:8080, localhost only); rerun after code changes | `docker compose -f docker/docker-compose.yml up -d --build` |
+| Start web, api, postgres, seq (app on http://localhost:8080, Seq on http://localhost:5341, localhost only); rerun after code changes | `docker compose -f docker/docker-compose.yml up -d --build` |
 | Database shell | `docker compose -f docker/docker-compose.yml exec postgres psql -U kuka -d kuka_middleware` |
 | API logs | `docker compose -f docker/docker-compose.yml logs api` |
 | Stop, keep data | `docker compose -f docker/docker-compose.yml down` |

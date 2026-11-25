@@ -1,0 +1,192 @@
+# Azure Pipelines CD (kuka-middleware-cd) for the GitHub repository.
+# Runs automatically after every successful kuka-middleware-ci run on main (backlog 4.4) and can be run manually.
+# Deploys web, api, postgres and seq with Docker Compose on the self-hosted Windows agent
+# (Windows service as Local System, Windows PowerShell 5.1, Docker Desktop running on the same PC).
+# The Compose project name stays kuka-middleware, so the existing pgdata and seq-data volumes are reused.
+# Secret values never appear in the repository, images or logs; they are written only into the
+# filled copy of docker/.env.prod under DeployPath.
+#
+# Required pipeline variables (defined in Azure DevOps, not in this file):
+#   AgentPoolName         agent pool of the self-hosted agent, e.g. Default
+#   AgentName             name of the self-hosted agent, e.g. jozef-agent
+#   WebPort               host port of the web UI on the agent PC, 1024-65535, e.g. 8081
+#   DeployPath            dedicated deploy folder, mirrored from the sources, e.g. C:\deploy\kuka-middleware
+#   DbName                PostgreSQL database, e.g. kuka_middleware
+#   DbUser                PostgreSQL user, e.g. kuka
+#   DbPassword            secret; must equal the password the existing pgdata volume was created with
+#   WebUiApiKey           secret; 64 lowercase hex characters
+#   ExternalSystemApiKey  secret; 64 lowercase hex characters, different from WebUiApiKey
+trigger: none
+
+pr: none
+
+resources:
+  pipelines:
+    - pipeline: ci
+      source: kuka-middleware-ci
+      trigger:
+        branches:
+          include:
+            - main
+
+pool:
+  name: $(AgentPoolName)
+  demands:
+    - Agent.Name -equals $(AgentName)
+
+jobs:
+  - job: Deploy
+    displayName: Deploy Docker Compose stack
+    timeoutInMinutes: 45
+    steps:
+      # Triggered by the ci resource, self is checked out at the same commit that CI built.
+      - checkout: self
+        clean: true
+        fetchDepth: 1
+
+      - powershell: |
+          $ErrorActionPreference = 'Stop'
+          if ($env:BUILD_SOURCEBRANCH -ne 'refs/heads/main') { throw "CD deploys only main, not $env:BUILD_SOURCEBRANCH." }
+          docker version
+          if ($LASTEXITCODE -ne 0) { throw 'Docker engine is not reachable. Start Docker Desktop on the agent PC.' }
+          docker compose version
+          if ($LASTEXITCODE -ne 0) { throw 'Docker Compose plugin is not available to the agent account.' }
+        displayName: Check branch and Docker engine
+
+      - powershell: |
+          $ErrorActionPreference = 'Stop'
+          $values = [ordered]@{
+            DeployPath = $env:DEPLOY_PATH
+            WebPort = $env:WEB_PORT
+            DbName = $env:DB_NAME
+            DbUser = $env:DB_USER
+            DbPassword = $env:DB_PASSWORD
+            WebUiApiKey = $env:WEB_UI_API_KEY
+            ExternalSystemApiKey = $env:EXTERNAL_SYSTEM_API_KEY
+          }
+          foreach ($name in $values.Keys) {
+            $value = $values[$name]
+            if ([string]::IsNullOrEmpty($value)) { throw "Pipeline variable $name is not set." }
+            if ($value.Contains('$(')) { throw "Pipeline variable $name is not defined." }
+            if ($value -match '["''$#\s]') { throw "Pipeline variable $name must not contain quotes, dollar signs, '#' or whitespace." }
+            if ($name -like 'Db*' -and $value.Contains(';')) { throw "Pipeline variable $name must not contain ';'." }
+          }
+          foreach ($name in @('WebUiApiKey', 'ExternalSystemApiKey')) {
+            if ($values[$name] -cnotmatch '^[0-9a-f]{64}$') { throw "Pipeline variable $name must be exactly 64 lowercase hexadecimal characters." }
+          }
+          if ($values.WebPort -notmatch '^\d{4,5}$' -or [int]$values.WebPort -lt 1024 -or [int]$values.WebPort -gt 65535) { throw 'Pipeline variable WebPort must be an integer from 1024 to 65535.' }
+          if ($values.WebUiApiKey -ceq $values.ExternalSystemApiKey) { throw 'WebUiApiKey and ExternalSystemApiKey must be different.' }
+
+          # robocopy /MIR deletes everything else in DeployPath, so it must be a dedicated folder outside the agent.
+          $deployPath = [IO.Path]::GetFullPath($values.DeployPath).TrimEnd('\')
+          if ($deployPath -ne $values.DeployPath.TrimEnd('\')) { throw 'DeployPath must be a canonical absolute path without . or .. segments.' }
+          if ($deployPath -notmatch '^[A-Za-z]:\\[^\\]+\\[^\\]+') { throw 'DeployPath must be an absolute folder at least two levels below a drive root, e.g. C:\deploy\kuka-middleware.' }
+          $agentWork = [IO.Path]::GetFullPath($env:AGENT_WORKFOLDER).TrimEnd('\')
+          if ($deployPath.StartsWith($agentWork, [StringComparison]::OrdinalIgnoreCase) -or $agentWork.StartsWith($deployPath, [StringComparison]::OrdinalIgnoreCase)) {
+            throw 'DeployPath must not overlap the agent work folder.'
+          }
+          # An existing non-empty folder must hold a previous deployment, never unrelated data.
+          if ((Test-Path -LiteralPath $deployPath) -and (Get-ChildItem -LiteralPath $deployPath -Force | Select-Object -First 1) -and
+              -not (Test-Path -LiteralPath (Join-Path $deployPath 'docker\docker-compose.yml'))) {
+            throw 'DeployPath exists, is not empty and holds no previous deployment (docker\docker-compose.yml).'
+          }
+          Write-Output 'Deployment variables are valid.'
+        displayName: Validate deployment variables
+        env:
+          DEPLOY_PATH: $(DeployPath)
+          WEB_PORT: $(WebPort)
+          DB_NAME: $(DbName)
+          DB_USER: $(DbUser)
+          DB_PASSWORD: $(DbPassword)
+          WEB_UI_API_KEY: $(WebUiApiKey)
+          EXTERNAL_SYSTEM_API_KEY: $(ExternalSystemApiKey)
+
+      - powershell: |
+          $ErrorActionPreference = 'Stop'
+          robocopy "$env:BUILD_SOURCESDIRECTORY" "$env:DEPLOY_PATH" /MIR /XD .git /R:2 /W:2 /NFL /NDL /NP
+          if ($LASTEXITCODE -ge 8) { throw "robocopy failed with exit code $LASTEXITCODE." }
+          exit 0
+        displayName: Mirror sources to deploy folder
+        env:
+          DEPLOY_PATH: $(DeployPath)
+
+      # The template is read from the checkout, so the result does not depend on what robocopy did to the old filled copy.
+      - powershell: |
+          $ErrorActionPreference = 'Stop'
+          $content = [IO.File]::ReadAllText((Join-Path $env:BUILD_SOURCESDIRECTORY 'docker\.env.prod'))
+          $replacements = [ordered]@{
+            '__WEB_PORT__' = $env:WEB_PORT
+            '__DB_NAME__' = $env:DB_NAME
+            '__DB_USER__' = $env:DB_USER
+            '__DB_PASSWORD__' = $env:DB_PASSWORD
+            '__WEB_UI_API_KEY__' = $env:WEB_UI_API_KEY
+            '__EXTERNAL_SYSTEM_API_KEY__' = $env:EXTERNAL_SYSTEM_API_KEY
+          }
+          # The template holds no secrets, so its placeholder names may be printed; filled values never are.
+          foreach ($token in [regex]::Matches($content, '__[A-Z_]+__')) {
+            if (-not $replacements.Contains($token.Value)) { throw "Unknown placeholder $($token.Value) in docker/.env.prod." }
+          }
+          foreach ($placeholder in $replacements.Keys) {
+            if (-not $content.Contains($placeholder)) { throw "Placeholder $placeholder is missing in docker/.env.prod." }
+            $content = $content.Replace($placeholder, $replacements[$placeholder])
+          }
+          if ($content -cmatch '__[A-Z_]+__') { throw 'A placeholder pattern remains after filling docker/.env.prod; check the variable values.' }
+          $content = $content -replace "`r`n", "`n"
+          [IO.File]::WriteAllText((Join-Path $env:DEPLOY_PATH 'docker\.env.prod'), $content, (New-Object Text.UTF8Encoding $false))
+          Write-Output 'docker/.env.prod written to the deploy folder.'
+        displayName: Write production environment file
+        env:
+          DEPLOY_PATH: $(DeployPath)
+          WEB_PORT: $(WebPort)
+          DB_NAME: $(DbName)
+          DB_USER: $(DbUser)
+          DB_PASSWORD: $(DbPassword)
+          WEB_UI_API_KEY: $(WebUiApiKey)
+          EXTERNAL_SYSTEM_API_KEY: $(ExternalSystemApiKey)
+
+      # --no-cache: every deploy builds from the mirrored sources only; the cache is pruned at the end anyway.
+      - powershell: |
+          $ErrorActionPreference = 'Stop'
+          docker compose -f docker/docker-compose.yml --env-file docker/.env.prod build --no-cache
+          if ($LASTEXITCODE -ne 0) { throw "docker compose build failed with exit code $LASTEXITCODE." }
+          docker compose -f docker/docker-compose.yml --env-file docker/.env.prod up -d
+          if ($LASTEXITCODE -ne 0) { throw "docker compose up failed with exit code $LASTEXITCODE." }
+        displayName: Build images and start stack
+        workingDirectory: $(DeployPath)
+
+      - powershell: |
+          $ErrorActionPreference = 'Stop'
+          function Wait-Http200([string]$Url) {
+            for ($attempt = 1; $attempt -le 30; $attempt++) {
+              try {
+                $response = Invoke-WebRequest -Uri $Url -UseBasicParsing -TimeoutSec 5
+                if ($response.StatusCode -eq 200) { Write-Host "$Url returned 200 (attempt $attempt)."; return $true }
+              } catch {
+                Write-Host "$Url not ready (attempt $attempt): $($_.Exception.Message)"
+              }
+              Start-Sleep -Seconds 5
+            }
+            return $false
+          }
+          $failed = @()
+          foreach ($url in @("http://127.0.0.1:$env:WEB_PORT/", "http://127.0.0.1:$env:WEB_PORT/api/health", 'http://127.0.0.1:5341/')) {
+            if (-not (Wait-Http200 $url)) { $failed += $url }
+          }
+          if ($failed.Count -gt 0) {
+            docker compose -f docker/docker-compose.yml --env-file docker/.env.prod ps
+            docker compose -f docker/docker-compose.yml --env-file docker/.env.prod logs --tail 200 api web
+            throw "Smoke check failed: $($failed -join ', ')"
+          }
+        displayName: Smoke check web, API health and Seq
+        workingDirectory: $(DeployPath)
+        env:
+          WEB_PORT: $(WebPort)
+
+      - powershell: |
+          $ErrorActionPreference = 'Stop'
+          docker builder prune -af
+          if ($LASTEXITCODE -ne 0) { throw "docker builder prune failed with exit code $LASTEXITCODE." }
+          docker image prune -f
+          if ($LASTEXITCODE -ne 0) { throw "docker image prune failed with exit code $LASTEXITCODE." }
+        displayName: Prune Docker build cache and dangling images
+        condition: always()
