@@ -20,18 +20,32 @@ flowchart LR
     EXT["External system"] -->|REST + API key| API["Middleware API"]
     WEB --> API
     API --> DB[("PostgreSQL")]
-    API -->|REST + access token| FM["KUKA FM"]
+    API -->|"REST (+ optional token)"| FM["KUKA FM"]
 ```
 
 ## Technology
 
 | Part | Technology |
 |---|---|
-| Backend | ASP.NET Core minimal API (C#, .NET LTS), Entity Framework Core |
-| Database | PostgreSQL |
+| Backend | ASP.NET Core minimal API (C#, .NET 10), Entity Framework Core 10 + Npgsql |
+| Database | PostgreSQL 18 |
 | Frontend | Vue 3, Vite, TypeScript, served by nginx |
-| Runtime | Docker Compose (web, api, postgres) |
-| CI/CD | Azure DevOps Pipelines |
+| Logging | Serilog (JSON to stdout) and Seq |
+| Runtime | Docker Compose (web, api, postgres, seq) |
+| CI/CD | Azure DevOps Pipelines: CI on every push and PR, CD starts automatically after a green CI run on `main` |
+
+## Status
+
+As of 2026-11-26 all User Stories of the backlog are built, with the deviations and open items listed below:
+
+- Dispatch and cancel call KUKA FM (`submitMission`, `missionCancel`), checked live through the school VPN.
+- Robot and mission states are synced from KUKA FM every 5 s and stored with the full mission history.
+- The REST API is protected by API keys, every dispatch and cancel is written to the audit log, and technical logs go to stdout and Seq.
+- The web UI covers missions, mission detail, the dispatch form, the cancel dialog and robots, in light and dark theme.
+- CI builds, checks and tests every change; CD deploys `main` automatically to Docker Desktop on the team's agent.
+- 322 backend and 97 frontend unit tests.
+
+Recorded deviations and open items: the KUKA FM token is static and optional (no refresh on 401); `ROLLER_MOVE` is offered in the UI but rejected by the API with 400 until the vendor `binCode` is decided (Q19); and the GitHub ruleset that requires the CI check is still to be set by the repository owner. Details per phase are in [implementation.md](implementation.md); the as-built description (Slovak) is in [documentation/wiki.md](documentation/wiki.md), section 9.
 
 ## Project structure
 
@@ -53,13 +67,11 @@ kuka-middleware/
 └── documentation/          # specification (Slovak): wiki, backlog, diagrams, mockups
 ```
 
-`backend/`, `frontend/`, `docker/` and `ci-cd/` are still empty. They are filled from phase 4 on.
-
 ## Documentation
 
 | Document | Contents |
 |---|---|
-| [documentation/wiki.md](documentation/wiki.md) | Goals, requirements FR1–FR7 / NFR1–NFR5, use cases UC1–UC7, activity diagrams, ERD, view mockups, acceptance criteria |
+| [documentation/wiki.md](documentation/wiki.md) | Goals, requirements FR1–FR7 / NFR1–NFR5, use cases UC1–UC7, activity diagrams, ERD, view mockups, acceptance criteria, and section 9 on the implementation and its status |
 | [documentation/backlog.md](documentation/backlog.md) | Epic → 4 Features → 12 User Stories → 38 Tasks with acceptance criteria and estimates ([CSV for Azure Boards](documentation/backlog.csv)) |
 | [.claude/system-definition.md](.claude/system-definition.md) | English spec for the agents, including open questions (§14) |
 

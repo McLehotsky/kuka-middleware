@@ -1,0 +1,70 @@
+@startuml
+|Klient (Obsluha / Externý systém)|
+start
+:Vybrať misiu a potvrdiť zrušenie;
+:POST /api/missions/{id}/cancel
+(hlavička X-API-Key);
+|Middleware|
+if (API kľúč platný?) then (nie)
+  :Zalogovať pokus (technický log);
+  |Klient (Obsluha / Externý systém)|
+  :401 Unauthorized;
+  stop
+else (áno)
+endif
+|Middleware|
+if (Misia existuje?) then (nie)
+  :Zapísať AuditLog (404);
+  |Klient (Obsluha / Externý systém)|
+  :404 Not Found;
+  stop
+else (áno)
+endif
+|Middleware|
+if (Misia je zrušiteľná?\n(Created / Submitted / InProgress)) then (nie: konečný stav\nalebo Cancelling)
+  :Zapísať AuditLog (409);
+  |Klient (Obsluha / Externý systém)|
+  :409 Conflict;
+  stop
+else (áno)
+endif
+|Middleware|
+:Volanie KUKA FM (4.0);
+|KUKA FM|
+:missionCancel (cancelMode z konfigurácie);
+|Middleware|
+if (Výsledok OK?) then (nie)
+  :Stav misie sa nemení;
+  :Zapísať AuditLog (502);
+  |Klient (Obsluha / Externý systém)|
+  :502 Bad Gateway;
+  stop
+else (áno)
+endif
+|Middleware|
+:Stav Cancelling + StatusHistory
+(Source Api, "cancel requested");
+:Uložiť zmeny (kontrola xmin);
+if (Konflikt súbežnej zmeny?) then (áno)
+  :Znova načítať misiu z DB;
+  if (Stále zrušiteľná a opakované
+uloženie (najviac 1x) úspešné?) then (nie)
+    :Zapísať AuditLog (409);
+    |Klient (Obsluha / Externý systém)|
+    :409 Conflict;
+    stop
+  else (áno)
+  endif
+else (nie)
+endif
+|Middleware|
+:Zapísať AuditLog (200);
+|Klient (Obsluha / Externý systém)|
+:200 OK + MissionSummary;
+stop
+note right
+  Konečný stav Cancelled nastaví
+  synchronizácia misií (4.4),
+  keď ho KUKA FM potvrdí.
+end note
+@enduml

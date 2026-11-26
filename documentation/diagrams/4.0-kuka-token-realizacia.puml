@@ -1,0 +1,50 @@
+@startuml
+|Middleware|
+start
+:Volanie KUKA FM
+(submitMission / missionCancel /
+jobQuery / robotQuery);
+:Načítať token z konfigurácie
+KukaFm:AccessToken (voliteľný);
+if (Token je nastavený?) then (áno)
+  :Pridať hlavičku Authorization
+  (token bez prefixu Bearer);
+else (nie)
+endif
+:POST /interfaces/api/amr/{api}
+(timeout KukaFm:TimeoutSeconds);
+|KUKA FM|
+:Spracovať volanie API;
+|Middleware|
+if (Odpoveď prišla?) then (nie: timeout / sieť)
+  :Zalogovať zlyhanie volania
+  (Timeout / Unreachable);
+  :Výsledok: zlyhanie;
+  stop
+else (áno)
+endif
+if (HTTP 401?) then (áno)
+  :Zalogovať chybu autentifikácie
+  (bez opakovania volania);
+  :Výsledok: zlyhanie;
+  stop
+else (nie)
+endif
+if (HTTP 2xx a success = true?) then (áno)
+  :Zalogovať úspešné volanie
+  (API, trvanie; bez tokenu);
+  :Výsledok OK (data);
+else (nie)
+  :Zalogovať chybu volania
+  (HttpError / Rejected / InvalidResponse);
+  :Výsledok: zlyhanie;
+endif
+stop
+note right
+  Odchýlka od pôvodného diagramu 4.0:
+  statický token z konfigurácie,
+  bez cache a bez obnovy tokenu;
+  401 sa neopakuje (chýba endpoint §4.7).
+  Token sa nikdy nezapisuje do logov.
+end note
+@enduml

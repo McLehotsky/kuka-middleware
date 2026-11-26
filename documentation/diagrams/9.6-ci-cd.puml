@@ -1,0 +1,73 @@
+@startuml
+|Vývojár|
+start
+:Push vetvy alebo pull request
+na GitHub (main);
+|Azure Pipelines – kuka-middleware-ci|
+:Spustiť CI na self-hosted
+Windows agentovi;
+fork
+  :Backend:
+  inštalácia .NET SDK (global.json),
+  dotnet restore,
+  dotnet build s analyzátormi
+  (warnings as errors),
+  dotnet test;
+  :Publikovať výsledky
+  testov backendu;
+fork again
+  :Frontend:
+  inštalácia Node.js 24,
+  npm ci, typecheck, lint,
+  test (Vitest);
+  :Publikovať výsledky
+  testov frontendu;
+  :npm run build;
+end fork
+note right
+  Oba joby bežia na tom istom
+  agentovi postupne.
+end note
+if (CI úspešná?) then (nie)
+  |GitHub|
+  :Status check zlyhal
+  (PR po nastavení rulesetu
+  nebude možné zlúčiť – Q7);
+  stop
+elseif (Pull request?) then (áno)
+  |GitHub|
+  :Status check úspešný;
+  stop
+elseif (Push na vetvu main?) then (nie)
+  |Azure Pipelines – kuka-middleware-ci|
+  :Bez nasadenia;
+  stop
+else (áno)
+endif
+|Azure Pipelines – kuka-middleware-cd|
+:Automatické spustenie CD
+(trigger: úspešná CI na main);
+:Kontrola vetvy main
+a dostupnosti Dockera;
+:Validácia premenných pipeline
+(DeployPath, WebPort, DbName, DbUser,
+tajné: DbPassword, WebUiApiKey,
+ExternalSystemApiKey, KukaFmAccessToken);
+:Zrkadlenie zdrojov do DeployPath
+(robocopy /MIR);
+:Doplnenie docker/.env.prod
+z premenných pipeline;
+:docker compose build --no-cache
+a up -d (zachované volumes);
+:Smoke test: web, /api/health, Seq
+(HTTP 200, opakovane);
+if (Smoke test úspešný?) then (nie)
+  :Vypísať stav a logy kontajnerov;
+  :Pipeline zlyhala;
+else (áno)
+  :Nasadenie úspešné;
+endif
+:Prune build cache
+a visiacich (dangling) images (vždy);
+stop
+@enduml
