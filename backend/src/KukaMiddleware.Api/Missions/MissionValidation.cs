@@ -13,6 +13,9 @@ public static class MissionValidation
 
         if (!MissionTypes.Contains(request.MissionType))
             errors["missionType"] = [$"Must be one of: {string.Join(", ", MissionTypes)}."];
+        else if (request.MissionType == "ROLLER_MOVE")
+            // KUKA FM needs a binCode per step that the API does not have yet (system-definition §14 Phase 5 scope).
+            errors["missionType"] = ["ROLLER_MOVE is not supported yet."];
 
         if (request.Priority is < 1 or > 3)
             errors["priority"] = ["Must be between 1 and 3."];
@@ -20,9 +23,10 @@ public static class MissionValidation
         if (request.ExternalRef?.Length > 100)
             errors["externalRef"] = ["Must be at most 100 characters."];
 
-        if (request.Steps is not { Count: > 0 } steps)
+        // KUKA FM rejects a mission with fewer than 2 missionData entries (observed live 2026-11-26).
+        if (request.Steps is not { Count: >= 2 } steps)
         {
-            errors["steps"] = ["At least one step is required."];
+            errors["steps"] = ["At least two steps are required."];
             return errors;
         }
 

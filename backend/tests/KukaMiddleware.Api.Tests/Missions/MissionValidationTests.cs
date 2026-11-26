@@ -4,7 +4,7 @@ namespace KukaMiddleware.Api.Tests.Missions;
 
 public class MissionValidationTests
 {
-    private static readonly CreateMissionRequest Valid = new("RACK_MOVE", null, null, null, [new("N-01", "Load")]);
+    private static readonly CreateMissionRequest Valid = new("RACK_MOVE", null, null, null, [new("N-01", "Load"), new("N-02", "Unload")]);
 
     private static CreateMissionRequest WithSecondStep(string? nodeCode, string? action) =>
         Valid with { Steps = [new("N-01", "Load"), new(nodeCode, action)] };
@@ -12,11 +12,14 @@ public class MissionValidationTests
     [Fact]
     public void Valid_request_has_no_errors() => Assert.Empty(MissionValidation.Validate(Valid));
 
-    [Theory]
-    [InlineData("RACK_MOVE")]
-    [InlineData("ROLLER_MOVE")]
-    public void Known_mission_type_is_valid(string missionType) =>
-        Assert.Empty(MissionValidation.Validate(Valid with { MissionType = missionType }));
+    [Fact]
+    public void Rack_move_is_valid() =>
+        Assert.Empty(MissionValidation.Validate(Valid with { MissionType = "RACK_MOVE" }));
+
+    // KUKA FM needs a binCode per ROLLER_MOVE step that the API does not have (system-definition §14 Phase 5 scope).
+    [Fact]
+    public void Roller_move_is_rejected_until_bin_codes_are_decided() =>
+        Assert.Contains("missionType", MissionValidation.Validate(Valid with { MissionType = "ROLLER_MOVE" }).Keys);
 
     [Theory]
     [InlineData(null)]
@@ -48,6 +51,14 @@ public class MissionValidationTests
     [Fact]
     public void Zero_steps_are_invalid() =>
         Assert.Contains("steps", MissionValidation.Validate(Valid with { Steps = [] }).Keys);
+
+    // KUKA FM rejects submitMission with fewer than 2 missionData entries (observed live 2026-11-26).
+    [Fact]
+    public void One_step_is_invalid() =>
+        Assert.Contains("steps", MissionValidation.Validate(Valid with { Steps = [new("N-01", "Load")] }).Keys);
+
+    [Fact]
+    public void Two_steps_are_valid() => Assert.Empty(MissionValidation.Validate(Valid));
 
     [Theory]
     [InlineData(0)]

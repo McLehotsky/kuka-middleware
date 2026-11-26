@@ -21,6 +21,9 @@ public abstract record CreateMissionResult
 {
     public sealed record Created(CreateMissionResponse Mission) : CreateMissionResult;
     public sealed record Invalid(Dictionary<string, string[]> Errors) : CreateMissionResult;
+
+    /// <summary>KUKA FM rejected the mission or was unreachable; the mission is stored as <c>Failed</c>.</summary>
+    public sealed record KukaFailed(Guid MissionId, string Error) : CreateMissionResult;
 }
 
 public abstract record CancelMissionResult
@@ -28,4 +31,10 @@ public abstract record CancelMissionResult
     public sealed record Cancelled(MissionSummary Mission) : CancelMissionResult;
     public sealed record NotFound : CancelMissionResult;
     public sealed record Conflict(MissionStatus Status) : CancelMissionResult;
+
+    /// <summary>The mission changed between the check and the save (Q11).</summary>
+    public sealed record ConcurrentUpdate : CancelMissionResult;
+
+    /// <summary>KUKA FM did not accept the cancel; the mission is unchanged.</summary>
+    public sealed record KukaFailed(string Error) : CancelMissionResult;
 }

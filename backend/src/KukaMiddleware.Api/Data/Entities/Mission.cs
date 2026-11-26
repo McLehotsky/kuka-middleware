@@ -17,6 +17,9 @@ public class Mission
     public DateTimeOffset? FinishedAt { get; set; }
     public DateTimeOffset? LastSyncedAt { get; set; }
     public string? ErrorMessage { get; set; }
+
+    /// <summary>PostgreSQL <c>xmin</c> row version (Q11).</summary>
+    public uint Version { get; set; }
     public List<MissionStep> Steps { get; } = [];
     public List<MissionStatusHistory> StatusHistory { get; } = [];
 }

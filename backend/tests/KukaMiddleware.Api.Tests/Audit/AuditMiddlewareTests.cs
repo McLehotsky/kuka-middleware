@@ -20,6 +20,7 @@ public class AuditMiddlewareTests
     [Theory]
     [InlineData(201, true)]
     [InlineData(400, false)]
+    [InlineData(502, false)]
     [InlineData(500, false)]
     public async Task Create_attempt_records_client_status_time_and_correlation(int status, bool success)
     {
@@ -45,6 +46,7 @@ public class AuditMiddlewareTests
     [InlineData(200, true)]
     [InlineData(404, false)]
     [InlineData(409, false)]
+    [InlineData(502, false)]
     [InlineData(500, false)]
     public async Task Cancel_attempt_records_requested_mission(int status, bool success)
     {
@@ -62,24 +64,40 @@ public class AuditMiddlewareTests
 
         Assert.Equal(AuditAction.CancelMission, row!.Action);
         Assert.Equal(success, row.Success);
-        Assert.Equal(status is 200 or 409 ? (Guid?)id : null, row.MissionId);
         Assert.Equal(id.ToString(), requestedId);
     }
 
-    [Fact]
-    public async Task Created_mission_is_linked_from_location()
+    [Theory]
+    [InlineData("/api/missions", 201)]
+    [InlineData("/api/missions", 502)]
+    [InlineData("/api/missions/0195f3a4-0000-7000-8000-000000000001/cancel", 200)]
+    [InlineData("/api/missions/0195f3a4-0000-7000-8000-000000000001/cancel", 409)]
+    [InlineData("/api/missions/0195f3a4-0000-7000-8000-000000000001/cancel", 502)]
+    public async Task Mission_named_by_the_endpoint_is_linked(string path, int status)
     {
         var id = Guid.NewGuid();
         var middleware = Middleware(ctx =>
         {
-            ctx.Response.StatusCode = 201;
-            ctx.Response.Headers.Location = $"/api/missions/{id}";
+            ctx.Response.StatusCode = status;
+            AuditMiddleware.LinkMission(ctx, id);
             return Task.CompletedTask;
         });
 
-        await middleware.InvokeAsync(Context("/api/missions"), _current, _writer, TestData.Time());
+        await middleware.InvokeAsync(Context(path), _current, _writer, TestData.Time());
 
         await _writer.Received(1).WriteAsync(Arg.Is<AuditLog>(row => row.MissionId == id), Arg.Any<CancellationToken>());
+    }
+
+    [Theory]
+    [InlineData("/api/missions", 400)]
+    [InlineData("/api/missions/0195f3a4-0000-7000-8000-000000000001/cancel", 404)]
+    public async Task Attempt_without_a_mission_is_not_linked(string path, int status)
+    {
+        var middleware = Middleware(ctx => { ctx.Response.StatusCode = status; return Task.CompletedTask; });
+
+        await middleware.InvokeAsync(Context(path), _current, _writer, TestData.Time());
+
+        await _writer.Received(1).WriteAsync(Arg.Is<AuditLog>(row => row.MissionId == null), Arg.Any<CancellationToken>());
     }
 
     [Theory]

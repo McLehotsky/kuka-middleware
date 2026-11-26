@@ -1,6 +1,7 @@
 using KukaMiddleware.Api.Data.Entities;
 using NSubstitute;
 using KukaMiddleware.Api.Auth;
+using KukaMiddleware.Api.Kuka;
 
 namespace KukaMiddleware.Api.Tests.Missions;
 
@@ -18,6 +19,15 @@ internal static class TestData
         var time = Substitute.For<TimeProvider>();
         time.GetUtcNow().Returns(Now);
         return time;
+    }
+
+    /// <summary>KUKA client whose submit and cancel succeed unless a test configures otherwise.</summary>
+    public static IKukaClient Kuka()
+    {
+        var kuka = Substitute.For<IKukaClient>();
+        kuka.SubmitMissionAsync(Arg.Any<Mission>(), Arg.Any<CancellationToken>()).ReturnsForAnyArgs(KukaResult.Ok);
+        kuka.CancelMissionAsync(Arg.Any<string>(), Arg.Any<CancellationToken>()).ReturnsForAnyArgs(KukaResult.Ok);
+        return kuka;
     }
 
     public static Mission Mission(MissionStatus status = MissionStatus.Created, DateTimeOffset? createdAt = null) => new()

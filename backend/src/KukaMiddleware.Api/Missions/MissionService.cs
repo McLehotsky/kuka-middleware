@@ -1,16 +1,19 @@
-using KukaMiddleware.Api.Data.Entities;
 using KukaMiddleware.Api.Auth;
+using KukaMiddleware.Api.Data.Entities;
+using KukaMiddleware.Api.Kuka;
+using Microsoft.EntityFrameworkCore;
 
 namespace KukaMiddleware.Api.Missions;
 
-public class MissionService(IMissionStore store, TimeProvider time, CurrentApiClient client) : IMissionService
+public class MissionService(IMissionStore store, IKukaClient kuka, TimeProvider time, CurrentApiClient client) : IMissionService
 {
     private const int DefaultPriority = 2;
 
     public async Task<CreateMissionResult> CreateAsync(CreateMissionRequest request, CancellationToken ct)
     {
         var errors = MissionValidation.Validate(request);
-        if (request.RobotId is int robotId && !await store.RobotExistsAsync(robotId, ct))
+        Robot? robot = null;
+        if (request.RobotId is int robotId && (robot = await store.FindRobotAsync(robotId, ct)) is null)
             errors["robotId"] = ["Robot does not exist."];
         if (errors.Count > 0)
             return new CreateMissionResult.Invalid(errors);
@@ -25,7 +28,8 @@ public class MissionService(IMissionStore store, TimeProvider time, CurrentApiCl
             MissionType = request.MissionType!,
             Priority = request.Priority ?? DefaultPriority,
             Status = MissionStatus.Created,
-            RobotId = request.RobotId,
+            RobotId = robot?.Id,
+            Robot = robot,
             CreatedByClientId = client.Id,
             CreatedAt = now,
         };
@@ -40,7 +44,32 @@ public class MissionService(IMissionStore store, TimeProvider time, CurrentApiCl
 
         store.Add(mission);
         await store.SaveChangesAsync(ct);
-        return new CreateMissionResult.Created(new CreateMissionResponse(mission.Id, mission.MissionCode));
+
+        // From here on the mission exists: its outcome is recorded even if the caller disconnects.
+        var submitted = await kuka.SubmitMissionAsync(mission, CancellationToken.None);
+        var at = time.GetUtcNow();
+        if (submitted.Succeeded)
+        {
+            mission.ChangeStatus(MissionStatus.Submitted, StatusSource.Api, null, at);
+            mission.SubmittedAt = at;
+        }
+        else
+        {
+            mission.ChangeStatus(MissionStatus.Failed, StatusSource.Api, submitted.Error, at);
+            mission.ErrorMessage = MissionStatuses.Truncate(submitted.Error);
+        }
+        try
+        {
+            await store.SaveChangesAsync(CancellationToken.None);
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            // A cancel won in between; the stored mission is Cancelling and the mission sync takes over.
+        }
+
+        return submitted.Succeeded
+            ? new CreateMissionResult.Created(new CreateMissionResponse(mission.Id, mission.MissionCode))
+            : new CreateMissionResult.KukaFailed(mission.Id, submitted.Error!);
     }
 
     public async Task<IReadOnlyList<MissionSummary>?> ListAsync(string? state, CancellationToken ct)
@@ -84,17 +113,32 @@ public class MissionService(IMissionStore store, TimeProvider time, CurrentApiCl
         if (!MissionStatuses.Cancellable.Contains(mission.Status))
             return new CancelMissionResult.Conflict(mission.Status);
 
-        // Phase 5 calls KUKA FM cancelMission before this local transition (system-definition §5, Q-B).
-        mission.StatusHistory.Add(new MissionStatusHistory
+        // Once the cancel is sent, its outcome is recorded even if the caller disconnects.
+        var cancelled = await kuka.CancelMissionAsync(mission.MissionCode, CancellationToken.None);
+        if (!cancelled.Succeeded)
+            return new CancelMissionResult.KukaFailed(cancelled.Error!);
+
+        mission.ChangeStatus(MissionStatus.Cancelling, StatusSource.Api, "cancel requested", time.GetUtcNow());
+        try
         {
-            PreviousStatus = mission.Status,
-            Status = MissionStatus.Cancelling,
-            Source = StatusSource.Api,
-            Message = "cancel requested",
-            ChangedAt = time.GetUtcNow(),
-        });
-        mission.Status = MissionStatus.Cancelling;
-        await store.SaveChangesAsync(ct);
+            await store.SaveChangesAsync(CancellationToken.None);
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            // Q11: usually the mission sync only wrote LastSyncedAt. Reload once and re-apply while still cancellable.
+            await store.ReloadAsync(mission, CancellationToken.None);
+            if (!MissionStatuses.Cancellable.Contains(mission.Status))
+                return new CancelMissionResult.ConcurrentUpdate();
+            mission.ChangeStatus(MissionStatus.Cancelling, StatusSource.Api, "cancel requested", time.GetUtcNow());
+            try
+            {
+                await store.SaveChangesAsync(CancellationToken.None);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return new CancelMissionResult.ConcurrentUpdate();
+            }
+        }
         return new CancelMissionResult.Cancelled(ToSummary(mission));
     }
 

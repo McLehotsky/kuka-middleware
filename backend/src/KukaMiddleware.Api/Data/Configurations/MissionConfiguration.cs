@@ -14,6 +14,7 @@ public class MissionConfiguration : IEntityTypeConfiguration<Mission>
         builder.Property(m => m.Priority).HasDefaultValue(2);
         builder.Property(m => m.Status).HasConversion<string>().HasMaxLength(32);
         builder.Property(m => m.ErrorMessage).HasMaxLength(1000);
+        builder.Property(m => m.Version).IsRowVersion().HasColumnName("xmin");
 
         builder.HasIndex(m => m.MissionCode).IsUnique();
         builder.HasIndex(m => m.Status);
