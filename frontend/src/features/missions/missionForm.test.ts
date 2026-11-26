@@ -13,6 +13,8 @@ function validDraft(): MissionDraft {
   const draft = newDraft()
   draft.steps[0]!.nodeCode = 'A-01-PICK'
   draft.steps[0]!.action = 'Load'
+  draft.steps[1]!.nodeCode = 'B-02-DROP'
+  draft.steps[1]!.action = 'Unload'
   return draft
 }
 
@@ -24,10 +26,17 @@ describe('newDraft', () => {
   it('defaults the robot to automatic (none)', () => {
     expect(newDraft().robotId).toBeNull()
   })
+
+  it('starts with two empty steps (KUKA FM needs at least 2)', () => {
+    expect(newDraft().steps.map((s) => [s.nodeCode, s.action])).toEqual([
+      ['', ''],
+      ['', ''],
+    ])
+  })
 })
 
 describe('validateDraft', () => {
-  it('accepts a minimal valid mission', () => {
+  it('accepts a minimal valid mission with two steps', () => {
     expect(validateDraft(validDraft())).toEqual({})
   })
 
@@ -35,8 +44,8 @@ describe('validateDraft', () => {
     const draft = validDraft()
     draft.steps.push({ key: 99, nodeCode: '   ', action: '' })
     expect(validateDraft(draft)).toEqual({
-      'steps[1].nodeCode': 'Node is required.',
-      'steps[1].action': 'Choose an action.',
+      'steps[2].nodeCode': 'Node is required.',
+      'steps[2].action': 'Choose an action.',
     })
   })
 
@@ -82,6 +91,12 @@ describe('validateDraft', () => {
     expect(Object.keys(validateDraft(draft))).toEqual(['steps'])
   })
 
+  it('rejects a single step', () => {
+    const draft = validDraft()
+    draft.steps = draft.steps.slice(0, 1)
+    expect(validateDraft(draft)).toEqual({ steps: 'Add at least two steps.' })
+  })
+
   it('treats the action as an exact, case-sensitive value', () => {
     const draft = validDraft()
     // @ts-expect-error – simulates a wrong-case value reaching the form
@@ -100,7 +115,10 @@ describe('toCreateRequest', () => {
       priority: 2,
       robotId: null,
       externalRef: null,
-      steps: [{ nodeCode: 'A-01-PICK', action: 'Load' }],
+      steps: [
+        { nodeCode: 'A-01-PICK', action: 'Load' },
+        { nodeCode: 'B-02-DROP', action: 'Unload' },
+      ],
     })
   })
 })

@@ -87,7 +87,7 @@ async function addStep() {
 }
 
 async function removeStep(index: number) {
-  if (draft.steps.length <= 1) return
+  if (draft.steps.length <= 2) return
   draft.steps.splice(index, 1)
   await nextTick()
   const next = draft.steps[Math.min(index, draft.steps.length - 1)]
@@ -326,7 +326,7 @@ function discard() {
             >
               Target points (steps)
             </h2>
-            <span class="card__meta">at least 1 step</span>
+            <span class="card__meta">at least 2 steps</span>
           </div>
           <div class="card__body">
             <p
@@ -437,7 +437,7 @@ function discard() {
                   <button
                     type="button"
                     class="btn btn--icon"
-                    :disabled="draft.steps.length <= 1"
+                    :disabled="draft.steps.length <= 2"
                     :aria-label="`Remove step ${index + 1}`"
                     @click="removeStep(index)"
                   >
