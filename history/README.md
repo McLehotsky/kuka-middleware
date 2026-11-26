@@ -4,6 +4,7 @@ One note per finished phase or task, newest first. Format and rules: [CLAUDE.md 
 
 | Date | Note | Phase | Summary |
 |---|---|---|---|
+| 2026-11-26 | [15 · CD trigger](2026-11-26-15-cd-trigger.md) | 8 | CD was not queued after CI on main; `cd.yml` trigger rewritten to re-register it |
 | 2026-11-26 | [14 · CD verified](2026-11-26-14-cd-verified.md) | 8 | First CI and CD runs green on the self-hosted agent; middleware deployed to Docker Desktop (8081) with Seq; pipeline naming and pool permissions learned |
 | 2026-11-25 | [13 · CD and Seq](2026-11-25-13-cd-seq.md) | 8 | `ci-cd/cd.yml` deploys to local Docker after CI on main with secret pipeline variables and smoke check; Serilog to stdout and Seq; 134 backend tests |
 | 2026-11-25 | [12 · CI on the self-hosted agent](2026-11-25-12-ci-self-hosted.md) | 8 | `ci-cd/ci.yml` on `jozef-agent` with PowerShell steps; fork PR builds must be off; first agent run and branch protection pending |
