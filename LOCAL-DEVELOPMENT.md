@@ -1,6 +1,6 @@
 # Local development
 
-How to run the KUKA FM Middleware on your own PC. The app runs **only in Docker Compose**: `web` (nginx with the built Vue app, proxies `/api`), `api` (ASP.NET Core) and `postgres` (PostgreSQL with a persistent volume). Builds, unit tests, lint and new migrations run on the host with the .NET SDK and Node.
+How to run the KUKA FM Middleware on your own PC. The app runs **only in Docker Compose**: `web` (nginx with the built Vue app, proxies `/api`), `api` (ASP.NET Core), `postgres` (PostgreSQL with a persistent volume) and `seq` (log viewer on http://localhost:5341). Builds, unit tests, lint and new migrations run on the host with the .NET SDK and Node.
 
 All commands are PowerShell, run from the **repository root** unless the step says otherwise.
 

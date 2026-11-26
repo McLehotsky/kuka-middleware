@@ -101,6 +101,7 @@ New packages and images still need the user's approval. Patch updates of the one
 | NuGet | `Serilog.AspNetCore` | 11.0.0, added in phase 8 (Seq logging) |
 | NuGet | `Serilog.Sinks.Seq` | 9.1.0, added in phase 8 |
 | Docker | `datalust/seq` | 2026.1.17182, added in phase 8 |
+| Docker (tool) | `plantuml/plantuml` | 1.2026.9, renders `documentation/diagrams/*.puml` (approved 2026-11-26) |
 
 Runtime: the app runs only in Docker Compose (Docker Desktop on the dev PC); .NET SDK 10.0.402 and Node 24 LTS on the host for builds, tests, lint and migrations.
 
@@ -446,7 +447,7 @@ Phase 7 (UC6) is built **before** phase 5: there are no KUKA FM credentials yet,
 - **Codes:** vendor `missionCode` = our `MissionCode` (`M-yyyy-NNNN`); `requestId` new 32-hex GUID per call; `orgId` and cancel mode (`FORCE`) from configuration.
 - **Job status → mission status:** 10 → stays `Submitted`; 20, 25, 50 → `InProgress`; 28 → `Cancelling`; 30, 35 → `Completed`; 31 → `Cancelled`; 60 → `Failed`. Unknown code or job not found → warning, status unchanged, `LastSyncedAt` set.
 - **Robot status → state:** 3 → Available; 1, 4, 5, 6 → Busy; 2, 7 → Offline; unknown → warning, row unchanged. Robots missing from the response stay unchanged. `Name` stays null (no vendor field). `LastSeenAt` only when not Offline. Battery scale checked live (observed `1.0` on idle robots).
-- **Sync (Q3):** robots at startup and every 5 s, active missions every 5 s; both intervals configurable. Dispatch does not wait for the first sync. A mission without a robot gets `RobotId` from jobQuery `robotId`.
+- **Sync (Q3):** both syncs run once at API start and then every 5 s; both intervals configurable. Dispatch does not wait for the first sync. A mission without a robot gets `RobotId` from jobQuery `robotId`.
 - **Q11:** PostgreSQL `xmin` row version on `Mission`; cancel = check → `missionCancel` → save, a concurrency conflict → 409; sync skips conflicts and retries next tick.
 - **502 on a failed dispatch** carries the extension field `missionId` of the `Failed` mission (§8 extension, approved).
 - Wait steps use `KukaFm:WaitMillis` (default 5000 ms). `Created` stays cancellable (cancel then calls KUKA; an unknown mission → 502). Successful KUKA calls log at Debug, failures at Warning/Error.
