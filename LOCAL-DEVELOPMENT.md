@@ -55,6 +55,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File docker/initialize-env.ps1
 
 The initializer also upgrades an existing `.env` with missing API keys without changing the database password. API keys must be distinct 64-character lowercase hex values. The API fails startup if keys are missing, placeholders, invalid or equal. The database password is only used inside Docker.
 
+**KUKA FM** (`https://kukafm.its.fei`) is reachable only through the school VPN. Without it the app runs, but robot/mission sync logs warnings and dispatch/cancel return 502. Optional settings in `docker/.env`: `KUKA_FM_ACCESS_TOKEN=` (the FM accepts calls without it; never commit or paste it) and `KUKA_FM_IP=147.175.126.137`. The api image trusts the FM's self-signed certificate `docker/certs/kukafm.crt`.
+
 Don't paste the output of `docker compose config` anywhere: it shows resolved secrets. Use `config --quiet` to only validate the file. Do not paste `docker inspect` environment output or `nginx -T`: runtime configuration contains keys.
 
 ---
@@ -146,6 +148,8 @@ dotnet test
 ```powershell
 dotnet ef migrations has-pending-model-changes --project src/KukaMiddleware.Api
 ```
+
+`dotnet ef` starts the app, which validates the API keys: set throwaway values first in the same shell, e.g. `$env:ApiKeys__WebUi = -join ((1..64) | % { '{0:x}' -f (Get-Random -Max 16) })` and the same for `$env:ApiKeys__ExternalSystem` (different value).
 
 **Frontend** (run in `frontend/`)
 
