@@ -29,6 +29,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      seq:
+        condition: service_started
     restart: unless-stopped
 
   postgres:
@@ -48,5 +50,19 @@ services:
       start_period: 10s
     restart: unless-stopped
 
+  seq:
+    image: datalust/seq:2026.1.17182
+    environment:
+      ACCEPT_EULA: "Y"
+      # Local single-user log viewer, published on 127.0.0.1 only.
+      SEQ_FIRSTRUN_NOAUTHENTICATION: "true"
+    ports:
+      # Host port -> UI and API (80). Containers ingest via http://seq:5341 (ingestion-only port).
+      - "127.0.0.1:${SEQ_PORT:-5341}:80"
+    volumes:
+      - seq-data:/data
+    restart: unless-stopped
+
 volumes:
   pgdata:
+  seq-data:
