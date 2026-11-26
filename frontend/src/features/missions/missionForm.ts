@@ -47,7 +47,7 @@ export function newStep(): StepDraft {
 }
 
 export function newDraft(): MissionDraft {
-  return { missionType: 'RACK_MOVE', priority: 2, robotId: null, externalRef: '', steps: [newStep()] }
+  return { missionType: 'RACK_MOVE', priority: 2, robotId: null, externalRef: '', steps: [newStep(), newStep()] }
 }
 
 export function stepFieldKey(index: number, field: 'nodeCode' | 'action'): string {
@@ -66,8 +66,8 @@ export function validateDraft(draft: MissionDraft): FieldErrors {
   if (draft.externalRef.trim().length > EXTERNAL_REF_MAX) {
     errors.externalRef = `External reference can be at most ${EXTERNAL_REF_MAX} characters.`
   }
-  if (draft.steps.length === 0) {
-    errors.steps = 'Add at least one step.'
+  if (draft.steps.length < 2) {
+    errors.steps = 'Add at least two steps.'
   }
   draft.steps.forEach((step, i) => {
     const node = step.nodeCode.trim()

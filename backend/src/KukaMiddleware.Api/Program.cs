@@ -3,9 +3,12 @@ using KukaMiddleware.Api;
 using KukaMiddleware.Api.Auth;
 using KukaMiddleware.Api.Audit;
 using KukaMiddleware.Api.Data;
+using KukaMiddleware.Api.Kuka;
 using KukaMiddleware.Api.Missions;
 using KukaMiddleware.Api.Robots;
+using KukaMiddleware.Api.Sync;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,7 +35,26 @@ builder.Services.AddScoped<IMissionService, MissionService>();
 builder.Services.AddScoped<IRobotStore, RobotStore>();
 builder.Services.AddScoped<IRobotService, RobotService>();
 
+builder.Services.AddOptions<KukaFmOptions>()
+    .Bind(builder.Configuration.GetSection(KukaFmOptions.Section))
+    .Validate(o => o.IsValid(), "KukaFm needs an absolute http(s) BaseUrl, an OrgId, a known CancelMode, " +
+        "TimeoutSeconds 1-300 and WaitMillis >= 0.")
+    .ValidateOnStart();
+builder.Services.AddSingleton<IKukaTokenProvider, StaticKukaTokenProvider>();
+builder.Services.AddHttpClient<IKukaClient, KukaClient>();
+
+builder.Services.AddScoped<ISyncStore, SyncStore>();
+builder.Services.AddScoped<RobotSync>();
+builder.Services.AddScoped<MissionSync>();
+var robotInterval = SyncInterval("Sync:RobotIntervalSeconds");
+var missionInterval = SyncInterval("Sync:MissionIntervalSeconds");
+builder.Services.AddHostedService(sp => ActivatorUtilities.CreateInstance<SyncWorker<RobotSync>>(sp, robotInterval));
+builder.Services.AddHostedService(sp => ActivatorUtilities.CreateInstance<SyncWorker<MissionSync>>(sp, missionInterval));
+
 var app = builder.Build();
+
+if (string.IsNullOrWhiteSpace(app.Services.GetRequiredService<IOptions<KukaFmOptions>>().Value.AccessToken))
+    app.Logger.LogWarning("KukaFm:AccessToken is not configured; KUKA FM calls are sent without Authorization");
 
 using (var scope = app.Services.CreateScope())
 {
@@ -53,3 +75,8 @@ app.MapMissionEndpoints();
 app.MapRobotEndpoints();
 
 app.Run();
+
+TimeSpan SyncInterval(string key) =>
+    builder.Configuration.GetValue<int>(key) is var seconds and > 0
+        ? TimeSpan.FromSeconds(seconds)
+        : throw new InvalidOperationException($"{key} must be a positive number of seconds.");

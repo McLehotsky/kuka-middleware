@@ -6,6 +6,11 @@ namespace KukaMiddleware.Api.Audit;
 
 public sealed class AuditMiddleware(RequestDelegate next, ILogger<AuditMiddleware> logger)
 {
+    public const string MissionIdItem = "AuditMissionId";
+
+    /// <summary>Called by an endpoint once the mission of the operation is known to exist.</summary>
+    public static void LinkMission(HttpContext context, Guid missionId) => context.Items[MissionIdItem] = missionId;
+
     public async Task InvokeAsync(HttpContext context, CurrentApiClient current, IAuditWriter writer, TimeProvider time)
     {
         var segments = context.Request.Path.Value?.Trim('/').Split('/') ?? [];
@@ -30,10 +35,7 @@ public sealed class AuditMiddleware(RequestDelegate next, ILogger<AuditMiddlewar
             if (current.Client is { } client)
             {
                 var status = context.Response.StatusCode;
-                Guid? missionId = null;
-                if (cancel && status is 200 or 409 && Guid.TryParse(segments[2], out var cancelledId)) missionId = cancelledId;
-                if (create && status == 201 && Guid.TryParse(context.Response.Headers.Location.ToString().Split('/').LastOrDefault(), out var createdId))
-                    missionId = createdId;
+                var missionId = context.Items[MissionIdItem] as Guid?;
                 using var details = cancel ? JsonSerializer.SerializeToDocument(new { requestedMissionId = segments[2] }) : null;
                 var entry = new AuditLog
                 {

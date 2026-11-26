@@ -123,10 +123,11 @@ Runtime: the app runs only in Docker Compose (Docker Desktop on the dev PC); .NE
   4. On a `401` response, invalidate the token, obtain a new one and retry **at most once** (no infinite loop).
   5. Log successful and failed calls and authentication errors (never the token itself).
 - KUKA FM base URL, credentials and intervals come from configuration (§11), never hardcoded.
+- **Implemented differently (phase 5, §14 "Phase 5 scope"):** static token, no cache/refresh; a 401 fails without retry.
 - **Vendor API reference (provided 2026-11-04):** `documentation/KUKA_AMR_Fleet_2.15_en-API (1)-1.pdf`, KUKA.AMR Fleet 2.15 V1, chapter 7. Use this reference for the vendor contract; our middleware API in §8 stays unchanged.
   - All four vendor operations use POST under `/interfaces/api/amr/`: `submitMission` (§7.1.1), `missionCancel` (§7.1.2), `jobQuery` (§7.1.5), `robotQuery` (§7.3.2). Our logical `cancelMission` operation maps to the vendor's `missionCancel`.
   - The reference specifies `Authorization: ${accessToken}`. Token acquisition is referred to §4.7 "Interface platform" / Authentication (manual page 131), which is outside this supplied chapter-7 excerpt. Do not guess the token endpoint or add a `Bearer` prefix without that documentation.
-  - Vendor payloads and numeric status codes must be mapped to the middleware DTOs and states; the middleware's mission types, actions and priority range are not changed just because the vendor supports more values. Remaining mapping decisions are tracked in Q1.
+  - Vendor payloads and numeric status codes must be mapped to the middleware DTOs and states; the middleware's mission types, actions and priority range are not changed just because the vendor supports more values. Mapping decisions: "Phase 5 scope" in §14.
 - **Live verification is currently blocked by unavailable KUKA FM licenses** (user confirmation 2026-11-04). Local unit tests do not need those licenses. A passing local test suite must not be reported as a successful live KUKA integration test.
 
 ---
@@ -167,7 +168,7 @@ Runtime: the app runs only in Docker Compose (Docker Desktop on the dev PC); .NE
 
 ### UC7 – Robot sync *(FR4)*
 1. Scheduler runs on an interval and calls the robot query API.
-2. KUKA state is mapped to Available / Busy / Offline (mapping → Q1).
+2. KUKA state is mapped to Available / Busy / Offline (mapping: "Phase 5 scope" in §14).
 3. New robots are inserted; existing ones get their state and `LastSeenAt` updated.
 4. A failed call is logged and data stays unchanged.
 
@@ -182,13 +183,19 @@ InProgress → Cancelling  cancel
 InProgress → Completed   sync – finished
 InProgress → Failed      sync – error
 Cancelling → Cancelled   sync – confirmed
+Submitted → Completed / Cancelled / Failed   sync – finished between two polls (phase 5)
+Cancelling → Completed   sync – cancel arrived too late (phase 5)
+InProgress → Cancelling  sync – cancelled in the KUKA FM UI (phase 5)
+InProgress → Cancelled   sync – cancel confirmed between two polls (phase 5)
+Cancelling → Failed      sync – job ended with an error (phase 5)
+Submitted → Cancelling   sync – cancelled in the KUKA FM UI before start (phase 5)
 ```
 - **Active** (synced by UC5): `Submitted`, `InProgress`, `Cancelling`.
 - **Not final** (list filter `?state=active` and the Active tab, Q-D): every non-final status, i.e. also `Created`.
 - **Cancellable** (UC2, Q-C): `Created`, `Submitted`, `InProgress`. `Cancelling` and final statuses → 409.
 - **Phase 6 transition (Q-B):** without a KUKA client, cancel sets `Cancelling` locally with a history row (Source `Api`, message "cancel requested"); phase 5 inserts the `cancelMission` call before it. So `Created → Cancelling` exists too.
 - **Final** (sets `FinishedAt`): `Completed`, `Cancelled`, `Failed`.
-- Mapping to KUKA job states → Q1.
+- Mapping to KUKA job states: see "Phase 5 scope" in §14.
 
 ---
 
@@ -267,7 +274,7 @@ Base path `/api`, JSON (camelCase), errors as RFC 7807 ProblemDetails, every end
 
 | Method | Path | Purpose | Responses |
 |---|---|---|---|
-| POST | `/api/missions` | Dispatch (UC1) | 201 + id, 400, 401, 502 |
+| POST | `/api/missions` | Dispatch (UC1) | 201 + id, 400, 401, 502 (ProblemDetails extension `missionId` of the `Failed` mission) |
 | POST | `/api/missions/{id}/cancel` | Cancel (UC2) | 200, 401, 404, 409, 502 |
 | GET | `/api/missions?state=active\|finished` | List (UC3), no `state` = all | 200, 401 |
 | GET | `/api/missions/{id}` | Mission detail (UC4) | 200, 401, 404 |
@@ -282,7 +289,7 @@ Base path `/api`, JSON (camelCase), errors as RFC 7807 ProblemDetails, every end
   - `priority?`: 1–3, default 2.
   - `robotId?`: must exist.
   - `externalRef?`: ≤100 characters.
-  - `steps[]`: at least 1, each `{ nodeCode (1–64, not blank), action (Load | Unload | Wait) }`.
+  - `steps[]`: at least 2, each `{ nodeCode (1–64, not blank), action (Load | Unload | Wait) }`.
   - Validation errors → 400 `ValidationProblem` with keys like `steps[2].nodeCode`. The index is 0-based, matching the JSON array; the stored `sequence` is 1-based.
   - `missionType`, `action` and `state` match exactly and are case-sensitive.
 - **Create response:** 201 `{ id, missionCode }` + `Location: /api/missions/{id}`.
@@ -326,13 +333,24 @@ API calls via relative `/api/...`; the web UI uses its own API key (how it is pr
 - `docker compose up` starts **web** (nginx + built SPA, proxies `/api`), **api** and **PostgreSQL** with a named volume; data survives container restarts.
 - **CI:** build backend and frontend, run tests, static analysis; fails on any error; PR into main only with a green pipeline.
 - CI configuration: `ci-cd/ci.yml` (Azure pipeline `kuka-middleware-ci`) on the team's self-hosted Windows agent (pool and agent name from the pipeline variables `AgentPoolName` / `AgentName`, Windows PowerShell 5.1 steps), built-in `UseDotNet@2`, `UseNode@1` and `PublishTestResults@2` tasks. Existing SDK/Node/package versions are used. No application secrets or live services are required. Setup and the required GitHub status check are in `ci-cd/README.md`.
-- **CD:** `ci-cd/cd.yml` (Azure pipeline `kuka-middleware-cd`) on the same self-hosted agent, triggered by a successful `kuka-middleware-ci` run on `main` (manual runs possible). It mirrors the sources to `DeployPath`, fills `docker/.env.prod` placeholders from pipeline variables (secrets marked secret; teacher style, not a variable group), runs `docker compose build` + `up -d` on the local Docker Desktop (same compose project and volumes as local development, never `down -v`) and smoke-checks the web, `/api/health` and Seq; otherwise the pipeline fails. Secrets never enter appsettings or images. KUKA FM credentials will be added as further secret pipeline variables and `.env.prod` placeholders when the KUKA client is built (phase 5, Q1).
+- **CD:** `ci-cd/cd.yml` (Azure pipeline `kuka-middleware-cd`) on the same self-hosted agent, triggered by a successful `kuka-middleware-ci` run on `main` (manual runs possible). It mirrors the sources to `DeployPath`, fills `docker/.env.prod` placeholders from pipeline variables (secrets marked secret; teacher style, not a variable group), runs `docker compose build` + `up -d` on the local Docker Desktop (same compose project and volumes as local development, never `down -v`) and smoke-checks the web, `/api/health` and Seq; otherwise the pipeline fails. Secrets never enter appsettings or images. The optional KUKA FM token is the secret pipeline variable `KukaFmAccessToken`.
 
 ---
 
 ## 11. Configuration
 
 All KUKA FM parameters (base URL, credentials, timeouts, mission defaults), sync intervals, DB connection and seeded API keys come from configuration / environment. The repo holds only defaults without credentials and `.env.example` with placeholders. Exact keys are defined in the phase that first uses them.
+
+| Key (env) | Default | Notes |
+|---|---|---|
+| `KukaFm:BaseUrl` | `https://kukafm.its.fei` | absolute http(s) URL |
+| `KukaFm:AccessToken` (`KUKA_FM_ACCESS_TOKEN` in `docker/.env`, secret pipeline variable `KukaFmAccessToken`) | empty | optional; sent raw as `Authorization` when set, never logged |
+| `KukaFm:OrgId` | `UNIVERSAL` | vendor `orgId` |
+| `KukaFm:CancelMode` | `FORCE` | FORCE / NORMAL / REDIRECT_END / REDIRECT_START |
+| `KukaFm:TimeoutSeconds` | 10 | 1–300 |
+| `KukaFm:WaitMillis` | 5000 | `waitingMillis` of Wait steps |
+| `Sync:RobotIntervalSeconds` / `Sync:MissionIntervalSeconds` | 5 / 5 | > 0 |
+| `KUKA_FM_IP` (compose `extra_hosts`) | 147.175.126.137 | containers do not read the Windows hosts file |
 
 ---
 
@@ -373,27 +391,27 @@ Questions, not decisions. Ask the user before implementing anything that depends
 
 | # | Question | Needed in phase |
 |---|---|---|
-| Q1 | Chapter-7 API reference is now available (see §4): vendor endpoints, payloads and status codes are documented. Still needed: §4.7 Authentication for token acquisition; agreed mapping of vendor job/robot states and middleware step actions (including Wait), and cancel mode. Live verification requires KUKA FM licenses, currently unavailable. | 5 |
-| Q3 | Sync intervals for missions and robots (wiki example 5 s). | 5 |
-| Q7 | CI and CD run on the self-hosted Windows agent (decided 2026-11-25); first CI and manual CD runs green (2026-11-26). Still to verify: automatic CD after a merge into main and the GitHub required status check. | 8 |
-| Q11 | Cancel race: two parallel cancels both pass the Cancellable check. Add a concurrency token (e.g. PostgreSQL `xmin`) mapped to 409, together with `cancelMission`. | 5 |
+| Q7 | CI and CD run on the self-hosted Windows agent (decided 2026-11-25); automatic CD after CI on main verified 2026-11-26. Still open: the GitHub required status check (ruleset), which only the repository owner can set. | 8 |
 | Q10 | Container hardening: run nginx as non-root (e.g. `nginxinc/nginx-unprivileged`, needs approval) and give the api a compose healthcheck (aspnet image has no curl). | 8 |
 | Q12 | Robot name ordering is case-sensitive (`StringComparer.Ordinal`); switch to case-insensitive? | any |
 | Q13 | New mission: if the chosen robot goes Offline while the form is open, the form warns but still submits. Block the submit instead? | any |
 | Q14 | Mobile nav drawer visibly slides out when the viewport crosses 768 px (transition runs on the breakpoint change, since phase 6). Suppress the transition on media change? | 9 |
 | Q15 | `.impeccable/design.json` is older than `DESIGN.md` (phase 7 added `dark-offline-surface`). Re-sync with `impeccable document`? | any |
 | Q16 | While the api container is down, nginx answers with its own HTML 502 and the UI says "KUKA FM did not respond". Return a distinct "API unavailable" (nginx `error_page`) or tell the cases apart in the UI? | 9 |
+| Q20 | The UI shows every 502 as "KUKA FM did not respond"; show KUKA's rejection `detail` and link the `Failed` mission via `missionId`. | 9 |
+| Q19 | ROLLER_MOVE needs a vendor `binCode` per step; the API rejects it with 400 while the UI still offers it. Add `binCode` to the contract, configure it, or hide the type in the UI? | 9 |
 
 ### Decided
 | # | Decision | Date |
 |---|---|---|
+| Q1, Q3, Q11 | Phase 5 decisions, see "Phase 5 scope" below. | 2026-11-26 |
 | Q8, Q18 | nginx supplies the web-ui key for the trusted localhost-only UI; explicit X-API-Key headers are forwarded unchanged. Anonymous 401s are technically logged; the audit schema stays unchanged. See §6. | 2026-11-04 |
 | Seq | Serilog with compact JSON stdout plus Seq (`datalust/seq`, localhost-only UI, no login); supersedes Q6/Q17 "no additional log service". CD secrets as pipeline (secret) variables instead of a variable group (teacher style). | 2026-11-25 |
 | Q6, Q17 | Structured JSON stdout logs, no additional log service; EF SQL command logging at Warning. *(Log service part superseded by Seq, 2026-11-25.)* | 2026-11-04 |
 | Q4 | Backend tests xUnit + NSubstitute (plain `Assert`); frontend Vitest for composables and pure functions only. | 2026-10-21 |
 | Q5 | Frontend state in composables (no Pinia); plain scoped CSS with tokens from `DESIGN.md` (no Tailwind, no UI library). | 2026-10-21 |
 | Q2 | Real-time UI by **polling every 5 s** (no SignalR), as in the mockups. | 2026-10-21 |
-| Q9 | Mission types `RACK_MOVE`, `ROLLER_MOVE`. Step = `nodeCode` (required) + action `Load` / `Unload` / `Wait`; at least 1 step. Priority 1–3 (1 high, 2 normal = default, 3 low). Robot optional (none = KUKA FM decides). `externalRef` optional. | 2026-10-21 |
+| Q9 | Mission types `RACK_MOVE`, `ROLLER_MOVE`. Step = `nodeCode` (required) + action `Load` / `Unload` / `Wait`; at least 2 steps (KUKA FM rejects fewer, changed 2026-11-26). Priority 1–3 (1 high, 2 normal = default, 3 low). Robot optional (none = KUKA FM decides). `externalRef` optional. | 2026-10-21 |
 
 ### Phase 6 scope (user decision 2026-10-21)
 Phase 6 is built **before** phase 5 (KUKA client, sync) and phase 8 (API keys, audit, Docker):
@@ -420,6 +438,24 @@ Phase 7 (UC6) is built **before** phase 5: there are no KUKA FM credentials yet,
 - **Q-R:** the New mission robot field lists "Automatic (KUKA FM decides)" plus all robots with their state; Offline robots are disabled in the UI. The API rule stays "`robotId` must exist". Replaces Q-I.
 - **Q-S:** the Robots screen follows mockup 6.5 fully: 4 stat tiles (Total / Available / Busy / Offline), search by name or KUKA ID, status filter, and a Cards / Table view toggle. Tiles, search and filter work on the client from one `GET /api/robots` call (as Q-E); the API has no query parameters.
 - Robot states in the UI: Available, Busy, Offline (stat tiles: Total / Available / Busy / Offline).
+
+### Phase 5 scope (user decision 2026-11-26, planner's recommendations accepted)
+- **KUKA FM access:** reachable only through the school VPN (`https://kukafm.its.fei`, 147.175.126.137, self-signed cert CN=its.fei with SAN `*.its.fei`, valid to 2036). Containers resolve the host via compose `extra_hosts`; the public cert `docker/certs/kukafm.crt` is trusted in the api image.
+- **Auth (Q1, option A, like the teacher's sample):** static access token from configuration `KukaFm:AccessToken`, sent as `Authorization: <token>` without a scheme, behind a token-provider interface. Without the §4.7 token endpoint there is no refresh: a 401 is logged as an authentication error and the call fails (UC1/UC2 → 502, sync → next tick). **Deviation from backlog 3.1 "401 → new token, retry at most once"** – recorded here, revisit if §4.7 becomes available. The token lives only in `docker/.env` and the secret pipeline variable. Observed 2026-11-26: `robotQuery` and `jobQuery` also answer without a token.
+- **Mapping:** RACK_MOVE Load → `UP_CONTAINER`, Unload → `DOWN_CONTAINER`; Wait → step without container action, `passStrategy` AUTO with configured `waitingMillis`; `type` NODE_POINT; priority 1–3 sent unchanged. **ROLLER_MOVE** needs a vendor `binCode` per step that the API does not have → rejected with 400 until decided.
+- **Codes:** vendor `missionCode` = our `MissionCode` (`M-yyyy-NNNN`); `requestId` new 32-hex GUID per call; `orgId` and cancel mode (`FORCE`) from configuration.
+- **Job status → mission status:** 10 → stays `Submitted`; 20, 25, 50 → `InProgress`; 28 → `Cancelling`; 30, 35 → `Completed`; 31 → `Cancelled`; 60 → `Failed`. Unknown code or job not found → warning, status unchanged, `LastSyncedAt` set.
+- **Robot status → state:** 3 → Available; 1, 4, 5, 6 → Busy; 2, 7 → Offline; unknown → warning, row unchanged. Robots missing from the response stay unchanged. `Name` stays null (no vendor field). `LastSeenAt` only when not Offline. Battery scale checked live (observed `1.0` on idle robots).
+- **Sync (Q3):** robots at startup and every 5 s, active missions every 5 s; both intervals configurable. Dispatch does not wait for the first sync. A mission without a robot gets `RobotId` from jobQuery `robotId`.
+- **Q11:** PostgreSQL `xmin` row version on `Mission`; cancel = check → `missionCancel` → save, a concurrency conflict → 409; sync skips conflicts and retries next tick.
+- **502 on a failed dispatch** carries the extension field `missionId` of the `Failed` mission (§8 extension, approved).
+- Wait steps use `KukaFm:WaitMillis` (default 5000 ms). `Created` stays cancellable (cancel then calls KUKA; an unknown mission → 502). Successful KUKA calls log at Debug, failures at Warning/Error.
+- ROLLER_MOVE is still offered by the New mission form but rejected with 400 (open item Q19).
+- **Live check 2026-11-26 (VPN, no token):** robot sync inserted 3 robots; mission M-2026-0039 (robot 1, 2 Wait steps at its node) went Created → Submitted → InProgress (job 20) → Cancelling → Cancelled (job 31); a 1-step mission was rejected by KUKA ("missionData length is less than 2") → Failed + 502 → minimum 2 steps. KUKA FM accepts all four calls without a token, so the token is optional everywhere.
+- Review decisions: a cancel that hits a concurrency conflict caused only by a sync write is re-applied once (409 only if the status really changed); a dispatch whose second save loses to a cancel returns 201; Offline robots keep their last battery and node; battery values ≤ 1 are read as a fraction (vendor example `1`), larger ones as percent, clamped 0–100.
+- Accepted edge case: if KUKA rejects a dispatch while a cancel wins the save race, the mission stays `Cancelling` without a KUKA job and sync warns every cycle (same as a legacy mission); close it manually if it ever happens.
+- Legacy missions from before phase 5 that KUKA never knew (M-2026-0005, Cancelling) were closed manually as `Cancelled` in the local database (2026-11-26).
+- Header KUKA FM / sync chip (Q-J) deferred to phase 9; no frontend change in phase 5.
 
 ### Docker scope (user decision 2026-10-28)
 Backlog 4.1 is finished by running the compose stack on the dev PC (Docker Desktop is now installed):

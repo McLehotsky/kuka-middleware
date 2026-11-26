@@ -67,19 +67,22 @@ Set these under **Pipelines > kuka-middleware-cd > Edit > Variables** (or in a v
 | `DbPassword` | **yes** | no `;` | `POSTGRES_PASSWORD` |
 | `WebUiApiKey` | **yes** | 64 lowercase hex | `WEB_UI_API_KEY` |
 | `ExternalSystemApiKey` | **yes** | 64 lowercase hex, different from `WebUiApiKey` | `EXTERNAL_SYSTEM_API_KEY` |
+| `KukaFmAccessToken` | **yes** (optional) | letters, digits, `.` `_` `+` `/` `=` `-` | `KUKA_FM_ACCESS_TOKEN` (KUKA FM access token from KUKA FM / the teacher). Not required: if undefined or empty, `.env.prod` gets an empty token and the API calls KUKA FM without one (KUKA FM currently accepts that) |
 
-No value may be empty or contain quotes, `$`, `#`, whitespace or line breaks. Leave **Let users override this value when running this pipeline** off for every variable (especially `DeployPath`), so a manual run cannot redirect the deployment.
+Except for the optional `KukaFmAccessToken`, no value may be empty. No value may contain quotes, `$`, `#`, whitespace or line breaks. Leave **Let users override this value when running this pipeline** off for every variable (especially `DeployPath`), so a manual run cannot redirect the deployment.
 
 The deployment uses the Compose project `kuka-middleware`, the same as local development, so it reuses the existing `pgdata` and `seq-data` volumes and replaces the locally started containers. Therefore:
 
 - `DbName`, `DbUser` and `DbPassword` must equal the values in the local `docker/.env` that the `pgdata` volume was created with. PostgreSQL sets the password only when the volume is first initialized; with a different password the API cannot connect and the smoke check fails.
 - Use the same API keys as `docker/.env` too, or the external system / local tools using the old keys get 401. Read them from `docker/.env` on the agent PC and paste them into the secret variables; do not post them anywhere else.
 
+KUKA FM (`https://kukafm.its.fei`, 147.175.126.137) is reachable only through the school VPN. The deploy host must be connected to it for mission and robot sync. Without it the app still starts and the smoke check passes (it does not call KUKA FM), but dispatch and cancel fail with 502 and the sync logs warnings every cycle. The api image trusts the public KUKA FM certificate `docker/certs/kukafm.crt`; Compose maps the name to `KUKA_FM_IP` (`extra_hosts`).
+
 ## Create the CD pipeline
 
 1. **Pipelines > New pipeline > GitHub > McLehotsky/kuka-middleware > Existing Azure Pipelines YAML file**, path `/ci-cd/cd.yml`; save (do not run yet).
 2. Rename it to `kuka-middleware-cd`. The CI pipeline must be named exactly `kuka-middleware-ci` (resource `source`).
-3. Add the variables above, mark the three secrets with the lock icon and leave the override option off.
+3. Add the variables above, mark the secrets with the lock icon and leave the override option off.
 4. Add `kuka-middleware-cd` to **Project settings > Agent pools > Default > Security > Pipeline permissions** (no **Permit** button appears for the macro pool name).
 5. Run it once manually from `main`. If Azure asks to permit the pipeline resource `kuka-middleware-ci`, open the run and choose **View > Permit**.
 6. Afterwards every successful CI run on `main` starts a deployment.
