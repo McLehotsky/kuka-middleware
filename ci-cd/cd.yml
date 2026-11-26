@@ -24,10 +24,11 @@ resources:
   pipelines:
     - pipeline: ci
       source: kuka-middleware-ci
+      # Runs after every successful kuka-middleware-ci run on main.
       trigger:
         branches:
           include:
-            - main
+            - refs/heads/main
 
 pool:
   name: $(AgentPoolName)
