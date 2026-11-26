@@ -18,6 +18,9 @@ FROM mcr.microsoft.com/dotnet/aspnet:10.0.13 AS runtime
 WORKDIR /app
 ENV ASPNETCORE_HTTP_PORTS=8080
 EXPOSE 8080
+# Trust the self-signed public certificate of KUKA FM (https://kukafm.its.fei, SAN *.its.fei).
+COPY docker/certs/kukafm.crt /usr/local/share/ca-certificates/kukafm.crt
+RUN update-ca-certificates
 COPY --from=build /app/publish ./
 # Non-root user provided by the aspnet image.
 USER $APP_UID

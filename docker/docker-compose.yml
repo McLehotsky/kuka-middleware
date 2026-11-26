@@ -26,6 +26,11 @@ services:
       ApiKeys__WebUi: ${WEB_UI_API_KEY:?run docker/start.bat to configure API keys}
       ApiKeys__ExternalSystem: ${EXTERNAL_SYSTEM_API_KEY:?run docker/start.bat to configure API keys}
       ConnectionStrings__Default: "Host=postgres;Port=5432;Database=${POSTGRES_DB:?set POSTGRES_DB in docker/.env};Username=${POSTGRES_USER:?set POSTGRES_USER in docker/.env};Password=${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in docker/.env};Gss Encryption Mode=Disable"
+      # Optional: without a token the API starts; KUKA FM calls that need it fail and are logged.
+      KukaFm__AccessToken: ${KUKA_FM_ACCESS_TOKEN:-}
+    extra_hosts:
+      # KUKA FM is reachable only through the school VPN; its name is not in public DNS.
+      - "kukafm.its.fei:${KUKA_FM_IP:-147.175.126.137}"
     depends_on:
       postgres:
         condition: service_healthy

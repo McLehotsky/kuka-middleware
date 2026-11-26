@@ -16,6 +16,9 @@
 #   DbPassword            secret; must equal the password the existing pgdata volume was created with
 #   WebUiApiKey           secret; 64 lowercase hex characters
 #   ExternalSystemApiKey  secret; 64 lowercase hex characters, different from WebUiApiKey
+#   KukaFmAccessToken     optional secret; KUKA FM access token (letters, digits, . _ + / = -); undefined or empty = no token
+# The deploy host must reach kukafm.its.fei (school VPN) for mission and robot sync; the smoke check
+# does not depend on KUKA FM.
 trigger: none
 
 pr: none
@@ -77,6 +80,11 @@ jobs:
           }
           if ($values.WebPort -notmatch '^\d{4,5}$' -or [int]$values.WebPort -lt 1024 -or [int]$values.WebPort -gt 65535) { throw 'Pipeline variable WebPort must be an integer from 1024 to 65535.' }
           if ($values.WebUiApiKey -ceq $values.ExternalSystemApiKey) { throw 'WebUiApiKey and ExternalSystemApiKey must be different.' }
+          # Optional: an undefined variable arrives as the literal macro and means no token.
+          $kukaToken = $env:KUKA_FM_ACCESS_TOKEN
+          if ($kukaToken -cne '$(KukaFmAccessToken)' -and -not [string]::IsNullOrEmpty($kukaToken) -and $kukaToken -cnotmatch '^[A-Za-z0-9._+/=-]+$') {
+            throw 'Pipeline variable KukaFmAccessToken may contain only letters, digits and . _ + / = -.'
+          }
 
           # robocopy /MIR deletes everything else in DeployPath, so it must be a dedicated folder outside the agent.
           $deployPath = [IO.Path]::GetFullPath($values.DeployPath).TrimEnd('\')
@@ -101,6 +109,7 @@ jobs:
           DB_PASSWORD: $(DbPassword)
           WEB_UI_API_KEY: $(WebUiApiKey)
           EXTERNAL_SYSTEM_API_KEY: $(ExternalSystemApiKey)
+          KUKA_FM_ACCESS_TOKEN: $(KukaFmAccessToken)
 
       - powershell: |
           $ErrorActionPreference = 'Stop'
@@ -115,6 +124,8 @@ jobs:
       - powershell: |
           $ErrorActionPreference = 'Stop'
           $content = [IO.File]::ReadAllText((Join-Path $env:BUILD_SOURCESDIRECTORY 'docker\.env.prod'))
+          $kukaToken = $env:KUKA_FM_ACCESS_TOKEN
+          if ($kukaToken -ceq '$(KukaFmAccessToken)' -or $null -eq $kukaToken) { $kukaToken = '' }
           $replacements = [ordered]@{
             '__WEB_PORT__' = $env:WEB_PORT
             '__DB_NAME__' = $env:DB_NAME
@@ -122,6 +133,7 @@ jobs:
             '__DB_PASSWORD__' = $env:DB_PASSWORD
             '__WEB_UI_API_KEY__' = $env:WEB_UI_API_KEY
             '__EXTERNAL_SYSTEM_API_KEY__' = $env:EXTERNAL_SYSTEM_API_KEY
+            '__KUKA_FM_ACCESS_TOKEN__' = $kukaToken
           }
           # The template holds no secrets, so its placeholder names may be printed; filled values never are.
           foreach ($token in [regex]::Matches($content, '__[A-Z_]+__')) {
@@ -144,6 +156,7 @@ jobs:
           DB_PASSWORD: $(DbPassword)
           WEB_UI_API_KEY: $(WebUiApiKey)
           EXTERNAL_SYSTEM_API_KEY: $(ExternalSystemApiKey)
+          KUKA_FM_ACCESS_TOKEN: $(KukaFmAccessToken)
 
       # --no-cache: every deploy builds from the mirrored sources only; the cache is pruned at the end anyway.
       - powershell: |
