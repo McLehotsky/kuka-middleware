@@ -1,0 +1,52 @@
+@startuml
+|Klient (Obsluha / Externý systém)|
+start
+:Zadať parametre misie
+(typ, kroky, priorita, robot);
+:POST /api/missions
+(hlavička X-API-Key);
+|Middleware|
+if (API kľúč platný?) then (nie)
+  :Zalogovať pokus (technický log);
+  |Klient (Obsluha / Externý systém)|
+  :401 Unauthorized;
+  stop
+else (áno)
+endif
+|Middleware|
+if (Vstup validný?\n(min. 2 kroky, priorita 1–3,\nrobot existuje, ROLLER_MOVE\nzatiaľ nepodporovaný)) then (nie)
+  :Zapísať AuditLog (400);
+  |Klient (Obsluha / Externý systém)|
+  :400 Bad Request
+  (ValidationProblem);
+  stop
+else (áno)
+endif
+|Middleware|
+:Vygenerovať MissionCode (M-rrrr-NNNN);
+:Uložiť Mission (Created)
++ StatusHistory;
+:Volanie KUKA FM (4.0);
+|KUKA FM|
+:submitMission;
+|Middleware|
+if (Výsledok OK?) then (áno)
+  :Stav Submitted + SubmittedAt
+  + StatusHistory;
+  :Uložiť zmeny;
+  :Zapísať AuditLog (201);
+  |Klient (Obsluha / Externý systém)|
+  :201 Created
+  + ID a MissionCode;
+else (nie)
+  |Middleware|
+  :Stav Failed + ErrorMessage
+  + FinishedAt + StatusHistory;
+  :Uložiť zmeny;
+  :Zapísať AuditLog (502);
+  |Klient (Obsluha / Externý systém)|
+  :502 Bad Gateway
+  + missionId;
+endif
+stop
+@enduml

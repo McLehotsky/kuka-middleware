@@ -1,0 +1,46 @@
+@startuml
+left to right direction
+
+actor "Operátor\n(prehliadač)" as operator
+node "Externý systém\n(ERP / WMS)" as external
+
+node "PC s Docker Desktop\n(Docker Compose projekt kuka-middleware)" as pc {
+  node "web\n(nginx)" as web {
+    artifact "Vue 3 SPA\n(statické súbory)" as spa
+    component "Reverse proxy /api\n(dopĺňa web-ui API kľúč,\nak hlavička chýba)" as proxy
+  }
+  node "api\n(ASP.NET Core)" as api {
+    component "REST API\n(X-API-Key, audit)" as rest
+    component "Synchronizácia\nmisií a robotov" as sync
+    component "Serilog\n(JSON stdout + Seq)" as serilog
+    artifact "Certifikát KUKA FM\n(dôveryhodný v image)" as cert
+  }
+  database "postgres\n(PostgreSQL 18)" as postgres
+  node "seq\n(Seq)" as seq
+  storage "volume pgdata" as pgdata
+  storage "volume seq-data" as seqdata
+}
+
+cloud "Školská VPN" as vpn {
+  node "KUKA FM\n(https://kukafm.its.fei)\nself-signed certifikát" as kuka
+}
+
+operator --> web : HTTP 127.0.0.1:8080 (lokálne)\n/ 127.0.0.1:8081 (CD)
+external --> web : HTTP /api\n(vlastný X-API-Key)
+proxy --> rest : HTTP api:8080
+rest --> postgres : TCP 5432\n(EF Core / Npgsql)
+sync --> postgres : TCP 5432
+postgres --> pgdata
+serilog --> seq : HTTP seq:5341
+seq --> seqdata
+operator --> seq : HTTP 127.0.0.1:5341\n(prehliadanie logov)
+sync --> kuka : HTTPS POST /interfaces/api/amr/*\n(extra_hosts: kukafm.its.fei)
+rest --> kuka : HTTPS submitMission /\nmissionCancel
+
+note bottom of pc
+  Porty sú publikované iba na 127.0.0.1 (web, seq);
+  api a postgres nie sú z hostiteľa priamo dostupné.
+  Tajné hodnoty len v docker/.env (lokálne)
+  alebo docker/.env.prod (doplnené CD pipeline).
+end note
+@enduml

@@ -1,0 +1,61 @@
+@startuml
+|Middleware|
+start
+:Štart API a potom tick plánovača
+(každých 5 s, Sync:MissionIntervalSeconds);
+:Načítať aktívne misie z DB
+(Submitted / InProgress / Cancelling);
+if (Existujú aktívne misie?) then (nie)
+  stop
+else (áno)
+endif
+while (Ďalšia aktívna misia?) is (áno)
+  :Volanie KUKA FM (4.0);
+  |KUKA FM|
+  :jobQuery (jobCode = MissionCode);
+  |Middleware|
+  if (Výsledok OK?) then (nie)
+    :Zalogovať chybu,
+    nič neuložiť;
+    note right: ďalší pokus v nasledujúcom cykle
+    stop
+  else (áno)
+  endif
+  :Nastaviť LastSyncedAt;
+  if (Job nájdený?) then (nie)
+    :Zalogovať varovanie
+    (stav bez zmeny);
+  else (áno)
+    if (Misia nemá robota a job má robotId?) then (áno)
+      :Doplniť RobotId podľa KukaRobotId;
+    else (nie)
+    endif
+    :Namapovať status jobu:
+    10 → Submitted
+    20 / 25 / 50 → InProgress
+    28 → Cancelling
+    30 / 35 → Completed
+    31 → Cancelled
+    60 → Failed;
+    if (Známy status a zmena povolená\nstavovým automatom?) then (áno)
+      :Aktualizovať Mission.Status
+      + StatusHistory (Source Sync);
+      if (Konečný stav?) then (áno)
+        :Nastaviť FinishedAt;
+      else (nie)
+      endif
+    else (nie)
+      :Stav bez zmeny
+      (neznámy status → varovanie);
+    endif
+  endif
+endwhile (nie)
+:Uložiť všetky zmeny
+jedným SaveChanges (transakcia);
+if (Konflikt súbežnej zmeny (xmin)?) then (áno)
+  :Zalogovať, nič neuložené;
+  note right: ďalší pokus v nasledujúcom cykle
+else (nie)
+endif
+stop
+@enduml
