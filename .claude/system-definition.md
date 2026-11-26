@@ -375,7 +375,7 @@ Questions, not decisions. Ask the user before implementing anything that depends
 |---|---|---|
 | Q1 | Chapter-7 API reference is now available (see §4): vendor endpoints, payloads and status codes are documented. Still needed: §4.7 Authentication for token acquisition; agreed mapping of vendor job/robot states and middleware step actions (including Wait), and cancel mode. Live verification requires KUKA FM licenses, currently unavailable. | 5 |
 | Q3 | Sync intervals for missions and robots (wiki example 5 s). | 5 |
-| Q7 | CI and CD run on the self-hosted Windows agent (decided 2026-11-25). Still to verify: first CD run (Docker Desktop reachable from the Local System service) and the GitHub required status check. | 8 |
+| Q7 | CI and CD run on the self-hosted Windows agent (decided 2026-11-25); first CI and manual CD runs green (2026-11-26). Still to verify: automatic CD after a merge into main and the GitHub required status check. | 8 |
 | Q11 | Cancel race: two parallel cancels both pass the Cancellable check. Add a concurrency token (e.g. PostgreSQL `xmin`) mapped to 409, together with `cancelMission`. | 5 |
 | Q10 | Container hardening: run nginx as non-root (e.g. `nginxinc/nginx-unprivileged`, needs approval) and give the api a compose healthcheck (aspnet image has no curl). | 8 |
 | Q12 | Robot name ordering is case-sensitive (`StringComparer.Ordinal`); switch to case-insensitive? | any |
