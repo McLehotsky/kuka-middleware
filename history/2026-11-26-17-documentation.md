@@ -4,6 +4,8 @@ date: 2026-11-26
 phase: 9
 backlog: ["Epic – documentation of the realized solution (teacher's request: aktualizácia dokumentácie)"]
 agents: [main session, planner, reviewer]
+pr: 15
+pr_url: https://github.com/McLehotsky/kuka-middleware/pull/15
 ---
 
 # Final documentation update
