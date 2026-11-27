@@ -1,8 +1,7 @@
 // DTOs of the middleware REST API (system-definition §8, "Mission DTOs" and "Robot DTOs").
 // Enum values are exact and case-sensitive. Missing optional values are null.
 
-export const MISSION_TYPES = ['RACK_MOVE', 'ROLLER_MOVE'] as const
-export type MissionType = (typeof MISSION_TYPES)[number]
+export type MissionType = 'RACK_MOVE' | 'ROLLER_MOVE'
 
 export const STEP_ACTIONS = ['Load', 'Unload', 'Wait'] as const
 export type StepAction = (typeof STEP_ACTIONS)[number]

@@ -59,7 +59,7 @@ Constraints:
 - Plain scoped CSS with tokens, no UI library.
 - UI language is **English**. The mockup copy is Slovak and gets translated.
 
-Decided since: the UI refreshes by polling every 5 s; mission types `RACK_MOVE` and `ROLLER_MOVE`; steps are a node plus Load / Unload / Wait.
+Decided since: the UI refreshes by polling every 5 s; the form offers mission type `RACK_MOVE` only, and `ROLLER_MOVE` stays hidden until the vendor `binCode` is decided (Q19) – the API rejects it with 400; steps are a node plus Load / Unload / Wait.
 
 Undecided:
 - Audit log screen: marked "optional, later" in the mockups.

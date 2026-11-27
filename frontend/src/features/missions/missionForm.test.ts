@@ -85,6 +85,12 @@ describe('validateDraft', () => {
     expect(Object.keys(validateDraft(draft))).toEqual(['missionType'])
   })
 
+  it('rejects ROLLER_MOVE, which the form does not offer (Q19)', () => {
+    const draft = validDraft()
+    draft.missionType = 'ROLLER_MOVE'
+    expect(Object.keys(validateDraft(draft))).toEqual(['missionType'])
+  })
+
   it('rejects an empty step list', () => {
     const draft = validDraft()
     draft.steps = []
