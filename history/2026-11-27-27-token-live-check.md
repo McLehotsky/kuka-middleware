@@ -4,6 +4,8 @@ date: 2026-11-27
 phase: 9
 backlog: ["3.1 Prístup ku KUKA FM API s access tokenom", "4.4 CD pipeline", "Epic"]
 agents: [main session]
+pr: 25
+pr_url: https://github.com/McLehotsky/kuka-middleware/pull/25
 ---
 
 # KUKA FM token checked live after the CD fix
