@@ -16,6 +16,9 @@ The user asked for a final check that everything works. The live test of 2026-11
 
 ## What changed
 
+**user**
+- Activity diagrams `4.0`–`4.5` and `9.6-ci-cd` (`.puml`, `.svg`, `.png`): the colour legend moved below the diagram as two horizontal rows; nodes and arrows unchanged. In `9.6-ci-cd.puml` the "Typ behu?" `switch` became two `if` decisions with the same branches (the published SVG keeps the same flow).
+
 **main session**
 - `documentation/wiki.md` §9.2: a second live test bullet (2026-11-27); §9.8: Epic row "Zadať novú misiu" cites M-2026-0039 to M-2026-0041, 3.3 lists `Completed` as checked live.
 - `documentation/backlog.md`: the same 3.3 row (the tables are kept identical).
@@ -33,6 +36,7 @@ No code change; no reviewer run. Facts below are copied from the API responses, 
 
 - Unchanged: live token and 401 path, battery scale on a robot that is not fully charged, Q10, Q12–Q16, Q19, Q20.
 - Legacy mission M-2026-0004 (`Created` since 2026-11-11, never known to KUKA FM) still shows as active; to be closed manually as `Cancelled` like M-2026-0005 if the user agrees.
+- Azure DevOps wiki: re-upload the seven activity diagrams with the new legend layout (§4.0–4.5, §9.6).
 - CI does not run `npm audit` and the NuGet vulnerability check (the teacher's sample does); proposal for the user.
 
 ## Verification
