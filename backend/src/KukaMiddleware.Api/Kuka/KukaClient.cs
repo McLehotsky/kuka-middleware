@@ -7,8 +7,8 @@ using Microsoft.Extensions.Options;
 namespace KukaMiddleware.Api.Kuka;
 
 // Typed HttpClient for KUKA FM (vendor reference chapter 7). Every call: POST {BaseUrl}/interfaces/api/amr/{api}
-// with the raw token as Authorization. A 401 is logged as an authentication error and fails without a retry,
-// since there is no token endpoint yet (system-definition §14 Phase 5 scope, deviation from backlog 3.1).
+// with the configured raw token as Authorization when present. A 401 is logged as an authentication error
+// and fails without a retry. The vendor manual documents token provisioning in the KUKA FM UI (§4.7).
 // Logs carry the API name, outcome and duration; never the token, headers or bodies.
 public sealed class KukaClient : IKukaClient
 {
