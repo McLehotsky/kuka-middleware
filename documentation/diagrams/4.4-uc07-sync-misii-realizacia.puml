@@ -1,61 +1,70 @@
 @startuml
-|Middleware|
+skinparam shadowing false
+skinparam roundCorner 9
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName Segoe UI
+skinparam defaultFontColor #182338
+skinparam defaultFontSize 16
+skinparam titleFontSize 26
+skinparam titleFontColor #182338
+skinparam ArrowColor #46566D
+skinparam ArrowFontColor #26364D
+skinparam ArrowFontSize 14
+skinparam ActivityBorderColor #7B8798
+skinparam ActivityBackgroundColor #F9FBFE
+skinparam ActivityDiamondBackgroundColor #F1EDFA
+skinparam ActivityDiamondBorderColor #A197C4
+skinparam ActivityDiamondFontSize 15
+skinparam ActivityStartColor #26364D
+skinparam ActivityEndColor #26364D
+skinparam ActivityBarColor #46566D
+
+title UC5 Synchronizácia misií <U+2013> realizácia
+
 start
-:Štart API a potom tick plánovača
-(každých 5 s, Sync:MissionIntervalSeconds);
-:Načítať aktívne misie z DB
-(Submitted / InProgress / Cancelling);
-if (Existujú aktívne misie?) then (nie)
+:Štart API, potom každých 5 s;
+:Načítať aktívne misie\n(Submitted, InProgress, Cancelling);
+if (Našli sa aktívne misie?) then (nie)
   stop
 else (áno)
 endif
-while (Ďalšia aktívna misia?) is (áno)
-  :Volanie KUKA FM (4.0);
-  |KUKA FM|
-  :jobQuery (jobCode = MissionCode);
-  |Middleware|
-  if (Výsledok OK?) then (nie)
-    :Zalogovať chybu,
-    nič neuložiť;
-    note right: ďalší pokus v nasledujúcom cykle
+
+while (Ďalšia misia?) is (áno)
+  :jobQuery (jobCode = kód misie); <<#EAF3FF>>
+  if (Volanie OK?) then (nie)
+    :Zalogovať chybu, nič neuložiť; <<#FDEBED>>
     stop
   else (áno)
   endif
-  :Nastaviť LastSyncedAt;
-  if (Job nájdený?) then (nie)
-    :Zalogovať varovanie
-    (stav bez zmeny);
-  else (áno)
-    if (Misia nemá robota a job má robotId?) then (áno)
-      :Doplniť RobotId podľa KukaRobotId;
-    else (nie)
-    endif
-    :Namapovať status jobu:
-    10 → Submitted
-    20 / 25 / 50 → InProgress
-    28 → Cancelling
-    30 / 35 → Completed
-    31 → Cancelled
-    60 → Failed;
-    if (Známy status a zmena povolená\nstavovým automatom?) then (áno)
-      :Aktualizovať Mission.Status
-      + StatusHistory (Source Sync);
-      if (Konečný stav?) then (áno)
-        :Nastaviť FinishedAt;
-      else (nie)
-      endif
-    else (nie)
-      :Stav bez zmeny
-      (neznámy status → varovanie);
-    endif
+  :LastSyncedAt; <<#FFF5DA>>
+  if (Záznam pre misiu nájdený?) then (áno)
+    :Doplniť robota, ak chýba\na je známy; <<#FFF5DA>>
+    switch (Povolená zmena stavu?)
+    case (áno)
+      :Nový stav + história\nFinishedAt pri koncovom stave; <<#FFF5DA>>
+    case (bez zmeny)
+    case (neznámy kód)
+      :Varovanie, neznámy kód; <<#EEF2F7>>
+    endswitch
+  else (nie)
+    :Varovanie, stav bez zmeny; <<#EEF2F7>>
   endif
 endwhile (nie)
-:Uložiť všetky zmeny
-jedným SaveChanges (transakcia);
-if (Konflikt súbežnej zmeny (xmin)?) then (áno)
-  :Zalogovať, nič neuložené;
-  note right: ďalší pokus v nasledujúcom cykle
+:Uložiť všetko naraz; <<#FFF5DA>>
+if (Konflikt pri uložení?) then (áno)
+  :Zalogovať konflikt, nič neuložiť; <<#EEF2F7>>
 else (nie)
+  :Zmeny uložené; <<#E5F6ED>>
 endif
+:Čakať na ďalší cyklus;
 stop
+legend right
+  <b>Stav KUKA → stav misie</b>
+  | 10 | Submitted |
+  | 20, 25, 50 | InProgress |
+  | 28 | Cancelling |
+  | 30, 35 | Completed |
+  | 31 | Cancelled |
+  | 60 | Failed |
+endlegend
 @enduml

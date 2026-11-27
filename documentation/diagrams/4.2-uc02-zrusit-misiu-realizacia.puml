@@ -1,70 +1,67 @@
 @startuml
-|Klient (Obsluha / Externý systém)|
+skinparam shadowing false
+skinparam roundCorner 9
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName Segoe UI
+skinparam defaultFontColor #182338
+skinparam defaultFontSize 16
+skinparam titleFontSize 26
+skinparam titleFontColor #182338
+skinparam ArrowColor #46566D
+skinparam ArrowFontColor #26364D
+skinparam ArrowFontSize 14
+skinparam ActivityBorderColor #7B8798
+skinparam ActivityBackgroundColor #F9FBFE
+skinparam ActivityDiamondBackgroundColor #F1EDFA
+skinparam ActivityDiamondBorderColor #A197C4
+skinparam ActivityDiamondFontSize 15
+skinparam ActivityStartColor #26364D
+skinparam ActivityEndColor #26364D
+skinparam ActivityBarColor #46566D
+
+title UC2 Zrušiť misiu <U+2013> realizácia
+
 start
-:Vybrať misiu a potvrdiť zrušenie;
-:POST /api/missions/{id}/cancel
-(hlavička X-API-Key);
-|Middleware|
-if (API kľúč platný?) then (nie)
-  :Zalogovať pokus (technický log);
-  |Klient (Obsluha / Externý systém)|
-  :401 Unauthorized;
+:Klient: POST /api/missions/{id}/cancel;
+switch (Kontrola?)
+case (neplatný kľúč)
+  :Technický log; <<#EEF2F7>>
+  :401; <<#FDEBED>>
+  stop
+case (misia neexistuje)
+  :AuditLog; <<#EEF2F7>>
+  :404; <<#FDEBED>>
+  stop
+case (ukončená alebo Cancelling)
+  :AuditLog; <<#EEF2F7>>
+  :409; <<#FDEBED>>
+  stop
+case (OK)
+endswitch
+
+:missionCancel; <<#EAF3FF>>
+if (KUKA FM prijala?) then (nie)
+  :AuditLog; <<#EEF2F7>>
+  :502, stav nezmenený; <<#FDEBED>>
   stop
 else (áno)
+  :Stav Cancelling + história; <<#FFF5DA>>
 endif
-|Middleware|
-if (Misia existuje?) then (nie)
-  :Zapísať AuditLog (404);
-  |Klient (Obsluha / Externý systém)|
-  :404 Not Found;
-  stop
-else (áno)
-endif
-|Middleware|
-if (Misia je zrušiteľná?\n(Created / Submitted / InProgress)) then (nie: konečný stav\nalebo Cancelling)
-  :Zapísať AuditLog (409);
-  |Klient (Obsluha / Externý systém)|
-  :409 Conflict;
-  stop
-else (áno)
-endif
-|Middleware|
-:Volanie KUKA FM (4.0);
-|KUKA FM|
-:missionCancel (cancelMode z konfigurácie);
-|Middleware|
-if (Výsledok OK?) then (nie)
-  :Stav misie sa nemení;
-  :Zapísať AuditLog (502);
-  |Klient (Obsluha / Externý systém)|
-  :502 Bad Gateway;
-  stop
-else (áno)
-endif
-|Middleware|
-:Stav Cancelling + StatusHistory
-(Source Api, "cancel requested");
-:Uložiť zmeny (kontrola xmin);
-if (Konflikt súbežnej zmeny?) then (áno)
-  :Znova načítať misiu z DB;
-  if (Stále zrušiteľná a opakované
-uloženie (najviac 1x) úspešné?) then (nie)
-    :Zapísať AuditLog (409);
-    |Klient (Obsluha / Externý systém)|
-    :409 Conflict;
+if (Uloženie bez konfliktu?) then (nie)
+  :Znova načítať misiu; <<#FFF5DA>>
+  if (Misia je stále zrušiteľná?) then (áno)
+    :Znova uložiť raz; <<#FFF5DA>>
+  else (nie)
+  endif
+  if (Uložené?) then (nie)
+    :AuditLog; <<#EEF2F7>>
+    :409; <<#FDEBED>>
     stop
   else (áno)
   endif
-else (nie)
+else (áno)
 endif
-|Middleware|
-:Zapísať AuditLog (200);
-|Klient (Obsluha / Externý systém)|
-:200 OK + MissionSummary;
+:AuditLog; <<#EEF2F7>>
+:200 OK; <<#E5F6ED>>
 stop
-note right
-  Konečný stav Cancelled nastaví
-  synchronizácia misií (4.4),
-  keď ho KUKA FM potvrdí.
-end note
 @enduml

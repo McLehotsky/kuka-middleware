@@ -1,54 +1,57 @@
 @startuml
-|Middleware|
+skinparam shadowing false
+skinparam roundCorner 9
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName Segoe UI
+skinparam defaultFontColor #182338
+skinparam defaultFontSize 16
+skinparam titleFontSize 26
+skinparam titleFontColor #182338
+skinparam ArrowColor #46566D
+skinparam ArrowFontColor #26364D
+skinparam ArrowFontSize 14
+skinparam ActivityBorderColor #7B8798
+skinparam ActivityBackgroundColor #F9FBFE
+skinparam ActivityDiamondBackgroundColor #F1EDFA
+skinparam ActivityDiamondBorderColor #A197C4
+skinparam ActivityDiamondFontSize 15
+skinparam ActivityStartColor #26364D
+skinparam ActivityEndColor #26364D
+skinparam ActivityBarColor #46566D
+
+title UC7 Synchronizácia robotov <U+2013> realizácia
+
 start
-:Štart API a potom tick plánovača
-(každých 5 s, Sync:RobotIntervalSeconds);
-:Volanie KUKA FM (4.0);
-|KUKA FM|
-:robotQuery;
-|Middleware|
-if (Výsledok OK?) then (nie)
-  :Zalogovať chybu
-  (stav robotov sa nemení);
+:Štart API, potom každých 5 s;
+:robotQuery; <<#EAF3FF>>
+if (Volanie OK?) then (nie)
+  :Zalogovať chybu, bez zmien; <<#FDEBED>>
   stop
 else (áno)
 endif
-:Načítať roboty z DB;
-while (Ďalší robot v odpovedi?) is (áno)
-  if (Robot má robotId?) then (nie)
-    :Zalogovať varovanie
-    (robot preskočený);
-  else (áno)
-  :Namapovať status KUKA FM:
-  3 → Available
-  1 / 4 / 5 / 6 → Busy
-  2 / 7 → Offline;
-  if (Známy status?) then (nie)
-    :Zalogovať varovanie
-    (robot bez zmeny);
-  else (áno)
-    if (Robot existuje v DB?) then (nie)
-      :Vložiť nového robota
-      (KukaRobotId);
-    else (áno)
-    endif
-    :Aktualizovať stav, UpdatedAt;
-    :Batéria: hodnota ≤ 1 ako podiel × 100,
-    inak percentá (0–100);
-    :Aktualizovať aktuálny uzol;
-    if (Stav Offline?) then (áno)
-      :Ponechať poslednú batériu a uzol,
-      ak ich KUKA FM neposlal;
+while (Ďalší robot?) is (áno)
+  if (Má robotId a známy stav?) then (áno)
+    if (Nový robot?) then (áno)
+      :Vložiť robota; <<#FFF5DA>>
     else (nie)
-      :Nastaviť LastSeenAt;
     endif
-  endif
+    :Aktualizovať stav, batériu, uzol\nBatéria ≤ 1 → × 100; <<#FFF5DA>>
+    if (Offline?) then (nie)
+      :LastSeenAt = teraz; <<#FFF5DA>>
+    else (áno)
+      :Ponechať poslednú batériu a uzol,\nak ich KUKA FM neposlala;
+    endif
+  else (nie)
+    :Varovanie, robot preskočený; <<#EEF2F7>>
   endif
 endwhile (nie)
-:Uložiť zmeny jedným SaveChanges;
-note right
-  Roboty, ktoré v odpovedi chýbajú,
-  ostávajú bez zmeny.
-end note
+:Uložiť všetko naraz; <<#FFF5DA>>
+:Roboty aktuálne; <<#E5F6ED>>
 stop
+legend right
+  <b>Stav KUKA → stav robota</b>
+  | 3 | Available |
+  | 1, 4, 5, 6 | Busy |
+  | 2, 7 | Offline |
+endlegend
 @enduml
