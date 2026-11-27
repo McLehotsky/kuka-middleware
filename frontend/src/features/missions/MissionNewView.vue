@@ -702,7 +702,7 @@ function discard() {
 }
 
 .request-error__link {
-  font: var(--text-strong);
+  font: var(--text-body-small-strong);
 }
 
 .error-summary:focus {
