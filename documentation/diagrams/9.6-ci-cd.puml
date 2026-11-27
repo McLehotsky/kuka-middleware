@@ -44,16 +44,18 @@ if (CI úspešné?) then (nie)
 else (áno)
 endif
 |CI: kuka-middleware-ci|
-switch (Typ behu?)
-case (PR do main)
+' Samostatné rozhodnutia zachovávajú vetvy a umožňujú render prechodu do pruhu GitHub.
+if (PR do main?) then (áno)
   |GitHub|
   :Status check úspešný\nPR možno zlúčiť; <<#E5F6ED>>
   stop
-case (iný push)
-  |CI: kuka-middleware-ci|
+else (nie)
+endif
+|CI: kuka-middleware-ci|
+if (Push do main?) then (nie)
   stop
-case (push do main)
-endswitch
+else (áno)
+endif
 |CD: kuka-middleware-cd|
 :Kontrola: vetva main, Docker beží;
 :Overiť premenné pipeline;
@@ -71,14 +73,9 @@ else (nie)
 endif
 :Vyčistiť build cache\nOdstrániť nepoužívané obrazy bez značky; <<#EEF2F7>>
 stop
-legend bottom right
+legend bottom center
   <b>Legenda farieb</b>
-  |<#EAF3FF>    | Volanie KUKA FM / Docker |
-  |<#E5F6ED>    | Úspech |
-  |<#FDEBED>    | Chyba / odmietnutie |
-  |<#FFF5DA>    | Zápis do databázy |
-  |<#EEF2F7>    | Log / audit |
-  |<color:#8064A9>◆</color>| Rozhodnutie |
-  |<#FFFFFF>    | Bežný krok |
+  | <#EAF3FF>    | Volanie KUKA FM / Docker | <#E5F6ED>    | Úspech | <#FDEBED>    | Chyba / odmietnutie | <#FFF5DA>    | Zápis do databázy |
+  | <#EEF2F7>    | Log / audit | <color:#8064A9>◆</color>| Rozhodnutie | <#FFFFFF>    | Bežný krok |   |   |
 endlegend
 @enduml

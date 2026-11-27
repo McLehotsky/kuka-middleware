@@ -524,6 +524,10 @@ Všetky volania idú cez **jedného typovaného klienta** (`IKukaClient`) podľa
   - misia **M-2026-0039** (robot 1, 2 kroky `Wait`) prešla `Created` → `Submitted` → `InProgress` (job 20) → `Cancelling` → `Cancelled` (job 31);
   - misia s jedným krokom bola v KUKA FM odmietnutá („missionData length is less than 2") → `Failed` + 502 s `missionId`; preto API aj UI vyžadujú aspoň 2 kroky a 1-krokový request teraz vráti 400;
   - KUKA FM prijalo všetky štyri volania aj bez tokenu, preto je token všade voliteľný.
+- **Živý test 27. 11. 2026** (školská VPN, bez tokenu, nasadená verzia z CD na porte 8081; robot 1 ostal na svojom uzle `Labak-CHTN-15`):
+  - misia **M-2026-0040** (2 kroky `Wait`) prešla `Created` → `Submitted` → `InProgress` (job 20) → `Completed` (job 30), nastavili sa `SubmittedAt` aj `FinishedAt`; zrušenie dokončenej misie vrátilo 409;
+  - misia **M-2026-0041** (6 krokov `Wait`) bola zrušená počas behu: `InProgress` → `Cancelling` (200) → `Cancelled` (job 31) v nasledujúcom cykle synchronizácie;
+  - `AuditLog` obsahuje všetky štyri operácie klienta `web-ui` (201, 409, 201, 200), v logoch API nie je žiadna chyba.
 
   
 
@@ -610,7 +614,7 @@ Stav k 26. 11. 2026: **322 backend** a **97 frontend** unit testov, všetky úsp
 
 | Kritérium | Stav | Dôkaz / poznámka |
 |---|---|---|
-| Zadať novú misiu | splnené | `POST /api/missions` → `submitMission`, živý test M-2026-0039 |
+| Zadať novú misiu | splnené | `POST /api/missions` → `submitMission`, živé testy M-2026-0039 až M-2026-0041 |
 | Zrušiť prebiehajúcu misiu | splnené | `missionCancel` → `Cancelling`, `Cancelled` potvrdené synchronizáciou |
 | Prezrieť prebiehajúce (real-time) a ukončené misie | splnené | zoznam s filtrom, polling 5 s, synchronizácia misií každých 5 s |
 | Prezrieť stav robotov v reálnom čase | splnené | obrazovka Roboty, polling 5 s, synchronizácia robotov každých 5 s |
@@ -629,7 +633,7 @@ Stav k 26. 11. 2026: **322 backend** a **97 frontend** unit testov, všetky úsp
 | 2.1 UC6 – Zoznam robotov | splnené | `GET /api/robots` z vlastnej DB s aktuálnou misiou, obrazovka (dlaždice, hľadanie, filter, karty / tabuľka), obnova každých 5 s, testy | – |
 | 3.1 Prístup ku KUKA FM API s access tokenom | splnené | jeden typovaný klient pre 4 volania, token z konfigurácie v hlavičke `Authorization` pri každom volaní (podľa plnej príručky KUKA.AMR Fleet 2.15, kap. 4.7), 401 sa zaloguje ako chyba autentifikácie a volanie zlyhá, logovanie volaní bez tokenu | kritériá cache a obnovy tokenu pri 401 nie sú uplatniteľné: token sa podľa kap. 4.7 generuje ručne vo webovom UI KUKA FM, API na vydanie ani obnovu neexistuje |
 | 3.2 UC7 – Synchronizovať stav robotov | splnené | synchronizácia pri štarte a každých 5 s, mapovanie stavov 1–7, vloženie / aktualizácia, `LastSeenAt`, chyba nemení dáta; naživo 3 roboty | mierku batérie overiť na robotovi, ktorý nie je nabitý |
-| 3.3 UC5 – Synchronizovať stav misií | splnené | aktívne misie každých 5 s cez `jobQuery`, mapovanie stavov, história, `FinishedAt`, `LastSyncedAt`, jedno uloženie za cyklus, opakovanie v ďalšom cykle; naživo `InProgress` a `Cancelled` | – |
+| 3.3 UC5 – Synchronizovať stav misií | splnené | aktívne misie každých 5 s cez `jobQuery`, mapovanie stavov, história, `FinishedAt`, `LastSyncedAt`, jedno uloženie za cyklus, opakovanie v ďalšom cykle; naživo `InProgress`, `Completed` a `Cancelled` | – |
 | 4.1 Kontajnerizácia a databáza | splnené | `docker compose up` spustí web, api, postgres (a seq), schéma z EF Core migrácie pri štarte, dáta prežijú reštart | – |
 | 4.2 Zabezpečenie API a logovanie | splnené | API kľúč + 401, len hashe kľúčov, štruktúrované JSON logy na stdout aj do Seq, `AuditLog` pre každé zadanie a zrušenie | – |
 | 4.3 CI pipeline | splnené | `kuka-middleware-ci`: build backendu aj frontendu, statická analýza, unit testy, publikované výsledky; zlyhá pri chybe; ruleset na GitHube vyžaduje úspešné CI pred mergom do `main` | – |
