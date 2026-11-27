@@ -4,6 +4,8 @@ date: 2026-11-27
 phase: 9
 backlog: ["3.1 KUKA FM access with access token", "Epic – KUKA FM access secured by an access token", "Epic – documentation of the realized solution"]
 agents: [main session, user]
+pr: 17
+pr_url: https://github.com/McLehotsky/kuka-middleware/pull/17
 ---
 
 # KUKA FM token per manual ch. 4.7 and swimlane diagrams
