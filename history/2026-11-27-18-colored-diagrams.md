@@ -4,6 +4,8 @@ date: 2026-11-27
 phase: 9
 backlog: ["Epic – documentation of the realized solution", "4.3 CI pipeline – PR into main only with a green pipeline"]
 agents: [main session, user]
+pr: 16
+pr_url: https://github.com/McLehotsky/kuka-middleware/pull/16
 ---
 
 # Readable as-built diagrams and GitHub ruleset
