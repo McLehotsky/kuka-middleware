@@ -69,5 +69,14 @@ legend right
   | 30, 35 | Completed |
   | 31 | Cancelled |
   | 60 | Failed |
+
+  <b>Legenda farieb</b>
+  |<#EAF3FF>    | Volanie KUKA FM / Docker |
+  |<#E5F6ED>    | Úspech |
+  |<#FDEBED>    | Chyba / odmietnutie |
+  |<#FFF5DA>    | Zápis do databázy |
+  |<#EEF2F7>    | Log / audit |
+  |<color:#8064A9>◆</color>| Rozhodnutie |
+  |<#FFFFFF>    | Bežný krok |
 endlegend
 @enduml

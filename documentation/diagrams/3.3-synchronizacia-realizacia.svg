@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="416" viewBox="0 0 1180 416" role="img" aria-labelledby="diagram-title" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif">
+  <title id="diagram-title">3.3 Synchronizácia s KUKA FM</title>
+  <g>
+    <rect x="0" y="0" width="1180" height="416" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.35"/>
+    <text x="38" y="56" fill="#14243A" font-size="32" font-weight="700" text-anchor="start">3.3 Synchronizácia s KUKA FM</text>
+    <path d="M38,81 L1142,81" fill="none" stroke="#E1E9F2" stroke-width="1" stroke-linecap="round"/>
+    <rect x="335" y="103" width="538" height="281" rx="13" fill="#F8FAFD" stroke="#D7E1ED" stroke-width="1.35"/>
+    <text x="359" y="133" fill="#415570" font-size="16" font-weight="700" text-anchor="start">Synchronizačná služba middlewaru</text>
+    <path d="M167,260 L429,207" fill="none" stroke="#607590" stroke-width="1.55" stroke-linecap="round"/>
+    <path d="M781,207 L1005,260" fill="none" stroke="#607590" stroke-width="1.55" stroke-linecap="round"/>
+    <text x="917" y="227.179" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">jobQuery</text>
+    <path d="M167,260 L429,312" fill="none" stroke="#607590" stroke-width="1.55" stroke-linecap="round"/>
+    <path d="M781,312 L1005,260" fill="none" stroke="#607590" stroke-width="1.55" stroke-linecap="round"/>
+    <text x="917" y="268.429" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">robotQuery</text>
+    <circle cx="153" cy="241" r="7.5" fill="#E5F6ED" stroke="#428063" stroke-width="1.55"/>
+    <path d="M153,250 L153,272" fill="none" stroke="#428063" stroke-width="1.75" stroke-linecap="round"/>
+    <path d="M139,260 L167,260" fill="none" stroke="#428063" stroke-width="1.75" stroke-linecap="round"/>
+    <path d="M142,287 L153,272" fill="none" stroke="#428063" stroke-width="1.75" stroke-linecap="round"/>
+    <path d="M153,272 L164,287" fill="none" stroke="#428063" stroke-width="1.75" stroke-linecap="round"/>
+    <text x="153" y="308" fill="#1A5942" font-size="16" font-weight="700" text-anchor="middle">Plánovač</text>
+    <text x="153" y="328" fill="#415570" font-size="14" font-weight="400" text-anchor="middle">pri štarte API a každých 5 s</text>
+    <circle cx="1019" cy="241" r="7.5" fill="#E5F6ED" stroke="#428063" stroke-width="1.55"/>
+    <path d="M1019,250 L1019,272" fill="none" stroke="#428063" stroke-width="1.75" stroke-linecap="round"/>
+    <path d="M1005,260 L1033,260" fill="none" stroke="#428063" stroke-width="1.75" stroke-linecap="round"/>
+    <path d="M1008,287 L1019,272" fill="none" stroke="#428063" stroke-width="1.75" stroke-linecap="round"/>
+    <path d="M1019,272 L1030,287" fill="none" stroke="#428063" stroke-width="1.75" stroke-linecap="round"/>
+    <text x="1019" y="308" fill="#1A5942" font-size="16" font-weight="700" text-anchor="middle">KUKA FM</text>
+    <text x="1019" y="328" fill="#415570" font-size="14" font-weight="400" text-anchor="middle">podporný aktér</text>
+    <ellipse cx="605" cy="207" rx="176" ry="35" fill="#EAF3FF" stroke="#78A6E0" stroke-width="1.45"/>
+    <text x="605" y="202" fill="#17467D" font-size="14" font-weight="700" text-anchor="middle">UC5</text>
+    <text x="605" y="224" fill="#14243A" font-size="18" font-weight="600" text-anchor="middle">Synchronizovať stav misií</text>
+    <ellipse cx="605" cy="312" rx="176" ry="35" fill="#EAF3FF" stroke="#78A6E0" stroke-width="1.45"/>
+    <text x="605" y="307" fill="#17467D" font-size="14" font-weight="700" text-anchor="middle">UC7</text>
+    <text x="605" y="329" fill="#14243A" font-size="18" font-weight="600" text-anchor="middle">Synchronizovať stav robotov</text>
+  </g>
+</svg>

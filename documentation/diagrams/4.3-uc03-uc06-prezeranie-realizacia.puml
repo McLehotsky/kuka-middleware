@@ -59,5 +59,15 @@ repeat
 repeat while (Pokračovať v obnove?) is (áno) not (nie)
 :Zastaviť obnovu\nOdchod · UC4: koncový stav alebo 404;
 stop
+legend bottom right
+  <b>Legenda farieb</b>
+  |<#EAF3FF>    | Volanie KUKA FM / Docker |
+  |<#E5F6ED>    | Úspech |
+  |<#FDEBED>    | Chyba / odmietnutie |
+  |<#FFF5DA>    | Zápis do databázy |
+  |<#EEF2F7>    | Log / audit |
+  |<color:#8064A9>◆</color>| Rozhodnutie |
+  |<#FFFFFF>    | Bežný krok |
+endlegend
 @enduml
 

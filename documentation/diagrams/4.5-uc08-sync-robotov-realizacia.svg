@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1134" height="1350" viewBox="0 0 1134 1350" role="img" aria-labelledby="diagram-title" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" width="1134" height="1510" viewBox="0 0 1134 1510" role="img" aria-labelledby="diagram-title" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif">
   <title id="diagram-title">4.5 UC7 Synchronizácia robotov – realizácia</title>
   <g>
-    <rect x="0" y="0" width="1134" height="1350" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.35"/>
+    <rect x="0" y="0" width="1134" height="1510" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.35"/>
     <rect x="34" y="98" width="771" height="1218" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.35"/>
     <rect x="34" y="98" width="771" height="49" rx="0" fill="#EFF3F8" stroke="none" stroke-width="1.35"/>
     <polyline points="34,98 34,1316" fill="none" stroke="#D7E1ED" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
@@ -132,5 +132,24 @@
     <text x="428" y="759" fill="#415570" font-size="14" font-weight="600" text-anchor="start">[nie]</text>
     <text x="286" y="930" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">[nie]</text>
     <text x="574" y="930" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">[áno]</text>
+  </g>
+
+  <g>
+    <rect x="620" y="1348" width="480" height="132" rx="12" fill="#F8FAFD" stroke="#D7E1ED" stroke-width="1.35"/>
+    <text x="637" y="1373" fill="#14243A" font-size="16" font-weight="700" text-anchor="start">Legenda farieb</text>
+    <rect x="637" y="1385" width="14" height="14" rx="3" fill="#EAF3FF" stroke="#78A6E0" stroke-width="1.35"/>
+    <text x="660" y="1396" fill="#415570" font-size="14" font-weight="400" text-anchor="start">Volanie KUKA FM / Docker</text>
+    <rect x="860" y="1385" width="14" height="14" rx="3" fill="#E5F6ED" stroke="#70AC91" stroke-width="1.35"/>
+    <text x="883" y="1396" fill="#415570" font-size="14" font-weight="400" text-anchor="start">Úspech</text>
+    <rect x="637" y="1406" width="14" height="14" rx="3" fill="#FDEBED" stroke="#D78A94" stroke-width="1.35"/>
+    <text x="660" y="1417" fill="#415570" font-size="14" font-weight="400" text-anchor="start">Chyba / odmietnutie</text>
+    <rect x="860" y="1406" width="14" height="14" rx="3" fill="#FFF5DA" stroke="#CEAA55" stroke-width="1.35"/>
+    <text x="883" y="1417" fill="#415570" font-size="14" font-weight="400" text-anchor="start">Zápis do databázy</text>
+    <rect x="637" y="1427" width="14" height="14" rx="3" fill="#EEF2F7" stroke="#ABB9C9" stroke-width="1.35"/>
+    <text x="660" y="1438" fill="#415570" font-size="14" font-weight="400" text-anchor="start">Log / audit</text>
+    <path d="M867,1427 l7,7 -7,7 -7,-7 Z" fill="#F1EDFA" stroke="#A197C4" stroke-width="1.35"/>
+    <text x="883" y="1438" fill="#415570" font-size="14" font-weight="400" text-anchor="start">Rozhodnutie</text>
+    <rect x="637" y="1448" width="14" height="14" rx="3" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
+    <text x="660" y="1459" fill="#415570" font-size="14" font-weight="400" text-anchor="start">Bežný krok</text>
   </g>
 </svg>

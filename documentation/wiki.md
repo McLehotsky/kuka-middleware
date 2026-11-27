@@ -2,9 +2,9 @@
 
   
 
-> Zdroj: *ITS - Overview* (Azure DevOps wiki, posledná úprava 21. 10. 2026, aktualizované 26. 11. 2026). Tento dokument rozpracúva zadanie bod po bode, diagramy sú v [Mermaid](https://mermaid.js.org/).
+> Zdroj: *ITS - Overview* (Azure DevOps wiki, posledná úprava 21. 10. 2026, aktualizované 26. 11. 2026). Tento dokument rozpracúva zadanie bod po bode, diagramy sú vo formáte SVG a [Mermaid](https://mermaid.js.org/).
 >
-> Sekcie 1–8 obsahujú pôvodné požiadavky a návrh. Kde sa realizácia od návrhu líši, je to uvedené v poznámke **Realizácia** s odkazom na sekciu **9. Realizácia a stav implementácie**.
+> Sekcie 1–8 opisujú požiadavky, návrh a realizované toky. Poznámky **Realizácia** odkazujú na podrobnosti v sekcii **9. Realizácia a stav implementácie**.
 
   
 
@@ -34,39 +34,13 @@
 
   
 
-- **Súčasný stav:** KUKA AMR Fleet Manager (KUKA FM) beží samostatne, bez napojenia na okolité systémy (ERP/PLM/WMS) — obsluha musí misie zadávať/sledovať priamo v jeho UI.
+- **Východiskový stav:** KUKA AMR Fleet Manager (KUKA FM) bežal samostatne, bez napojenia na ERP, PLM či WMS. Obsluha zadávala a sledovala misie priamo v jeho UI.
 
 - **Cieľový stav:** middleware sprostredkúva riadenie a sledovanie misií pre iný (fiktívny) systém — zjednodušuje a zjednocuje prístup k funkciám KUKA FM cez vlastné REST rozhranie a webové UI.
 
   
 
-::: mermaid
-
-flowchart LR
-
-    subgraph AS_IS["Súčasný stav"]
-
-        OP1["Obsluha"] --> FM1["KUKA FM UI"]
-
-        ERP1["ERP / WMS / PLM"] -.-x|bez napojenia| FM1
-
-    end
-
-    subgraph TO_BE["Cieľový stav"]
-
-        OP2["Obsluha"] --> WEB["Web UI middlewaru"]
-
-        ERP2["Externý systém"] -->|REST| API["Middleware API"]
-
-        WEB --> API
-
-        API --> DB[("PostgreSQL")]
-
-        API -->|REST + token| FM2["KUKA FM"]
-
-    end
-
-:::
+![1. Východiskový a cieľový stav integrácie](diagrams/1-ciele-a-stav.svg)
 
   
 
@@ -129,17 +103,7 @@ flowchart LR
 
 ### 3.1 Správa misií *(FR1, FR2, FR5, FR6)*
 
-![01-sprava-misii.svg](/.attachments/01-sprava-misii-980e527e-9650-42a0-b355-3a37e99ee0f1.svg)
-  
-### 3.2 Prehľad robotov *(FR7)*
-![02-prehlad-robotov.png](/.attachments/02-prehlad-robotov-df871351-cc33-4473-95fd-230c4c6e7581.png)
-
-### 3.3 Synchronizácia údajov s KUKA FM *(FR3, FR4, FR5)*
-![03-synchronizacia.png](/.attachments/03-synchronizacia-ad4ba4eb-a44d-4210-b824-0711aecec231.png)
-
-### Popis use casov
-
-  
+![3.1 Správa misií · UC1 až UC4](diagrams/3.1-sprava-misii-realizacia.svg)
 
 #### UC1 – Zadať misiu *(FR1)*
 
@@ -149,21 +113,15 @@ flowchart LR
 
 - **Hlavný scenár:**
 
-  1. Aktér zadá parametre misie (typ, cieľové body, voliteľne robot).
-
-  2. Middleware overí autorizáciu requestu a validuje vstup.
-
-  3. Middleware zavolá `submitMission` na KUKA FM s platným tokenom.
-
-  4. Middleware uloží misiu do DB so stavom *Created/Submitted* a prvý záznam do histórie.
-
-  5. Aktér dostane ID misie.
+  1. Aktér zadá parametre misie (typ, cieľové body, voliteľne robot).
+  2. Middleware overí autorizáciu requestu a validuje vstup.
+  3. Middleware uloží misiu v stave `Created` a pridá prvý záznam histórie.
+  4. Middleware zavolá `submitMission` na KUKA FM. Po prijatí zapíše stav `Submitted` a záznam histórie.
+  5. Aktér dostane ID misie.
 
 - **Alternatívy:** neplatný vstup → 400; neautorizovaný → 401; KUKA FM odmietne/nedostupné → chyba sa zaloguje a vráti 502.
 
 > **Realizácia:** aspoň 2 kroky, `ROLLER_MOVE` → 400 (Q19), pri chybe KUKA FM `Failed` + 502 s `missionId` – podrobnosti v sekcii 4.1 a 9.2.
-
-  
 
 #### UC2 – Zrušiť misiu *(FR2)*
 
@@ -173,19 +131,14 @@ flowchart LR
 
 - **Hlavný scenár:**
 
-  1. Aktér vyberie aktívnu misiu a zvolí *Zrušiť*.
+  1. Aktér vyberie zrušiteľnú misiu a zvolí *Zrušiť*.
+  2. Middleware overí, že misia existuje a jej stav umožňuje zrušenie.
+  3. Middleware zavolá `cancelMission` na KUKA FM.
+  4. Po prijatí zrušenia middleware zapíše stav `Cancelling` aj do histórie. Stav `Cancelled` potvrdí synchronizácia.
 
-  2. Middleware overí, že misia existuje a nie je ukončená.
-
-  3. Middleware zavolá `cancelMission` na KUKA FM.
-
-  4. Middleware zapíše zmenu stavu (*Cancelling/Cancelled*) do histórie.
-
-- **Alternatívy:** misia už ukončená → 409; misia neexistuje → 404.
+- **Alternatívy:** nezrušiteľný stav → 409, misia neexistuje → 404.
 
 > **Realizácia:** zrušenie vráti 200 a stav `Cancelling`, zrušiteľný je aj `Created`, súbežnosť stráži `xmin` – podrobnosti v sekcii 4.2 a 9.3.
-
-  
 
 #### UC3 – Zobraziť zoznam misií *(FR6)*
 
@@ -195,13 +148,9 @@ flowchart LR
 
 - **Hlavný scenár:**
 
-  1. Aktér otvorí zoznam misií (voliteľne filter aktívne / ukončené).
-
-  2. Middleware vráti misie z vlastnej DB (nevolá KUKA FM).
-
-  3. UI sa priebežne obnovuje (real-time aktualizácia).
-
-  
+  1. Aktér otvorí zoznam misií (voliteľne filter aktívne / ukončené).
+  2. Middleware vráti misie z vlastnej DB (nevolá KUKA FM).
+  3. UI sa priebežne obnovuje (real-time aktualizácia).
 
 #### UC4 – Zobraziť históriu stavov misie *(FR5, FR6)*
 
@@ -211,31 +160,12 @@ flowchart LR
 
 - **Hlavný scenár:**
 
-  1. Operátor v zozname misií otvorí detail misie.
+  1. Operátor v zozname misií otvorí detail misie.
+  2. Middleware vráti záznamy histórie stavov zoradené podľa času.
 
-  2. Middleware vráti záznamy histórie stavov zoradené podľa času.
+### 3.2 Prehľad robotov *(FR7)*
 
-  
-
-#### UC5 – Synchronizovať stav misií *(FR3, FR5)*
-
-- **Aktér:** Plánovač; sekundárny KUKA FM
-
-- **Cieľ:** Udržiavať stav aktívnych misií v DB aktuálny.
-
-- **Hlavný scenár:**
-
-  1. Plánovač v intervale (napr. 5 s) spustí synchronizáciu.
-
-  2. Middleware zavolá Query jobs API KUKA FM pre aktívne misie.
-
-  3. Pri zmene stavu aktualizuje misiu a pridá záznam do histórie.
-
-- **Alternatívy:** KUKA FM nedostupné → zaloguje sa chyba, ďalší pokus v nasledujúcom cykle.
-
-> **Realizácia:** synchronizácia beží hneď pri štarte API a potom každých 5 s (konfigurovateľné), pre každú aktívnu misiu volá `jobQuery`, zmeny ukladá jedným uložením za cyklus a záznamy histórie označí zdrojom `Sync`. Mapovanie stavov KUKA FM je v sekcii 5, detaily v sekcii 9.2.
-
-  
+![3.2 Prehľad robotov · UC6](diagrams/3.2-prehlad-robotov-realizacia.svg)
 
 #### UC6 – Zobraziť zoznam robotov *(FR7)*
 
@@ -245,11 +175,28 @@ flowchart LR
 
 - **Hlavný scenár:**
 
-  1. Operátor otvorí obrazovku robotov.
+  1. Operátor otvorí obrazovku robotov.
+  2. Middleware vráti roboty z DB, UI sa priebežne obnovuje.
 
-  2. Middleware vráti roboty z DB, UI sa priebežne obnovuje.
+### 3.3 Synchronizácia údajov s KUKA FM *(FR3, FR4, FR5)*
 
-  
+![3.3 Synchronizácia s KUKA FM · UC5 a UC7](diagrams/3.3-synchronizacia-realizacia.svg)
+
+#### UC5 – Synchronizovať stav misií *(FR3, FR5)*
+
+- **Aktér:** Plánovač; sekundárny KUKA FM
+
+- **Cieľ:** Udržiavať stav aktívnych misií v DB aktuálny.
+
+- **Hlavný scenár:**
+
+  1. Plánovač v intervale (napr. 5 s) spustí synchronizáciu.
+  2. Middleware zavolá Query jobs API KUKA FM pre aktívne misie.
+  3. Pri zmene stavu aktualizuje misiu a pridá záznam do histórie.
+
+- **Alternatívy:** KUKA FM nedostupné → zaloguje sa chyba, ďalší pokus v nasledujúcom cykle.
+
+> **Realizácia:** synchronizácia beží hneď pri štarte API a potom každých 5 s (konfigurovateľné), pre každú aktívnu misiu volá `jobQuery`, zmeny ukladá jedným uložením za cyklus a záznamy histórie označí zdrojom `Sync`. Mapovanie stavov KUKA FM je v sekcii 5, detaily v sekcii 9.2.
 
 #### UC7 – Synchronizovať stav robotov *(FR4)*
 
@@ -259,15 +206,11 @@ flowchart LR
 
 - **Hlavný scenár:**
 
-  1. Plánovač v intervale spustí synchronizáciu.
-
-  2. Middleware zavolá query API robotov na KUKA FM.
-
-  3. Nové roboty vloží, existujúcim aktualizuje stav a čas poslednej aktualizácie.
+  1. Plánovač v intervale spustí synchronizáciu.
+  2. Middleware zavolá query API robotov na KUKA FM.
+  3. Nové roboty vloží, existujúcim aktualizuje stav a čas poslednej aktualizácie.
 
 > **Realizácia:** synchronizácia robotov (`robotQuery`) beží hneď pri štarte API a potom každých 5 s (konfigurovateľné). Pri neúspešnom volaní sa chyba zaloguje a dáta sa nemenia. Mapovanie stavov je v sekcii 5, detaily v sekcii 9.2.
-
-  
 
 ---
 
@@ -430,6 +373,7 @@ erDiagram
         timestamptz LastSyncedAt
 
         string ErrorMessage
+        xid Version "xmin"
 
     }
 
@@ -512,71 +456,17 @@ erDiagram
 
 ### Stavy misie
 
-::: mermaid
+![Stavový diagram misie](diagrams/5-stavy-misie.svg)
 
-stateDiagram-v2
-
-    [*] --> Created : POST /api/missions
-
-    Created --> Submitted : submitMission OK
-
-    Created --> Failed : submitMission chyba
-
-    Submitted --> InProgress : sync – robot začal
-
-    Submitted --> Cancelling : cancel
-
-    InProgress --> Cancelling : cancel
-
-    InProgress --> Completed : sync – dokončené
-
-    InProgress --> Failed : sync – chyba
-
-    Cancelling --> Cancelled : sync – potvrdené
-
-    Created --> Cancelling : cancel
-
-    Submitted --> Completed : sync – dokončené medzi dvoma cyklami
-
-    Submitted --> Cancelled : sync – zrušené medzi dvoma cyklami
-
-    Submitted --> Failed : sync – chyba
-
-    Submitted --> Cancelling : sync – zrušené v UI KUKA FM
-
-    InProgress --> Cancelling : sync – zrušené v UI KUKA FM
-
-    InProgress --> Cancelled : sync – zrušenie potvrdené medzi dvoma cyklami
-
-    Cancelling --> Completed : sync – zrušenie prišlo neskoro
-
-    Cancelling --> Failed : sync – job skončil chybou
-
-    Completed --> [*]
-
-    Cancelled --> [*]
-
-    Failed --> [*]
-
-:::
-
-  
-
-- **Aktívne** (synchronizované v UC5): `Submitted`, `InProgress`, `Cancelling`
-
-- **Koncové** (nastaví sa `FinishedAt`): `Completed`, `Cancelled`, `Failed`
-
-  
-
-- **Zrušiteľné** (UC2): `Created`, `Submitted`, `InProgress`; `Cancelling` a koncové stavy vrátia 409.
-
-> **Realizácia:** prechody z `Created → Cancelling` a prechody označené „sync" medzi `Submitted`, `InProgress` a `Cancelling` pribudli pri realizácii (fáza 5), lebo KUKA FM môže stav zmeniť medzi dvoma cyklami synchronizácie alebo misiu zrušiť priamo vo svojom UI. Mapovanie podľa dokumentácie KUKA AMR Fleet 2.15 (kap. 7) je v tabuľkách nižšie.
+- **Aktívne stavy (UC5):** prechody `jobQuery` z rámca platia pre každý stav v ňom. Misia môže prejsť rovno do koncového stavu, ak medzistavy prebehli medzi dvoma cyklami.
+- **Koncové stavy:** pri každom sa nastaví `FinishedAt`.
+- **Zrušiteľné stavy (UC2):** `Created`, `Submitted` a `InProgress`. Po prijatí `missionCancel` prejdú do `Cancelling`. Žiadosť o zrušenie v stave `Cancelling` alebo v koncovom stave vráti 409.
 
 #### Mapovanie stavu jobu KUKA FM (`jobQuery`) → stav misie
 
 | Kód stavu jobu KUKA FM | Stav misie |
 |---|---|
-| 10 | ostáva `Submitted` |
+| 10 | `Submitted`, aktuálny stav sa nemení |
 | 20, 25, 50 | `InProgress` |
 | 28 | `Cancelling` |
 | 30, 35 | `Completed` |
@@ -635,25 +525,37 @@ Enum hodnoty (`Status`, `Role`, `Action`, …) sa v EF Core ukladajú ako `strin
 
 > Zadanie: wireframe/mockup webového rozhrania — obrazovka pre manažment misií, obrazovka so zoznamom misií a ich stavom, obrazovka so zoznamom robotov a ich stavom. Stačí jednoduchý návrh, nie hotový grafický dizajn.
 
-### 6.1 Zoznam misii
+> **Realizácia – spoločné pre všetky obrazovky:** obrazovky zachovávajú vizuálny jazyk mockupov (horná lišta, ľavá navigácia, tabuľky a karty, stavové štítky, ukazovatele batérie). **UI je v angličtine** (texty z mockupov sú preložené), funguje vo **svetlej aj tmavej téme**, na šírke 375 px aj na desktope a len s klávesnicou. Údaje sa obnovujú každých 5 s (indikátor „Live · refresh 5 s“ v hlavičke). Navigácia nemá položku *Audit log* a hlavička zatiaľ nezobrazuje stav KUKA FM ani čas synchronizácie (rozhodnutie Q-J). Chyby (400, 401, 404, 409, 502) sa zobrazujú zrozumiteľným textom.
+
+### 6.1 Zoznam misií
+
 ![6.1-zoznam-misii.svg](/.attachments/6.1-zoznam-misii-9d125cca-6b91-4f2e-a47c-3cf9d0650a01.svg)
 
-### 6.2 Nova misia
+> **Realizácia (UC3):** tabuľka misií od najnovšej so stavovými štítkami. Filter **Active / Finished** je cez záložky s počtami, ktoré sa rátajú z jedného volania `GET /api/missions`. Ďalšie filtre, hľadanie a stránkovanie z mockupu nie sú v rozsahu (Q-G). Kliknutím na misiu sa otvorí jej detail.
+
+### 6.2 Nová misia
+
 ![6.2-nova-misia.svg](/.attachments/6.2-nova-misia-2fe6cb11-6aa2-4762-bab3-dec1ec068e34.svg)
+
+> **Realizácia (UC1):** formulár s typom misie, prioritou 1–3 (predvolene 2), voliteľným externým kódom a krokmi. Formulár začína s **2 krokmi** a menej ako 2 kroky nedovolí (KUKA FM menej neprijme); poradie krokov sa mení tlačidlami posunu hore / dole. Výber robota ponúka „Automatic (KUKA FM decides)“ a roboty s ich stavom, Offline roboty sú neaktívne. Chyby validácie sa zobrazia pri príslušnom poli. `ROLLER_MOVE` formulár ponúka, ale API ho zatiaľ odmietne s 400 (Q19).
+
 ### 6.3 Detail misie
+
 ![6.3-detail-misie.svg](/.attachments/6.3-detail-misie-59ddd33b-683a-441c-87e0-9fa032593390.svg)
-### 6.4 Zrusenie misie
-![6.4-zrusenie-misie.svg](/.attachments/6.4-zrusenie-misie-6448b17f-7dd4-4f7d-9ad1-c2cde430f8da.svg)
-### 6.5
+
+> **Realizácia (UC4):** údaje misie (kód, typ, priorita, robot alebo „Automatic (KUKA FM decides)“, časy, chyba), karta **Mission steps** a časová os **Status history** so všetkými zmenami stavu zoradenými podľa času aj so zdrojom zmeny (API alebo synchronizácia). Detail a história sa načítajú súbežne; obnova sa zastaví pri koncovom stave misie alebo pri 404. Tlačidlo zrušenia sa zobrazí len pri zrušiteľnej misii.
+
+### 6.4 Zrušenie misie
+
+![6.4-zrusenie-misie.png](/.attachments/6.4-zrusenie-misie-2b04f3dd-e142-4156-81d8-8fc5bebbec66.png)
+
+> **Realizácia (UC2):** potvrdzovacie dialógové okno „Cancel mission M-…?“ vysvetlí, že misia prejde do stavu `Cancelling` a stav `Cancelled` potvrdí až KUKA FM. Po potvrdení sa zavolá `POST /api/missions/{id}/cancel`; chyba (napr. 404, 409, 502) sa zobrazí priamo v okne.
+
+### 6.5 Roboty
+
 ![6.5-roboty.svg](/.attachments/6.5-roboty-7ba77fbe-b683-4b3e-9e47-b22cb65d574d.svg)
 
-> **Realizácia:** obrazovky zachovávajú vizuálny jazyk mockupov (horná lišta, ľavá navigácia, tabuľky a karty, stavové štítky, ukazovatele batérie). Rozdiely:
-> - **UI je v angličtine** (texty z mockupov sú preložené) a funguje vo **svetlej aj tmavej téme**, na šírke 375 px aj na desktope a len s klávesnicou.
-> - **Roboty (6.5):** štyri dlaždice (Total / Available / Busy / Offline), hľadanie podľa názvu alebo KUKA ID, filter stavu a prepínač zobrazenia karty / tabuľka; všetko na klientovi z jedného volania `GET /api/robots` (rozhodnutie Q-S).
-> - **Navigácia:** bez položky *Audit log* (rozhodnutie Q-J); hlavička zobrazuje indikátor „Live · refresh 5 s", stav KUKA FM a čas synchronizácie v hlavičke zatiaľ nie sú.
-> - **Nová misia (6.2):** formulár začína s **2 krokmi** a menej ako 2 kroky nedovolí; poradie krokov sa mení tlačidlami posunu hore / dole. Výber robota ponúka „Automatic (KUKA FM decides)" a roboty s ich stavom, Offline roboty sú neaktívne.
-> - **Zoznam misií (6.1):** filter Active / Finished cez záložky s počtami; ďalšie filtre, hľadanie a stránkovanie z mockupu nie sú v rozsahu (Q-G).
-  
+> **Realizácia (UC6):** štyri dlaždice (Total / Available / Busy / Offline), hľadanie podľa názvu alebo KUKA ID, filter stavu a prepínač zobrazenia **karty / tabuľka** – všetko na klientovi z jedného volania `GET /api/robots` (rozhodnutie Q-S). Karta robota ukazuje stav, batériu, aktuálny uzol a aktuálnu misiu s odkazom na jej detail; Offline robot ukazuje čas, kedy bol naposledy videný.
 
 ---
 

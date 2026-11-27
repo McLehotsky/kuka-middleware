@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="575" viewBox="0 0 1180 575" role="img" aria-labelledby="diagram-title" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif">
+  <title id="diagram-title">3.1 Správa misií</title>
+  <g>
+    <rect x="0" y="0" width="1180" height="575" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.35"/>
+    <text x="38" y="56" fill="#14243A" font-size="32" font-weight="700" text-anchor="start">3.1 Správa misií</text>
+    <path d="M38,81 L1142,81" fill="none" stroke="#E1E9F2" stroke-width="1" stroke-linecap="round"/>
+    <rect x="335" y="103" width="538" height="405" rx="13" fill="#F8FAFD" stroke="#D7E1ED" stroke-width="1.35"/>
+    <text x="359" y="133" fill="#415570" font-size="16" font-weight="700" text-anchor="start">KUKA Middleware</text>
+    <path d="M167,192 L439.668,172" fill="none" stroke="#607590" stroke-width="1.55" stroke-linecap="round"/>
+    <path d="M167,192 L439.668,263" fill="none" stroke="#607590" stroke-width="1.55" stroke-linecap="round"/>
+    <path d="M167,192 L439.668,354" fill="none" stroke="#607590" stroke-width="1.55" stroke-linecap="round"/>
+    <path d="M167,192 L429,457" fill="none" stroke="#607590" stroke-width="1.55" stroke-linecap="round"/>
+    <path d="M167,427 L290.537,322.341" fill="none" stroke="#597C70" stroke-width="1.55" stroke-linecap="round"/>
+    <path d="M296.336,317.428 L327.146,291.327" fill="none" stroke="#597C70" stroke-width="1.55" stroke-linecap="round"/>
+    <path d="M332.945,286.414 L376.276,249.705" fill="none" stroke="#597C70" stroke-width="1.55" stroke-linecap="round"/>
+    <path d="M382.075,244.792 L439.668,196" fill="none" stroke="#597C70" stroke-width="1.55" stroke-linecap="round"/>
+    <path d="M167,427 L317.728,349.609" fill="none" stroke="#597C70" stroke-width="1.55" stroke-linecap="round"/>
+    <path d="M324.489,346.138 L375.795,319.795" fill="none" stroke="#597C70" stroke-width="1.55" stroke-linecap="round"/>
+    <path d="M382.556,316.324 L439.668,287" fill="none" stroke="#597C70" stroke-width="1.55" stroke-linecap="round"/>
+    <path d="M167,427 L360.547,392.218" fill="none" stroke="#597C70" stroke-width="1.55" stroke-linecap="round"/>
+    <path d="M368.027,390.874 L439.668,378" fill="none" stroke="#597C70" stroke-width="1.55" stroke-linecap="round"/>
+    <path d="M781,184 L1005,222" fill="none" stroke="#607590" stroke-width="1.55" stroke-linecap="round"/>
+    <path d="M781,275 L1005,222" fill="none" stroke="#607590" stroke-width="1.55" stroke-linecap="round"/>
+    <circle cx="153" cy="173" r="7.5" fill="#E5F6ED" stroke="#428063" stroke-width="1.55"/>
+    <path d="M153,182 L153,204" fill="none" stroke="#428063" stroke-width="1.75" stroke-linecap="round"/>
+    <path d="M139,192 L167,192" fill="none" stroke="#428063" stroke-width="1.75" stroke-linecap="round"/>
+    <path d="M142,219 L153,204" fill="none" stroke="#428063" stroke-width="1.75" stroke-linecap="round"/>
+    <path d="M153,204 L164,219" fill="none" stroke="#428063" stroke-width="1.75" stroke-linecap="round"/>
+    <text x="153" y="240" fill="#1A5942" font-size="16" font-weight="700" text-anchor="middle">Operátor</text>
+    <text x="153" y="260" fill="#415570" font-size="14" font-weight="400" text-anchor="middle">webové UI</text>
+    <circle cx="153" cy="408" r="7.5" fill="#E5F6ED" stroke="#428063" stroke-width="1.55"/>
+    <path d="M153,417 L153,439" fill="none" stroke="#428063" stroke-width="1.75" stroke-linecap="round"/>
+    <path d="M139,427 L167,427" fill="none" stroke="#428063" stroke-width="1.75" stroke-linecap="round"/>
+    <path d="M142,454 L153,439" fill="none" stroke="#428063" stroke-width="1.75" stroke-linecap="round"/>
+    <path d="M153,439 L164,454" fill="none" stroke="#428063" stroke-width="1.75" stroke-linecap="round"/>
+    <text x="153" y="475" fill="#1A5942" font-size="16" font-weight="700" text-anchor="middle">Externý systém</text>
+    <text x="153" y="495" fill="#415570" font-size="14" font-weight="400" text-anchor="middle">REST API</text>
+    <circle cx="1019" cy="203" r="7.5" fill="#E5F6ED" stroke="#428063" stroke-width="1.55"/>
+    <path d="M1019,212 L1019,234" fill="none" stroke="#428063" stroke-width="1.75" stroke-linecap="round"/>
+    <path d="M1005,222 L1033,222" fill="none" stroke="#428063" stroke-width="1.75" stroke-linecap="round"/>
+    <path d="M1008,249 L1019,234" fill="none" stroke="#428063" stroke-width="1.75" stroke-linecap="round"/>
+    <path d="M1019,234 L1030,249" fill="none" stroke="#428063" stroke-width="1.75" stroke-linecap="round"/>
+    <text x="1019" y="270" fill="#1A5942" font-size="16" font-weight="700" text-anchor="middle">KUKA FM</text>
+    <text x="1019" y="290" fill="#415570" font-size="14" font-weight="400" text-anchor="middle">podporný aktér</text>
+    <ellipse cx="605" cy="184" rx="176" ry="35" fill="#EAF3FF" stroke="#78A6E0" stroke-width="1.45"/>
+    <text x="605" y="179" fill="#17467D" font-size="14" font-weight="700" text-anchor="middle">UC1</text>
+    <text x="605" y="201" fill="#14243A" font-size="18" font-weight="600" text-anchor="middle">Zadať misiu</text>
+    <ellipse cx="605" cy="275" rx="176" ry="35" fill="#EAF3FF" stroke="#78A6E0" stroke-width="1.45"/>
+    <text x="605" y="270" fill="#17467D" font-size="14" font-weight="700" text-anchor="middle">UC2</text>
+    <text x="605" y="292" fill="#14243A" font-size="18" font-weight="600" text-anchor="middle">Zrušiť misiu</text>
+    <ellipse cx="605" cy="366" rx="176" ry="35" fill="#EAF3FF" stroke="#78A6E0" stroke-width="1.45"/>
+    <text x="605" y="361" fill="#17467D" font-size="14" font-weight="700" text-anchor="middle">UC3</text>
+    <text x="605" y="383" fill="#14243A" font-size="18" font-weight="600" text-anchor="middle">Zobraziť zoznam misií</text>
+    <ellipse cx="605" cy="457" rx="176" ry="35" fill="#EAF3FF" stroke="#78A6E0" stroke-width="1.45"/>
+    <text x="605" y="452" fill="#17467D" font-size="14" font-weight="700" text-anchor="middle">UC4</text>
+    <text x="605" y="474" fill="#14243A" font-size="18" font-weight="600" text-anchor="middle">Zobraziť históriu stavov misie</text>
+    <text x="335" y="541" fill="#415570" font-size="14" font-weight="400" text-anchor="start">UC3 a UC4 čítajú len vlastnú DB. Aktuálnosť zabezpečuje UC5.</text>
+  </g>
+</svg>

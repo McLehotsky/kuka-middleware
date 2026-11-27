@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="781" viewBox="0 0 1200 781" role="img" aria-labelledby="diagram-title" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif">
+  <title id="diagram-title">Stavy misie</title>
+  <g>
+    <rect x="0" y="0" width="1200" height="781" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.35"/>
+    <polyline points="40,83 1160,83" fill="none" stroke="#E1E9F2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="346" y="124" width="802" height="296" rx="14" fill="#F7FAFF" stroke="#B8CBE0" stroke-width="1.35"/>
+  </g>
+  <g>
+    <polyline points="200,137.5 200,219.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="200,227 196.30,218.50 203.70,218.50" fill="#607590"/>
+    <polyline points="284,253 365.5,253" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="373,253 364.50,256.70 364.50,249.30" fill="#607590"/>
+    <polyline points="537,253 626.5,253" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="634,253 625.50,256.70 625.50,249.30" fill="#607590"/>
+    <polyline points="798,253 911.5,253" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="919,253 910.50,256.70 910.50,249.30" fill="#607590"/>
+    <polyline points="455,227 455,182 1002,182 1002,219.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="1002,227 998.30,218.50 1005.70,218.50" fill="#607590"/>
+    <polyline points="200,279 200,382 1002,382 1002,286.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="1002,279 1005.70,287.50 998.30,287.50" fill="#607590"/>
+    <polyline points="116,253 63,253 63,535 108.5,535" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="116,535 107.50,538.70 107.50,531.30" fill="#607590"/>
+    <polyline points="700,420 700,458" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="700,458 200,458 200,501.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="200,509 196.30,500.50 203.70,500.50" fill="#607590"/>
+    <polyline points="700,458 700,501.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="700,509 696.30,500.50 703.70,500.50" fill="#607590"/>
+    <polyline points="700,458 1002,458 1002,501.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="1002,509 998.30,500.50 1005.70,500.50" fill="#607590"/>
+  </g>
+  <g>
+    <rect x="116" y="227" width="168" height="52" rx="9" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
+    <text x="200" y="259" fill="#14243A" font-size="17" font-weight="600" text-anchor="middle">Created</text>
+    <rect x="373" y="227" width="164" height="52" rx="9" fill="#EAF3FF" stroke="#78A6E0" stroke-width="1.35"/>
+    <text x="455" y="259" fill="#17467D" font-size="17" font-weight="600" text-anchor="middle">Submitted</text>
+    <rect x="634" y="227" width="164" height="52" rx="9" fill="#EAF3FF" stroke="#78A6E0" stroke-width="1.35"/>
+    <text x="716" y="259" fill="#17467D" font-size="17" font-weight="600" text-anchor="middle">InProgress</text>
+    <rect x="919" y="227" width="166" height="52" rx="9" fill="#FFF5DA" stroke="#CEAA55" stroke-width="1.35"/>
+    <text x="1002" y="259" fill="#63460F" font-size="17" font-weight="600" text-anchor="middle">Cancelling</text>
+    <rect x="116" y="509" width="168" height="52" rx="9" fill="#FDEBED" stroke="#D78A94" stroke-width="1.35"/>
+    <text x="200" y="541" fill="#8A3042" font-size="17" font-weight="600" text-anchor="middle">Failed</text>
+    <rect x="616" y="509" width="168" height="52" rx="9" fill="#E5F6ED" stroke="#70AC91" stroke-width="1.35"/>
+    <text x="700" y="541" fill="#1A5942" font-size="17" font-weight="600" text-anchor="middle">Completed</text>
+    <rect x="919" y="509" width="166" height="52" rx="9" fill="#EEF2F7" stroke="#ABB9C9" stroke-width="1.35"/>
+    <text x="1002" y="541" fill="#314760" font-size="17" font-weight="600" text-anchor="middle">Cancelled</text>
+    <circle cx="200" cy="130" r="7.5" fill="#14243A"/>
+    <circle cx="700" cy="458" r="4.4" fill="#14243A"/>
+  </g>
+  <g>
+    <text x="41" y="56" fill="#14243A" font-size="32" font-weight="700" text-anchor="start">Stavy misie</text>
+    <text x="366" y="150" fill="#14243A" font-size="17" font-weight="700" text-anchor="start">Aktívne stavy · UC5</text>
+    <text x="184" y="183" fill="#415570" font-size="14" font-weight="600" text-anchor="end">POST /api/missions</text>
+    <text x="340" y="216" fill="#415570" font-size="14" font-weight="600" text-anchor="end">submitMission OK</text>
+    <text x="585" y="215" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">jobQuery</text>
+    <text x="585" y="235" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">20, 25, 50</text>
+    <text x="858" y="219" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">UC2 / jobQuery 28</text>
+    <text x="728" y="170" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">UC2 / jobQuery 28</text>
+    <text x="280" y="369" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">UC2</text>
+    <text x="82" y="448" fill="#415570" font-size="14" font-weight="600" text-anchor="start">submitMission</text>
+    <text x="82" y="468" fill="#415570" font-size="14" font-weight="600" text-anchor="start">chyba</text>
+    <text x="720" y="443" fill="#415570" font-size="14" font-weight="600" text-anchor="start">jobQuery</text>
+    <text x="449" y="445" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">[60]</text>
+    <text x="715" y="488" fill="#415570" font-size="14" font-weight="600" text-anchor="start">[30, 35]</text>
+    <text x="875" y="445" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">[31]</text>
+  </g>
+
+  <g>
+    <rect x="336" y="592" width="830" height="159" rx="12" fill="#F8FAFD" stroke="#D7E1ED" stroke-width="1.35"/>
+    <text x="353" y="617" fill="#14243A" font-size="16" font-weight="700" text-anchor="start">Kódy a farby stavov</text>
+    <text x="353" y="639" fill="#415570" font-size="14" font-weight="400" text-anchor="start">Čísla v hranatých zátvorkách a pri jobQuery označujú kódy stavu jobu z KUKA FM.</text>
+    <text x="353" y="657" fill="#415570" font-size="14" font-weight="400" text-anchor="start">Prehľad kódov je v tabuľke pod diagramom.</text>
+    <text x="353" y="675" fill="#415570" font-size="14" font-weight="400" text-anchor="start">UC2 = zrušenie misie operátorom alebo externým systémom.</text>
+    <rect x="353" y="695" width="14" height="14" rx="3" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
+    <text x="376" y="706" fill="#415570" font-size="14" font-weight="400" text-anchor="start">Nový (Created)</text>
+    <rect x="618" y="695" width="14" height="14" rx="3" fill="#EAF3FF" stroke="#78A6E0" stroke-width="1.35"/>
+    <text x="641" y="706" fill="#415570" font-size="14" font-weight="400" text-anchor="start">Aktívny (Submitted, InProgress)</text>
+    <rect x="883" y="695" width="14" height="14" rx="3" fill="#FFF5DA" stroke="#CEAA55" stroke-width="1.35"/>
+    <text x="906" y="706" fill="#415570" font-size="14" font-weight="400" text-anchor="start">Rušenie (Cancelling)</text>
+    <rect x="353" y="716" width="14" height="14" rx="3" fill="#E5F6ED" stroke="#70AC91" stroke-width="1.35"/>
+    <text x="376" y="727" fill="#415570" font-size="14" font-weight="400" text-anchor="start">Dokončené (Completed)</text>
+    <rect x="618" y="716" width="14" height="14" rx="3" fill="#FDEBED" stroke="#D78A94" stroke-width="1.35"/>
+    <text x="641" y="727" fill="#415570" font-size="14" font-weight="400" text-anchor="start">Chyba (Failed)</text>
+    <rect x="883" y="716" width="14" height="14" rx="3" fill="#EEF2F7" stroke="#ABB9C9" stroke-width="1.35"/>
+    <text x="906" y="727" fill="#415570" font-size="14" font-weight="400" text-anchor="start">Zrušené (Cancelled)</text>
+  </g>
+</svg>
