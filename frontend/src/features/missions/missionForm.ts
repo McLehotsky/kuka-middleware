@@ -1,12 +1,14 @@
 // New mission form model and client validation mirroring system-definition §8 (CreateMissionRequest).
 // Error keys match the API's ValidationProblem keys, steps indexed from 0 (`steps[0].nodeCode`).
 import {
-  MISSION_TYPES,
   STEP_ACTIONS,
   type CreateMissionRequest,
   type MissionType,
   type StepAction,
 } from '../../api/types'
+
+// ROLLER_MOVE stays hidden until its vendor binCode is decided (Q19); the API rejects it with 400.
+export const OFFERED_MISSION_TYPES: readonly MissionType[] = ['RACK_MOVE']
 
 export const EXTERNAL_REF_MAX = 100
 export const NODE_CODE_MAX = 64
@@ -57,7 +59,7 @@ export function stepFieldKey(index: number, field: 'nodeCode' | 'action'): strin
 export function validateDraft(draft: MissionDraft): FieldErrors {
   const errors: FieldErrors = {}
 
-  if (!(MISSION_TYPES as readonly string[]).includes(draft.missionType)) {
+  if (draft.missionType === '' || !OFFERED_MISSION_TYPES.includes(draft.missionType)) {
     errors.missionType = 'Choose a mission type.'
   }
   if (!Number.isInteger(draft.priority) || draft.priority < 1 || draft.priority > 3) {

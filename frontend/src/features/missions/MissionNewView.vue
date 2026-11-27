@@ -4,13 +4,14 @@ import { useRouter } from 'vue-router'
 import { problemOf } from '../../api/http'
 import { createMission } from '../../api/missions'
 import { listRobots } from '../../api/robots'
-import { MISSION_TYPES, STEP_ACTIONS } from '../../api/types'
+import { STEP_ACTIONS } from '../../api/types'
 import AppIcon from '../../components/AppIcon.vue'
 import ErrorPanel from '../../components/ErrorPanel.vue'
 import { usePolling } from '../../composables/usePolling'
 import { robotDisplayName, robotOptionLabel } from '../robots/robotStatus'
 import {
   ACTION_LABELS,
+  OFFERED_MISSION_TYPES,
   PRIORITIES,
   fieldLabel,
   fromServerErrors,
@@ -30,6 +31,8 @@ const attempted = ref(false)
 const sending = ref(false)
 const serverErrors = ref<FieldErrors>({})
 const requestError = ref<string | null>(null)
+/** The mission saved as Failed when KUKA FM rejected the dispatch (502 extension, Q20). */
+const failedMissionId = ref<string | null>(null)
 const summaryPanel = useTemplateRef<HTMLElement>('summaryPanel')
 
 const clientErrors = computed(() => validateDraft(draft))
@@ -52,6 +55,7 @@ watch(
   () => {
     serverErrors.value = {}
     requestError.value = null
+    failedMissionId.value = null
   },
   { deep: true },
 )
@@ -114,6 +118,7 @@ const route = computed(() => draft.steps.map((s) => s.nodeCode.trim() || '?').jo
 async function submit() {
   attempted.value = true
   requestError.value = null
+  failedMissionId.value = null
   if (Object.keys(clientErrors.value).length > 0) {
     await nextTick()
     summaryPanel.value?.focus()
@@ -129,6 +134,7 @@ async function submit() {
     const fieldErrors = fromServerErrors(problem.fieldErrors)
     serverErrors.value = fieldErrors
     requestError.value = Object.keys(fieldErrors).length > 0 ? null : problem.message
+    failedMissionId.value = requestError.value ? problem.missionId : null
     await nextTick()
     summaryPanel.value?.focus()
   } finally {
@@ -157,7 +163,7 @@ function discard() {
       New mission
     </h1>
     <p class="page__lead">
-      The mission is saved. Dispatch to KUKA FM is not connected yet.
+      The mission is sent to KUKA FM right away.
     </p>
 
     <form
@@ -192,7 +198,7 @@ function discard() {
                 :aria-describedby="describedBy('missionType')"
               >
                 <option
-                  v-for="type in MISSION_TYPES"
+                  v-for="type in OFFERED_MISSION_TYPES"
                   :key="type"
                   :value="type"
                 >
@@ -504,8 +510,19 @@ function discard() {
           tabindex="-1"
         >
           <ErrorPanel :title="requestError ? 'The mission was not sent' : 'The form contains errors'">
-            <p v-if="requestError">
+            <p
+              v-if="requestError"
+              class="request-error"
+            >
               {{ requestError }}
+            </p>
+            <p v-if="requestError && failedMissionId">
+              <RouterLink
+                class="request-error__link"
+                :to="`/missions/${failedMissionId}`"
+              >
+                Open the failed mission
+              </RouterLink>
             </p>
             <ul v-if="errorList.length > 0">
               <li
@@ -678,6 +695,14 @@ function discard() {
 .summary dd {
   font-weight: 600;
   overflow-wrap: anywhere;
+}
+
+.request-error {
+  overflow-wrap: anywhere;
+}
+
+.request-error__link {
+  font: var(--text-strong);
 }
 
 .error-summary:focus {

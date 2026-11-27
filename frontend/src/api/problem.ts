@@ -7,12 +7,15 @@ export interface ProblemInfo {
   message: string
   /** Field errors from a ValidationProblem, keyed like the API (`steps[0].nodeCode`). */
   fieldErrors: Record<string, string[]>
+  /** The Failed mission a 502 dispatch error refers to (ProblemDetails extension `missionId`, Q20). */
+  missionId: string | null
 }
 
 interface ProblemBody {
   title?: unknown
   detail?: unknown
   errors?: unknown
+  missionId?: unknown
 }
 
 const DEFAULT_MESSAGES: Record<number, string> = {
@@ -25,6 +28,12 @@ const DEFAULT_MESSAGES: Record<number, string> = {
 
 export const NETWORK_ERROR_MESSAGE =
   'Cannot reach the middleware. Check the connection and try again.'
+
+/** A gateway error without ProblemDetails comes from nginx, not the API (Q16). */
+export const API_UNAVAILABLE_MESSAGE =
+  'API unavailable. The middleware is not responding – try again in a moment.'
+
+const GATEWAY_STATUSES = [502, 503, 504]
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
@@ -47,15 +56,19 @@ function readFieldErrors(errors: unknown): Record<string, string[]> {
 /** Builds the operator-facing problem for a failed response (status null = network failure). */
 export function toProblemInfo(status: number | null, body: unknown): ProblemInfo {
   if (status === null) {
-    return { status: null, message: NETWORK_ERROR_MESSAGE, fieldErrors: {} }
+    return { status: null, message: NETWORK_ERROR_MESSAGE, fieldErrors: {}, missionId: null }
+  }
+  if (!isRecord(body) && GATEWAY_STATUSES.includes(status)) {
+    return { status, message: API_UNAVAILABLE_MESSAGE, fieldErrors: {}, missionId: null }
   }
 
   const problem: ProblemBody = isRecord(body) ? body : {}
   const fieldErrors = readFieldErrors(problem.errors)
   const detail = typeof problem.detail === 'string' && problem.detail.trim() ? problem.detail : null
+  const missionId = typeof problem.missionId === 'string' ? problem.missionId : null
 
   let message: string
-  if (status === 409 && detail) {
+  if ((status === 409 || status === 502) && detail) {
     message = detail
   } else if (DEFAULT_MESSAGES[status]) {
     message = DEFAULT_MESSAGES[status]
@@ -65,5 +78,5 @@ export function toProblemInfo(status: number | null, body: unknown): ProblemInfo
     message = detail ?? `The request failed (HTTP ${status}).`
   }
 
-  return { status, message, fieldErrors }
+  return { status, message, fieldErrors, missionId }
 }
