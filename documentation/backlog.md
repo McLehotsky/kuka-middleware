@@ -30,7 +30,7 @@ Stav k 26. 11. 2026, v súlade s `implementation.md` a sekciou 9.8 wiki. **splne
 | 3.3 UC5 – Synchronizovať stav misií | splnené | aktívne misie každých 5 s cez `jobQuery`, mapovanie stavov, história, `FinishedAt`, `LastSyncedAt`, jedno uloženie za cyklus, opakovanie v ďalšom cykle; naživo `InProgress` a `Cancelled` | – |
 | 4.1 Kontajnerizácia a databáza | splnené | `docker compose up` spustí web, api, postgres (a seq), schéma z EF Core migrácie pri štarte, dáta prežijú reštart | – |
 | 4.2 Zabezpečenie API a logovanie | splnené | API kľúč + 401, len hashe kľúčov, štruktúrované JSON logy na stdout aj do Seq, `AuditLog` pre každé zadanie a zrušenie | – |
-| 4.3 CI pipeline | čiastočne | `kuka-middleware-ci`: build backendu aj frontendu, statická analýza, unit testy, publikované výsledky; zlyhá pri chybe | ruleset na GitHube s povinnou kontrolou čaká na vlastníka repozitára |
+| 4.3 CI pipeline | splnené | `kuka-middleware-ci`: build backendu aj frontendu, statická analýza, unit testy, publikované výsledky; zlyhá pri chybe; ruleset na GitHube vyžaduje úspešné CI pred mergom do `main` | – |
 | 4.4 CD pipeline | splnené | `kuka-middleware-cd` sa spustí automaticky po úspešnom CI na `main`, `docker compose build` + `up -d`, smoke test webu, `/api/health` a Seq | tajomstvá ako tajné premenné pipeline namiesto variable group |
 
 **Epic – akceptačné kritériá (wiki 8):**
@@ -41,7 +41,7 @@ Stav k 26. 11. 2026, v súlade s `implementation.md` a sekciou 9.8 wiki. **splne
 - [x] Je možné prezrieť stav robotov, ktoré sa aktualizujú v reálnom čase.
 - [ ] Prístup ku KUKA FM API volaniu je zabezpečený access tokenom. *(odchýlka: statický, voliteľný token bez obnovy pri 401)*
 - [x] Všetky operácie vykonané používateľom sú logované.
-- [ ] Proces testovania a nasadenia je plne automatizovaný využitím CI/CD pipeline. *(CI → CD automaticky; čaká ruleset na GitHube od vlastníka repozitára)*
+- [x] Proces testovania a nasadenia je plne automatizovaný využitím CI/CD pipeline. *(CI → CD automaticky; ruleset na GitHube vyžaduje úspešné CI)*
 
 ## 1. Správa misií *(FR1; FR2; FR5; FR6)*
 

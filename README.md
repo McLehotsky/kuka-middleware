@@ -45,7 +45,7 @@ As of 2026-11-26 all User Stories of the backlog are built, with the deviations 
 - CI builds, checks and tests every change; CD deploys `main` automatically to Docker Desktop on the team's agent.
 - 322 backend and 97 frontend unit tests.
 
-Recorded deviations and open items: the KUKA FM token is static and optional (no refresh on 401); `ROLLER_MOVE` is offered in the UI but rejected by the API with 400 until the vendor `binCode` is decided (Q19); and the GitHub ruleset that requires the CI check is still to be set by the repository owner. Details per phase are in [implementation.md](implementation.md); the as-built description (Slovak) is in [documentation/wiki.md](documentation/wiki.md), section 9.
+Recorded deviations and open items: the KUKA FM token is static and optional (no refresh on 401); `ROLLER_MOVE` is offered in the UI but rejected by the API with 400 until the vendor `binCode` is decided (Q19). `main` is protected by a GitHub ruleset that requires a pull request and a green `kuka-middleware-ci` check. Details per phase are in [implementation.md](implementation.md); the as-built description (Slovak) is in [documentation/wiki.md](documentation/wiki.md), section 9.
 
 ## Project structure
 

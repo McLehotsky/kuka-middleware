@@ -1,52 +1,49 @@
 @startuml
-|Klient (Obsluha / Externý systém)|
+skinparam shadowing false
+skinparam roundCorner 9
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName Segoe UI
+skinparam defaultFontColor #182338
+skinparam defaultFontSize 16
+skinparam titleFontSize 26
+skinparam titleFontColor #182338
+skinparam ArrowColor #46566D
+skinparam ArrowFontColor #26364D
+skinparam ArrowFontSize 14
+skinparam ActivityBorderColor #7B8798
+skinparam ActivityBackgroundColor #F9FBFE
+skinparam ActivityDiamondBackgroundColor #F1EDFA
+skinparam ActivityDiamondBorderColor #A197C4
+skinparam ActivityDiamondFontSize 15
+skinparam ActivityStartColor #26364D
+skinparam ActivityEndColor #26364D
+skinparam ActivityBarColor #46566D
+
+title UC1 Zadať misiu <U+2013> realizácia
+
 start
-:Zadať parametre misie
-(typ, kroky, priorita, robot);
-:POST /api/missions
-(hlavička X-API-Key);
-|Middleware|
-if (API kľúč platný?) then (nie)
-  :Zalogovať pokus (technický log);
-  |Klient (Obsluha / Externý systém)|
-  :401 Unauthorized;
+:Klient: POST /api/missions;
+switch (Kontrola požiadavky?)
+case (neplatný API kľúč)
+  :Technický log; <<#EEF2F7>>
+  :401 Unauthorized; <<#FDEBED>>
   stop
-else (áno)
-endif
-|Middleware|
-if (Vstup validný?\n(min. 2 kroky, priorita 1–3,\nrobot existuje, ROLLER_MOVE\nzatiaľ nepodporovaný)) then (nie)
-  :Zapísať AuditLog (400);
-  |Klient (Obsluha / Externý systém)|
-  :400 Bad Request
-  (ValidationProblem);
+case (neplatný vstup)
+  :AuditLog; <<#EEF2F7>>
+  :400 Bad Request; <<#FDEBED>>
   stop
-else (áno)
-endif
-|Middleware|
-:Vygenerovať MissionCode (M-rrrr-NNNN);
-:Uložiť Mission (Created)
-+ StatusHistory;
-:Volanie KUKA FM (4.0);
-|KUKA FM|
-:submitMission;
-|Middleware|
-if (Výsledok OK?) then (áno)
-  :Stav Submitted + SubmittedAt
-  + StatusHistory;
-  :Uložiť zmeny;
-  :Zapísať AuditLog (201);
-  |Klient (Obsluha / Externý systém)|
-  :201 Created
-  + ID a MissionCode;
-else (nie)
-  |Middleware|
-  :Stav Failed + ErrorMessage
-  + FinishedAt + StatusHistory;
-  :Uložiť zmeny;
-  :Zapísať AuditLog (502);
-  |Klient (Obsluha / Externý systém)|
-  :502 Bad Gateway
-  + missionId;
-endif
-stop
+case (OK)
+  :Uložiť misiu Created + história; <<#FFF5DA>>
+  :submitMission; <<#EAF3FF>>
+  if (KUKA FM prijala?) then (áno)
+    :Submitted + história; <<#FFF5DA>>
+    :AuditLog; <<#EEF2F7>>
+    :201 Created + ID misie; <<#E5F6ED>>
+  else (nie)
+    :Failed + chyba; <<#FFF5DA>>
+    :AuditLog; <<#EEF2F7>>
+    :502 + missionId; <<#FDEBED>>
+  endif
+  stop
+endswitch
 @enduml
