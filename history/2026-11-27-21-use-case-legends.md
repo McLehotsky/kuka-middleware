@@ -24,10 +24,12 @@ The original use case diagrams used a different numbering (UC01–UC08) than the
 - `documentation/wiki.md` §1, §3, §5 (incl. `xmin` in the ERD) and `documentation/diagrams/README.md`.
 
 **main session**
+- `documentation/wiki.md` §6: a short common note, then each mockup (6.1–6.5) with its own "Realizácia" note directly below it (same pattern as the use cases); headings with diacritics, 6.5 named "Roboty", 6.4 linked to the PNG used in the Azure wiki. Facts checked in the frontend (detail cards and history source, cancel dialog, robot cards).
 - History note, `history/README.md`, `implementation.md`.
 
 ## Decisions
 
+- Section 6 follows the same "image, then its description" pattern (user decision 2026-11-27).
 - One diagram per use case was dropped in favour of three grouped diagrams (user decision 2026-11-27).
 - Original use case diagrams (`3.1-sprava-misii`, `3.2-prehlad-robotov`, `3.3-synchronizacia`) stay as an archive, not referenced.
 

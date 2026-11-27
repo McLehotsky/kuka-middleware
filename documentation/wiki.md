@@ -525,25 +525,37 @@ Enum hodnoty (`Status`, `Role`, `Action`, …) sa v EF Core ukladajú ako `strin
 
 > Zadanie: wireframe/mockup webového rozhrania — obrazovka pre manažment misií, obrazovka so zoznamom misií a ich stavom, obrazovka so zoznamom robotov a ich stavom. Stačí jednoduchý návrh, nie hotový grafický dizajn.
 
-### 6.1 Zoznam misii
+> **Realizácia – spoločné pre všetky obrazovky:** obrazovky zachovávajú vizuálny jazyk mockupov (horná lišta, ľavá navigácia, tabuľky a karty, stavové štítky, ukazovatele batérie). **UI je v angličtine** (texty z mockupov sú preložené), funguje vo **svetlej aj tmavej téme**, na šírke 375 px aj na desktope a len s klávesnicou. Údaje sa obnovujú každých 5 s (indikátor „Live · refresh 5 s“ v hlavičke). Navigácia nemá položku *Audit log* a hlavička zatiaľ nezobrazuje stav KUKA FM ani čas synchronizácie (rozhodnutie Q-J). Chyby (400, 401, 404, 409, 502) sa zobrazujú zrozumiteľným textom.
+
+### 6.1 Zoznam misií
+
 ![6.1-zoznam-misii.svg](/.attachments/6.1-zoznam-misii-9d125cca-6b91-4f2e-a47c-3cf9d0650a01.svg)
 
-### 6.2 Nova misia
+> **Realizácia (UC3):** tabuľka misií od najnovšej so stavovými štítkami. Filter **Active / Finished** je cez záložky s počtami, ktoré sa rátajú z jedného volania `GET /api/missions`. Ďalšie filtre, hľadanie a stránkovanie z mockupu nie sú v rozsahu (Q-G). Kliknutím na misiu sa otvorí jej detail.
+
+### 6.2 Nová misia
+
 ![6.2-nova-misia.svg](/.attachments/6.2-nova-misia-2fe6cb11-6aa2-4762-bab3-dec1ec068e34.svg)
+
+> **Realizácia (UC1):** formulár s typom misie, prioritou 1–3 (predvolene 2), voliteľným externým kódom a krokmi. Formulár začína s **2 krokmi** a menej ako 2 kroky nedovolí (KUKA FM menej neprijme); poradie krokov sa mení tlačidlami posunu hore / dole. Výber robota ponúka „Automatic (KUKA FM decides)“ a roboty s ich stavom, Offline roboty sú neaktívne. Chyby validácie sa zobrazia pri príslušnom poli. `ROLLER_MOVE` formulár ponúka, ale API ho zatiaľ odmietne s 400 (Q19).
+
 ### 6.3 Detail misie
+
 ![6.3-detail-misie.svg](/.attachments/6.3-detail-misie-59ddd33b-683a-441c-87e0-9fa032593390.svg)
-### 6.4 Zrusenie misie
-![6.4-zrusenie-misie.svg](/.attachments/6.4-zrusenie-misie-6448b17f-7dd4-4f7d-9ad1-c2cde430f8da.svg)
-### 6.5
+
+> **Realizácia (UC4):** údaje misie (kód, typ, priorita, robot alebo „Automatic (KUKA FM decides)“, časy, chyba), karta **Mission steps** a časová os **Status history** so všetkými zmenami stavu zoradenými podľa času aj so zdrojom zmeny (API alebo synchronizácia). Detail a história sa načítajú súbežne; obnova sa zastaví pri koncovom stave misie alebo pri 404. Tlačidlo zrušenia sa zobrazí len pri zrušiteľnej misii.
+
+### 6.4 Zrušenie misie
+
+![6.4-zrusenie-misie.png](/.attachments/6.4-zrusenie-misie-2b04f3dd-e142-4156-81d8-8fc5bebbec66.png)
+
+> **Realizácia (UC2):** potvrdzovacie dialógové okno „Cancel mission M-…?“ vysvetlí, že misia prejde do stavu `Cancelling` a stav `Cancelled` potvrdí až KUKA FM. Po potvrdení sa zavolá `POST /api/missions/{id}/cancel`; chyba (napr. 404, 409, 502) sa zobrazí priamo v okne.
+
+### 6.5 Roboty
+
 ![6.5-roboty.svg](/.attachments/6.5-roboty-7ba77fbe-b683-4b3e-9e47-b22cb65d574d.svg)
 
-> **Realizácia:** obrazovky zachovávajú vizuálny jazyk mockupov (horná lišta, ľavá navigácia, tabuľky a karty, stavové štítky, ukazovatele batérie). Rozdiely:
-> - **UI je v angličtine** (texty z mockupov sú preložené) a funguje vo **svetlej aj tmavej téme**, na šírke 375 px aj na desktope a len s klávesnicou.
-> - **Roboty (6.5):** štyri dlaždice (Total / Available / Busy / Offline), hľadanie podľa názvu alebo KUKA ID, filter stavu a prepínač zobrazenia karty / tabuľka; všetko na klientovi z jedného volania `GET /api/robots` (rozhodnutie Q-S).
-> - **Navigácia:** bez položky *Audit log* (rozhodnutie Q-J); hlavička zobrazuje indikátor „Live · refresh 5 s", stav KUKA FM a čas synchronizácie v hlavičke zatiaľ nie sú.
-> - **Nová misia (6.2):** formulár začína s **2 krokmi** a menej ako 2 kroky nedovolí; poradie krokov sa mení tlačidlami posunu hore / dole. Výber robota ponúka „Automatic (KUKA FM decides)" a roboty s ich stavom, Offline roboty sú neaktívne.
-> - **Zoznam misií (6.1):** filter Active / Finished cez záložky s počtami; ďalšie filtre, hľadanie a stránkovanie z mockupu nie sú v rozsahu (Q-G).
-  
+> **Realizácia (UC6):** štyri dlaždice (Total / Available / Busy / Offline), hľadanie podľa názvu alebo KUKA ID, filter stavu a prepínač zobrazenia **karty / tabuľka** – všetko na klientovi z jedného volania `GET /api/robots` (rozhodnutie Q-S). Karta robota ukazuje stav, batériu, aktuálny uzol a aktuálnu misiu s odkazom na jej detail; Offline robot ukazuje čas, kedy bol naposledy videný.
 
 ---
 
