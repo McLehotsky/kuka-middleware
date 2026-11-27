@@ -4,6 +4,7 @@ One note per finished phase or task, newest first. Format and rules: [CLAUDE.md 
 
 | Date | Note | Phase | Summary |
 |---|---|---|---|
+| 2026-11-27 | [22 · ERD and state exits](2026-11-27-22-state-diagram-erd.md) | 9 | As-built ERD replaces Mermaid; state diagram shows exits from every active state |
 | 2026-11-27 | [21 · Use cases and legends](2026-11-27-21-use-case-legends.md) | 9 | Grouped use case diagrams UC1–UC7, goals and state diagrams, colour and code legends |
 | 2026-11-27 | [20 · Realization diagrams only](2026-11-27-20-realization-diagrams-only.md) | 9 | Wiki §4 keeps only the as-built diagrams; outdated token note removed |
 | 2026-11-27 | [19 · Token per KUKA 4.7](2026-11-27-19-kuka-token-swimlanes.md) | 9 | Token is per vendor manual ch. 4.7 (3.1 done); swimlane diagrams incl. new 4.3 |
