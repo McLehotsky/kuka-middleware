@@ -31,9 +31,9 @@ If a run fails because pool `$(AgentPoolName)` is not found or no agent matches 
 
 ## Checks and results
 
-- Backend: SDK from `backend/global.json`, NuGet restore, Release build with .NET analyzers and warnings as errors, xUnit tests using Microsoft.Testing.Platform.
-- Frontend: Node 24.22.1, `npm ci`, TypeScript, ESLint, Vitest, production build.
-- Every step is one native command in Windows PowerShell; a non-zero exit code fails the step.
+- Backend: SDK from `backend/global.json`, NuGet restore, vulnerable package check (`dotnet list package --vulnerable --include-transitive`, fails on a non-zero exit code or any reported package), Release build with .NET analyzers and warnings as errors, xUnit tests using Microsoft.Testing.Platform.
+- Frontend: Node 24.22.1, `npm ci`, runtime dependency audit (`npm audit --omit=dev --audit-level=high`), TypeScript, ESLint, Vitest, production build.
+- Steps run native commands in Windows PowerShell; a non-zero exit code fails the step. The backend vulnerability step also checks the output text, because `dotnet list package` exits with 0 when it finds vulnerable packages.
 - Both jobs publish XML results to the Azure **Tests** tab, including failed test runs. A failed check or missing test report fails the job.
 - Checkout uses `clean: true` because the self-hosted workspace is reused between runs.
 
