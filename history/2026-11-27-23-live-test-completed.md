@@ -4,6 +4,8 @@ date: 2026-11-27
 phase: 9
 backlog: ["1.1 UC1 – Zadať misiu", "1.2 UC2 – Zrušiť misiu", "3.3 UC5 – Synchronizovať stav misií", "Epic"]
 agents: [main session]
+pr: 21
+pr_url: https://github.com/McLehotsky/kuka-middleware/pull/21
 ---
 
 # Live test of the completed and cancelled mission paths
