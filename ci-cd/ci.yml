@@ -28,6 +28,7 @@ pool:
 variables:
   DOTNET_CLI_TELEMETRY_OPTOUT: '1'
   DOTNET_NOLOGO: '1'
+  DOTNET_CLI_UI_LANGUAGE: 'en'
   CI: 'true'
 
 jobs:
@@ -48,6 +49,17 @@ jobs:
 
       - powershell: dotnet restore
         displayName: Restore backend packages
+        workingDirectory: '$(Build.SourcesDirectory)/backend'
+
+      # Restore already fails on NuGetAudit warnings (TreatWarningsAsErrors in Directory.Build.props);
+      # this step is a second safeguard and prints the advisory table.
+      # dotnet list exits with 0 even when it finds vulnerable packages, so its output is checked too.
+      - powershell: |
+          $output = dotnet list package --vulnerable --include-transitive | Out-String
+          Write-Host $output
+          if ($LASTEXITCODE -ne 0) { throw "dotnet list package failed with exit code $LASTEXITCODE." }
+          if ($output -match 'has the following vulnerable packages') { throw 'Vulnerable backend packages found.' }
+        displayName: Check backend packages for known vulnerabilities
         workingDirectory: '$(Build.SourcesDirectory)/backend'
 
       - powershell: dotnet build --configuration Release --no-restore -warnaserror -p:EnableNETAnalyzers=true
@@ -87,6 +99,10 @@ jobs:
 
       - powershell: npm ci --no-audit --no-fund
         displayName: Install locked frontend packages
+        workingDirectory: '$(Build.SourcesDirectory)/frontend'
+
+      - powershell: npm audit --omit=dev --audit-level=high
+        displayName: Audit runtime frontend packages
         workingDirectory: '$(Build.SourcesDirectory)/frontend'
 
       - powershell: npm run typecheck

@@ -4,6 +4,7 @@ One note per finished phase or task, newest first. Format and rules: [CLAUDE.md 
 
 | Date | Note | Phase | Summary |
 |---|---|---|---|
+| 2026-11-27 | [24 · CI vulnerability checks](2026-11-27-24-ci-vulnerability-checks.md) | 9 | CI runs NuGet and npm vulnerability checks; legacy mission M-2026-0004 closed |
 | 2026-11-27 | [23 · Live test, completed path](2026-11-27-23-live-test-completed.md) | 9 | All checks green (322 / 97 tests); live missions reach Completed and Cancelled |
 | 2026-11-27 | [22 · ERD and state exits](2026-11-27-22-state-diagram-erd.md) | 9 | As-built ERD replaces Mermaid; state diagram shows exits from every active state |
 | 2026-11-27 | [21 · Use cases and legends](2026-11-27-21-use-case-legends.md) | 9 | Grouped use case diagrams UC1–UC7, goals and state diagrams, colour and code legends |
