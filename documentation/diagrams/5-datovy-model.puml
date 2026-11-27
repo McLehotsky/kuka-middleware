@@ -1,0 +1,90 @@
+@startuml
+title Dátový model
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam defaultFontName Segoe UI
+skinparam defaultFontColor #14243A
+skinparam ArrowColor #607590
+hide circle
+entity "ApiClient\napi_client" as ApiClient {
+  * Id : int <<PK>>
+  --
+  * Name : varchar(100)
+  * KeyHash : varchar(128) <<UQ>>
+  * Role : varchar(32)
+  * IsActive : boolean
+  * CreatedAt : timestamptz
+}
+entity "AuditLog\naudit_log" as AuditLog {
+  * Id : bigint <<PK>>
+  --
+  * ApiClientId : int <<FK>>
+    MissionId : uuid? <<FK>>
+  * Action : varchar(32)
+  * Success : boolean
+    HttpStatus : int?
+    Details : jsonb?
+    CorrelationId : varchar(64)?
+  * Timestamp : timestamptz
+}
+entity "Mission\nmission" as Mission {
+  * Id : uuid <<PK>>
+  --
+  * MissionCode : varchar(64) <<UQ>>
+    ExternalRef : varchar(100)?
+  * MissionType : varchar(64)
+  * Priority : int
+  * Status : varchar(32)
+    RobotId : int? <<FK>>
+  * CreatedByClientId : int <<FK>>
+  * CreatedAt : timestamptz
+    SubmittedAt : timestamptz?
+    FinishedAt : timestamptz?
+    LastSyncedAt : timestamptz?
+    ErrorMessage : varchar(1000)?
+  * Version : xid <<xmin>>
+}
+entity "MissionStep\nmission_step" as MissionStep {
+  * Id : int <<PK>>
+  --
+  * MissionId : uuid <<FK>>
+  * Sequence : int
+  * NodeCode : varchar(64)
+  * Action : varchar(64)
+  --
+  UQ (MissionId, Sequence)
+}
+entity "Robot\nrobot" as Robot {
+  * Id : int <<PK>>
+  --
+  * KukaRobotId : varchar(64) <<UQ>>
+    Name : varchar(100)?
+  * Status : varchar(32)
+    BatteryLevel : int?
+    CurrentNode : varchar(64)?
+    LastSeenAt : timestamptz?
+  * UpdatedAt : timestamptz
+}
+entity "MissionStatusHistory\nmission_status_history" as MissionStatusHistory {
+  * Id : bigint <<PK>>
+  --
+  * MissionId : uuid <<FK>>
+    PreviousStatus : varchar(32)?
+  * Status : varchar(32)
+  * Source : varchar(32)
+    Message : varchar(1000)?
+  * ChangedAt : timestamptz
+}
+ApiClient ||--o{ AuditLog : ApiClientId
+Mission |o--o{ AuditLog : MissionId
+ApiClient ||--o{ Mission : CreatedByClientId
+Robot |o--o{ Mission : RobotId
+Mission ||--o{ MissionStatusHistory : MissionId
+Mission ||--o{ MissionStep : MissionId
+legend bottom right
+  PK = primárny kľúč
+  FK = cudzí kľúč
+  UQ = jedinečná hodnota
+  ? = povoľuje NULL
+endlegend
+@enduml
