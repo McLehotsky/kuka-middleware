@@ -4,6 +4,7 @@ One note per finished phase or task, newest first. Format and rules: [CLAUDE.md 
 
 | Date | Note | Phase | Summary |
 |---|---|---|---|
+| 2026-11-27 | [26 · CD token fix](2026-11-27-26-cd-kuka-token.md) | 9 | CD no longer blanks the KUKA FM token (macro expanded inside the script sentinel) |
 | 2026-11-27 | [25 · Error messages, RACK_MOVE only](2026-11-27-25-error-messages-roller-move.md) | 9 | 502 shows the KUKA FM reason and links the failed mission; "API unavailable" on nginx errors; form offers RACK_MOVE only (Q16, Q19, Q20) |
 | 2026-11-27 | [24 · CI vulnerability checks](2026-11-27-24-ci-vulnerability-checks.md) | 9 | CI runs NuGet and npm vulnerability checks; legacy mission M-2026-0004 closed |
 | 2026-11-27 | [23 · Live test, completed path](2026-11-27-23-live-test-completed.md) | 9 | All checks green (322 / 97 tests); live missions reach Completed and Cancelled |

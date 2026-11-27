@@ -80,9 +80,10 @@ jobs:
           }
           if ($values.WebPort -notmatch '^\d{4,5}$' -or [int]$values.WebPort -lt 1024 -or [int]$values.WebPort -gt 65535) { throw 'Pipeline variable WebPort must be an integer from 1024 to 65535.' }
           if ($values.WebUiApiKey -ceq $values.ExternalSystemApiKey) { throw 'WebUiApiKey and ExternalSystemApiKey must be different.' }
-          # Optional: an undefined variable arrives as the literal macro and means no token.
+          # Optional: an undefined variable arrives as the literal macro text and means no token.
+          # The sentinel is assembled at runtime: Azure would expand a literal macro in this script body to the token itself.
           $kukaToken = $env:KUKA_FM_ACCESS_TOKEN
-          if ($kukaToken -cne '$(KukaFmAccessToken)' -and -not [string]::IsNullOrEmpty($kukaToken) -and $kukaToken -cnotmatch '^[A-Za-z0-9._+/=-]+$') {
+          if ($kukaToken -cne ('$' + '(KukaFmAccessToken)') -and -not [string]::IsNullOrEmpty($kukaToken) -and $kukaToken -cnotmatch '^[A-Za-z0-9._+/=-]+$') {
             throw 'Pipeline variable KukaFmAccessToken may contain only letters, digits and . _ + / = -.'
           }
 
@@ -124,8 +125,9 @@ jobs:
       - powershell: |
           $ErrorActionPreference = 'Stop'
           $content = [IO.File]::ReadAllText((Join-Path $env:BUILD_SOURCESDIRECTORY 'docker\.env.prod'))
+          # Undefined variable (literal macro text, sentinel assembled at runtime so Azure cannot expand it) or unset -> no token.
           $kukaToken = $env:KUKA_FM_ACCESS_TOKEN
-          if ($kukaToken -ceq '$(KukaFmAccessToken)' -or $null -eq $kukaToken) { $kukaToken = '' }
+          if ($kukaToken -ceq ('$' + '(KukaFmAccessToken)') -or $null -eq $kukaToken) { $kukaToken = '' }
           $replacements = [ordered]@{
             '__WEB_PORT__' = $env:WEB_PORT
             '__DB_NAME__' = $env:DB_NAME
