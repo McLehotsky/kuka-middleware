@@ -32,3 +32,6 @@ Thumbs.db
 
 # Office lock files
 ~$*
+
+# Vendor manual (46 MB, kept locally)
+documentation/KUKA_AMR_Fleet_2.15_en.pdf

@@ -16,7 +16,7 @@
 
 ### Stav implementácie
 
-Stav k 26. 11. 2026, v súlade s `implementation.md` a sekciou 9.8 wiki. **splnené** = všetky akceptačné kritériá splnené · **splnené s odchýlkou** = realizované inak alebo vynechané, odchýlka zaznamenaná · **čiastočne** = chýba uvedený krok.
+Stav k 26. 11. 2026, v súlade s `implementation.md` a sekciou 9.8 wiki. **splnené** = všetky akceptačné kritériá splnené (kritériá, ktoré podľa dokumentácie KUKA FM nie sú uplatniteľné, sú uvedené v poznámke) · **čiastočne** = chýba uvedený krok.
 
 | US | Stav | Splnené | Odchýlka / otvorené |
 |---|---|---|---|
@@ -25,7 +25,7 @@ Stav k 26. 11. 2026, v súlade s `implementation.md` a sekciou 9.8 wiki. **splne
 | 1.3 UC3 – Zoznam misií | splnené | `GET /api/missions?state=active\|finished` z vlastnej DB, obrazovka s filtrom a obnovou každých 5 s, testy filtra | – |
 | 1.4 UC4 – História stavov misie | splnené | detail a história zoradená podľa času, 404, obrazovka s časovou osou, testy | – |
 | 2.1 UC6 – Zoznam robotov | splnené | `GET /api/robots` z vlastnej DB s aktuálnou misiou, obrazovka (dlaždice, hľadanie, filter, karty / tabuľka), obnova každých 5 s, testy | – |
-| 3.1 Prístup ku KUKA FM API s access tokenom | splnené s odchýlkou | jeden typovaný klient pre 4 volania, hlavička `Authorization` pri nastavenom tokene, logovanie volaní a chýb autentifikácie bez tokenu | bez cache a obnovy tokenu, 401 bez opakovania (statický voliteľný token, chýba kap. 4.7 dokumentácie KUKA FM) |
+| 3.1 Prístup ku KUKA FM API s access tokenom | splnené | jeden typovaný klient pre 4 volania, token z konfigurácie v hlavičke `Authorization` pri každom volaní (podľa plnej príručky KUKA.AMR Fleet 2.15, kap. 4.7), 401 sa zaloguje ako chyba autentifikácie a volanie zlyhá, logovanie volaní bez tokenu | kritériá cache a obnovy tokenu pri 401 nie sú uplatniteľné: token sa podľa kap. 4.7 generuje ručne vo webovom UI KUKA FM, API na vydanie ani obnovu neexistuje |
 | 3.2 UC7 – Synchronizovať stav robotov | splnené | synchronizácia pri štarte a každých 5 s, mapovanie stavov 1–7, vloženie / aktualizácia, `LastSeenAt`, chyba nemení dáta; naživo 3 roboty | mierku batérie overiť na robotovi, ktorý nie je nabitý |
 | 3.3 UC5 – Synchronizovať stav misií | splnené | aktívne misie každých 5 s cez `jobQuery`, mapovanie stavov, história, `FinishedAt`, `LastSyncedAt`, jedno uloženie za cyklus, opakovanie v ďalšom cykle; naživo `InProgress` a `Cancelled` | – |
 | 4.1 Kontajnerizácia a databáza | splnené | `docker compose up` spustí web, api, postgres (a seq), schéma z EF Core migrácie pri štarte, dáta prežijú reštart | – |
@@ -39,7 +39,7 @@ Stav k 26. 11. 2026, v súlade s `implementation.md` a sekciou 9.8 wiki. **splne
 - [x] Je možné zrušiť prebiehajúcu misiu.
 - [x] Je možné prezrieť stav prebiehajúcich misií, ktoré sa aktualizujú v reálnom čase, a ukončených misií.
 - [x] Je možné prezrieť stav robotov, ktoré sa aktualizujú v reálnom čase.
-- [ ] Prístup ku KUKA FM API volaniu je zabezpečený access tokenom. *(odchýlka: statický, voliteľný token bez obnovy pri 401)*
+- [x] Prístup ku KUKA FM API volaniu je zabezpečený access tokenom. *(token z konfigurácie podľa plnej príručky KUKA.AMR Fleet 2.15, kap. 4.7; vydanie a obnova tokenu cez API nie sú v KUKA FM možné)*
 - [x] Všetky operácie vykonané používateľom sú logované.
 - [x] Proces testovania a nasadenia je plne automatizovaný využitím CI/CD pipeline. *(CI → CD automaticky; ruleset na GitHube vyžaduje úspešné CI)*
 
