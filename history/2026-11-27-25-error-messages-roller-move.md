@@ -4,6 +4,8 @@ date: 2026-11-27
 phase: 9
 backlog: ["1.1 UC1 – Zadať misiu", "1.2 UC2 – Zrušiť misiu", "[FE] Obrazovka Nová misia (mockup 6.2)", "[FE] Tlačidlo Zrušiť s potvrdením"]
 agents: [planner, frontend-expert, reviewer, main session]
+pr: 23
+pr_url: https://github.com/McLehotsky/kuka-middleware/pull/23
 ---
 
 # Clear 502 messages, failed-mission link and RACK_MOVE-only form
