@@ -27,6 +27,18 @@
     <polygon points="700,509 696.30,500.50 703.70,500.50" fill="#607590"/>
     <polyline points="700,458 1002,458 1002,501.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
     <polygon points="1002,509 998.30,500.50 1005.70,500.50" fill="#607590"/>
+    <circle cx="455" cy="325" r="11" fill="#FFFFFF" stroke="#14243A" stroke-width="1.65"/>
+    <circle cx="455" cy="325" r="6" fill="#14243A"/>
+    <circle cx="716" cy="325" r="11" fill="#FFFFFF" stroke="#14243A" stroke-width="1.65"/>
+    <circle cx="716" cy="325" r="6" fill="#14243A"/>
+    <circle cx="1118" cy="325" r="11" fill="#FFFFFF" stroke="#14243A" stroke-width="1.65"/>
+    <circle cx="1118" cy="325" r="6" fill="#14243A"/>
+     <polyline points="455,279 455,306.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="455,314 451.3,305.5 458.7,305.5" fill="#607590"/>
+    <polyline points="716,279 716,306.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="716,314 712.3,305.5 719.7,305.5" fill="#607590"/>
+    <polyline points="1085,253 1118,253 1118,306.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="1118,314 1114.3,305.5 1121.7,305.5" fill="#607590"/>
   </g>
   <g>
     <rect x="116" y="227" width="168" height="52" rx="9" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>

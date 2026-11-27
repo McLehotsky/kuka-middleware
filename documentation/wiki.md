@@ -2,7 +2,7 @@
 
   
 
-> Zdroj: *ITS - Overview* (Azure DevOps wiki, posledná úprava 21. 10. 2026, aktualizované 26. 11. 2026). Tento dokument rozpracúva zadanie bod po bode, diagramy sú vo formáte SVG a [Mermaid](https://mermaid.js.org/).
+> Zdroj: *ITS - Overview* (Azure DevOps wiki, posledná úprava 21. 10. 2026, aktualizované 26. 11. 2026). Tento dokument rozpracúva zadanie bod po bode, diagramy sú vo formáte SVG.
 >
 > Sekcie 1–8 opisujú požiadavky, návrh a realizované toky. Poznámky **Realizácia** odkazujú na podrobnosti v sekcii **9. Realizácia a stav implementácie**.
 
@@ -286,160 +286,9 @@ Každé volanie na KUKA FM (UC1, UC2, UC5, UC7) prechádza týmto podprocesom.
 
 ### Diagram
 
-  
+![Dátový model middlewaru (ERD)](diagrams/5-datovy-model.svg)
 
-::: mermaid
-
-erDiagram
-
-    ApiClient ||--o{ Mission : "zadal"
-
-    ApiClient ||--o{ AuditLog : "vykonal"
-
-    Robot |o--o{ Mission : "vykonáva"
-
-    Mission ||--|{ MissionStep : "obsahuje"
-
-    Mission ||--|{ MissionStatusHistory : "má históriu"
-
-    Mission |o--o{ AuditLog : "týka sa"
-
-  
-
-    ApiClient {
-
-        int Id PK
-
-        string Name
-
-        string KeyHash
-
-        string Role
-
-        bool IsActive
-
-        timestamptz CreatedAt
-
-    }
-
-  
-
-    Robot {
-
-        int Id PK
-
-        string KukaRobotId
-
-        string Name
-
-        string Status
-
-        int BatteryLevel
-
-        string CurrentNode
-
-        timestamptz LastSeenAt
-
-        timestamptz UpdatedAt
-
-    }
-
-  
-
-    Mission {
-
-        uuid Id PK
-
-        string MissionCode
-
-        string ExternalRef
-
-        string MissionType
-
-        int Priority
-
-        string Status
-
-        int RobotId FK
-
-        int CreatedByClientId FK
-
-        timestamptz CreatedAt
-
-        timestamptz SubmittedAt
-
-        timestamptz FinishedAt
-
-        timestamptz LastSyncedAt
-
-        string ErrorMessage
-        xid Version "xmin"
-
-    }
-
-  
-
-    MissionStep {
-
-        int Id PK
-
-        uuid MissionId FK
-
-        int Sequence
-
-        string NodeCode
-
-        string Action
-
-    }
-
-  
-
-    MissionStatusHistory {
-
-        bigint Id PK
-
-        uuid MissionId FK
-
-        string PreviousStatus
-
-        string Status
-
-        string Source
-
-        string Message
-
-        timestamptz ChangedAt
-
-    }
-
-  
-
-    AuditLog {
-
-        bigint Id PK
-
-        int ApiClientId FK
-
-        uuid MissionId FK
-
-        string Action
-
-        bool Success
-
-        int HttpStatus
-
-        jsonb Details
-
-        string CorrelationId
-
-        timestamptz Timestamp
-
-    }
-
-:::
-
-  
+Kardinality v diagrame vyjadrujú väzby v PostgreSQL. Pri vytvorení misie aplikácia vyžaduje aspoň dva kroky a uloží prvý záznam histórie.
 
 ### Popis entít
 
@@ -458,8 +307,8 @@ erDiagram
 
 ![Stavový diagram misie](diagrams/5-stavy-misie.svg)
 
-- **Aktívne stavy (UC5):** prechody `jobQuery` z rámca platia pre každý stav v ňom. Misia môže prejsť rovno do koncového stavu, ak medzistavy prebehli medzi dvoma cyklami.
-- **Koncové stavy:** pri každom sa nastaví `FinishedAt`.
+- **Aktívne stavy (UC5):** kruhy s prstencom označujú ukončenie zloženého stavu po prijatí koncového kódu z `jobQuery`. Platí to pre `Submitted`, `InProgress` aj `Cancelling`.
+- **Koncové stavy:** prechod z rámca podľa prijatého kódu určí `Completed`, `Cancelled` alebo `Failed`. Pri vstupe do výsledného stavu sa nastaví `FinishedAt`.
 - **Zrušiteľné stavy (UC2):** `Created`, `Submitted` a `InProgress`. Po prijatí `missionCancel` prejdú do `Cancelling`. Žiadosť o zrušenie v stave `Cancelling` alebo v koncovom stave vráti 409.
 
 #### Mapovanie stavu jobu KUKA FM (`jobQuery`) → stav misie

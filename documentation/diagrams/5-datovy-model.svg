@@ -1,0 +1,256 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="904" viewBox="0 0 1300 904" role="img" aria-labelledby="diagram-title" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif">
+  <title id="diagram-title">Dátový model (ERD)</title>
+  <g>
+    <rect x="0" y="0" width="1300" height="904" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.35"/>
+    <text x="40" y="56" fill="#14243A" font-size="32" font-weight="700" text-anchor="start">Dátový model</text>
+    <text x="1260" y="56" fill="#415570" font-size="15" font-weight="600" text-anchor="end">PostgreSQL</text>
+    <path d="M40,82 L1260,82" fill="none" stroke="#D7E1ED" stroke-width="1" stroke-linecap="round"/>
+  </g>
+  <g>
+    <path d="M384,225 L475,225" fill="none" stroke="#607590" stroke-width="1.8" stroke-linecap="round"/>
+    <text x="401" y="215" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">1</text>
+    <text x="456" y="215" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">0..*</text>
+    <path d="M825,225 L916,225" fill="none" stroke="#607590" stroke-width="1.8" stroke-linecap="round"/>
+    <text x="842" y="215" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">0..*</text>
+    <text x="897" y="215" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">0..1</text>
+    <path d="M212,338 L212,472" fill="none" stroke="#607590" stroke-width="1.8" stroke-linecap="round"/>
+    <text x="225" y="361" fill="#415570" font-size="14" font-weight="600" text-anchor="start">1</text>
+    <text x="225" y="459" fill="#415570" font-size="14" font-weight="600" text-anchor="start">0..*</text>
+    <path d="M384,509 L475,509" fill="none" stroke="#607590" stroke-width="1.8" stroke-linecap="round"/>
+    <text x="401" y="499" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">0..*</text>
+    <text x="456" y="499" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">0..1</text>
+    <path d="M825,509 L916,509" fill="none" stroke="#607590" stroke-width="1.8" stroke-linecap="round"/>
+    <text x="842" y="499" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">1</text>
+    <text x="897" y="499" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">0..*</text>
+    <path d="M650,538 L650,633" fill="none" stroke="#607590" stroke-width="1.8" stroke-linecap="round"/>
+    <text x="663" y="561" fill="#415570" font-size="14" font-weight="600" text-anchor="start">1</text>
+    <text x="663" y="620" fill="#415570" font-size="14" font-weight="600" text-anchor="start">0..*</text>
+  </g>
+  <g>
+    <rect x="40" y="112" width="344" height="226" rx="13" fill="#FFFFFF" stroke="#BECBDC" stroke-width="1.35"/>
+    <path d="M40,174 V125 Q40,112 53,112 H371 Q384,112 384,125 V174 Z" fill="#F2F6FA"/>
+    <rect x="40" y="112" width="344" height="226" rx="13" fill="none" stroke="#BECBDC" stroke-width="1.35"/>
+    <path d="M40,174 L384,174" fill="none" stroke="#BECBDC" stroke-width="1" stroke-linecap="round"/>
+    <text x="58" y="139" fill="#14243A" font-size="19" font-weight="700" text-anchor="start">ApiClient</text>
+    <text x="58" y="159" fill="#415570" font-size="13" font-weight="400" text-anchor="start">api_client</text>
+    <rect x="57" y="180" width="30" height="18" rx="4" fill="#EAF3FF" stroke="#8DB2E1" stroke-width="1.35"/>
+    <text x="72" y="193" fill="#17467D" font-size="11" font-weight="700" text-anchor="middle">PK</text>
+    <text x="98" y="194" fill="#14243A" font-size="15" font-weight="600" text-anchor="start">Id</text>
+    <text x="367" y="194" fill="#415570" font-size="14" font-weight="400" text-anchor="end">int</text>
+    <path d="M57,202 L367,202" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="98" y="219" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">Name</text>
+    <text x="367" y="219" fill="#415570" font-size="14" font-weight="400" text-anchor="end">varchar(100)</text>
+    <path d="M57,227 L367,227" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <rect x="57" y="230" width="30" height="18" rx="4" fill="#E5F6ED" stroke="#8FBDA7" stroke-width="1.35"/>
+    <text x="72" y="243" fill="#1A5942" font-size="11" font-weight="700" text-anchor="middle">UQ</text>
+    <text x="98" y="244" fill="#14243A" font-size="15" font-weight="600" text-anchor="start">KeyHash</text>
+    <text x="367" y="244" fill="#415570" font-size="14" font-weight="400" text-anchor="end">varchar(128)</text>
+    <path d="M57,252 L367,252" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="98" y="269" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">Role</text>
+    <text x="367" y="269" fill="#415570" font-size="14" font-weight="400" text-anchor="end">varchar(32)</text>
+    <path d="M57,277 L367,277" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="98" y="294" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">IsActive</text>
+    <text x="367" y="294" fill="#415570" font-size="14" font-weight="400" text-anchor="end">boolean</text>
+    <path d="M57,302 L367,302" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="98" y="319" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">CreatedAt</text>
+    <text x="367" y="319" fill="#415570" font-size="14" font-weight="400" text-anchor="end">timestamptz</text>
+    <rect x="40" y="472" width="344" height="301" rx="13" fill="#FFFFFF" stroke="#BECBDC" stroke-width="1.35"/>
+    <path d="M40,534 V485 Q40,472 53,472 H371 Q384,472 384,485 V534 Z" fill="#F2F6FA"/>
+    <rect x="40" y="472" width="344" height="301" rx="13" fill="none" stroke="#BECBDC" stroke-width="1.35"/>
+    <path d="M40,534 L384,534" fill="none" stroke="#BECBDC" stroke-width="1" stroke-linecap="round"/>
+    <text x="58" y="499" fill="#14243A" font-size="19" font-weight="700" text-anchor="start">AuditLog</text>
+    <text x="58" y="519" fill="#415570" font-size="13" font-weight="400" text-anchor="start">audit_log</text>
+    <rect x="57" y="540" width="30" height="18" rx="4" fill="#EAF3FF" stroke="#8DB2E1" stroke-width="1.35"/>
+    <text x="72" y="553" fill="#17467D" font-size="11" font-weight="700" text-anchor="middle">PK</text>
+    <text x="98" y="554" fill="#14243A" font-size="15" font-weight="600" text-anchor="start">Id</text>
+    <text x="367" y="554" fill="#415570" font-size="14" font-weight="400" text-anchor="end">bigint</text>
+    <path d="M57,562 L367,562" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <rect x="57" y="565" width="30" height="18" rx="4" fill="#FFF5DA" stroke="#D2B470" stroke-width="1.35"/>
+    <text x="72" y="578" fill="#63460F" font-size="11" font-weight="700" text-anchor="middle">FK</text>
+    <text x="98" y="579" fill="#14243A" font-size="15" font-weight="600" text-anchor="start">ApiClientId</text>
+    <text x="367" y="579" fill="#415570" font-size="14" font-weight="400" text-anchor="end">int</text>
+    <path d="M57,587 L367,587" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <rect x="57" y="590" width="30" height="18" rx="4" fill="#FFF5DA" stroke="#D2B470" stroke-width="1.35"/>
+    <text x="72" y="603" fill="#63460F" font-size="11" font-weight="700" text-anchor="middle">FK</text>
+    <text x="98" y="604" fill="#14243A" font-size="15" font-weight="600" text-anchor="start">MissionId</text>
+    <text x="367" y="604" fill="#415570" font-size="14" font-weight="400" text-anchor="end">uuid?</text>
+    <path d="M57,612 L367,612" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="98" y="629" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">Action</text>
+    <text x="367" y="629" fill="#415570" font-size="14" font-weight="400" text-anchor="end">varchar(32)</text>
+    <path d="M57,637 L367,637" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="98" y="654" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">Success</text>
+    <text x="367" y="654" fill="#415570" font-size="14" font-weight="400" text-anchor="end">boolean</text>
+    <path d="M57,662 L367,662" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="98" y="679" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">HttpStatus</text>
+    <text x="367" y="679" fill="#415570" font-size="14" font-weight="400" text-anchor="end">int?</text>
+    <path d="M57,687 L367,687" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="98" y="704" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">Details</text>
+    <text x="367" y="704" fill="#415570" font-size="14" font-weight="400" text-anchor="end">jsonb?</text>
+    <path d="M57,712 L367,712" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="98" y="729" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">CorrelationId</text>
+    <text x="367" y="729" fill="#415570" font-size="14" font-weight="400" text-anchor="end">varchar(64)?</text>
+    <path d="M57,737 L367,737" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="98" y="754" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">Timestamp</text>
+    <text x="367" y="754" fill="#415570" font-size="14" font-weight="400" text-anchor="end">timestamptz</text>
+    <rect x="475" y="112" width="350" height="426" rx="13" fill="#FFFFFF" stroke="#9EBBDF" stroke-width="1.35"/>
+    <path d="M475,174 V125 Q475,112 488,112 H812 Q825,112 825,125 V174 Z" fill="#EAF3FF"/>
+    <rect x="475" y="112" width="350" height="426" rx="13" fill="none" stroke="#9EBBDF" stroke-width="1.35"/>
+    <path d="M475,174 L825,174" fill="none" stroke="#9EBBDF" stroke-width="1" stroke-linecap="round"/>
+    <text x="493" y="139" fill="#14243A" font-size="19" font-weight="700" text-anchor="start">Mission</text>
+    <text x="493" y="159" fill="#415570" font-size="13" font-weight="400" text-anchor="start">mission</text>
+    <rect x="492" y="180" width="30" height="18" rx="4" fill="#EAF3FF" stroke="#8DB2E1" stroke-width="1.35"/>
+    <text x="507" y="193" fill="#17467D" font-size="11" font-weight="700" text-anchor="middle">PK</text>
+    <text x="533" y="194" fill="#14243A" font-size="15" font-weight="600" text-anchor="start">Id</text>
+    <text x="808" y="194" fill="#415570" font-size="14" font-weight="400" text-anchor="end">uuid</text>
+    <path d="M492,202 L808,202" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <rect x="492" y="205" width="30" height="18" rx="4" fill="#E5F6ED" stroke="#8FBDA7" stroke-width="1.35"/>
+    <text x="507" y="218" fill="#1A5942" font-size="11" font-weight="700" text-anchor="middle">UQ</text>
+    <text x="533" y="219" fill="#14243A" font-size="15" font-weight="600" text-anchor="start">MissionCode</text>
+    <text x="808" y="219" fill="#415570" font-size="14" font-weight="400" text-anchor="end">varchar(64)</text>
+    <path d="M492,227 L808,227" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="533" y="244" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">ExternalRef</text>
+    <text x="808" y="244" fill="#415570" font-size="14" font-weight="400" text-anchor="end">varchar(100)?</text>
+    <path d="M492,252 L808,252" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="533" y="269" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">MissionType</text>
+    <text x="808" y="269" fill="#415570" font-size="14" font-weight="400" text-anchor="end">varchar(64)</text>
+    <path d="M492,277 L808,277" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="533" y="294" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">Priority</text>
+    <text x="808" y="294" fill="#415570" font-size="14" font-weight="400" text-anchor="end">int</text>
+    <path d="M492,302 L808,302" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="533" y="319" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">Status</text>
+    <text x="808" y="319" fill="#415570" font-size="14" font-weight="400" text-anchor="end">varchar(32)</text>
+    <path d="M492,327 L808,327" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <rect x="492" y="330" width="30" height="18" rx="4" fill="#FFF5DA" stroke="#D2B470" stroke-width="1.35"/>
+    <text x="507" y="343" fill="#63460F" font-size="11" font-weight="700" text-anchor="middle">FK</text>
+    <text x="533" y="344" fill="#14243A" font-size="15" font-weight="600" text-anchor="start">RobotId</text>
+    <text x="808" y="344" fill="#415570" font-size="14" font-weight="400" text-anchor="end">int?</text>
+    <path d="M492,352 L808,352" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <rect x="492" y="355" width="30" height="18" rx="4" fill="#FFF5DA" stroke="#D2B470" stroke-width="1.35"/>
+    <text x="507" y="368" fill="#63460F" font-size="11" font-weight="700" text-anchor="middle">FK</text>
+    <text x="533" y="369" fill="#14243A" font-size="15" font-weight="600" text-anchor="start">CreatedByClientId</text>
+    <text x="808" y="369" fill="#415570" font-size="14" font-weight="400" text-anchor="end">int</text>
+    <path d="M492,377 L808,377" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="533" y="394" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">CreatedAt</text>
+    <text x="808" y="394" fill="#415570" font-size="14" font-weight="400" text-anchor="end">timestamptz</text>
+    <path d="M492,402 L808,402" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="533" y="419" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">SubmittedAt</text>
+    <text x="808" y="419" fill="#415570" font-size="14" font-weight="400" text-anchor="end">timestamptz?</text>
+    <path d="M492,427 L808,427" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="533" y="444" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">FinishedAt</text>
+    <text x="808" y="444" fill="#415570" font-size="14" font-weight="400" text-anchor="end">timestamptz?</text>
+    <path d="M492,452 L808,452" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="533" y="469" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">LastSyncedAt</text>
+    <text x="808" y="469" fill="#415570" font-size="14" font-weight="400" text-anchor="end">timestamptz?</text>
+    <path d="M492,477 L808,477" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="533" y="494" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">ErrorMessage</text>
+    <text x="808" y="494" fill="#415570" font-size="14" font-weight="400" text-anchor="end">varchar(1000)?</text>
+    <path d="M492,502 L808,502" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="533" y="519" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">Version (xmin)</text>
+    <text x="808" y="519" fill="#415570" font-size="14" font-weight="400" text-anchor="end">xid</text>
+    <rect x="475" y="633" width="350" height="232" rx="13" fill="#FFFFFF" stroke="#BECBDC" stroke-width="1.35"/>
+    <path d="M475,695 V646 Q475,633 488,633 H812 Q825,633 825,646 V695 Z" fill="#F2F6FA"/>
+    <rect x="475" y="633" width="350" height="232" rx="13" fill="none" stroke="#BECBDC" stroke-width="1.35"/>
+    <path d="M475,695 L825,695" fill="none" stroke="#BECBDC" stroke-width="1" stroke-linecap="round"/>
+    <text x="493" y="660" fill="#14243A" font-size="19" font-weight="700" text-anchor="start">MissionStep</text>
+    <text x="493" y="680" fill="#415570" font-size="13" font-weight="400" text-anchor="start">mission_step</text>
+    <rect x="492" y="701" width="30" height="18" rx="4" fill="#EAF3FF" stroke="#8DB2E1" stroke-width="1.35"/>
+    <text x="507" y="714" fill="#17467D" font-size="11" font-weight="700" text-anchor="middle">PK</text>
+    <text x="533" y="715" fill="#14243A" font-size="15" font-weight="600" text-anchor="start">Id</text>
+    <text x="808" y="715" fill="#415570" font-size="14" font-weight="400" text-anchor="end">int</text>
+    <path d="M492,723 L808,723" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <rect x="492" y="726" width="30" height="18" rx="4" fill="#FFF5DA" stroke="#D2B470" stroke-width="1.35"/>
+    <text x="507" y="739" fill="#63460F" font-size="11" font-weight="700" text-anchor="middle">FK</text>
+    <text x="533" y="740" fill="#14243A" font-size="15" font-weight="600" text-anchor="start">MissionId</text>
+    <text x="808" y="740" fill="#415570" font-size="14" font-weight="400" text-anchor="end">uuid</text>
+    <path d="M492,748 L808,748" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="533" y="765" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">Sequence</text>
+    <text x="808" y="765" fill="#415570" font-size="14" font-weight="400" text-anchor="end">int</text>
+    <path d="M492,773 L808,773" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="533" y="790" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">NodeCode</text>
+    <text x="808" y="790" fill="#415570" font-size="14" font-weight="400" text-anchor="end">varchar(64)</text>
+    <path d="M492,798 L808,798" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="533" y="815" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">Action</text>
+    <text x="808" y="815" fill="#415570" font-size="14" font-weight="400" text-anchor="end">varchar(64)</text>
+    <path d="M492,823 L808,823" fill="none" stroke="#D7E1ED" stroke-width="1" stroke-linecap="round"/>
+    <rect x="492" y="831" width="30" height="18" rx="4" fill="#E5F6ED" stroke="#8FBDA7" stroke-width="1.35"/>
+    <text x="507" y="844" fill="#1A5942" font-size="11" font-weight="700" text-anchor="middle">UQ</text>
+    <text x="533" y="844" fill="#415570" font-size="14" font-weight="400" text-anchor="start">MissionId + Sequence</text>
+    <rect x="916" y="112" width="344" height="276" rx="13" fill="#FFFFFF" stroke="#BECBDC" stroke-width="1.35"/>
+    <path d="M916,174 V125 Q916,112 929,112 H1247 Q1260,112 1260,125 V174 Z" fill="#F2F6FA"/>
+    <rect x="916" y="112" width="344" height="276" rx="13" fill="none" stroke="#BECBDC" stroke-width="1.35"/>
+    <path d="M916,174 L1260,174" fill="none" stroke="#BECBDC" stroke-width="1" stroke-linecap="round"/>
+    <text x="934" y="139" fill="#14243A" font-size="19" font-weight="700" text-anchor="start">Robot</text>
+    <text x="934" y="159" fill="#415570" font-size="13" font-weight="400" text-anchor="start">robot</text>
+    <rect x="933" y="180" width="30" height="18" rx="4" fill="#EAF3FF" stroke="#8DB2E1" stroke-width="1.35"/>
+    <text x="948" y="193" fill="#17467D" font-size="11" font-weight="700" text-anchor="middle">PK</text>
+    <text x="974" y="194" fill="#14243A" font-size="15" font-weight="600" text-anchor="start">Id</text>
+    <text x="1243" y="194" fill="#415570" font-size="14" font-weight="400" text-anchor="end">int</text>
+    <path d="M933,202 L1243,202" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <rect x="933" y="205" width="30" height="18" rx="4" fill="#E5F6ED" stroke="#8FBDA7" stroke-width="1.35"/>
+    <text x="948" y="218" fill="#1A5942" font-size="11" font-weight="700" text-anchor="middle">UQ</text>
+    <text x="974" y="219" fill="#14243A" font-size="15" font-weight="600" text-anchor="start">KukaRobotId</text>
+    <text x="1243" y="219" fill="#415570" font-size="14" font-weight="400" text-anchor="end">varchar(64)</text>
+    <path d="M933,227 L1243,227" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="974" y="244" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">Name</text>
+    <text x="1243" y="244" fill="#415570" font-size="14" font-weight="400" text-anchor="end">varchar(100)?</text>
+    <path d="M933,252 L1243,252" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="974" y="269" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">Status</text>
+    <text x="1243" y="269" fill="#415570" font-size="14" font-weight="400" text-anchor="end">varchar(32)</text>
+    <path d="M933,277 L1243,277" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="974" y="294" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">BatteryLevel</text>
+    <text x="1243" y="294" fill="#415570" font-size="14" font-weight="400" text-anchor="end">int?</text>
+    <path d="M933,302 L1243,302" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="974" y="319" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">CurrentNode</text>
+    <text x="1243" y="319" fill="#415570" font-size="14" font-weight="400" text-anchor="end">varchar(64)?</text>
+    <path d="M933,327 L1243,327" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="974" y="344" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">LastSeenAt</text>
+    <text x="1243" y="344" fill="#415570" font-size="14" font-weight="400" text-anchor="end">timestamptz?</text>
+    <path d="M933,352 L1243,352" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="974" y="369" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">UpdatedAt</text>
+    <text x="1243" y="369" fill="#415570" font-size="14" font-weight="400" text-anchor="end">timestamptz</text>
+    <rect x="916" y="472" width="344" height="251" rx="13" fill="#FFFFFF" stroke="#BECBDC" stroke-width="1.35"/>
+    <path d="M916,534 V485 Q916,472 929,472 H1247 Q1260,472 1260,485 V534 Z" fill="#F2F6FA"/>
+    <rect x="916" y="472" width="344" height="251" rx="13" fill="none" stroke="#BECBDC" stroke-width="1.35"/>
+    <path d="M916,534 L1260,534" fill="none" stroke="#BECBDC" stroke-width="1" stroke-linecap="round"/>
+    <text x="934" y="499" fill="#14243A" font-size="19" font-weight="700" text-anchor="start">MissionStatusHistory</text>
+    <text x="934" y="519" fill="#415570" font-size="13" font-weight="400" text-anchor="start">mission_status_history</text>
+    <rect x="933" y="540" width="30" height="18" rx="4" fill="#EAF3FF" stroke="#8DB2E1" stroke-width="1.35"/>
+    <text x="948" y="553" fill="#17467D" font-size="11" font-weight="700" text-anchor="middle">PK</text>
+    <text x="974" y="554" fill="#14243A" font-size="15" font-weight="600" text-anchor="start">Id</text>
+    <text x="1243" y="554" fill="#415570" font-size="14" font-weight="400" text-anchor="end">bigint</text>
+    <path d="M933,562 L1243,562" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <rect x="933" y="565" width="30" height="18" rx="4" fill="#FFF5DA" stroke="#D2B470" stroke-width="1.35"/>
+    <text x="948" y="578" fill="#63460F" font-size="11" font-weight="700" text-anchor="middle">FK</text>
+    <text x="974" y="579" fill="#14243A" font-size="15" font-weight="600" text-anchor="start">MissionId</text>
+    <text x="1243" y="579" fill="#415570" font-size="14" font-weight="400" text-anchor="end">uuid</text>
+    <path d="M933,587 L1243,587" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="974" y="604" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">PreviousStatus</text>
+    <text x="1243" y="604" fill="#415570" font-size="14" font-weight="400" text-anchor="end">varchar(32)?</text>
+    <path d="M933,612 L1243,612" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="974" y="629" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">Status</text>
+    <text x="1243" y="629" fill="#415570" font-size="14" font-weight="400" text-anchor="end">varchar(32)</text>
+    <path d="M933,637 L1243,637" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="974" y="654" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">Source</text>
+    <text x="1243" y="654" fill="#415570" font-size="14" font-weight="400" text-anchor="end">varchar(32)</text>
+    <path d="M933,662 L1243,662" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="974" y="679" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">Message</text>
+    <text x="1243" y="679" fill="#415570" font-size="14" font-weight="400" text-anchor="end">varchar(1000)?</text>
+    <path d="M933,687 L1243,687" fill="none" stroke="#EBEFF5" stroke-width="1" stroke-linecap="round"/>
+    <text x="974" y="704" fill="#14243A" font-size="15" font-weight="400" text-anchor="start">ChangedAt</text>
+    <text x="1243" y="704" fill="#415570" font-size="14" font-weight="400" text-anchor="end">timestamptz</text>
+    <rect x="916" y="760" width="344" height="106" rx="12" fill="#F8FAFD" stroke="#D7E1ED" stroke-width="1.35"/>
+    <text x="933" y="786" fill="#14243A" font-size="16" font-weight="700" text-anchor="start">Legenda</text>
+    <rect x="933" y="798" width="30" height="18" rx="4" fill="#EAF3FF" stroke="#8DB2E1" stroke-width="1.35"/>
+    <text x="948" y="811" fill="#17467D" font-size="11" font-weight="700" text-anchor="middle">PK</text>
+    <text x="973" y="811" fill="#415570" font-size="13" font-weight="400" text-anchor="start">Primárny kľúč</text>
+    <rect x="1095" y="798" width="30" height="18" rx="4" fill="#FFF5DA" stroke="#D2B470" stroke-width="1.35"/>
+    <text x="1110" y="811" fill="#63460F" font-size="11" font-weight="700" text-anchor="middle">FK</text>
+    <text x="1135" y="811" fill="#415570" font-size="13" font-weight="400" text-anchor="start">Cudzí kľúč</text>
+    <rect x="933" y="825" width="30" height="18" rx="4" fill="#E5F6ED" stroke="#8FBDA7" stroke-width="1.35"/>
+    <text x="948" y="838" fill="#1A5942" font-size="11" font-weight="700" text-anchor="middle">UQ</text>
+    <text x="973" y="838" fill="#415570" font-size="13" font-weight="400" text-anchor="start">Jedinečná hodnota</text>
+    <rect x="1095" y="825" width="30" height="18" rx="4" fill="#EEF2F7" stroke="#ACBBCC" stroke-width="1.35"/>
+    <text x="1110" y="838" fill="#314760" font-size="11" font-weight="700" text-anchor="middle">?</text>
+    <text x="1135" y="838" fill="#415570" font-size="13" font-weight="400" text-anchor="start">Povoľuje NULL</text>
+  </g>
+</svg>
