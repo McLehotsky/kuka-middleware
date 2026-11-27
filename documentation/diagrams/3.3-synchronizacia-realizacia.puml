@@ -1,0 +1,19 @@
+@startuml
+left to right direction
+skinparam shadowing false
+skinparam defaultFontName Segoe UI
+skinparam defaultFontColor #14243A
+skinparam ArrowColor #607590
+skinparam roundCorner 12
+title 3.3 Synchronizácia s KUKA FM
+actor "Plánovač\n(pri štarte API a každých 5 s)" as Scheduler #E5F6ED
+actor "KUKA FM\n(podporný aktér)" as Kuka #E5F6ED
+rectangle "Synchronizačná služba middlewaru" {
+  usecase "UC5\nSynchronizovať stav misií" as UC5 #EAF3FF
+  usecase "UC7\nSynchronizovať stav robotov" as UC7 #EAF3FF
+}
+Scheduler -- UC5
+Scheduler -- UC7
+UC5 -- Kuka : jobQuery
+UC7 -- Kuka : robotQuery
+@enduml

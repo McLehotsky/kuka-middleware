@@ -1,0 +1,32 @@
+@startuml
+skinparam shadowing false
+skinparam defaultFontName Segoe UI
+skinparam defaultFontColor #14243A
+skinparam defaultFontSize 16
+skinparam ArrowColor #607590
+skinparam roundCorner 9
+title 1. Ciele a stav
+left to right direction
+package "Východiskový stav" {
+  rectangle "Operátor" as OldOperator #E5F6ED
+  rectangle "ERP / WMS / PLM" as OldERP #EEF2F7
+  rectangle "KUKA FM UI" as OldKuka #EAF3FF
+  OldOperator --> OldKuka
+  OldERP ..x OldKuka : bez prepojenia
+}
+package "Cieľový stav" {
+  rectangle "Operátor" as Operator #E5F6ED
+  rectangle "Externý systém" as External #E5F6ED
+  rectangle "Middleware" {
+    rectangle "Webové rozhranie\nnginx + Vue" as Web #EAF3FF
+    rectangle "Middleware API" as Api #EAF3FF
+    database "PostgreSQL" as Db #FFF5DA
+  }
+  rectangle "KUKA FM" as Kuka #EAF3FF
+  Operator --> Web : HTTP
+  External --> Web : REST
+  Web --> Api : /api
+  Api --> Db : SQL
+  Api --> Kuka : HTTPS
+}
+@enduml

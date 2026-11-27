@@ -1,0 +1,17 @@
+@startuml
+left to right direction
+skinparam shadowing false
+skinparam defaultFontName Segoe UI
+skinparam defaultFontColor #14243A
+skinparam ArrowColor #607590
+skinparam roundCorner 12
+title 3.2 Prehľad robotov
+actor "Operátor\n(webové UI)" as Operator #E5F6ED
+rectangle "KUKA Middleware" {
+  usecase "UC6\nZobraziť zoznam robotov" as UC6 #EAF3FF
+}
+Operator -- UC6
+legend bottom
+  UC6 číta len vlastnú DB. Aktuálnosť zabezpečuje UC7.
+endlegend
+@enduml

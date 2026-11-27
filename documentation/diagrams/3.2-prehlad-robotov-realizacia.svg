@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="346" viewBox="0 0 1180 346" role="img" aria-labelledby="diagram-title" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif">
+  <title id="diagram-title">3.2 Prehľad robotov</title>
+  <g>
+    <rect x="0" y="0" width="1180" height="346" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.35"/>
+    <text x="38" y="56" fill="#14243A" font-size="32" font-weight="700" text-anchor="start">3.2 Prehľad robotov</text>
+    <path d="M38,81 L1142,81" fill="none" stroke="#E1E9F2" stroke-width="1" stroke-linecap="round"/>
+    <rect x="335" y="103" width="538" height="176" rx="13" fill="#F8FAFD" stroke="#D7E1ED" stroke-width="1.35"/>
+    <text x="359" y="133" fill="#415570" font-size="16" font-weight="700" text-anchor="start">KUKA Middleware</text>
+    <path d="M167,208 L429,208" fill="none" stroke="#607590" stroke-width="1.55" stroke-linecap="round"/>
+    <circle cx="153" cy="189" r="7.5" fill="#E5F6ED" stroke="#428063" stroke-width="1.55"/>
+    <path d="M153,198 L153,220" fill="none" stroke="#428063" stroke-width="1.75" stroke-linecap="round"/>
+    <path d="M139,208 L167,208" fill="none" stroke="#428063" stroke-width="1.75" stroke-linecap="round"/>
+    <path d="M142,235 L153,220" fill="none" stroke="#428063" stroke-width="1.75" stroke-linecap="round"/>
+    <path d="M153,220 L164,235" fill="none" stroke="#428063" stroke-width="1.75" stroke-linecap="round"/>
+    <text x="153" y="256" fill="#1A5942" font-size="16" font-weight="700" text-anchor="middle">Operátor</text>
+    <text x="153" y="276" fill="#415570" font-size="14" font-weight="400" text-anchor="middle">webové UI</text>
+    <ellipse cx="605" cy="208" rx="176" ry="35" fill="#EAF3FF" stroke="#78A6E0" stroke-width="1.45"/>
+    <text x="605" y="203" fill="#17467D" font-size="14" font-weight="700" text-anchor="middle">UC6</text>
+    <text x="605" y="225" fill="#14243A" font-size="18" font-weight="600" text-anchor="middle">Zobraziť zoznam robotov</text>
+    <text x="335" y="312" fill="#415570" font-size="14" font-weight="400" text-anchor="start">UC6 číta len vlastnú DB. Aktuálnosť zabezpečuje UC7.</text>
+  </g>
+</svg>

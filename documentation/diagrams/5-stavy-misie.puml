@@ -1,0 +1,40 @@
+@startuml
+skinparam shadowing false
+skinparam defaultFontName Segoe UI
+skinparam defaultFontColor #14243A
+skinparam defaultFontSize 16
+skinparam ArrowColor #607590
+skinparam roundCorner 9
+title Stavy misie
+hide empty description
+state "Aktívne stavy · UC5" as Active {
+  state Submitted #EAF3FF
+  state InProgress #EAF3FF
+  state Cancelling #FFF5DA
+  Submitted --> InProgress : jobQuery 20, 25, 50
+  Submitted --> Cancelling : UC2 / jobQuery 28
+  InProgress --> Cancelling : UC2 / jobQuery 28
+}
+state Failed #FDEBED
+state Completed #E5F6ED
+state Cancelled #EEF2F7
+[*] --> Created : POST /api/missions
+Created --> Submitted : submitMission OK
+Created --> Cancelling : UC2
+Created --> Failed : submitMission chyba
+Active --> Completed : jobQuery [30, 35]
+Active --> Cancelled : jobQuery [31]
+Active --> Failed : jobQuery [60]
+legend bottom right
+  <b>Kódy a farby stavov</b>
+Čísla v hranatých zátvorkách a pri jobQuery označujú kódy stavu jobu z KUKA FM.
+Prehľad kódov je v tabuľke pod diagramom.
+UC2 = zrušenie misie operátorom alebo externým systémom.
+  |<#FFFFFF>    | Nový (Created) |
+  |<#EAF3FF>    | Aktívny (Submitted, InProgress) |
+  |<#FFF5DA>    | Rušenie (Cancelling) |
+  |<#E5F6ED>    | Dokončené (Completed) |
+  |<#FDEBED>    | Chyba (Failed) |
+  |<#EEF2F7>    | Zrušené (Cancelled) |
+endlegend
+@enduml
