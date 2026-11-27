@@ -4,6 +4,8 @@ date: 2026-11-27
 phase: 9
 backlog: ["Epic – documentation of the realized solution"]
 agents: [main session, user]
+pr: 20
+pr_url: https://github.com/McLehotsky/kuka-middleware/pull/20
 ---
 
 # As-built ERD and explicit exits from active mission states
