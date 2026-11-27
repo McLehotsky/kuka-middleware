@@ -17,7 +17,7 @@
 | 1. Ciele a stav | prepísané |
 | 2. Požiadavky | prepísané |
 | 3. Prípady použitia | hotové |
-| 4. Diagramy aktivít | hotové, doplnené diagramy realizácie |
+| 4. Diagramy aktivít | hotové, diagramy podľa realizácie |
 | 5. Dátový model (ERD) | hotové, doplnené mapovanie stavov KUKA FM |
 | 6. Návrh view aplikácie | hotové, doplnené rozdiely oproti mockupom |
 | 7. Technológie | prepísané, doplnené verzie |
@@ -275,99 +275,51 @@ flowchart LR
 
 ## 4. Procesný diagram / diagram aktivít
 
-  
-
 > Zadanie: diagramy zachytávajú procesný tok pre jednotlivé prípady použitia.
-
-  
 
 ### 4.0 Spoločný podproces – volanie KUKA FM s overením tokenu *(NFR3, NFR4)*
 
-  
-
 Každé volanie na KUKA FM (UC1, UC2, UC5, UC7) prechádza týmto podprocesom.
 
-  
-
-![4.0-kuka-token.svg](/.attachments/4.0-kuka-token-a722b549-e5a1-45a9-b3b3-b1c8499bbfe7.svg)
-
-  
-
-> Pozn.: pri opakovanej odpovedi 401 sa token obnoví najviac raz, aby nevznikol nekonečný cyklus.
+![4.0 – volanie KUKA FM, realizácia](diagrams/4.0-kuka-token-realizacia.svg)
 
 > **Realizácia (podľa plnej príručky KUKA.AMR Fleet 2.15, kap. 4.7):** access token sa generuje **ručne vo webovom UI KUKA FM** (Interface Platform → Authentication → „Generate an Access Token“), je viazaný na používateľský účet. Účet s priradeným tokenom ho môže zobraziť po overení hesla. Príručka neuvádza API na vydanie ani obnovu tokenu. Kroky cache a obnovy tokenu z návrhu preto nie sú uplatniteľné a middleware používa **token z konfigurácie** `KukaFm:AccessToken` (voliteľný). Ak je nastavený, posiela sa v hlavičke `Authorization` bez schémy (bez `Bearer`). Odpoveď **401 sa zaloguje ako chyba autentifikácie a volanie zlyhá bez opakovania** (UC1/UC2 → 502, synchronizácia → ďalší cyklus). Pri odpovedi 401 operátor overí token priradený k účtu v UI KUKA FM a skontroluje hodnotu v konfigurácii. V laboratóriu odpovedali jobQuery a robotQuery aj bez tokenu. Token sa nikdy nezapisuje do logov (sekcia 9.2).
->
-> ![4.0 – volanie KUKA FM, realizácia](diagrams/4.0-kuka-token-realizacia.svg)
-
-  
 
 ### 4.1 UC1 – Zadať misiu
 
-  
-![4.1-uc01-zadat-misiu.svg](/.attachments/4.1-uc01-zadat-misiu-076b51ee-e44c-461d-94d4-30fcbde1121e.svg)
+![4.1 – UC1 Zadať misiu, realizácia](diagrams/4.1-uc01-zadat-misiu-realizacia.svg)
 
 > **Realizácia:** misia sa najprv uloží ako `Created` s prvým záznamom histórie, potom sa zavolá `submitMission`. Úspech → `Submitted` a 201 s `id` a `missionCode`; odmietnutie alebo nedostupnosť KUKA FM → `Failed` a 502 s `missionId`. Validácia vyžaduje aspoň 2 kroky, `ROLLER_MOVE` vráti 400 (Q19). Každý pokus sa zapíše do `AuditLog`.
->
-> ![4.1 – UC1 Zadať misiu, realizácia](diagrams/4.1-uc01-zadat-misiu-realizacia.svg)
-
-  
 
 ### 4.2 UC2 – Zrušiť misiu
 
-  
-![4.2-uc02-zrusit-misiu.svg](/.attachments/4.2-uc02-zrusit-misiu-f4bb03f3-dd12-4cb9-8b33-8a0812a9d6dd.svg)
+![4.2 – UC2 Zrušiť misiu, realizácia](diagrams/4.2-uc02-zrusit-misiu-realizacia.svg)
 
-  
-
-> Pozn.: finálny stav *Cancelled* potvrdí až synchronizácia (UC5), keď ho KUKA FM vráti.
-
-> **Realizácia:** úspešné zrušenie vracia **200** so súhrnom misie (nie 202 ako v pôvodnom diagrame). Zrušiť sa dá aj misia v stave `Created`. Volá sa operácia KUKA FM `missionCancel` s režimom `FORCE`; chyba KUKA FM → 502. Pri konflikte verzie riadku `xmin`, ktorý spôsobil len zápis synchronizácie, sa uloženie stavu `Cancelling` po opätovnom načítaní raz zopakuje (KUKA FM sa znova nevolá); ak sa stav naozaj zmenil, vráti sa 409.
+> **Realizácia:** úspešné zrušenie vracia **200** so súhrnom misie. Zrušiť sa dá aj misia v stave `Created`. Volá sa operácia KUKA FM `missionCancel` s režimom `FORCE`; chyba KUKA FM → 502. Pri konflikte verzie riadku `xmin`, ktorý spôsobil len zápis synchronizácie, sa uloženie stavu `Cancelling` po opätovnom načítaní raz zopakuje (KUKA FM sa znova nevolá); ak sa stav naozaj zmenil, vráti sa 409.
 >
-> ![4.2 – UC2 Zrušiť misiu, realizácia](diagrams/4.2-uc02-zrusit-misiu-realizacia.svg)
-
-  
+> Pozn.: finálny stav *Cancelled* potvrdí až synchronizácia (UC5), keď ho KUKA FM vráti.
 
 ### 4.3 UC3 / UC4 / UC6 – Zobrazenie misií, histórie a robotov
 
-  
+Čítanie ide výhradne z vlastnej DB, KUKA FM sa nevolá. Real-time aktualizácia je riešená periodickým obnovovaním UI.
 
-Čítanie ide výhradne z vlastnej DB, KUKA FM sa nevolá. Real-time aktualizácia je riešená periodickým obnovovaním UI (alternatívne SignalR push).
-
-  
-![4.3-uc03-uc06-prezeranie.svg](/.attachments/4.3-uc03-uc06-prezeranie-b4087002-d89b-4312-abba-89c449065335.svg)
+![4.3 – UC3, UC4 a UC6 Zobrazenie misií, histórie a robotov, realizácia](diagrams/4.3-uc03-uc06-prezeranie-realizacia.svg)
 
 > **Realizácia:** webové UI načíta údaje hneď a ďalší cyklus spustí 5 s po dokončení predchádzajúceho. Pri UC4 sa detail a história načítajú súbežne. Automatická obnova detailu sa zastaví pri koncovom stave misie alebo pri odpovedi 404. Pri opustení obrazovky sa obnova zastaví a rozpracované požiadavky sa zrušia. Chýbajúci alebo neplatný API kľúč vráti 401. Pre webové UI kľúč dopĺňa nginx (sekcia 9.4).
->
-> ![4.3 – UC3, UC4 a UC6 Zobrazenie misií, histórie a robotov, realizácia](diagrams/4.3-uc03-uc06-prezeranie-realizacia.svg)
-
-  
 
 ### 4.4 UC5 – Synchronizovať stav misií
 
-  
-
-![4.4-uc07-sync-misii.svg](/.attachments/4.4-uc07-sync-misii-2c319451-e65f-4b51-aae3-f3123ff369d8.svg)
+![4.4 – UC5 Synchronizovať stav misií, realizácia](diagrams/4.4-uc07-sync-misii-realizacia.svg)
 
 > **Realizácia:** hneď pri štarte API a potom každých 5 s sa načítajú aktívne misie (`Submitted`, `InProgress`, `Cancelling`) a pre **každú misiu** sa zavolá `jobQuery`. Kód stavu jobu sa namapuje podľa tabuľky v sekcii 5; pri zmene sa aktualizuje `Status`, pridá záznam histórie so zdrojom (`Source`) **`Sync`** a koncový stav nastaví `FinishedAt`. Misia bez robota dostane `RobotId` z odpovede. Neznámy kód alebo nenájdený job → varovanie, stav sa nemení. Každá spracovaná misia dostane `LastSyncedAt`, všetko sa uloží jedným uložením za cyklus; konflikt `xmin` sa preskočí a skúsi v ďalšom cykle.
->
-> ![4.4 – UC5 Synchronizovať stav misií, realizácia](diagrams/4.4-uc07-sync-misii-realizacia.svg)
-
-  
 
 ### 4.5 UC7 – Synchronizovať stav robotov
 
-  
+![4.5 – UC7 Synchronizovať stav robotov, realizácia](diagrams/4.5-uc08-sync-robotov-realizacia.svg)
 
-![4.5-uc08-sync-robotov.svg](/.attachments/4.5-uc08-sync-robotov-618d0066-8666-4c2f-9948-3f78d668d86d.svg)
-
-> **Realizácia:** stav robota sa mapuje len na `Available`, `Busy` a `Offline` – **stav `Error` sa nepoužíva** (tabuľka v sekcii 5). Synchronizácia beží pri štarte API a potom každých 5 s. Neznámy stav → varovanie, riadok sa nemení; roboty, ktoré v odpovedi chýbajú, ostanú nezmenené. `LastSeenAt` sa nastaví len vtedy, keď robot nie je Offline; Offline robot si ponechá poslednú batériu a uzol.
->
-> ![4.5 – UC7 Synchronizovať stav robotov, realizácia](diagrams/4.5-uc08-sync-robotov-realizacia.svg)
-  
+> **Realizácia:** stav robota sa mapuje len na `Available`, `Busy` a `Offline` (tabuľka v sekcii 5). Synchronizácia beží pri štarte API a potom každých 5 s. Neznámy stav → varovanie, riadok sa nemení; roboty, ktoré v odpovedi chýbajú, ostanú nezmenené. `LastSeenAt` sa nastaví len vtedy, keď robot nie je Offline; Offline robot si ponechá poslednú batériu a uzol.
 
 ---
-
-  
 
 ## 5. Dátový model (ERD)
 
