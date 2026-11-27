@@ -1,154 +1,172 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="1590" viewBox="0 0 1120 1590" role="img" aria-labelledby="diagram-title" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif">
-  <title id="diagram-title">CI/CD – Azure Pipelines</title>
+<svg xmlns="http://www.w3.org/2000/svg" width="1290" height="1703" viewBox="0 0 1290 1703" role="img" aria-labelledby="diagram-title" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif">
+  <title id="diagram-title">9.6 CI/CD – Azure Pipelines</title>
   <g>
-    <rect x="0" y="0" width="1120" height="1590" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.35"/>
-    <polyline points="48,83 1072,83" fill="none" stroke="#DFE7F0" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-    <rect x="36" y="104" width="1048" height="127" rx="13" fill="#F2F5F8" stroke="none" stroke-width="1.35"/>
-    <rect x="55" y="128" width="25" height="3" rx="1.5" fill="#92A4B8" stroke="none" stroke-width="1.35"/>
-    <rect x="36" y="245" width="1048" height="583" rx="13" fill="#F1F7FE" stroke="none" stroke-width="1.35"/>
-    <rect x="55" y="269" width="25" height="3" rx="1.5" fill="#75A6DF" stroke="none" stroke-width="1.35"/>
-    <rect x="36" y="842" width="1048" height="725" rx="13" fill="#FFF7EF" stroke="none" stroke-width="1.35"/>
-    <rect x="55" y="866" width="25" height="3" rx="1.5" fill="#DAA376" stroke="none" stroke-width="1.35"/>
+    <rect x="0" y="0" width="1290" height="1703" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.35"/>
+    <rect x="34" y="98" width="183" height="1571" rx="0" fill="#FAFBFC" stroke="none" stroke-width="1.35"/>
+    <rect x="34" y="98" width="183" height="49" rx="0" fill="#F2F5F9" stroke="none" stroke-width="1.35"/>
+    <polyline points="34,98 34,1669" fill="none" stroke="#D7E1ED" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="217" y="98" width="373" height="1571" rx="0" fill="#F7FAFF" stroke="none" stroke-width="1.35"/>
+    <rect x="217" y="98" width="373" height="49" rx="0" fill="#E7F1FE" stroke="none" stroke-width="1.35"/>
+    <polyline points="217,98 217,1669" fill="none" stroke="#D7E1ED" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="590" y="98" width="418" height="1571" rx="0" fill="#FFFAF6" stroke="none" stroke-width="1.35"/>
+    <rect x="590" y="98" width="418" height="49" rx="0" fill="#FAECDF" stroke="none" stroke-width="1.35"/>
+    <polyline points="590,98 590,1669" fill="none" stroke="#D7E1ED" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="1008" y="98" width="248" height="1571" rx="0" fill="#FCFAFE" stroke="none" stroke-width="1.35"/>
+    <rect x="1008" y="98" width="248" height="49" rx="0" fill="#F0EBF7" stroke="none" stroke-width="1.35"/>
+    <polyline points="1008,98 1008,1669" fill="none" stroke="#D7E1ED" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="34,98 1256,98 1256,1669 34,1669" fill="none" stroke="#D7E1ED" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="34,147 1256,147" fill="none" stroke="#D7E1ED" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
   <g>
-    <polyline points="640,133.5 640.0,148.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="640,156 636.30,147.50 643.70,147.50" fill="#607590"/>
-    <polyline points="640,204 640.0,276.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="640,284 636.30,275.50 643.70,275.50" fill="#607590"/>
-    <polyline points="432,289 432.0,303.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="432,311 428.30,302.50 435.70,302.50" fill="#607590"/>
-    <polyline points="432,359 432.0,374.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="432,382 428.30,373.50 435.70,373.50" fill="#607590"/>
-    <polyline points="842,289 842.0,303.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="842,311 838.30,302.50 845.70,302.50" fill="#607590"/>
-    <polyline points="842,359 842.0,374.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="842,382 838.30,373.50 845.70,373.50" fill="#607590"/>
-    <polyline points="432,430 432.0,508.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="432,516 428.30,507.50 435.70,507.50" fill="#607590"/>
-    <polyline points="842,430 842.0,439.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="842,447 838.30,438.50 845.70,438.50" fill="#607590"/>
-    <polyline points="842,495 842.0,508.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="842,516 838.30,507.50 845.70,507.50" fill="#607590"/>
-    <polyline points="640,521 640.0,536.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="640,544 636.30,535.50 643.70,535.50" fill="#607590"/>
-    <polyline points="547.5,585 390,585 390.0,617.0" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="390,624.5 386.30,616.00 393.70,616.00" fill="#607590"/>
-    <polyline points="390,691.5 390.0,696.0" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="390,703.5 386.30,695.00 393.70,695.00" fill="#607590"/>
-    <polyline points="732.5,585 806,585 806.0,612.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="806,620 802.30,611.50 809.70,611.50" fill="#607590"/>
-    <polyline points="719,661 628,661 628.0,711.0" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="628,718.5 624.30,710.00 631.70,710.00" fill="#607590"/>
-    <polyline points="628,785.5 628.0,789.0" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="628,796.5 624.30,788.00 631.70,788.00" fill="#607590"/>
-    <polyline points="806,702 806.0,759.0" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="806,766.5 802.30,758.00 809.70,758.00" fill="#607590"/>
-    <polyline points="893,661 993,661 993,855 690,855 690.0,857.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="690,865 686.30,856.50 693.70,856.50" fill="#607590"/>
-    <polyline points="690,913 690.0,919.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="690,927 686.30,918.50 693.70,918.50" fill="#607590"/>
-    <polyline points="690,975 690.0,981.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="690,989 686.30,980.50 693.70,980.50" fill="#607590"/>
-    <polyline points="690,1037 690.0,1043.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="690,1051 686.30,1042.50 693.70,1042.50" fill="#607590"/>
-    <polyline points="690,1099 690.0,1105.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="690,1113 686.30,1104.50 693.70,1104.50" fill="#607590"/>
-    <polyline points="690,1161 690.0,1169.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="690,1177 686.30,1168.50 693.70,1168.50" fill="#607590"/>
-    <polyline points="580,1221 513,1221 513.0,1250.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="513,1258 509.30,1249.50 516.70,1249.50" fill="#607590"/>
-    <polyline points="800,1221 943,1221 943.0,1272.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="943,1280 939.30,1271.50 946.70,1271.50" fill="#607590"/>
-    <polyline points="390.5,1305 383,1305 383.0,1362.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="383,1370 379.30,1361.50 386.70,1361.50" fill="#607590"/>
-    <polyline points="635.5,1305 660,1305 660.0,1362.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="660,1370 656.30,1361.50 663.70,1361.50" fill="#607590"/>
-    <polyline points="383,1418 383,1446 674.5,1446.0" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="682,1446 673.50,1449.70 673.50,1442.30" fill="#607590"/>
-    <polyline points="660,1418 660,1428 690,1428 690.0,1430.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="690,1438 686.30,1429.50 693.70,1429.50" fill="#607590"/>
-    <polyline points="943,1328 943,1446 705.5,1446.0" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="698,1446 706.50,1442.30 706.50,1449.70" fill="#607590"/>
-    <polyline points="690,1454 690.0,1461.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="690,1469 686.30,1460.50 693.70,1460.50" fill="#607590"/>
-    <polyline points="690,1529 690.0,1532.0" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="690,1539.5 686.30,1531.00 693.70,1531.00" fill="#607590"/>
+    <polyline points="126,186.5 126,192.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="126,200 122.30,191.50 129.70,191.50" fill="#607590"/>
+    <polyline points="202.5,232 282.5,232" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="290,232 281.50,235.70 281.50,228.30" fill="#607590"/>
+    <polyline points="404,264 404,278.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="404,286 400.30,277.50 407.70,277.50" fill="#607590"/>
+    <polyline points="314,291 314,300.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="314,308 310.30,299.50 317.70,299.50" fill="#607590"/>
+    <polyline points="314,372 314,384.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="314,392 310.30,383.50 317.70,383.50" fill="#607590"/>
+    <polyline points="494,291 494,300.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="494,308 490.30,299.50 497.70,299.50" fill="#607590"/>
+    <polyline points="494,372 494,384.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="494,392 490.30,383.50 497.70,383.50" fill="#607590"/>
+    <polyline points="314,456 314,545.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="314,553 310.30,544.50 317.70,544.50" fill="#607590"/>
+    <polyline points="494,456 494,471.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="494,479 490.30,470.50 497.70,470.50" fill="#607590"/>
+    <polyline points="494,525 494,545.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="494,553 490.30,544.50 497.70,544.50" fill="#607590"/>
+    <polyline points="404,558 404,572.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="404,580 400.30,571.50 407.70,571.50" fill="#607590"/>
+    <polyline points="490,620 1016.5,620" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="1024,620 1015.50,623.70 1015.50,616.30" fill="#607590"/>
+    <polyline points="1132,652 1132,656" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="1132,663.5 1128.30,655.00 1135.70,655.00" fill="#607590"/>
+    <polyline points="404,660 404,681.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="404,689 400.30,680.50 407.70,680.50" fill="#607590"/>
+    <polyline points="490,730 1016.5,730" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="1024,730 1015.50,733.70 1015.50,726.30" fill="#607590"/>
+    <polyline points="1132,762 1132,766" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="1132,773.5 1128.30,765.00 1135.70,765.00" fill="#607590"/>
+    <polyline points="318,730 264,730" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="256.5,730 265.00,726.30 265.00,733.70" fill="#607590"/>
+    <polyline points="404,771 404,846 792,846 792,878.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="792,886 788.30,877.50 795.70,877.50" fill="#607590"/>
+    <polyline points="792,932 792,944.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="792,952 788.30,943.50 795.70,943.50" fill="#607590"/>
+    <polyline points="792,998 792,1010.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="792,1018 788.30,1009.50 795.70,1009.50" fill="#607590"/>
+    <polyline points="792,1064 792,1076.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="792,1084 788.30,1075.50 795.70,1075.50" fill="#607590"/>
+    <polyline points="792,1130 792,1142.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="792,1150 788.30,1141.50 795.70,1141.50" fill="#607590"/>
+    <polyline points="792,1196 792,1211.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="792,1219 788.30,1210.50 795.70,1210.50" fill="#607590"/>
+    <polyline points="896,1260 911,1260 911,1285.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="911,1293 907.30,1284.50 914.70,1284.50" fill="#607590"/>
+    <polyline points="792,1301 792,1318 720,1318 720,1325" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="720,1332.5 716.30,1324.00 723.70,1324.00" fill="#607590"/>
+    <polyline points="598.5,1376 611,1376 611,1420 661,1420 661,1430.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="661,1438 657.30,1429.50 664.70,1429.50" fill="#607590"/>
+    <polyline points="841.5,1376 885,1376 885,1421.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="885,1429 881.30,1420.50 888.70,1420.50" fill="#607590"/>
+    <polyline points="661,1484 661,1520 776.5,1520" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="784,1520 775.50,1523.70 775.50,1516.30" fill="#607590"/>
+    <polyline points="885,1493 885,1499 792,1499 792,1504.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="792,1512 788.30,1503.50 795.70,1503.50" fill="#607590"/>
+    <polyline points="994,1316 999,1316 999,1520 807.5,1520" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="800,1520 808.50,1516.30 808.50,1523.70" fill="#607590"/>
+    <polyline points="792,1528 792,1531.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="792,1539 788.30,1530.50 795.70,1530.50" fill="#607590"/>
+    <polyline points="792,1603 792,1612" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="792,1619.5 788.30,1611.00 795.70,1611.00" fill="#607590"/>
   </g>
   <g>
-    <circle cx="640" cy="126" r="7.5" fill="#14243A"/>
-    <rect x="472.5" y="156.0" width="335" height="48" rx="9" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
-    <text x="640" y="186.0" fill="#14243A" text-anchor="middle" font-size="17" font-weight="600">Push alebo pull request na GitHub</text>
-    <rect x="432" y="284" width="410" height="5" rx="2.5" fill="#14243A" stroke="none" stroke-width="1.35"/>
-    <rect x="298.5" y="311.0" width="267" height="48" rx="9" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
-    <text x="432" y="341.0" fill="#14243A" text-anchor="middle" font-size="17" font-weight="600">Backend: build + analýza + testy</text>
-    <rect x="687.0" y="311.0" width="310" height="48" rx="9" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
-    <text x="842" y="341.0" fill="#14243A" text-anchor="middle" font-size="17" font-weight="600">Frontend: typecheck + lint + testy</text>
-    <rect x="308.0" y="382.0" width="248" height="48" rx="9" fill="#EEF2F7" stroke="#ABB9C9" stroke-width="1.35"/>
-    <text x="432" y="412.0" fill="#314760" text-anchor="middle" font-size="17" font-weight="600">Publikovať výsledky testov</text>
-    <rect x="718.0" y="382.0" width="248" height="48" rx="9" fill="#EEF2F7" stroke="#ABB9C9" stroke-width="1.35"/>
-    <text x="842" y="412.0" fill="#314760" text-anchor="middle" font-size="17" font-weight="600">Publikovať výsledky testov</text>
-    <rect x="738.5" y="447.0" width="207" height="48" rx="9" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
-    <text x="842" y="477.0" fill="#14243A" text-anchor="middle" font-size="17" font-weight="600">Build frontendu</text>
-    <rect x="432" y="516" width="410" height="5" rx="2.5" fill="#14243A" stroke="none" stroke-width="1.35"/>
-    <polygon points="640,544.0 732.5,585 640,626.0 547.5,585" fill="#F1EDFA" stroke="#A197C4" stroke-width="1.45" stroke-linejoin="round"/>
-    <text x="640" y="590.5" fill="#422E6D" text-anchor="middle" font-size="15" font-weight="600">CI úspešné?</text>
-    <rect x="264.0" y="624.5" width="252" height="67" rx="9" fill="#FDEBED" stroke="#D78A94" stroke-width="1.35"/>
-    <text x="390" y="654" fill="#8A3042" text-anchor="middle" font-size="17" font-weight="600">Status check zlyhal</text>
-    <text x="390" y="675" fill="#8A3042" text-anchor="middle" font-size="14" font-weight="400">Pri PR je zlúčenie zablokované</text>
-    <circle cx="390" cy="714" r="10.5" fill="#FFFFFF" stroke="#14243A" stroke-width="1.65"/>
-    <circle cx="390" cy="714" r="5.8" fill="#14243A"/>
-    <polygon points="806,620.0 893.0,661 806,702.0 719.0,661" fill="#F1EDFA" stroke="#A197C4" stroke-width="1.45" stroke-linejoin="round"/>
-    <text x="806" y="666.5" fill="#422E6D" text-anchor="middle" font-size="15" font-weight="600">Typ behu?</text>
-    <rect x="507.0" y="718.5" width="242" height="67" rx="9" fill="#E5F6ED" stroke="#70AC91" stroke-width="1.35"/>
-    <text x="628" y="748" fill="#1A5942" text-anchor="middle" font-size="17" font-weight="600">Status check úspešný</text>
-    <text x="628" y="769" fill="#1A5942" text-anchor="middle" font-size="14" font-weight="400">PR možno zlúčiť</text>
-    <circle cx="628" cy="807" r="10.5" fill="#FFFFFF" stroke="#14243A" stroke-width="1.65"/>
-    <circle cx="628" cy="807" r="5.8" fill="#14243A"/>
-    <circle cx="806" cy="777" r="10.5" fill="#FFFFFF" stroke="#14243A" stroke-width="1.65"/>
-    <circle cx="806" cy="777" r="5.8" fill="#14243A"/>
-    <rect x="522.0" y="865.0" width="336" height="48" rx="9" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
-    <text x="690" y="895.0" fill="#14243A" text-anchor="middle" font-size="17" font-weight="600">Kontrola: vetva main, Docker beží</text>
-    <rect x="543.5" y="927.0" width="293" height="48" rx="9" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
-    <text x="690" y="957.0" fill="#14243A" text-anchor="middle" font-size="17" font-weight="600">Overiť premenné pipeline</text>
-    <rect x="543.5" y="989.0" width="293" height="48" rx="9" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
-    <text x="690" y="1019.0" fill="#14243A" text-anchor="middle" font-size="17" font-weight="600">Skopírovať kód do DeployPath</text>
-    <rect x="559.5" y="1051.0" width="261" height="48" rx="9" fill="#FFF5DA" stroke="#CEAA55" stroke-width="1.35"/>
-    <text x="690" y="1081.0" fill="#63460F" text-anchor="middle" font-size="17" font-weight="600">Doplniť .env.prod</text>
-    <rect x="543.5" y="1113.0" width="293" height="48" rx="9" fill="#EAF3FF" stroke="#78A6E0" stroke-width="1.35"/>
-    <text x="690" y="1143.0" fill="#17467D" text-anchor="middle" font-size="17" font-weight="600">docker compose build + up</text>
-    <polygon points="690,1177.0 800.0,1221 690,1265.0 580.0,1221" fill="#F1EDFA" stroke="#A197C4" stroke-width="1.45" stroke-linejoin="round"/>
-    <text x="690" y="1217.75" fill="#422E6D" text-anchor="middle" font-size="15" font-weight="600">Kroky nasadenia</text>
-    <text x="690" y="1235.25" fill="#422E6D" text-anchor="middle" font-size="15" font-weight="600">úspešné?</text>
-    <polygon points="513,1258.0 635.5,1305 513,1352.0 390.5,1305" fill="#F1EDFA" stroke="#A197C4" stroke-width="1.45" stroke-linejoin="round"/>
-    <text x="513" y="1301.75" fill="#422E6D" text-anchor="middle" font-size="15" font-weight="600">Smoke test</text>
-    <text x="513" y="1319.25" fill="#422E6D" text-anchor="middle" font-size="15" font-weight="600">web, /api/health, Seq</text>
-    <rect x="305.5" y="1370.0" width="155" height="48" rx="9" fill="#E5F6ED" stroke="#70AC91" stroke-width="1.35"/>
-    <text x="383" y="1400.0" fill="#1A5942" text-anchor="middle" font-size="17" font-weight="600">Nasadené</text>
-    <rect x="537.0" y="1370.0" width="246" height="48" rx="9" fill="#FDEBED" stroke="#D78A94" stroke-width="1.35"/>
-    <text x="660" y="1400.0" fill="#8A3042" text-anchor="middle" font-size="17" font-weight="600">Výpis logov → pipeline zlyhala</text>
-    <rect x="845.0" y="1280.0" width="196" height="48" rx="9" fill="#FDEBED" stroke="#D78A94" stroke-width="1.35"/>
-    <text x="943" y="1310.0" fill="#8A3042" text-anchor="middle" font-size="17" font-weight="600">Pipeline zlyhala</text>
-    <path d="M690 1438 l8 8 -8 8 -8 -8 Z" fill="#E8EEF6" stroke="#607590" stroke-width="1.35" stroke-linejoin="round"/>
-    <rect x="502" y="1469" width="376" height="60" rx="9" fill="#EEF2F7" stroke="#ABB9C9" stroke-width="1.35"/>
-    <text x="690" y="1494" fill="#314760" text-anchor="middle" font-size="17" font-weight="600">Vyčistiť build cache</text>
-    <text x="690" y="1515" fill="#314760" text-anchor="middle" font-size="17" font-weight="600">Odstrániť nepoužívané obrazy bez značky</text>
-    <circle cx="690" cy="1550" r="10.5" fill="#FFFFFF" stroke="#14243A" stroke-width="1.65"/>
-    <circle cx="690" cy="1550" r="5.8" fill="#14243A"/>
+    <circle cx="126" cy="179" r="7.5" fill="#14243A"/>
+    <rect x="49.5" y="200.0" width="153" height="64" rx="9" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
+    <text x="126" y="226.5" fill="#14243A" font-size="17" font-weight="600" text-anchor="middle">Push alebo</text>
+    <text x="126" y="247.5" fill="#14243A" font-size="17" font-weight="600" text-anchor="middle">pull request</text>
+    <rect x="290.0" y="200.0" width="228" height="64" rx="9" fill="#EEF2F7" stroke="#ABB9C9" stroke-width="1.35"/>
+    <text x="404" y="228" fill="#314760" font-size="17" font-weight="600" text-anchor="middle">Spustiť CI</text>
+    <text x="404" y="249" fill="#314760" font-size="14" font-weight="400" text-anchor="middle">1 vlastný Windows agent</text>
+    <rect x="314" y="286" width="180" height="5" rx="2" fill="#14243A" stroke="none" stroke-width="1.35"/>
+    <rect x="232.0" y="308.0" width="164" height="64" rx="9" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
+    <text x="314" y="336" fill="#14243A" font-size="17" font-weight="600" text-anchor="middle">Backend</text>
+    <text x="314" y="357" fill="#14243A" font-size="14" font-weight="400" text-anchor="middle">build · analýza · testy</text>
+    <rect x="412.0" y="308.0" width="164" height="64" rx="9" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
+    <text x="494" y="336" fill="#14243A" font-size="17" font-weight="600" text-anchor="middle">Frontend</text>
+    <text x="494" y="357" fill="#14243A" font-size="14" font-weight="400" text-anchor="middle">typecheck · lint · testy</text>
+    <rect x="232.0" y="392.0" width="164" height="64" rx="9" fill="#EEF2F7" stroke="#ABB9C9" stroke-width="1.35"/>
+    <text x="314" y="418.5" fill="#314760" font-size="17" font-weight="600" text-anchor="middle">Publikovať</text>
+    <text x="314" y="439.5" fill="#314760" font-size="17" font-weight="600" text-anchor="middle">výsledky testov</text>
+    <rect x="412.0" y="392.0" width="164" height="64" rx="9" fill="#EEF2F7" stroke="#ABB9C9" stroke-width="1.35"/>
+    <text x="494" y="418.5" fill="#314760" font-size="17" font-weight="600" text-anchor="middle">Publikovať</text>
+    <text x="494" y="439.5" fill="#314760" font-size="17" font-weight="600" text-anchor="middle">výsledky testov</text>
+    <rect x="412.0" y="479.0" width="164" height="46" rx="9" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
+    <text x="494" y="507.0" fill="#14243A" font-size="17" font-weight="600" text-anchor="middle">Build frontendu</text>
+    <rect x="314" y="553" width="180" height="5" rx="2" fill="#14243A" stroke="none" stroke-width="1.35"/>
+    <polygon points="404,580 490,620 404,660 318,620" fill="#F1EDFA" stroke="#A197C4" stroke-width="1.45" stroke-linejoin="round"/>
+    <text x="404" y="625.0" fill="#422E6D" font-size="15" font-weight="600" text-anchor="middle">CI úspešné?</text>
+    <rect x="1024.0" y="588.0" width="216" height="64" rx="9" fill="#FDEBED" stroke="#D78A94" stroke-width="1.35"/>
+    <text x="1132" y="616" fill="#8A3042" font-size="17" font-weight="600" text-anchor="middle">Status check zlyhal</text>
+    <text x="1132" y="637" fill="#8A3042" font-size="14" font-weight="400" text-anchor="middle">PR: zlúčenie blokované</text>
+    <circle cx="1132" cy="674" r="10.5" fill="#FFFFFF" stroke="#14243A" stroke-width="1.65"/>
+    <circle cx="1132" cy="674" r="5.8" fill="#14243A"/>
+    <polygon points="404,689 490,730 404,771 318,730" fill="#F1EDFA" stroke="#A197C4" stroke-width="1.45" stroke-linejoin="round"/>
+    <text x="404" y="735.0" fill="#422E6D" font-size="15" font-weight="600" text-anchor="middle">Typ behu?</text>
+    <rect x="1024.0" y="698.0" width="216" height="64" rx="9" fill="#E5F6ED" stroke="#70AC91" stroke-width="1.35"/>
+    <text x="1132" y="726" fill="#1A5942" font-size="17" font-weight="600" text-anchor="middle">Status check úspešný</text>
+    <text x="1132" y="747" fill="#1A5942" font-size="14" font-weight="400" text-anchor="middle">PR možno zlúčiť</text>
+    <circle cx="1132" cy="784" r="10.5" fill="#FFFFFF" stroke="#14243A" stroke-width="1.65"/>
+    <circle cx="1132" cy="784" r="5.8" fill="#14243A"/>
+    <circle cx="246" cy="730" r="10.5" fill="#FFFFFF" stroke="#14243A" stroke-width="1.65"/>
+    <circle cx="246" cy="730" r="5.8" fill="#14243A"/>
+    <rect x="631.5" y="886.0" width="321" height="46" rx="9" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
+    <text x="792" y="914.0" fill="#14243A" font-size="17" font-weight="600" text-anchor="middle">Kontrola: vetva main, Docker beží</text>
+    <rect x="652.0" y="952.0" width="280" height="46" rx="9" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
+    <text x="792" y="980.0" fill="#14243A" font-size="17" font-weight="600" text-anchor="middle">Overiť premenné pipeline</text>
+    <rect x="652.0" y="1018.0" width="280" height="46" rx="9" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
+    <text x="792" y="1046.0" fill="#14243A" font-size="17" font-weight="600" text-anchor="middle">Skopírovať kód do DeployPath</text>
+    <rect x="668.0" y="1084.0" width="248" height="46" rx="9" fill="#FFF5DA" stroke="#CEAA55" stroke-width="1.35"/>
+    <text x="792" y="1112.0" fill="#63460F" font-size="17" font-weight="600" text-anchor="middle">Doplniť .env.prod</text>
+    <rect x="652.5" y="1150.0" width="279" height="46" rx="9" fill="#EAF3FF" stroke="#78A6E0" stroke-width="1.35"/>
+    <text x="792" y="1178.0" fill="#17467D" font-size="17" font-weight="600" text-anchor="middle">docker compose build + up -d</text>
+    <polygon points="792,1219 896,1260 792,1301 688,1260" fill="#F1EDFA" stroke="#A197C4" stroke-width="1.45" stroke-linejoin="round"/>
+    <text x="792" y="1256.5" fill="#422E6D" font-size="15" font-weight="600" text-anchor="middle">Kroky nasadenia</text>
+    <text x="792" y="1273.5" fill="#422E6D" font-size="15" font-weight="600" text-anchor="middle">úspešné?</text>
+    <rect x="828.0" y="1293.0" width="166" height="46" rx="9" fill="#FDEBED" stroke="#D78A94" stroke-width="1.35"/>
+    <text x="911" y="1321.0" fill="#8A3042" font-size="17" font-weight="600" text-anchor="middle">Pipeline zlyhala</text>
+    <polygon points="720,1332.5 841.5,1376 720,1419.5 598.5,1376" fill="#F1EDFA" stroke="#A197C4" stroke-width="1.45" stroke-linejoin="round"/>
+    <text x="720" y="1372.5" fill="#422E6D" font-size="15" font-weight="600" text-anchor="middle">Smoke test</text>
+    <text x="720" y="1389.5" fill="#422E6D" font-size="15" font-weight="600" text-anchor="middle">web, /api/health, Seq</text>
+    <rect x="600.5" y="1438.0" width="121" height="46" rx="9" fill="#E5F6ED" stroke="#70AC91" stroke-width="1.35"/>
+    <text x="661" y="1466.0" fill="#1A5942" font-size="17" font-weight="600" text-anchor="middle">Nasadené</text>
+    <rect x="779.5" y="1429.0" width="211" height="64" rx="9" fill="#FDEBED" stroke="#D78A94" stroke-width="1.35"/>
+    <text x="885" y="1455.5" fill="#8A3042" font-size="17" font-weight="600" text-anchor="middle">Výpis logov</text>
+    <text x="885" y="1476.5" fill="#8A3042" font-size="17" font-weight="600" text-anchor="middle">Pipeline zlyhala</text>
+    <path d="M792 1512 l8 8 -8 8 -8 -8 Z" fill="#E8EEF6" stroke="#607590" stroke-width="1.35" stroke-linejoin="round"/>
+    <rect x="623.5" y="1539.0" width="337" height="64" rx="9" fill="#EEF2F7" stroke="#ABB9C9" stroke-width="1.35"/>
+    <text x="792" y="1567" fill="#314760" font-size="17" font-weight="600" text-anchor="middle">Vyčistiť build cache</text>
+    <text x="792" y="1588" fill="#314760" font-size="14" font-weight="400" text-anchor="middle">Odstrániť nepoužívané obrazy bez značky</text>
+    <circle cx="792" cy="1630" r="10.5" fill="#FFFFFF" stroke="#14243A" stroke-width="1.65"/>
+    <circle cx="792" cy="1630" r="5.8" fill="#14243A"/>
   </g>
   <g>
-    <text x="48" y="55" fill="#14243A" text-anchor="start" font-size="33" font-weight="700">CI/CD – Azure Pipelines</text>
-    <text x="55" y="158" fill="#14243A" text-anchor="start" font-size="16" font-weight="700">Vývojár</text>
-    <text x="55" y="299" fill="#14243A" text-anchor="start" font-size="16" font-weight="700">CI: kuka-middleware-ci</text>
-    <text x="55" y="322" fill="#415570" text-anchor="start" font-size="13" font-weight="400">1 vlastný Windows agent</text>
-    <text x="55" y="896" fill="#14243A" text-anchor="start" font-size="16" font-weight="700">CD: kuka-middleware-cd</text>
-    <text x="476" y="573" fill="#415570" text-anchor="middle" font-size="14" font-weight="600">[nie]</text>
-    <text x="770" y="573" fill="#415570" text-anchor="middle" font-size="14" font-weight="600">[áno]</text>
-    <text x="675" y="650" fill="#415570" text-anchor="middle" font-size="14" font-weight="600">[PR do main]</text>
-    <text x="820" y="735" fill="#415570" text-anchor="start" font-size="14" font-weight="600">[push do inej vetvy]</text>
-    <text x="955" y="650" fill="#415570" text-anchor="middle" font-size="14" font-weight="600">[push do main]</text>
-    <text x="549" y="1209" fill="#415570" text-anchor="middle" font-size="14" font-weight="600">[áno]</text>
-    <text x="873" y="1209" fill="#415570" text-anchor="middle" font-size="14" font-weight="600">[nie]</text>
-    <text x="371" y="1339" fill="#415570" text-anchor="end" font-size="14" font-weight="600">[OK]</text>
-    <text x="674" y="1338" fill="#415570" text-anchor="start" font-size="14" font-weight="600">[zlyhal]</text>
+    <text x="38" y="58" fill="#14243A" font-size="33" font-weight="700" text-anchor="start">9.6 CI/CD – Azure Pipelines</text>
+    <text x="125.5" y="128" fill="#14243A" font-size="17" font-weight="700" text-anchor="middle">Vývojár</text>
+    <text x="403.5" y="128" fill="#14243A" font-size="17" font-weight="700" text-anchor="middle">CI: kuka-middleware-ci</text>
+    <text x="799.0" y="128" fill="#14243A" font-size="17" font-weight="700" text-anchor="middle">CD: kuka-middleware-cd</text>
+    <text x="1132.0" y="128" fill="#14243A" font-size="17" font-weight="700" text-anchor="middle">GitHub</text>
+    <text x="543" y="609" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">[nie]</text>
+    <text x="422" y="680" fill="#415570" font-size="14" font-weight="600" text-anchor="start">[áno]</text>
+    <text x="543" y="719" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">[PR do main]</text>
+    <text x="293" y="719" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">[iný push]</text>
+    <text x="461" y="835" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">[push do main]</text>
+    <text x="929" y="1278" fill="#415570" font-size="14" font-weight="600" text-anchor="start">[nie]</text>
+    <text x="755" y="1308" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">[áno]</text>
+    <text x="626" y="1407" fill="#415570" font-size="14" font-weight="600" text-anchor="start">[OK]</text>
+    <text x="865" y="1365" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">[zlyhal]</text>
   </g>
 </svg>

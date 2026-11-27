@@ -1,73 +1,74 @@
 @startuml
 skinparam shadowing false
-skinparam roundCorner 9
-skinparam backgroundColor #FFFFFF
+skinparam backgroundColor white
 skinparam defaultFontName Segoe UI
-skinparam defaultFontColor #182338
+skinparam defaultFontColor #14243A
 skinparam defaultFontSize 16
-skinparam titleFontSize 26
-skinparam titleFontColor #182338
-skinparam ArrowColor #46566D
-skinparam ArrowFontColor #26364D
-skinparam ArrowFontSize 14
-skinparam ActivityBorderColor #7B8798
-skinparam ActivityBackgroundColor #F9FBFE
+skinparam titleFontSize 28
+skinparam titleFontColor #14243A
+skinparam roundCorner 9
+skinparam ArrowColor #607590
+skinparam ArrowFontColor #415570
+skinparam ActivityBorderColor #A1B0C2
+skinparam ActivityBackgroundColor #FFFFFF
 skinparam ActivityDiamondBackgroundColor #F1EDFA
 skinparam ActivityDiamondBorderColor #A197C4
-skinparam ActivityDiamondFontSize 15
-skinparam ActivityStartColor #26364D
-skinparam ActivityEndColor #26364D
-skinparam ActivityBarColor #46566D
+skinparam ActivityStartColor #14243A
+skinparam ActivityEndColor #14243A
+skinparam SwimlaneBorderColor #D7E1ED
+skinparam SwimlaneTitleFontSize 17
+skinparam SwimlaneTitleFontStyle bold
 
-title CI/CD <U+2013> Azure Pipelines
-
-partition #F2F5F8 "Vývojár" {
-  start
-  :Push alebo pull request na GitHub;
-}
-
-partition #F1F7FE "CI: kuka-middleware-ci\n1 vlastný Windows agent" {
-  fork
-    :Backend: build + analýza + testy;
-    :Publikovať výsledky testov; <<#EEF2F7>>
-  fork again
-    :Frontend: typecheck + lint + testy;
-    :Publikovať výsledky testov; <<#EEF2F7>>
-    :Build frontendu;
-  end fork
-
-  if (CI úspešné?) then (nie)
-    :Status check zlyhal\nPri PR je zlúčenie zablokované; <<#FDEBED>>
-    stop
-  else (áno)
-  endif
-  switch (Typ behu?)
-  case (PR do main)
-    :Status check úspešný\n→ PR možno zlúčiť; <<#E5F6ED>>
-    stop
-  case (push do inej vetvy)
-    stop
-  case (push do main)
-  endswitch
-}
-
-partition #FFF7EF "CD: kuka-middleware-cd" {
-  :Kontrola: vetva main, Docker beží;
-  :Overiť premenné pipeline;
-  :Skopírovať kód do DeployPath;
-  :Doplniť .env.prod; <<#FFF5DA>>
-  :docker compose build + up; <<#EAF3FF>>
-  if (Kroky nasadenia úspešné?) then (áno)
-    if (Smoke test (web, /api/health, Seq)?) then (OK)
-      :Nasadené; <<#E5F6ED>>
-    else (zlyhal)
-      :Výpis logov → pipeline zlyhala; <<#FDEBED>>
-    endif
-  else (nie)
-    :Pipeline zlyhala; <<#FDEBED>>
-  endif
-  :Vyčistiť build cache\nOdstrániť nepoužívané obrazy bez značky; <<#EEF2F7>>
+title 9.6 CI/CD <U+2013> Azure Pipelines
+|#FAFBFC|Vývojár|
+|#F7FAFF|CI: kuka-middleware-ci|
+|#FFFAF6|CD: kuka-middleware-cd|
+|#FCFAFE|GitHub|
+|Vývojár|
+start
+:Push alebo pull request;
+|CI: kuka-middleware-ci|
+:Spustiť CI\n1 vlastný Windows agent; <<#EEF2F7>>
+fork
+  :Backend\nbuild · analýza · testy;
+  :Publikovať výsledky testov; <<#EEF2F7>>
+fork again
+  :Frontend\ntypecheck · lint · testy;
+  :Publikovať výsledky testov; <<#EEF2F7>>
+  :Build frontendu;
+end fork
+if (CI úspešné?) then (nie)
+  |GitHub|
+  :Status check zlyhal\nPR: zlúčenie blokované; <<#FDEBED>>
   stop
-}
-
+else (áno)
+endif
+|CI: kuka-middleware-ci|
+switch (Typ behu?)
+case (PR do main)
+  |GitHub|
+  :Status check úspešný\nPR možno zlúčiť; <<#E5F6ED>>
+  stop
+case (iný push)
+  |CI: kuka-middleware-ci|
+  stop
+case (push do main)
+endswitch
+|CD: kuka-middleware-cd|
+:Kontrola: vetva main, Docker beží;
+:Overiť premenné pipeline;
+:Skopírovať kód do DeployPath;
+:Doplniť .env.prod; <<#FFF5DA>>
+:docker compose build + up -d; <<#EAF3FF>>
+if (Kroky nasadenia úspešné?) then (áno)
+  if (Smoke test web, /api/health, Seq?) then (OK)
+    :Nasadené; <<#E5F6ED>>
+  else (zlyhal)
+    :Výpis logov\nPipeline zlyhala; <<#FDEBED>>
+  endif
+else (nie)
+  :Pipeline zlyhala; <<#FDEBED>>
+endif
+:Vyčistiť build cache\nOdstrániť nepoužívané obrazy bez značky; <<#EEF2F7>>
+stop
 @enduml

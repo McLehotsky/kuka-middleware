@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1236" height="1512" viewBox="0 0 1236 1512" role="img" aria-labelledby="diagram-title" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif">
+  <title id="diagram-title">4.3 Zobrazenie misií, histórie a robotov – realizácia</title>
+  <g>
+    <rect x="0" y="0" width="1236" height="1512" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.35"/>
+    <rect x="34" y="98" width="414" height="1380" rx="0" fill="#FAFBFC" stroke="none" stroke-width="1.35"/>
+    <rect x="34" y="98" width="414" height="49" rx="0" fill="#F2F5F9" stroke="none" stroke-width="1.35"/>
+    <polyline points="34,98 34,1478" fill="none" stroke="#D7E1ED" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="448" y="98" width="436" height="1380" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.35"/>
+    <rect x="448" y="98" width="436" height="49" rx="0" fill="#EFF3F8" stroke="none" stroke-width="1.35"/>
+    <polyline points="448,98 448,1478" fill="none" stroke="#D7E1ED" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="884" y="98" width="318" height="1380" rx="0" fill="#F7FAFF" stroke="none" stroke-width="1.35"/>
+    <rect x="884" y="98" width="318" height="49" rx="0" fill="#E7F1FE" stroke="none" stroke-width="1.35"/>
+    <polyline points="884,98 884,1478" fill="none" stroke="#D7E1ED" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="34,98 1202,98 1202,1478 34,1478" fill="none" stroke="#D7E1ED" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="34,147 1202,147" fill="none" stroke="#D7E1ED" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g>
+    <polyline points="240,180.5 240,182.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="240,190 236.30,181.50 243.70,181.50" fill="#607590"/>
+    <polyline points="240,254 240,272.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="240,280 236.30,271.50 243.70,271.50" fill="#607590"/>
+    <polyline points="240,296 240,317.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="240,325 236.30,316.50 243.70,316.50" fill="#607590"/>
+    <polyline points="409,397 686,397 686,430.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="686,438 682.30,429.50 689.70,429.50" fill="#607590"/>
+    <polyline points="584,480 535,480 535,507.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="535,515 531.30,506.50 538.70,506.50" fill="#607590"/>
+    <polyline points="686,522 686,563.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="686,571 682.30,562.50 689.70,562.50" fill="#607590"/>
+    <polyline points="464,538 431,538 431,659.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="431,667 427.30,658.50 434.70,658.50" fill="#607590"/>
+    <polyline points="579,613 535,613 535,644.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="535,652 531.30,643.50 538.70,643.50" fill="#607590"/>
+    <polyline points="464,675 446.5,675" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="439,675 447.50,671.30 447.50,678.70" fill="#607590"/>
+    <polyline points="431,683 431,929.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="431,937 427.30,928.50 434.70,928.50" fill="#607590"/>
+    <polyline points="686,655 686,729 900.5,729" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="908,729 899.50,732.70 899.50,725.30" fill="#607590"/>
+    <polyline points="1043,810 1043,843 686,843 686,848.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="686,856 682.30,847.50 689.70,847.50" fill="#607590"/>
+    <polyline points="584.5,898 535,898 535,914.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="535,922 531.30,913.50 538.70,913.50" fill="#607590"/>
+    <polyline points="464,945 446.5,945" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="439,945 447.50,941.30 447.50,948.70" fill="#607590"/>
+    <polyline points="423,945 370.5,945" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="363,945 371.50,941.30 371.50,948.70" fill="#607590"/>
+    <polyline points="117,945 61,945 61,1168 224.5,1168" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="232,1168 223.50,1171.70 223.50,1164.30" fill="#607590"/>
+    <polyline points="686,940 686,978.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="686,986 682.30,977.50 689.70,977.50" fill="#607590"/>
+    <polyline points="530.5,1058 416.5,1058" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="409,1058 417.50,1054.30 417.50,1061.70" fill="#607590"/>
+    <polyline points="240,1135 240,1152.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="240,1160 236.30,1151.50 243.70,1151.50" fill="#607590"/>
+    <polyline points="240,1176 240,1197.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="240,1205 236.30,1196.50 243.70,1196.50" fill="#607590"/>
+    <polyline points="138,1246 110,1246 110,1290.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="110,1298 106.30,1289.50 113.70,1289.50" fill="#607590"/>
+    <polyline points="342,1246 421,1246 421,1392 401,1392" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="393.5,1392 402.00,1388.30 402.00,1395.70" fill="#607590"/>
+    <polyline points="53,1321 47,1321 47,288 224.5,288" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="232,288 223.50,291.70 223.50,284.30" fill="#607590"/>
+    <polyline points="240,1424 240,1431" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="240,1438.5 236.30,1430.00 243.70,1430.00" fill="#607590"/>
+  </g>
+  <g>
+    <circle cx="240" cy="173" r="7.5" fill="#14243A"/>
+    <rect x="89.5" y="190.0" width="301" height="64" rx="9" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
+    <text x="240" y="217" fill="#14243A" font-size="17" font-weight="600" text-anchor="middle">Otvoriť obrazovku</text>
+    <text x="240" y="238" fill="#14243A" font-size="14" font-weight="400" text-anchor="middle">Misie · Detail misie · Roboty</text>
+    <path d="M240 280 l8 8 -8 8 -8 -8 Z" fill="#E8EEF6" stroke="#607590" stroke-width="1.35" stroke-linejoin="round"/>
+    <rect x="71.0" y="325" width="338" height="153" rx="9" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
+    <text x="240" y="350" fill="#14243A" font-size="17" font-weight="600" text-anchor="middle">Odoslať GET podľa obrazovky</text>
+    <polyline points="86,361 394,361" fill="none" stroke="#A1B0C2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="90.0" y="382" fill="#14243A" font-size="13" font-weight="700" text-anchor="start">UC3</text>
+    <text x="135.0" y="382" fill="#14243A" font-size="14" font-weight="400" text-anchor="start">GET /api/missions</text>
+    <text x="90.0" y="405" fill="#14243A" font-size="13" font-weight="700" text-anchor="start">UC4</text>
+    <text x="135.0" y="405" fill="#14243A" font-size="14" font-weight="400" text-anchor="start">GET /api/missions/{id}</text>
+    <text x="90.0" y="428" fill="#14243A" font-size="13" font-weight="700" text-anchor="start"></text>
+    <text x="135.0" y="428" fill="#14243A" font-size="14" font-weight="400" text-anchor="start">GET /api/missions/{id}/history</text>
+    <text x="90.0" y="451" fill="#14243A" font-size="13" font-weight="700" text-anchor="start">UC6</text>
+    <text x="135.0" y="451" fill="#14243A" font-size="14" font-weight="400" text-anchor="start">GET /api/robots</text>
+    <text x="390" y="405" fill="#415570" font-size="13" font-weight="600" text-anchor="end">súbežne</text>
+    <polygon points="686,438 788,480 686,522 584,480" fill="#F1EDFA" stroke="#A197C4" stroke-width="1.45" stroke-linejoin="round"/>
+    <text x="686" y="476.5" fill="#422E6D" font-size="15" font-weight="600" text-anchor="middle">API kľúč</text>
+    <text x="686" y="493.5" fill="#422E6D" font-size="15" font-weight="600" text-anchor="middle">platný?</text>
+    <rect x="464.0" y="515.0" width="142" height="46" rx="9" fill="#FDEBED" stroke="#D78A94" stroke-width="1.35"/>
+    <text x="535" y="543" fill="#8A3042" font-size="15" font-weight="600" text-anchor="middle">401 Unauthorized</text>
+    <polygon points="686,571 793,613 686,655 579,613" fill="#F1EDFA" stroke="#A197C4" stroke-width="1.45" stroke-linejoin="round"/>
+    <text x="686" y="609.5" fill="#422E6D" font-size="15" font-weight="600" text-anchor="middle">UC3: neplatný</text>
+    <text x="686" y="626.5" fill="#422E6D" font-size="15" font-weight="600" text-anchor="middle">parameter state?</text>
+    <rect x="464.0" y="652.0" width="142" height="46" rx="9" fill="#FDEBED" stroke="#D78A94" stroke-width="1.35"/>
+    <text x="535" y="680" fill="#8A3042" font-size="15" font-weight="600" text-anchor="middle">400 Bad Request</text>
+    <path d="M431 667 l8 8 -8 8 -8 -8 Z" fill="#E8EEF6" stroke="#607590" stroke-width="1.35" stroke-linejoin="round"/>
+    <rect x="908.0" y="676" width="270" height="134" rx="9" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
+    <text x="1043" y="701" fill="#14243A" font-size="17" font-weight="600" text-anchor="middle">Načítať údaje z databázy</text>
+    <polyline points="923,712 1163,712" fill="none" stroke="#A1B0C2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="927.0" y="733" fill="#14243A" font-size="13" font-weight="700" text-anchor="start">UC3</text>
+    <text x="972.0" y="733" fill="#14243A" font-size="14" font-weight="400" text-anchor="start">Misie podľa state</text>
+    <text x="927.0" y="756" fill="#14243A" font-size="13" font-weight="700" text-anchor="start">UC4</text>
+    <text x="972.0" y="756" fill="#14243A" font-size="14" font-weight="400" text-anchor="start">Misia, kroky a história</text>
+    <text x="927.0" y="779" fill="#14243A" font-size="13" font-weight="700" text-anchor="start">UC6</text>
+    <text x="972.0" y="779" fill="#14243A" font-size="14" font-weight="400" text-anchor="start">Roboty a neukončené misie</text>
+    <polygon points="686,856 787.5,898 686,940 584.5,898" fill="#F1EDFA" stroke="#A197C4" stroke-width="1.45" stroke-linejoin="round"/>
+    <text x="686" y="894.5" fill="#422E6D" font-size="15" font-weight="600" text-anchor="middle">UC4: misia</text>
+    <text x="686" y="911.5" fill="#422E6D" font-size="15" font-weight="600" text-anchor="middle">chýba?</text>
+    <rect x="464.0" y="922.0" width="142" height="46" rx="9" fill="#FDEBED" stroke="#D78A94" stroke-width="1.35"/>
+    <text x="535" y="950" fill="#8A3042" font-size="15" font-weight="600" text-anchor="middle">404 Not Found</text>
+    <path d="M431 937 l8 8 -8 8 -8 -8 Z" fill="#E8EEF6" stroke="#607590" stroke-width="1.35" stroke-linejoin="round"/>
+    <rect x="117.0" y="922.0" width="246" height="46" rx="9" fill="#FDEBED" stroke="#D78A94" stroke-width="1.35"/>
+    <text x="240" y="950" fill="#8A3042" font-size="17" font-weight="600" text-anchor="middle">Zobraziť chybu</text>
+    <rect x="530.5" y="986" width="311" height="133" rx="9" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
+    <text x="686" y="1011" fill="#14243A" font-size="17" font-weight="600" text-anchor="middle">Zostaviť odpoveď</text>
+    <polyline points="545.5,1022 826.5,1022" fill="none" stroke="#A1B0C2" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="549.5" y="1043" fill="#14243A" font-size="13" font-weight="700" text-anchor="start">UC3</text>
+    <text x="594.5" y="1043" fill="#14243A" font-size="14" font-weight="400" text-anchor="start">Misie od najnovšej</text>
+    <text x="549.5" y="1066" fill="#14243A" font-size="13" font-weight="700" text-anchor="start">UC4</text>
+    <text x="594.5" y="1066" fill="#14243A" font-size="14" font-weight="400" text-anchor="start">História v poradí podľa času</text>
+    <text x="549.5" y="1089" fill="#14243A" font-size="13" font-weight="700" text-anchor="start">UC6</text>
+    <text x="594.5" y="1089" fill="#14243A" font-size="14" font-weight="400" text-anchor="start">Najnovšia neukončená misia robota</text>
+    <rect x="71.0" y="1010" width="338" height="125" rx="9" fill="#E5F6ED" stroke="#70AC91" stroke-width="1.35"/>
+    <text x="240" y="1035" fill="#1A5942" font-size="17" font-weight="600" text-anchor="middle">200 OK · Zobraziť údaje</text>
+    <polyline points="86,1046 394,1046" fill="none" stroke="#70AC91" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="90.0" y="1067" fill="#1A5942" font-size="13" font-weight="700" text-anchor="start">UC3</text>
+    <text x="135.0" y="1067" fill="#1A5942" font-size="14" font-weight="400" text-anchor="start">Zoznam a filter vo Vue</text>
+    <text x="90.0" y="1090" fill="#1A5942" font-size="13" font-weight="700" text-anchor="start">UC4</text>
+    <text x="135.0" y="1090" fill="#1A5942" font-size="14" font-weight="400" text-anchor="start">Detail a história</text>
+    <text x="90.0" y="1113" fill="#1A5942" font-size="13" font-weight="700" text-anchor="start">UC6</text>
+    <text x="135.0" y="1113" fill="#1A5942" font-size="14" font-weight="400" text-anchor="start">Roboty a aktuálne misie</text>
+    <path d="M240 1160 l8 8 -8 8 -8 -8 Z" fill="#E8EEF6" stroke="#607590" stroke-width="1.35" stroke-linejoin="round"/>
+    <polygon points="240,1205 342,1246 240,1287 138,1246" fill="#F1EDFA" stroke="#A197C4" stroke-width="1.45" stroke-linejoin="round"/>
+    <text x="240" y="1242.5" fill="#422E6D" font-size="15" font-weight="600" text-anchor="middle">Pokračovať</text>
+    <text x="240" y="1259.5" fill="#422E6D" font-size="15" font-weight="600" text-anchor="middle">v obnove?</text>
+    <rect x="53.0" y="1298.0" width="114" height="46" rx="9" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
+    <text x="110" y="1326" fill="#14243A" font-size="16" font-weight="600" text-anchor="middle">Počkať 5 s</text>
+    <rect x="86.5" y="1360.0" width="307" height="64" rx="9" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
+    <text x="240" y="1387" fill="#14243A" font-size="17" font-weight="600" text-anchor="middle">Zastaviť obnovu</text>
+    <text x="240" y="1408" fill="#14243A" font-size="14" font-weight="400" text-anchor="middle">Odchod · UC4: koncový stav alebo 404</text>
+    <circle cx="240" cy="1449" r="10.5" fill="#FFFFFF" stroke="#14243A" stroke-width="1.65"/>
+    <circle cx="240" cy="1449" r="5.8" fill="#14243A"/>
+  </g>
+  <g>
+    <text x="241.0" y="128" fill="#14243A" font-size="17" font-weight="700" text-anchor="middle">Klient (obsluha / externý systém)</text>
+    <text x="666.0" y="128" fill="#14243A" font-size="17" font-weight="700" text-anchor="middle">Middleware</text>
+    <text x="1043.0" y="128" fill="#14243A" font-size="17" font-weight="700" text-anchor="middle">PostgreSQL</text>
+    <text x="38" y="58" fill="#14243A" font-size="33" font-weight="700" text-anchor="start">4.3 Zobrazenie misií, histórie a robotov – realizácia</text>
+    <text x="558" y="469" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">[nie]</text>
+    <text x="703" y="550" fill="#415570" font-size="14" font-weight="600" text-anchor="start">[áno]</text>
+    <text x="555" y="602" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">[áno]</text>
+    <text x="704" y="686" fill="#415570" font-size="14" font-weight="600" text-anchor="start">[nie]</text>
+    <text x="557" y="887" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">[áno]</text>
+    <text x="704" y="969" fill="#415570" font-size="14" font-weight="600" text-anchor="start">[nie]</text>
+    <text x="124" y="1277" fill="#415570" font-size="14" font-weight="600" text-anchor="start">[áno]</text>
+    <text x="378" y="1235" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">[nie]</text>
+  </g>
+</svg>

@@ -1,67 +1,86 @@
 @startuml
 skinparam shadowing false
-skinparam roundCorner 9
-skinparam backgroundColor #FFFFFF
+skinparam backgroundColor white
 skinparam defaultFontName Segoe UI
-skinparam defaultFontColor #182338
+skinparam defaultFontColor #14243A
 skinparam defaultFontSize 16
-skinparam titleFontSize 26
-skinparam titleFontColor #182338
-skinparam ArrowColor #46566D
-skinparam ArrowFontColor #26364D
-skinparam ArrowFontSize 14
-skinparam ActivityBorderColor #7B8798
-skinparam ActivityBackgroundColor #F9FBFE
+skinparam titleFontSize 28
+skinparam titleFontColor #14243A
+skinparam roundCorner 9
+skinparam ArrowColor #607590
+skinparam ArrowFontColor #415570
+skinparam ActivityBorderColor #A1B0C2
+skinparam ActivityBackgroundColor #FFFFFF
 skinparam ActivityDiamondBackgroundColor #F1EDFA
 skinparam ActivityDiamondBorderColor #A197C4
-skinparam ActivityDiamondFontSize 15
-skinparam ActivityStartColor #26364D
-skinparam ActivityEndColor #26364D
-skinparam ActivityBarColor #46566D
+skinparam ActivityStartColor #14243A
+skinparam ActivityEndColor #14243A
+skinparam SwimlaneBorderColor #D7E1ED
+skinparam SwimlaneTitleFontSize 17
+skinparam SwimlaneTitleFontStyle bold
 
-title UC2 Zrušiť misiu <U+2013> realizácia
-
+title 4.2 UC2 Zrušiť misiu <U+2013> realizácia
+|#FAFBFC|Klient (obsluha / externý systém)|
+|#FFFFFF|Middleware|
+|#F7FAFF|KUKA FM|
+|Klient (obsluha / externý systém)|
 start
-:Klient: POST /api/missions/{id}/cancel;
-switch (Kontrola?)
-case (neplatný kľúč)
+:Potvrdiť zrušenie misie;
+:POST /api/missions/{id}/cancel;
+|Middleware|
+if (API kľúč platný?) then (nie)
   :Technický log; <<#EEF2F7>>
-  :401; <<#FDEBED>>
+  |Klient (obsluha / externý systém)|
+  :401 Unauthorized; <<#FDEBED>>
   stop
-case (misia neexistuje)
-  :AuditLog; <<#EEF2F7>>
-  :404; <<#FDEBED>>
+else (áno)
+endif
+|Middleware|
+if (Misia existuje?) then (nie)
+  :Zapísať AuditLog; <<#EEF2F7>>
+  |Klient (obsluha / externý systém)|
+  :404 Not Found; <<#FDEBED>>
   stop
-case (ukončená alebo Cancelling)
-  :AuditLog; <<#EEF2F7>>
-  :409; <<#FDEBED>>
+else (áno)
+endif
+|Middleware|
+if (Dá sa zrušiť?) then (nie)
+  :Zapísať AuditLog; <<#EEF2F7>>
+  |Klient (obsluha / externý systém)|
+  :409 Conflict; <<#FDEBED>>
   stop
-case (OK)
-endswitch
-
+else (áno)
+endif
+|KUKA FM|
 :missionCancel; <<#EAF3FF>>
+|Middleware|
 if (KUKA FM prijala?) then (nie)
-  :AuditLog; <<#EEF2F7>>
+  :Zapísať AuditLog; <<#EEF2F7>>
+  |Klient (obsluha / externý systém)|
   :502, stav nezmenený; <<#FDEBED>>
   stop
 else (áno)
-  :Stav Cancelling + história; <<#FFF5DA>>
 endif
-if (Uloženie bez konfliktu?) then (nie)
+|Middleware|
+:Stav Cancelling + história; <<#FFF5DA>>
+if (Uložené bez konfliktu?) then (nie)
   :Znova načítať misiu; <<#FFF5DA>>
-  if (Misia je stále zrušiteľná?) then (áno)
-    :Znova uložiť raz; <<#FFF5DA>>
+  if (Stále zrušiteľná?) then (áno)
+    :Uložiť ešte raz; <<#FFF5DA>>
   else (nie)
   endif
   if (Uložené?) then (nie)
-    :AuditLog; <<#EEF2F7>>
-    :409; <<#FDEBED>>
+    :Zapísať AuditLog; <<#EEF2F7>>
+    |Klient (obsluha / externý systém)|
+    :409 Conflict; <<#FDEBED>>
     stop
   else (áno)
   endif
 else (áno)
 endif
-:AuditLog; <<#EEF2F7>>
+|Middleware|
+:Zapísať AuditLog; <<#EEF2F7>>
+|Klient (obsluha / externý systém)|
 :200 OK; <<#E5F6ED>>
 stop
 @enduml

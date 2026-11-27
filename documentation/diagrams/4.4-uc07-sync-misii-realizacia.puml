@@ -1,44 +1,49 @@
 @startuml
 skinparam shadowing false
-skinparam roundCorner 9
-skinparam backgroundColor #FFFFFF
+skinparam backgroundColor white
 skinparam defaultFontName Segoe UI
-skinparam defaultFontColor #182338
+skinparam defaultFontColor #14243A
 skinparam defaultFontSize 16
-skinparam titleFontSize 26
-skinparam titleFontColor #182338
-skinparam ArrowColor #46566D
-skinparam ArrowFontColor #26364D
-skinparam ArrowFontSize 14
-skinparam ActivityBorderColor #7B8798
-skinparam ActivityBackgroundColor #F9FBFE
+skinparam titleFontSize 28
+skinparam titleFontColor #14243A
+skinparam roundCorner 9
+skinparam ArrowColor #607590
+skinparam ArrowFontColor #415570
+skinparam ActivityBorderColor #A1B0C2
+skinparam ActivityBackgroundColor #FFFFFF
 skinparam ActivityDiamondBackgroundColor #F1EDFA
 skinparam ActivityDiamondBorderColor #A197C4
-skinparam ActivityDiamondFontSize 15
-skinparam ActivityStartColor #26364D
-skinparam ActivityEndColor #26364D
-skinparam ActivityBarColor #46566D
+skinparam ActivityStartColor #14243A
+skinparam ActivityEndColor #14243A
+skinparam SwimlaneBorderColor #D7E1ED
+skinparam SwimlaneTitleFontSize 17
+skinparam SwimlaneTitleFontStyle bold
 
-title UC5 Synchronizácia misií <U+2013> realizácia
-
+title 4.4 UC5 Synchronizácia misií <U+2013> realizácia
+|#FFFFFF|Middleware|
+|#F7FAFF|KUKA FM|
+|Middleware|
 start
 :Štart API, potom každých 5 s;
-:Načítať aktívne misie\n(Submitted, InProgress, Cancelling);
-if (Našli sa aktívne misie?) then (nie)
+:Načítať aktívne misie\nSubmitted · InProgress · Cancelling;
+if (Aktívne misie?) then (nie)
   stop
 else (áno)
 endif
-
-while (Ďalšia misia?) is (áno)
-  :jobQuery (jobCode = kód misie); <<#EAF3FF>>
+repeat
+  |KUKA FM|
+  :jobQuery\njobCode = kód misie; <<#EAF3FF>>
+  |Middleware|
   if (Volanie OK?) then (nie)
     :Zalogovať chybu, nič neuložiť; <<#FDEBED>>
     stop
   else (áno)
   endif
-  :LastSyncedAt; <<#FFF5DA>>
-  if (Záznam pre misiu nájdený?) then (áno)
-    :Doplniť robota, ak chýba\na je známy; <<#FFF5DA>>
+  :Nastaviť LastSyncedAt; <<#FFF5DA>>
+  if (Záznam pre misiu?) then (nie)
+    :Varovanie, stav bez zmeny; <<#EEF2F7>>
+  else (áno)
+    :Doplniť robota, ak chýba; <<#FFF5DA>>
     switch (Povolená zmena stavu?)
     case (áno)
       :Nový stav + história\nFinishedAt pri koncovom stave; <<#FFF5DA>>
@@ -46,11 +51,9 @@ while (Ďalšia misia?) is (áno)
     case (neznámy kód)
       :Varovanie, neznámy kód; <<#EEF2F7>>
     endswitch
-  else (nie)
-    :Varovanie, stav bez zmeny; <<#EEF2F7>>
   endif
-endwhile (nie)
-:Uložiť všetko naraz; <<#FFF5DA>>
+repeat while (Ďalšia misia?) is (áno) not (nie)
+:Uložiť v jednej transakcii; <<#FFF5DA>>
 if (Konflikt pri uložení?) then (áno)
   :Zalogovať konflikt, nič neuložiť; <<#EEF2F7>>
 else (nie)
