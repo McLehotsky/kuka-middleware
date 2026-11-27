@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="585" viewBox="0 0 1200 585" role="img" aria-labelledby="diagram-title" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif">
-  <title id="diagram-title">Nasadenie – Docker Desktop</title>
+  <title id="diagram-title">9.1 Nasadenie – Docker Desktop</title>
   <g>
     <rect x="0" y="0" width="1200" height="585" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.35"/>
     <polyline points="48,83 1152,83" fill="none" stroke="#DFE7F0" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
@@ -56,7 +56,7 @@
     <rect x="833" y="539" width="15" height="15" rx="3" fill="#EFF7FF" stroke="#8CB1D9" stroke-width="1.35"/>
   </g>
   <g>
-    <text x="48" y="55" fill="#14243A" text-anchor="start" font-size="33" font-weight="700">Nasadenie – Docker Desktop</text>
+    <text x="48" y="55" fill="#14243A" text-anchor="start" font-size="33" font-weight="700">9.1 Nasadenie – Docker Desktop</text>
     <text x="283" y="151" fill="#14243A" text-anchor="start" font-size="19" font-weight="700">PC s Docker Desktop</text>
     <text x="283" y="172" fill="#415570" text-anchor="start" font-size="14" font-weight="400">porty iba na 127.0.0.1</text>
     <text x="1049" y="293" fill="#255783" text-anchor="middle" font-size="15" font-weight="600">Školská VPN</text>

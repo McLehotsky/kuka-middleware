@@ -1,0 +1,63 @@
+@startuml
+skinparam shadowing false
+skinparam defaultFontName Segoe UI
+skinparam defaultFontColor #14243A
+skinparam defaultFontSize 16
+skinparam titleFontSize 28
+skinparam titleFontColor #14243A
+skinparam roundCorner 9
+skinparam ArrowColor #607590
+skinparam ArrowFontColor #415570
+skinparam ActivityBorderColor #A1B0C2
+skinparam ActivityDiamondBackgroundColor #F1EDFA
+skinparam ActivityDiamondBorderColor #A197C4
+skinparam ActivityStartColor #14243A
+skinparam ActivityEndColor #14243A
+skinparam SwimlaneBorderColor #D7E1ED
+skinparam SwimlaneTitleFontSize 17
+skinparam SwimlaneTitleFontStyle bold
+
+title 4.3 Zobrazenie misií, histórie a robotov <U+2013> realizácia
+
+|#FAFBFC|Klient (obsluha / externý systém)|
+|#FFFFFF|Middleware|
+|#F7FAFF|PostgreSQL|
+|Klient (obsluha / externý systém)|
+start
+:Otvoriť obrazovku\nMisie · Detail misie · Roboty;
+repeat
+  :Odoslať GET podľa obrazovky\nUC3: GET /api/missions\nUC4 súbežne: GET /api/missions/{id}\na GET /api/missions/{id}/history\nUC6: GET /api/robots;
+  |Middleware|
+  if (API kľúč platný?) then (nie)
+    :401 Unauthorized; <<#FDEBED>>
+    |Klient (obsluha / externý systém)|
+    :Zobraziť chybu; <<#FDEBED>>
+  else (áno)
+    |Middleware|
+    if (UC3: neplatný parameter state?) then (áno)
+      :400 Bad Request; <<#FDEBED>>
+      |Klient (obsluha / externý systém)|
+      :Zobraziť chybu; <<#FDEBED>>
+    else (nie)
+      |PostgreSQL|
+      :Načítať údaje z databázy\nUC3: misie podľa state\nUC4: misia, kroky a história\nUC6: roboty a neukončené misie;
+      |Middleware|
+      if (UC4: misia chýba?) then (áno)
+        :404 Not Found; <<#FDEBED>>
+        |Klient (obsluha / externý systém)|
+        :Zobraziť chybu; <<#FDEBED>>
+      else (nie)
+        |Middleware|
+        :Zostaviť odpoveď\nUC3: misie od najnovšej\nUC4: história v poradí podľa času\nUC6: najnovšia neukončená misia robota;
+        |Klient (obsluha / externý systém)|
+        :200 OK · Zobraziť údaje\nUC3: zoznam a filter vo Vue\nUC4: detail a história\nUC6: roboty a aktuálne misie; <<#E5F6ED>>
+      endif
+    endif
+  endif
+  |Klient (obsluha / externý systém)|
+  backward:Počkať 5 s;
+repeat while (Pokračovať v obnove?) is (áno) not (nie)
+:Zastaviť obnovu\nOdchod · UC4: koncový stav alebo 404;
+stop
+@enduml
+

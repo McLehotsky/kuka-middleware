@@ -1,160 +1,174 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="1434" viewBox="0 0 1120 1434" role="img" aria-labelledby="diagram-title" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif">
-  <title id="diagram-title">UC5 Synchronizácia misií – realizácia</title>
+<svg xmlns="http://www.w3.org/2000/svg" width="1134" height="1550" viewBox="0 0 1134 1550" role="img" aria-labelledby="diagram-title" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif">
+  <title id="diagram-title">4.4 UC5 Synchronizácia misií – realizácia</title>
   <g>
-    <rect x="0" y="0" width="1120" height="1434" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.35"/>
-    <polyline points="48,83 1072,83" fill="none" stroke="#DFE7F0" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="0" y="0" width="1134" height="1550" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.35"/>
+    <rect x="34" y="98" width="771" height="1418" rx="0" fill="#FFFFFF" stroke="none" stroke-width="1.35"/>
+    <rect x="34" y="98" width="771" height="49" rx="0" fill="#EFF3F8" stroke="none" stroke-width="1.35"/>
+    <polyline points="34,98 34,1516" fill="none" stroke="#D7E1ED" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="805" y="98" width="295" height="1418" rx="0" fill="#F7FAFF" stroke="none" stroke-width="1.35"/>
+    <rect x="805" y="98" width="295" height="49" rx="0" fill="#E7F1FE" stroke="none" stroke-width="1.35"/>
+    <polyline points="805,98 805,1516" fill="none" stroke="#D7E1ED" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="34,98 1100,98 1100,1516 34,1516" fill="none" stroke="#D7E1ED" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="34,147 1100,147" fill="none" stroke="#D7E1ED" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
   <g>
-    <polyline points="365,124.5 365.0,129.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="365,137 361.30,128.50 368.70,128.50" fill="#607590"/>
-    <polyline points="365,185 365.0,192.0" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="365,199.5 361.30,191.00 368.70,191.00" fill="#607590"/>
-    <polyline points="365,266.5 365.0,274.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="365,282 361.30,273.50 368.70,273.50" fill="#607590"/>
-    <polyline points="462,324 566.0,324.0" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="573.5,324 565.00,327.70 565.00,320.30" fill="#607590"/>
-    <polyline points="365,366 365.0,370.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="365,378 361.30,369.50 368.70,369.50" fill="#607590"/>
-    <polyline points="365,462 365.0,465.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="365,473 361.30,464.50 368.70,464.50" fill="#607590"/>
-    <polyline points="462,420 775,420 775,1101 495.0,1101.0" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="487.5,1101 496.00,1097.30 496.00,1104.70" fill="#607590"/>
-    <polyline points="365,521 365.0,528.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="365,536 361.30,527.50 368.70,527.50" fill="#607590"/>
-    <polyline points="455,576 602,576 602.0,605.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="602,613 598.30,604.50 605.70,604.50" fill="#607590"/>
-    <polyline points="365,616 365.0,628.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="365,636 361.30,627.50 368.70,627.50" fill="#607590"/>
-    <polyline points="602,661 602.0,667.0" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="602,674.5 598.30,666.00 605.70,666.00" fill="#607590"/>
-    <polyline points="365,684 365.0,693.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="365,701 361.30,692.50 368.70,692.50" fill="#607590"/>
-    <polyline points="468,743 625,743 625.0,767.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="625,775 621.30,766.50 628.70,766.50" fill="#607590"/>
-    <polyline points="365,785 365.0,786.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="365,794 361.30,785.50 368.70,785.50" fill="#607590"/>
-    <polyline points="744,799 751,799 751,1042 625.5,1042.0" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="618,1042 626.50,1038.30 626.50,1045.70" fill="#607590"/>
-    <polyline points="365,842 365.0,848.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="365,856 361.30,847.50 368.70,847.50" fill="#607590"/>
-    <polyline points="365,940 365.0,941.0" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="365,948.5 361.30,940.00 368.70,940.00" fill="#607590"/>
-    <polyline points="471,898 631,898 631.0,917.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="631,925 627.30,916.50 634.70,916.50" fill="#607590"/>
-    <polyline points="259,898 197,898 197,1042 349.5,1042.0" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="357,1042 348.50,1045.70 348.50,1038.30" fill="#607590"/>
-    <polyline points="365,1015.5 365.0,1026.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="365,1034 361.30,1025.50 368.70,1025.50" fill="#607590"/>
-    <polyline points="631,973 631,1018 610,1018 610.0,1026.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="610,1034 606.30,1025.50 613.70,1025.50" fill="#607590"/>
-    <polyline points="602,1042 380.5,1042.0" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="373,1042 381.50,1038.30 381.50,1045.70" fill="#607590"/>
-    <polyline points="365,1050 365,1070 60,1070 60,420 260.5,420.0" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="268,420 259.50,423.70 259.50,416.30" fill="#607590"/>
-    <polyline points="365,1125 365.0,1132.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="365,1140 361.30,1131.50 368.70,1131.50" fill="#607590"/>
-    <polyline points="264,1182 221,1182 221.0,1229.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="221,1237 217.30,1228.50 224.70,1228.50" fill="#607590"/>
-    <polyline points="466,1182 522,1182 522.0,1229.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="522,1237 518.30,1228.50 525.70,1228.50" fill="#607590"/>
-    <polyline points="221,1285 221,1310 349.5,1310.0" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="357,1310 348.50,1313.70 348.50,1306.30" fill="#607590"/>
-    <polyline points="522,1285 522,1310 380.5,1310.0" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="373,1310 381.50,1306.30 381.50,1313.70" fill="#607590"/>
-    <polyline points="365,1318 365.0,1329.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="365,1337 361.30,1328.50 368.70,1328.50" fill="#607590"/>
-    <polyline points="365,1385 365.0,1392.0" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
-    <polygon points="365,1399.5 361.30,1391.00 368.70,1391.00" fill="#607590"/>
+    <polyline points="421,182.5 421,188.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="421,196 417.30,187.50 424.70,187.50" fill="#607590"/>
+    <polyline points="421,242 421,252.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="421,260 417.30,251.50 424.70,251.50" fill="#607590"/>
+    <polyline points="421,324 421,327.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="421,335 417.30,326.50 424.70,326.50" fill="#607590"/>
+    <polyline points="323,376 190,376" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="182.5,376 191.00,372.30 191.00,379.70" fill="#607590"/>
+    <polyline points="421,417 421,427.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="421,435 417.30,426.50 424.70,426.50" fill="#607590"/>
+    <polyline points="429,443 821.5,443" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="829,443 820.50,446.70 820.50,439.30" fill="#607590"/>
+    <polyline points="953,475 953,495 421,495 421,501.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="421,509 417.30,500.50 424.70,500.50" fill="#607590"/>
+    <polyline points="511.5,550 668,550 668,570.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="668,578 664.30,569.50 671.70,569.50" fill="#607590"/>
+    <polyline points="668,642 668,649" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="668,656.5 664.30,648.00 671.70,648.00" fill="#607590"/>
+    <polyline points="421,591 421,604.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="421,612 417.30,603.50 424.70,603.50" fill="#607590"/>
+    <polyline points="421,658 421,670.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="421,678 417.30,669.50 424.70,669.50" fill="#607590"/>
+    <polyline points="530,720 676,720 676,744.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="676,752 672.30,743.50 679.70,743.50" fill="#607590"/>
+    <polyline points="421,762 421,774.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="421,782 417.30,773.50 424.70,773.50" fill="#607590"/>
+    <polyline points="789,775 799,775 799,1035 665.5,1035" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="658,1035 666.50,1031.30 666.50,1038.70" fill="#607590"/>
+    <polyline points="421,828 421,837" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="421,844.5 417.30,836.00 424.70,836.00" fill="#607590"/>
+    <polyline points="317,886 223,886 223,1035 405.5,1035" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="413,1035 404.50,1038.70 404.50,1031.30" fill="#607590"/>
+    <polyline points="525,886 675,886 675,914.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="675,922 671.30,913.50 678.70,913.50" fill="#607590"/>
+    <polyline points="421,927.5 421,937.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="421,945 417.30,936.50 424.70,936.50" fill="#607590"/>
+    <polyline points="675,968 675,1008 650,1008 650,1019.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="650,1027 646.30,1018.50 653.70,1018.50" fill="#607590"/>
+    <polyline points="642,1035 436.5,1035" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="429,1035 437.50,1031.30 437.50,1038.70" fill="#607590"/>
+    <polyline points="421,1009 421,1019.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="421,1027 417.30,1018.50 424.70,1018.50" fill="#607590"/>
+    <polyline points="421,1043 421,1059.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="421,1067 417.30,1058.50 424.70,1058.50" fill="#607590"/>
+    <polyline points="323,1108 75,1108 75,443 405.5,443" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="413,443 404.50,446.70 404.50,439.30" fill="#607590"/>
+    <polyline points="421,1149 421,1161.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="421,1169 417.30,1160.50 424.70,1160.50" fill="#607590"/>
+    <polyline points="421,1215 421,1226.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="421,1234 417.30,1225.50 424.70,1225.50" fill="#607590"/>
+    <polyline points="313,1274 229,1274 229,1321.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="229,1329 225.30,1320.50 232.70,1320.50" fill="#607590"/>
+    <polyline points="529,1274 606,1274 606,1321.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="606,1329 602.30,1320.50 609.70,1320.50" fill="#607590"/>
+    <polyline points="229,1375 229,1402 405.5,1402" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="413,1402 404.50,1405.70 404.50,1398.30" fill="#607590"/>
+    <polyline points="606,1375 606,1402 436.5,1402" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="429,1402 437.50,1398.30 437.50,1405.70" fill="#607590"/>
+    <polyline points="421,1410 421,1414.5" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="421,1422 417.30,1413.50 424.70,1413.50" fill="#607590"/>
+    <polyline points="421,1468 421,1473" fill="none" stroke="#607590" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    <polygon points="421,1480.5 417.30,1472.00 424.70,1472.00" fill="#607590"/>
   </g>
   <g>
-    <circle cx="365" cy="117" r="7.5" fill="#14243A"/>
-    <rect x="210.0" y="137.0" width="310" height="48" rx="9" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
-    <text x="365" y="167.0" fill="#14243A" text-anchor="middle" font-size="17" font-weight="600">Štart API, potom každých 5 s</text>
-    <rect x="209.0" y="199.5" width="312" height="67" rx="9" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
-    <text x="365" y="229" fill="#14243A" text-anchor="middle" font-size="17" font-weight="600">Načítať aktívne misie</text>
-    <text x="365" y="250" fill="#14243A" text-anchor="middle" font-size="14" font-weight="400">Submitted · InProgress · Cancelling</text>
-    <polygon points="365,282.0 462.0,324 365,366.0 268.0,324" fill="#F1EDFA" stroke="#A197C4" stroke-width="1.45" stroke-linejoin="round"/>
-    <text x="365" y="329.5" fill="#422E6D" text-anchor="middle" font-size="15" font-weight="600">Aktívne misie?</text>
-    <circle cx="584" cy="324" r="10.5" fill="#FFFFFF" stroke="#14243A" stroke-width="1.65"/>
-    <circle cx="584" cy="324" r="5.8" fill="#14243A"/>
-    <polygon points="365,378.0 462.0,420 365,462.0 268.0,420" fill="#F1EDFA" stroke="#A197C4" stroke-width="1.45" stroke-linejoin="round"/>
-    <text x="365" y="425.5" fill="#422E6D" text-anchor="middle" font-size="15" font-weight="600">Ďalšia misia?</text>
-    <rect x="214.0" y="473.0" width="302" height="48" rx="9" fill="#EAF3FF" stroke="#78A6E0" stroke-width="1.35"/>
-    <text x="365" y="503.0" fill="#17467D" text-anchor="middle" font-size="17" font-weight="600">jobQuery (jobCode = kód misie)</text>
-    <polygon points="365,536.0 455.0,576 365,616.0 275.0,576" fill="#F1EDFA" stroke="#A197C4" stroke-width="1.45" stroke-linejoin="round"/>
-    <text x="365" y="581.5" fill="#422E6D" text-anchor="middle" font-size="15" font-weight="600">Volanie OK?</text>
-    <rect x="479.0" y="613.0" width="246" height="48" rx="9" fill="#FDEBED" stroke="#D78A94" stroke-width="1.35"/>
-    <text x="602" y="643.0" fill="#8A3042" text-anchor="middle" font-size="17" font-weight="600">Zalogovať chybu, nič neuložiť</text>
-    <circle cx="602" cy="685" r="10.5" fill="#FFFFFF" stroke="#14243A" stroke-width="1.65"/>
-    <circle cx="602" cy="685" r="5.8" fill="#14243A"/>
-    <rect x="262.0" y="636.0" width="206" height="48" rx="9" fill="#FFF5DA" stroke="#CEAA55" stroke-width="1.35"/>
-    <text x="365" y="666.0" fill="#63460F" text-anchor="middle" font-size="17" font-weight="600">LastSyncedAt</text>
-    <polygon points="365,701.0 468.0,743 365,785.0 262.0,743" fill="#F1EDFA" stroke="#A197C4" stroke-width="1.45" stroke-linejoin="round"/>
-    <text x="365" y="739.75" fill="#422E6D" text-anchor="middle" font-size="15" font-weight="600">Záznam pre</text>
-    <text x="365" y="757.25" fill="#422E6D" text-anchor="middle" font-size="15" font-weight="600">misiu?</text>
-    <rect x="506.0" y="775.0" width="238" height="48" rx="9" fill="#EEF2F7" stroke="#ABB9C9" stroke-width="1.35"/>
-    <text x="625" y="805.0" fill="#314760" text-anchor="middle" font-size="17" font-weight="600">Varovanie, stav bez zmeny</text>
-    <rect x="240.5" y="794.0" width="249" height="48" rx="9" fill="#FFF5DA" stroke="#CEAA55" stroke-width="1.35"/>
-    <text x="365" y="824.0" fill="#63460F" text-anchor="middle" font-size="17" font-weight="600">Doplniť robota, ak chýba</text>
-    <polygon points="365,856.0 471.0,898 365,940.0 259.0,898" fill="#F1EDFA" stroke="#A197C4" stroke-width="1.45" stroke-linejoin="round"/>
-    <text x="365" y="894.75" fill="#422E6D" text-anchor="middle" font-size="15" font-weight="600">Povolená zmena</text>
-    <text x="365" y="912.25" fill="#422E6D" text-anchor="middle" font-size="15" font-weight="600">stavu?</text>
-    <rect x="521.0" y="925.0" width="220" height="48" rx="9" fill="#EEF2F7" stroke="#ABB9C9" stroke-width="1.35"/>
-    <text x="631" y="955.0" fill="#314760" text-anchor="middle" font-size="17" font-weight="600">Varovanie, neznámy kód</text>
-    <rect x="232.0" y="948.5" width="266" height="67" rx="9" fill="#FFF5DA" stroke="#CEAA55" stroke-width="1.35"/>
-    <text x="365" y="978" fill="#63460F" text-anchor="middle" font-size="17" font-weight="600">Nový stav + história</text>
-    <text x="365" y="999" fill="#63460F" text-anchor="middle" font-size="14" font-weight="400">FinishedAt pri koncovom stave</text>
-    <path d="M365 1034 l8 8 -8 8 -8 -8 Z" fill="#E8EEF6" stroke="#607590" stroke-width="1.35" stroke-linejoin="round"/>
-    <path d="M610 1034 l8 8 -8 8 -8 -8 Z" fill="#E8EEF6" stroke="#607590" stroke-width="1.35" stroke-linejoin="round"/>
-    <rect x="242.5" y="1077.0" width="245" height="48" rx="9" fill="#FFF5DA" stroke="#CEAA55" stroke-width="1.35"/>
-    <text x="365" y="1107.0" fill="#63460F" text-anchor="middle" font-size="17" font-weight="600">Uložiť všetko naraz</text>
-    <polygon points="365,1140.0 466.0,1182 365,1224.0 264.0,1182" fill="#F1EDFA" stroke="#A197C4" stroke-width="1.45" stroke-linejoin="round"/>
-    <text x="365" y="1178.75" fill="#422E6D" text-anchor="middle" font-size="15" font-weight="600">Konflikt pri</text>
-    <text x="365" y="1196.25" fill="#422E6D" text-anchor="middle" font-size="15" font-weight="600">uložení?</text>
-    <rect x="93.0" y="1237.0" width="256" height="48" rx="9" fill="#EEF2F7" stroke="#ABB9C9" stroke-width="1.35"/>
-    <text x="221" y="1267.0" fill="#314760" text-anchor="middle" font-size="17" font-weight="600">Zalogovať konflikt, nič neuložiť</text>
-    <rect x="415.0" y="1237.0" width="214" height="48" rx="9" fill="#E5F6ED" stroke="#70AC91" stroke-width="1.35"/>
-    <text x="522" y="1267.0" fill="#1A5942" text-anchor="middle" font-size="17" font-weight="600">Zmeny uložené</text>
-    <path d="M365 1302 l8 8 -8 8 -8 -8 Z" fill="#E8EEF6" stroke="#607590" stroke-width="1.35" stroke-linejoin="round"/>
-    <rect x="239.5" y="1337.0" width="251" height="48" rx="9" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
-    <text x="365" y="1367.0" fill="#14243A" text-anchor="middle" font-size="17" font-weight="600">Čakať na ďalší cyklus</text>
-    <circle cx="365" cy="1410" r="10.5" fill="#FFFFFF" stroke="#14243A" stroke-width="1.65"/>
-    <circle cx="365" cy="1410" r="5.8" fill="#14243A"/>
-    <rect x="798" y="481" width="273" height="265" rx="12" fill="#F8FAFD" stroke="#D8E2EE" stroke-width="1.35"/>
-    <text x="816" y="511" fill="#14243A" text-anchor="start" font-size="16" font-weight="700">Stav KUKA → stav misie</text>
-    <polyline points="814,526 1055,526" fill="none" stroke="#D8E2EE" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-    <text x="816" y="549" fill="#415570" text-anchor="start" font-size="14" font-weight="600">10</text>
-    <text x="1053" y="549" fill="#14243A" text-anchor="end" font-size="15" font-weight="600">Submitted</text>
-    <polyline points="814,562 1055,562" fill="none" stroke="#D8E2EE" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-    <text x="816" y="585" fill="#415570" text-anchor="start" font-size="14" font-weight="600">20, 25, 50</text>
-    <text x="1053" y="585" fill="#14243A" text-anchor="end" font-size="15" font-weight="600">InProgress</text>
-    <polyline points="814,598 1055,598" fill="none" stroke="#D8E2EE" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-    <text x="816" y="621" fill="#415570" text-anchor="start" font-size="14" font-weight="600">28</text>
-    <text x="1053" y="621" fill="#14243A" text-anchor="end" font-size="15" font-weight="600">Cancelling</text>
-    <polyline points="814,634 1055,634" fill="none" stroke="#D8E2EE" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-    <text x="816" y="657" fill="#415570" text-anchor="start" font-size="14" font-weight="600">30, 35</text>
-    <text x="1053" y="657" fill="#14243A" text-anchor="end" font-size="15" font-weight="600">Completed</text>
-    <polyline points="814,670 1055,670" fill="none" stroke="#D8E2EE" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-    <text x="816" y="693" fill="#415570" text-anchor="start" font-size="14" font-weight="600">31</text>
-    <text x="1053" y="693" fill="#14243A" text-anchor="end" font-size="15" font-weight="600">Cancelled</text>
-    <polyline points="814,706 1055,706" fill="none" stroke="#D8E2EE" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-    <text x="816" y="729" fill="#415570" text-anchor="start" font-size="14" font-weight="600">60</text>
-    <text x="1053" y="729" fill="#14243A" text-anchor="end" font-size="15" font-weight="600">Failed</text>
+    <circle cx="421" cy="175" r="7.5" fill="#14243A"/>
+    <rect x="267.5" y="196.0" width="307" height="46" rx="9" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
+    <text x="421" y="224.0" fill="#14243A" font-size="17" font-weight="600" text-anchor="middle">Štart API, potom každých 5 s</text>
+    <rect x="263.5" y="260.0" width="315" height="64" rx="9" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
+    <text x="421" y="288" fill="#14243A" font-size="17" font-weight="600" text-anchor="middle">Načítať aktívne misie</text>
+    <text x="421" y="309" fill="#14243A" font-size="14" font-weight="400" text-anchor="middle">Submitted · InProgress · Cancelling</text>
+    <polygon points="421,335 519,376 421,417 323,376" fill="#F1EDFA" stroke="#A197C4" stroke-width="1.45" stroke-linejoin="round"/>
+    <text x="421" y="381.0" fill="#422E6D" font-size="15" font-weight="600" text-anchor="middle">Aktívne misie?</text>
+    <circle cx="172" cy="376" r="10.5" fill="#FFFFFF" stroke="#14243A" stroke-width="1.65"/>
+    <circle cx="172" cy="376" r="5.8" fill="#14243A"/>
+    <path d="M421 435 l8 8 -8 8 -8 -8 Z" fill="#E8EEF6" stroke="#607590" stroke-width="1.35" stroke-linejoin="round"/>
+    <rect x="829.0" y="411.0" width="248" height="64" rx="9" fill="#EAF3FF" stroke="#78A6E0" stroke-width="1.35"/>
+    <text x="953" y="439" fill="#17467D" font-size="17" font-weight="600" text-anchor="middle">jobQuery</text>
+    <text x="953" y="460" fill="#17467D" font-size="14" font-weight="400" text-anchor="middle">jobCode = kód misie</text>
+    <polygon points="421,509 511.5,550 421,591 330.5,550" fill="#F1EDFA" stroke="#A197C4" stroke-width="1.45" stroke-linejoin="round"/>
+    <text x="421" y="555.0" fill="#422E6D" font-size="15" font-weight="600" text-anchor="middle">Volanie OK?</text>
+    <rect x="552.0" y="578.0" width="232" height="64" rx="9" fill="#FDEBED" stroke="#D78A94" stroke-width="1.35"/>
+    <text x="668" y="604.5" fill="#8A3042" font-size="17" font-weight="600" text-anchor="middle">Zalogovať chybu</text>
+    <text x="668" y="625.5" fill="#8A3042" font-size="17" font-weight="600" text-anchor="middle">nič neuložiť</text>
+    <circle cx="668" cy="667" r="10.5" fill="#FFFFFF" stroke="#14243A" stroke-width="1.65"/>
+    <circle cx="668" cy="667" r="5.8" fill="#14243A"/>
+    <rect x="311.0" y="612.0" width="220" height="46" rx="9" fill="#FFF5DA" stroke="#CEAA55" stroke-width="1.35"/>
+    <text x="421" y="640.0" fill="#63460F" font-size="17" font-weight="600" text-anchor="middle">Nastaviť LastSyncedAt</text>
+    <polygon points="421,678 530,720 421,762 312,720" fill="#F1EDFA" stroke="#A197C4" stroke-width="1.45" stroke-linejoin="round"/>
+    <text x="421" y="716.5" fill="#422E6D" font-size="15" font-weight="600" text-anchor="middle">Záznam pre</text>
+    <text x="421" y="733.5" fill="#422E6D" font-size="15" font-weight="600" text-anchor="middle">misiu?</text>
+    <rect x="563.0" y="752.0" width="226" height="46" rx="9" fill="#EEF2F7" stroke="#ABB9C9" stroke-width="1.35"/>
+    <text x="676" y="780.0" fill="#314760" font-size="17" font-weight="600" text-anchor="middle">Varovanie, stav bez zmeny</text>
+    <rect x="293.5" y="782.0" width="255" height="46" rx="9" fill="#FFF5DA" stroke="#CEAA55" stroke-width="1.35"/>
+    <text x="421" y="810.0" fill="#63460F" font-size="17" font-weight="600" text-anchor="middle">Doplniť robota, ak chýba</text>
+    <polygon points="421,844.5 525,886 421,927.5 317,886" fill="#F1EDFA" stroke="#A197C4" stroke-width="1.45" stroke-linejoin="round"/>
+    <text x="421" y="882.5" fill="#422E6D" font-size="15" font-weight="600" text-anchor="middle">Povolená zmena</text>
+    <text x="421" y="899.5" fill="#422E6D" font-size="15" font-weight="600" text-anchor="middle">stavu?</text>
+    <rect x="564.0" y="922.0" width="222" height="46" rx="9" fill="#EEF2F7" stroke="#ABB9C9" stroke-width="1.35"/>
+    <text x="675" y="950.0" fill="#314760" font-size="17" font-weight="600" text-anchor="middle">Varovanie, neznámy kód</text>
+    <rect x="287.5" y="945.0" width="267" height="64" rx="9" fill="#FFF5DA" stroke="#CEAA55" stroke-width="1.35"/>
+    <text x="421" y="973" fill="#63460F" font-size="17" font-weight="600" text-anchor="middle">Nový stav + história</text>
+    <text x="421" y="994" fill="#63460F" font-size="14" font-weight="400" text-anchor="middle">FinishedAt pri koncovom stave</text>
+    <path d="M650 1027 l8 8 -8 8 -8 -8 Z" fill="#E8EEF6" stroke="#607590" stroke-width="1.35" stroke-linejoin="round"/>
+    <path d="M421 1027 l8 8 -8 8 -8 -8 Z" fill="#E8EEF6" stroke="#607590" stroke-width="1.35" stroke-linejoin="round"/>
+    <polygon points="421,1067 519,1108 421,1149 323,1108" fill="#F1EDFA" stroke="#A197C4" stroke-width="1.45" stroke-linejoin="round"/>
+    <text x="421" y="1113.0" fill="#422E6D" font-size="15" font-weight="600" text-anchor="middle">Ďalšia misia?</text>
+    <rect x="277.5" y="1169.0" width="287" height="46" rx="9" fill="#FFF5DA" stroke="#CEAA55" stroke-width="1.35"/>
+    <text x="421" y="1197.0" fill="#63460F" font-size="17" font-weight="600" text-anchor="middle">Uložiť v jednej transakcii</text>
+    <polygon points="421,1234 529,1274 421,1314 313,1274" fill="#F1EDFA" stroke="#A197C4" stroke-width="1.45" stroke-linejoin="round"/>
+    <text x="421" y="1270.5" fill="#422E6D" font-size="15" font-weight="600" text-anchor="middle">Konflikt pri</text>
+    <text x="421" y="1287.5" fill="#422E6D" font-size="15" font-weight="600" text-anchor="middle">uložení?</text>
+    <rect x="96.5" y="1329.0" width="265" height="46" rx="9" fill="#EEF2F7" stroke="#ABB9C9" stroke-width="1.35"/>
+    <text x="229" y="1357.0" fill="#314760" font-size="17" font-weight="600" text-anchor="middle">Zalogovať konflikt, nič neuložiť</text>
+    <rect x="500.0" y="1329.0" width="212" height="46" rx="9" fill="#E5F6ED" stroke="#70AC91" stroke-width="1.35"/>
+    <text x="606" y="1357.0" fill="#1A5942" font-size="17" font-weight="600" text-anchor="middle">Zmeny uložené</text>
+    <path d="M421 1394 l8 8 -8 8 -8 -8 Z" fill="#E8EEF6" stroke="#607590" stroke-width="1.35" stroke-linejoin="round"/>
+    <rect x="295.0" y="1422.0" width="252" height="46" rx="9" fill="#FFFFFF" stroke="#A1B0C2" stroke-width="1.35"/>
+    <text x="421" y="1450.0" fill="#14243A" font-size="17" font-weight="600" text-anchor="middle">Čakať na ďalší cyklus</text>
+    <circle cx="421" cy="1491" r="10.5" fill="#FFFFFF" stroke="#14243A" stroke-width="1.65"/>
+    <circle cx="421" cy="1491" r="5.8" fill="#14243A"/>
+    <rect x="825" y="663" width="254" height="265" rx="12" fill="#FFFFFF" stroke="#D8E2EE" stroke-width="1.35"/>
+    <text x="841" y="693" fill="#14243A" font-size="16" font-weight="700" text-anchor="start">Stav KUKA → stav misie</text>
+    <polyline points="840,708 1064,708" fill="none" stroke="#D8E2EE" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="841" y="731" fill="#415570" font-size="14" font-weight="600" text-anchor="start">10</text>
+    <text x="1063" y="731" fill="#14243A" font-size="15" font-weight="600" text-anchor="end">Submitted</text>
+    <polyline points="840,744 1064,744" fill="none" stroke="#D8E2EE" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="841" y="767" fill="#415570" font-size="14" font-weight="600" text-anchor="start">20, 25, 50</text>
+    <text x="1063" y="767" fill="#14243A" font-size="15" font-weight="600" text-anchor="end">InProgress</text>
+    <polyline points="840,780 1064,780" fill="none" stroke="#D8E2EE" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="841" y="803" fill="#415570" font-size="14" font-weight="600" text-anchor="start">28</text>
+    <text x="1063" y="803" fill="#14243A" font-size="15" font-weight="600" text-anchor="end">Cancelling</text>
+    <polyline points="840,816 1064,816" fill="none" stroke="#D8E2EE" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="841" y="839" fill="#415570" font-size="14" font-weight="600" text-anchor="start">30, 35</text>
+    <text x="1063" y="839" fill="#14243A" font-size="15" font-weight="600" text-anchor="end">Completed</text>
+    <polyline points="840,852 1064,852" fill="none" stroke="#D8E2EE" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="841" y="875" fill="#415570" font-size="14" font-weight="600" text-anchor="start">31</text>
+    <text x="1063" y="875" fill="#14243A" font-size="15" font-weight="600" text-anchor="end">Cancelled</text>
+    <polyline points="840,888 1064,888" fill="none" stroke="#D8E2EE" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="841" y="911" fill="#415570" font-size="14" font-weight="600" text-anchor="start">60</text>
+    <text x="1063" y="911" fill="#14243A" font-size="15" font-weight="600" text-anchor="end">Failed</text>
   </g>
   <g>
-    <text x="48" y="55" fill="#14243A" text-anchor="start" font-size="33" font-weight="700">UC5 Synchronizácia misií – realizácia</text>
-    <text x="518" y="312" fill="#415570" text-anchor="middle" font-size="14" font-weight="600">[nie]</text>
-    <text x="380" y="374" fill="#415570" text-anchor="start" font-size="14" font-weight="600">[áno]</text>
-    <text x="381" y="469" fill="#415570" text-anchor="start" font-size="14" font-weight="600">[áno]</text>
-    <text x="604" y="409" fill="#415570" text-anchor="middle" font-size="14" font-weight="600">[nie]</text>
-    <text x="529" y="565" fill="#415570" text-anchor="middle" font-size="14" font-weight="600">[nie]</text>
-    <text x="382" y="632" fill="#415570" text-anchor="start" font-size="14" font-weight="600">[áno]</text>
-    <text x="533" y="732" fill="#415570" text-anchor="middle" font-size="14" font-weight="600">[nie]</text>
-    <text x="382" y="793" fill="#415570" text-anchor="start" font-size="14" font-weight="600">[áno]</text>
-    <text x="382" y="947" fill="#415570" text-anchor="start" font-size="14" font-weight="600">[áno]</text>
-    <text x="540" y="887" fill="#415570" text-anchor="middle" font-size="14" font-weight="600">[neznámy kód]</text>
-    <text x="201" y="886" fill="#415570" text-anchor="middle" font-size="14" font-weight="600">[bez zmeny]</text>
-    <text x="232" y="1171" fill="#415570" text-anchor="middle" font-size="14" font-weight="600">[áno]</text>
-    <text x="493" y="1171" fill="#415570" text-anchor="middle" font-size="14" font-weight="600">[nie]</text>
+    <text x="38" y="58" fill="#14243A" font-size="33" font-weight="700" text-anchor="start">4.4 UC5 Synchronizácia misií – realizácia</text>
+    <text x="419.5" y="128" fill="#14243A" font-size="17" font-weight="700" text-anchor="middle">Middleware</text>
+    <text x="952.5" y="128" fill="#14243A" font-size="17" font-weight="700" text-anchor="middle">KUKA FM</text>
+    <text x="251" y="365" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">[nie]</text>
+    <text x="436" y="431" fill="#415570" font-size="14" font-weight="600" text-anchor="start">[áno]</text>
+    <text x="582" y="539" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">[nie]</text>
+    <text x="438" y="605" fill="#415570" font-size="14" font-weight="600" text-anchor="start">[áno]</text>
+    <text x="583" y="709" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">[nie]</text>
+    <text x="439" y="776" fill="#415570" font-size="14" font-weight="600" text-anchor="start">[áno]</text>
+    <text x="262" y="875" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">[bez zmeny]</text>
+    <text x="587" y="875" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">[neznámy kód]</text>
+    <text x="437" y="941" fill="#415570" font-size="14" font-weight="600" text-anchor="start">[áno]</text>
+    <text x="202" y="1097" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">[áno]</text>
+    <text x="437" y="1165" fill="#415570" font-size="14" font-weight="600" text-anchor="start">[nie]</text>
+    <text x="270" y="1263" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">[áno]</text>
+    <text x="566" y="1263" fill="#415570" font-size="14" font-weight="600" text-anchor="middle">[nie]</text>
   </g>
 </svg>

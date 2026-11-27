@@ -1,49 +1,65 @@
 @startuml
 skinparam shadowing false
-skinparam roundCorner 9
-skinparam backgroundColor #FFFFFF
+skinparam backgroundColor white
 skinparam defaultFontName Segoe UI
-skinparam defaultFontColor #182338
+skinparam defaultFontColor #14243A
 skinparam defaultFontSize 16
-skinparam titleFontSize 26
-skinparam titleFontColor #182338
-skinparam ArrowColor #46566D
-skinparam ArrowFontColor #26364D
-skinparam ArrowFontSize 14
-skinparam ActivityBorderColor #7B8798
-skinparam ActivityBackgroundColor #F9FBFE
+skinparam titleFontSize 28
+skinparam titleFontColor #14243A
+skinparam roundCorner 9
+skinparam ArrowColor #607590
+skinparam ArrowFontColor #415570
+skinparam ActivityBorderColor #A1B0C2
+skinparam ActivityBackgroundColor #FFFFFF
 skinparam ActivityDiamondBackgroundColor #F1EDFA
 skinparam ActivityDiamondBorderColor #A197C4
-skinparam ActivityDiamondFontSize 15
-skinparam ActivityStartColor #26364D
-skinparam ActivityEndColor #26364D
-skinparam ActivityBarColor #46566D
+skinparam ActivityStartColor #14243A
+skinparam ActivityEndColor #14243A
+skinparam SwimlaneBorderColor #D7E1ED
+skinparam SwimlaneTitleFontSize 17
+skinparam SwimlaneTitleFontStyle bold
 
-title UC1 Zadať misiu <U+2013> realizácia
-
+title 4.1 UC1 Zadať misiu <U+2013> realizácia
+|#FAFBFC|Klient (obsluha / externý systém)|
+|#FFFFFF|Middleware|
+|#F7FAFF|KUKA FM|
+|Klient (obsluha / externý systém)|
 start
-:Klient: POST /api/missions;
-switch (Kontrola požiadavky?)
-case (neplatný API kľúč)
+:Zadať parametre misie;
+:POST /api/missions;
+|Middleware|
+if (API kľúč platný?) then (nie)
   :Technický log; <<#EEF2F7>>
+  |Klient (obsluha / externý systém)|
   :401 Unauthorized; <<#FDEBED>>
   stop
-case (neplatný vstup)
-  :AuditLog; <<#EEF2F7>>
+else (áno)
+endif
+|Middleware|
+if (Vstup platný?) then (nie)
+  :Zapísať AuditLog; <<#EEF2F7>>
+  |Klient (obsluha / externý systém)|
   :400 Bad Request; <<#FDEBED>>
   stop
-case (OK)
-  :Uložiť misiu Created + história; <<#FFF5DA>>
-  :submitMission; <<#EAF3FF>>
-  if (KUKA FM prijala?) then (áno)
-    :Submitted + história; <<#FFF5DA>>
-    :AuditLog; <<#EEF2F7>>
-    :201 Created + ID misie; <<#E5F6ED>>
-  else (nie)
-    :Failed + chyba; <<#FFF5DA>>
-    :AuditLog; <<#EEF2F7>>
-    :502 + missionId; <<#FDEBED>>
-  endif
+else (áno)
+endif
+|Middleware|
+:Uložiť misiu Created + história; <<#FFF5DA>>
+|KUKA FM|
+:submitMission; <<#EAF3FF>>
+|Middleware|
+if (KUKA FM prijala?) then (áno)
+  :Stav Submitted + história; <<#FFF5DA>>
+  :Zapísať AuditLog; <<#EEF2F7>>
+  |Klient (obsluha / externý systém)|
+  :201 Created + ID misie; <<#E5F6ED>>
   stop
-endswitch
+else (nie)
+  |Middleware|
+  :Stav Failed + chyba; <<#FFF5DA>>
+  :Zapísať AuditLog; <<#EEF2F7>>
+  |Klient (obsluha / externý systém)|
+  :502 + missionId; <<#FDEBED>>
+  stop
+endif
 @enduml

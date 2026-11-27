@@ -1,44 +1,47 @@
 @startuml
 skinparam shadowing false
-skinparam roundCorner 9
-skinparam backgroundColor #FFFFFF
+skinparam backgroundColor white
 skinparam defaultFontName Segoe UI
-skinparam defaultFontColor #182338
+skinparam defaultFontColor #14243A
 skinparam defaultFontSize 16
-skinparam titleFontSize 26
-skinparam titleFontColor #182338
-skinparam ArrowColor #46566D
-skinparam ArrowFontColor #26364D
-skinparam ArrowFontSize 14
-skinparam ActivityBorderColor #7B8798
-skinparam ActivityBackgroundColor #F9FBFE
+skinparam titleFontSize 28
+skinparam titleFontColor #14243A
+skinparam roundCorner 9
+skinparam ArrowColor #607590
+skinparam ArrowFontColor #415570
+skinparam ActivityBorderColor #A1B0C2
+skinparam ActivityBackgroundColor #FFFFFF
 skinparam ActivityDiamondBackgroundColor #F1EDFA
 skinparam ActivityDiamondBorderColor #A197C4
-skinparam ActivityDiamondFontSize 15
-skinparam ActivityStartColor #26364D
-skinparam ActivityEndColor #26364D
-skinparam ActivityBarColor #46566D
+skinparam ActivityStartColor #14243A
+skinparam ActivityEndColor #14243A
+skinparam SwimlaneBorderColor #D7E1ED
+skinparam SwimlaneTitleFontSize 17
+skinparam SwimlaneTitleFontStyle bold
 
-title Volanie KUKA FM <U+2013> realizácia
-
+title 4.0 Volanie KUKA FM <U+2013> realizácia
+|#FFFFFF|Middleware|
+|#F7FAFF|KUKA FM|
+|Middleware|
 start
-:Požiadavka na KUKA FM;
+:Načítať token z konfigurácie\nRučne vytvorený v UI KUKA FM · kap. 4.7;
 if (Token nastavený?) then (áno)
-  :Pridať hlavičku Authorization\nstatický token · bez Bearer; <<#EEF2F7>>
-else (nie: bez hlavičky)
+  :Pridať hlavičku Authorization\nbez Bearer; <<#EEF2F7>>
+else (nie)
 endif
-:POST /interfaces/api/amr/{operácia}; <<#EAF3FF>>
-
-switch (Výsledok?)
+|KUKA FM|
+:Spracovať POST\n/interfaces/api/amr/{operácia}; <<#EAF3FF>>
+|Middleware|
+switch (Výsledok volania?)
 case (2xx a success)
   :Zalogovať úspech; <<#EEF2F7>>
   :Výsledok OK; <<#E5F6ED>>
 case (401)
-  :Chyba autentifikácie,\nbez opakovania; <<#FDEBED>>
+  :Zalogovať chybu autentifikácie; <<#EEF2F7>>
+  :Volanie zlyhalo, bez opakovania; <<#FDEBED>>
+case (iná chyba / timeout / sieť)
   :Zalogovať chybu; <<#EEF2F7>>
-case (Iná chyba / timeout / sieť)
   :Volanie zlyhalo; <<#FDEBED>>
-  :Zalogovať chybu; <<#EEF2F7>>
 endswitch
 stop
 @enduml

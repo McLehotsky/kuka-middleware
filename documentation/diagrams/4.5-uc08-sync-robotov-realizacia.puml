@@ -1,48 +1,52 @@
 @startuml
 skinparam shadowing false
-skinparam roundCorner 9
-skinparam backgroundColor #FFFFFF
+skinparam backgroundColor white
 skinparam defaultFontName Segoe UI
-skinparam defaultFontColor #182338
+skinparam defaultFontColor #14243A
 skinparam defaultFontSize 16
-skinparam titleFontSize 26
-skinparam titleFontColor #182338
-skinparam ArrowColor #46566D
-skinparam ArrowFontColor #26364D
-skinparam ArrowFontSize 14
-skinparam ActivityBorderColor #7B8798
-skinparam ActivityBackgroundColor #F9FBFE
+skinparam titleFontSize 28
+skinparam titleFontColor #14243A
+skinparam roundCorner 9
+skinparam ArrowColor #607590
+skinparam ArrowFontColor #415570
+skinparam ActivityBorderColor #A1B0C2
+skinparam ActivityBackgroundColor #FFFFFF
 skinparam ActivityDiamondBackgroundColor #F1EDFA
 skinparam ActivityDiamondBorderColor #A197C4
-skinparam ActivityDiamondFontSize 15
-skinparam ActivityStartColor #26364D
-skinparam ActivityEndColor #26364D
-skinparam ActivityBarColor #46566D
+skinparam ActivityStartColor #14243A
+skinparam ActivityEndColor #14243A
+skinparam SwimlaneBorderColor #D7E1ED
+skinparam SwimlaneTitleFontSize 17
+skinparam SwimlaneTitleFontStyle bold
 
-title UC7 Synchronizácia robotov <U+2013> realizácia
-
+title 4.5 UC7 Synchronizácia robotov <U+2013> realizácia
+|#FFFFFF|Middleware|
+|#F7FAFF|KUKA FM|
+|Middleware|
 start
 :Štart API, potom každých 5 s;
+|KUKA FM|
 :robotQuery; <<#EAF3FF>>
+|Middleware|
 if (Volanie OK?) then (nie)
   :Zalogovať chybu, bez zmien; <<#FDEBED>>
   stop
 else (áno)
 endif
 while (Ďalší robot?) is (áno)
-  if (Má robotId a známy stav?) then (áno)
+  if (Má robotId a známy stav?) then (nie)
+    :Varovanie, robot preskočený; <<#EEF2F7>>
+  else (áno)
     if (Nový robot?) then (áno)
       :Vložiť robota; <<#FFF5DA>>
     else (nie)
     endif
     :Aktualizovať stav, batériu, uzol\nBatéria ≤ 1 → × 100; <<#FFF5DA>>
-    if (Offline?) then (nie)
+    if (Offline?) then (áno)
+      :Ponechať batériu a uzol\nak ich KUKA FM neposlala; <<#FFF5DA>>
+    else (nie)
       :LastSeenAt = teraz; <<#FFF5DA>>
-    else (áno)
-      :Ponechať poslednú batériu a uzol,\nak ich KUKA FM neposlala;
     endif
-  else (nie)
-    :Varovanie, robot preskočený; <<#EEF2F7>>
   endif
 endwhile (nie)
 :Uložiť všetko naraz; <<#FFF5DA>>

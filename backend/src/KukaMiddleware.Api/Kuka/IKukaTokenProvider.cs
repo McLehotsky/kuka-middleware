@@ -2,8 +2,8 @@ using Microsoft.Extensions.Options;
 
 namespace KukaMiddleware.Api.Kuka;
 
-// Q1 option A: a static token from configuration. A login-based provider (vendor §4.7, not supplied)
-// can replace it behind this interface.
+// KUKA.AMR Fleet 2.15 §4.7 describes generating an account token in the KUKA FM UI.
+// The middleware reads this token from configuration.
 public interface IKukaTokenProvider
 {
     /// <summary>Null when no token is configured.</summary>
