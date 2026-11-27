@@ -151,6 +151,12 @@ dotnet ef migrations has-pending-model-changes --project src/KukaMiddleware.Api
 
 `dotnet ef` starts the app, which validates the API keys: set throwaway values first in the same shell, e.g. `$env:ApiKeys__WebUi = -join ((1..64) | % { '{0:x}' -f (Get-Random -Max 16) })` and the same for `$env:ApiKeys__ExternalSystem` (different value).
 
+```powershell
+dotnet list package --vulnerable --include-transitive
+```
+
+CI fails when this lists any vulnerable package.
+
 **Frontend** (run in `frontend/`)
 
 ```powershell
@@ -167,6 +173,10 @@ npm run test
 
 ```powershell
 npm run build
+```
+
+```powershell
+npm audit --omit=dev --audit-level=high
 ```
 
 **Compose file**
