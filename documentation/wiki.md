@@ -757,7 +757,7 @@ Použité technológie pri vývoji middlewaru, napr.:
 
 - [x] Všetky operácie vykonané používateľom sú logované.
 
-- [ ] Proces testovania a nasadenia je plne automatizovaný využitím CI/CD pipeline. *(CI → CD beží automaticky; čaká sa na ruleset na GitHube s povinnou kontrolou CI, ktorý môže nastaviť len vlastník repozitára)*
+- [x] Proces testovania a nasadenia je plne automatizovaný využitím CI/CD pipeline. *(CI → CD beží automaticky; ruleset na GitHube vyžaduje PR a úspešnú kontrolu `kuka-middleware-ci`)*
 
 > **Realizácia:** vyhodnotenie k 26. 11. 2026 s dôkazmi pre Epic aj každú User Story je v sekcii 9.8.
 
@@ -873,7 +873,7 @@ Pipelines v Azure DevOps (YAML v `ci-cd/`) bežia na **vlastnom Windows agentovi
 - **`kuka-middleware-ci`** (`ci-cd/ci.yml`) – pri každom pushi do ľubovoľnej vetvy a pri každom PR do `main`: backend (SDK z `backend/global.json`, Release build s .NET analyzátormi a warnings as errors, xUnit testy) a frontend (Node 24, `npm ci`, TypeScript, ESLint, Vitest, produkčný build). Výsledky testov sa publikujú do záložky Tests; akákoľvek chyba pipeline zastaví.
 - **`kuka-middleware-cd`** (`ci-cd/cd.yml`) – spustí sa **automaticky po úspešnom behu CI na `main`** (overené: CI `#20261126.16` → CD `#20261126.3`) a nasadí presne ten commit, ktorý prešiel CI. Kroky: kontrola Docker Desktop, validácia premenných, zrkadlenie zdrojov do `DeployPath`, vyplnenie `docker/.env.prod` z premenných pipeline, `docker compose build` a `up -d` (rovnaký compose projekt a volume ako lokálny vývoj, nikdy `down -v`), **smoke test** webu, `/api/health` a Seq (HTTP 200, inak pipeline zlyhá), upratanie build cache.
 - **Premenné pipeline CD:** `AgentPoolName`, `AgentName`, `WebPort`, `DeployPath`, `DbName`, `DbUser` a tajné `DbPassword`, `WebUiApiKey`, `ExternalSystemApiKey`, `KukaFmAccessToken` (voliteľný). Tajomstvá sú tajné premenné pipeline (nie variable group) a nikdy sa nevypisujú.
-- **Čaká:** ruleset na GitHube, ktorý vyžaduje úspešnú kontrolu `kuka-middleware-ci` pred mergom do `main`, môže nastaviť len vlastník repozitára (Q7).
+- **Ochrana vetvy `main`:** ruleset na GitHube vyžaduje pull request a úspešnú kontrolu `kuka-middleware-ci`, blokuje mazanie vetvy a force push (overené 26. 11. 2026).
 
 ![9.6 – CI/CD pipeline](diagrams/9.6-ci-cd.svg)
 
@@ -911,7 +911,7 @@ Stav k 26. 11. 2026: **322 backend** a **97 frontend** unit testov, všetky úsp
 | Prezrieť stav robotov v reálnom čase | splnené | obrazovka Roboty, polling 5 s, synchronizácia robotov každých 5 s |
 | Prístup ku KUKA FM API zabezpečený access tokenom | splnené s odchýlkou | statický voliteľný token bez cache a obnovy pri 401; KUKA FM odpovedá aj bez tokenu |
 | Všetky operácie používateľa sú logované | splnené | `AuditLog` pre každé zadanie a zrušenie vrátane neúspešných |
-| Testovanie a nasadenie automatizované CI/CD | čiastočne | CI → CD automaticky; chýba ruleset na GitHube (vlastník repozitára) |
+| Testovanie a nasadenie automatizované CI/CD | splnené | CI → CD automaticky; ruleset na GitHube vyžaduje úspešné CI pred mergom |
 
 **User Stories (backlog)** – tabuľka je zhodná s tabuľkou „Stav implementácie" v `backlog.md`. **splnené** = všetky akceptačné kritériá splnené · **splnené s odchýlkou** = realizované inak alebo vynechané, odchýlka zaznamenaná · **čiastočne** = chýba uvedený krok.
 
@@ -927,7 +927,7 @@ Stav k 26. 11. 2026: **322 backend** a **97 frontend** unit testov, všetky úsp
 | 3.3 UC5 – Synchronizovať stav misií | splnené | aktívne misie každých 5 s cez `jobQuery`, mapovanie stavov, história, `FinishedAt`, `LastSyncedAt`, jedno uloženie za cyklus, opakovanie v ďalšom cykle; naživo `InProgress` a `Cancelled` | – |
 | 4.1 Kontajnerizácia a databáza | splnené | `docker compose up` spustí web, api, postgres (a seq), schéma z EF Core migrácie pri štarte, dáta prežijú reštart | – |
 | 4.2 Zabezpečenie API a logovanie | splnené | API kľúč + 401, len hashe kľúčov, štruktúrované JSON logy na stdout aj do Seq, `AuditLog` pre každé zadanie a zrušenie | – |
-| 4.3 CI pipeline | čiastočne | `kuka-middleware-ci`: build backendu aj frontendu, statická analýza, unit testy, publikované výsledky; zlyhá pri chybe | ruleset na GitHube s povinnou kontrolou čaká na vlastníka repozitára |
+| 4.3 CI pipeline | splnené | `kuka-middleware-ci`: build backendu aj frontendu, statická analýza, unit testy, publikované výsledky; zlyhá pri chybe; ruleset na GitHube vyžaduje úspešné CI pred mergom do `main` | – |
 | 4.4 CD pipeline | splnené | `kuka-middleware-cd` sa spustí automaticky po úspešnom CI na `main`, `docker compose build` + `up -d`, smoke test webu, `/api/health` a Seq | tajomstvá ako tajné premenné pipeline namiesto variable group |
 
   
@@ -938,7 +938,6 @@ Stav k 26. 11. 2026: **322 backend** a **97 frontend** unit testov, všetky úsp
 
 | # | Bod |
 |---|---|
-| Q7 | Ruleset na GitHube s povinnou kontrolou `kuka-middleware-ci` pre `main` – môže nastaviť len vlastník repozitára. |
 | Q10 | Spevnenie kontajnerov: nginx ako non-root a healthcheck pre `api` v compose. |
 | Q12 | Zoradenie robotov podľa mena rozlišuje veľké a malé písmená – zmeniť? |
 | Q13 | Ak robot vybraný vo formulári Nová misia prejde do Offline, formulár upozorní, ale misiu odošle – blokovať? |

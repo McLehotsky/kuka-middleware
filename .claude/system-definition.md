@@ -392,7 +392,6 @@ Questions, not decisions. Ask the user before implementing anything that depends
 
 | # | Question | Needed in phase |
 |---|---|---|
-| Q7 | CI and CD run on the self-hosted Windows agent (decided 2026-11-25); automatic CD after CI on main verified 2026-11-26. Still open: the GitHub required status check (ruleset), which only the repository owner can set. | 8 |
 | Q10 | Container hardening: run nginx as non-root (e.g. `nginxinc/nginx-unprivileged`, needs approval) and give the api a compose healthcheck (aspnet image has no curl). | 8 |
 | Q12 | Robot name ordering is case-sensitive (`StringComparer.Ordinal`); switch to case-insensitive? | any |
 | Q13 | New mission: if the chosen robot goes Offline while the form is open, the form warns but still submits. Block the submit instead? | any |
@@ -405,6 +404,7 @@ Questions, not decisions. Ask the user before implementing anything that depends
 ### Decided
 | # | Decision | Date |
 |---|---|---|
+| Q7 | CI and CD on the self-hosted Windows agent; automatic CD after CI on main; GitHub ruleset on `main` requires a PR and the `kuka-middleware-ci` check (verified 2026-11-26). | 2026-11-26 |
 | Q1, Q3, Q11 | Phase 5 decisions, see "Phase 5 scope" below. | 2026-11-26 |
 | Q8, Q18 | nginx supplies the web-ui key for the trusted localhost-only UI; explicit X-API-Key headers are forwarded unchanged. Anonymous 401s are technically logged; the audit schema stays unchanged. See §6. | 2026-11-04 |
 | Seq | Serilog with compact JSON stdout plus Seq (`datalust/seq`, localhost-only UI, no login); supersedes Q6/Q17 "no additional log service". CD secrets as pipeline (secret) variables instead of a variable group (teacher style). | 2026-11-25 |

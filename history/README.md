@@ -4,6 +4,7 @@ One note per finished phase or task, newest first. Format and rules: [CLAUDE.md 
 
 | Date | Note | Phase | Summary |
 |---|---|---|---|
+| 2026-11-27 | [18 · Readable diagrams](2026-11-27-18-colored-diagrams.md) | 9 | Colourful hand-laid-out as-built diagrams; GitHub ruleset verified, 4.3 done |
 | 2026-11-26 | [17 · Documentation](2026-11-26-17-documentation.md) | 9 | Wiki notes and §9 "Realizácia", 7 as-built PlantUML diagrams, backlog status, README |
 | 2026-11-26 | [16 · KUKA FM integration](2026-11-26-16-kuka-sync.md) | 5 | KUKA client, submit/cancel, robot and mission sync live-checked via VPN; 4.4 closed; 322 backend / 97 frontend tests |
 | 2026-11-26 | [15 · CD trigger](2026-11-26-15-cd-trigger.md) | 8 | CD was not queued after CI on main; `cd.yml` trigger rewritten to re-register it |
