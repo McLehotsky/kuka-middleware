@@ -83,14 +83,9 @@ endif
 |Klient (obsluha / externý systém)|
 :200 OK; <<#E5F6ED>>
 stop
-legend bottom right
+legend bottom center
   <b>Legenda farieb</b>
-  |<#EAF3FF>    | Volanie KUKA FM / Docker |
-  |<#E5F6ED>    | Úspech |
-  |<#FDEBED>    | Chyba / odmietnutie |
-  |<#FFF5DA>    | Zápis do databázy |
-  |<#EEF2F7>    | Log / audit |
-  |<color:#8064A9>◆</color>| Rozhodnutie |
-  |<#FFFFFF>    | Bežný krok |
+  | <#EAF3FF>    | Volanie KUKA FM / Docker | <#E5F6ED>    | Úspech | <#FDEBED>    | Chyba / odmietnutie | <#FFF5DA>    | Zápis do databázy |
+  | <#EEF2F7>    | Log / audit | <color:#8064A9>◆</color>| Rozhodnutie | <#FFFFFF>    | Bežný krok |   |   |
 endlegend
 @enduml
