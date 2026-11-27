@@ -528,6 +528,10 @@ Všetky volania idú cez **jedného typovaného klienta** (`IKukaClient`) podľa
   - misia **M-2026-0040** (2 kroky `Wait`) prešla `Created` → `Submitted` → `InProgress` (job 20) → `Completed` (job 30), nastavili sa `SubmittedAt` aj `FinishedAt`; zrušenie dokončenej misie vrátilo 409;
   - misia **M-2026-0041** (6 krokov `Wait`) bola zrušená počas behu: `InProgress` → `Cancelling` (200) → `Cancelled` (job 31) v nasledujúcom cykle synchronizácie;
   - `AuditLog` obsahuje všetky štyri operácie klienta `web-ui` (201, 409, 201, 200), v logoch API nie je žiadna chyba.
+- **Živý test s tokenom 27. 11. 2026** (token vygenerovaný v UI KUKA FM, tajná premenná pipeline `KukaFmAccessToken`, nasadenie cez CD):
+  - nasadené `.env.prod` aj kontajner `api` majú token (64 znakov), synchronizácia robotov a misií beží bez varovaní;
+  - misia **M-2026-0042** (robot 1, 6 krokov `Wait`) prešla s tokenom `Created` → `Submitted` → `InProgress` (job 20) → `Cancelling` (200) → `Cancelled` (job 31) – všetky štyri volania KUKA FM prešli;
+  - priame volanie `robotQuery` bez tokenu, so zlým tokenom aj so správnym tokenom vrátilo 200: laboratórne KUKA FM token nevyžaduje ani neoveruje, preto odpoveď 401 nemožno vyvolať naživo; jej spracovanie (zalogovanie chyby autentifikácie, volanie zlyhá bez opakovania) pokrývajú unit testy klienta KUKA FM.
 
   
 
@@ -631,7 +635,7 @@ Stav k 26. 11. 2026: **322 backend** a **97 frontend** unit testov, všetky úsp
 | 1.3 UC3 – Zoznam misií | splnené | `GET /api/missions?state=active\|finished` z vlastnej DB, obrazovka s filtrom a obnovou každých 5 s, testy filtra | – |
 | 1.4 UC4 – História stavov misie | splnené | detail a história zoradená podľa času, 404, obrazovka s časovou osou, testy | – |
 | 2.1 UC6 – Zoznam robotov | splnené | `GET /api/robots` z vlastnej DB s aktuálnou misiou, obrazovka (dlaždice, hľadanie, filter, karty / tabuľka), obnova každých 5 s, testy | – |
-| 3.1 Prístup ku KUKA FM API s access tokenom | splnené | jeden typovaný klient pre 4 volania, token z konfigurácie v hlavičke `Authorization` pri každom volaní (podľa plnej príručky KUKA.AMR Fleet 2.15, kap. 4.7), 401 sa zaloguje ako chyba autentifikácie a volanie zlyhá, logovanie volaní bez tokenu | kritériá cache a obnovy tokenu pri 401 nie sú uplatniteľné: token sa podľa kap. 4.7 generuje ručne vo webovom UI KUKA FM, API na vydanie ani obnovu neexistuje |
+| 3.1 Prístup ku KUKA FM API s access tokenom | splnené | jeden typovaný klient pre 4 volania, token z konfigurácie v hlavičke `Authorization` pri každom volaní (podľa plnej príručky KUKA.AMR Fleet 2.15, kap. 4.7), 401 sa zaloguje ako chyba autentifikácie a volanie zlyhá, logovanie volaní bez tokenu; naživo overené s tokenom z CD (27. 11.), KUKA FM v laboratóriu token neoveruje | kritériá cache a obnovy tokenu pri 401 nie sú uplatniteľné: token sa podľa kap. 4.7 generuje ručne vo webovom UI KUKA FM, API na vydanie ani obnovu neexistuje |
 | 3.2 UC7 – Synchronizovať stav robotov | splnené | synchronizácia pri štarte a každých 5 s, mapovanie stavov 1–7, vloženie / aktualizácia, `LastSeenAt`, chyba nemení dáta; naživo 3 roboty | mierku batérie overiť na robotovi, ktorý nie je nabitý |
 | 3.3 UC5 – Synchronizovať stav misií | splnené | aktívne misie každých 5 s cez `jobQuery`, mapovanie stavov, história, `FinishedAt`, `LastSyncedAt`, jedno uloženie za cyklus, opakovanie v ďalšom cykle; naživo `InProgress`, `Completed` a `Cancelled` | – |
 | 4.1 Kontajnerizácia a databáza | splnené | `docker compose up` spustí web, api, postgres (a seq), schéma z EF Core migrácie pri štarte, dáta prežijú reštart | – |
@@ -654,5 +658,4 @@ Stav k 26. 11. 2026: **322 backend** a **97 frontend** unit testov, všetky úsp
 | Q15 | `.impeccable/design.json` je starší ako `DESIGN.md` – zosynchronizovať. |
 | Q19 | `ROLLER_MOVE` vyžaduje `binCode` KUKA FM pre každý krok – doplniť do kontraktu alebo konfigurovať? Dovtedy ho UI neponúka a API ho odmieta s 400. |
 | – | Mierka batérie (podiel vs. percentá) – overiť na robotovi, ktorý nie je plne nabitý. |
-| – | Token KUKA FM a cesta pri 401 neboli overené naživo (token zatiaľ nie je nastavený v konfigurácii, KUKA FM ho nevyžaduje) – vygenerovať token v UI KUKA FM, nastaviť `KukaFm:AccessToken` a overiť. |
 | – | Stav KUKA FM a čas synchronizácie v hlavičke UI (Q-J) sú odložené. |
