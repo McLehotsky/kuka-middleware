@@ -397,13 +397,12 @@ Questions, not decisions. Ask the user before implementing anything that depends
 | Q13 | New mission: if the chosen robot goes Offline while the form is open, the form warns but still submits. Block the submit instead? | any |
 | Q14 | Mobile nav drawer visibly slides out when the viewport crosses 768 px (transition runs on the breakpoint change, since phase 6). Suppress the transition on media change? | 9 |
 | Q15 | `.impeccable/design.json` is older than `DESIGN.md` (phase 7 added `dark-offline-surface`). Re-sync with `impeccable document`? | any |
-| Q16 | While the api container is down, nginx answers with its own HTML 502 and the UI says "KUKA FM did not respond". Return a distinct "API unavailable" (nginx `error_page`) or tell the cases apart in the UI? | 9 |
-| Q20 | The UI shows every 502 as "KUKA FM did not respond"; show KUKA's rejection `detail` and link the `Failed` mission via `missionId`. | 9 |
-| Q19 | ROLLER_MOVE needs a vendor `binCode` per step; the API rejects it with 400 while the UI still offers it. Add `binCode` to the contract, configure it, or hide the type in the UI? | 9 |
+| Q19 | ROLLER_MOVE needs a vendor `binCode` per step: add `binCode` to the contract or configure it? Until then the UI does not offer ROLLER_MOVE and the API rejects it with 400. | any |
 
 ### Decided
 | # | Decision | Date |
 |---|---|---|
+| Q16, Q19 (UI), Q20 | UI only, API contract unchanged: a 502 with ProblemDetails shows its `detail` and, for a failed dispatch, links the `Failed` mission via `missionId`; a 502/503/504 without a ProblemDetails body (nginx page) shows "API unavailable"; nginx unchanged. The New mission form offers only RACK_MOVE (`binCode` stays open as Q19). | 2026-11-27 |
 | Q7 | CI and CD on the self-hosted Windows agent; automatic CD after CI on main; GitHub ruleset on `main` requires a PR and the `kuka-middleware-ci` check (verified 2026-11-26). | 2026-11-26 |
 | Q1, Q3, Q11 | Phase 5 decisions, see "Phase 5 scope" below. | 2026-11-26 |
 | Q8, Q18 | nginx supplies the web-ui key for the trusted localhost-only UI; explicit X-API-Key headers are forwarded unchanged. Anonymous 401s are technically logged; the audit schema stays unchanged. See §6. | 2026-11-04 |
@@ -451,7 +450,7 @@ Phase 7 (UC6) is built **before** phase 5: there are no KUKA FM credentials yet,
 - **Q11:** PostgreSQL `xmin` row version on `Mission`; cancel = check → `missionCancel` → save, a concurrency conflict → 409; sync skips conflicts and retries next tick.
 - **502 on a failed dispatch** carries the extension field `missionId` of the `Failed` mission (§8 extension, approved).
 - Wait steps use `KukaFm:WaitMillis` (default 5000 ms). `Created` stays cancellable (cancel then calls KUKA; an unknown mission → 502). Successful KUKA calls log at Debug, failures at Warning/Error.
-- ROLLER_MOVE is still offered by the New mission form but rejected with 400 (open item Q19).
+- ROLLER_MOVE is still offered by the New mission form but rejected with 400 (open item Q19). *(Since 2026-11-27 the form offers only RACK_MOVE.)*
 - **Live check 2026-11-26 (VPN, no token):** robot sync inserted 3 robots; mission M-2026-0039 (robot 1, 2 Wait steps at its node) went Created → Submitted → InProgress (job 20) → Cancelling → Cancelled (job 31); a 1-step mission was rejected by KUKA ("missionData length is less than 2") → Failed + 502 → minimum 2 steps. KUKA FM accepts all four calls without a token, so the token is optional everywhere.
 - Review decisions: a cancel that hits a concurrency conflict caused only by a sync write is re-applied once (409 only if the status really changed); a dispatch whose second save loses to a cancel returns 201; Offline robots keep their last battery and node; battery values ≤ 1 are read as a fraction (vendor example `1`), larger ones as percent, clamped 0–100.
 - Accepted edge case: if KUKA rejects a dispatch while a cancel wins the save race, the mission stays `Cancelling` without a KUKA job and sync warns every cycle (same as a legacy mission); close it manually if it ever happens.
@@ -463,4 +462,4 @@ Backlog 4.1 is finished by running the compose stack on the dev PC (Docker Deskt
 - **Docker only:** the app runs only in Docker Compose. The local PostgreSQL + user-secrets + `dotnet run` + Vite dev server flow from phase 6 is dropped from the repo. Code changes are picked up by a manual `docker compose … up -d --build`.
 - Builds, unit tests, lint, type check and `dotnet ef migrations add` stay on the host (they need no database).
 - Web port 8080 (`WEB_PORT`); only `web` is published, PostgreSQL is reached with `docker compose exec postgres psql`.
-- Q10 (non-root nginx, api healthcheck) and image names / tags for CD stay in phase 8; the nginx 502 wording is Q16.
+- Q10 (non-root nginx, api healthcheck) and image names / tags for CD stay in phase 8; the nginx 502 wording is Q16. *(Decided 2026-11-27: the UI shows "API unavailable".)*

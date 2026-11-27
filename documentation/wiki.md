@@ -386,7 +386,7 @@ Enum hodnoty (`Status`, `Role`, `Action`, …) sa v EF Core ukladajú ako `strin
 
 ![6.2-nova-misia.svg](/.attachments/6.2-nova-misia-2fe6cb11-6aa2-4762-bab3-dec1ec068e34.svg)
 
-> **Realizácia (UC1):** formulár s typom misie, prioritou 1–3 (predvolene 2), voliteľným externým kódom a krokmi. Formulár začína s **2 krokmi** a menej ako 2 kroky nedovolí (KUKA FM menej neprijme); poradie krokov sa mení tlačidlami posunu hore / dole. Výber robota ponúka „Automatic (KUKA FM decides)“ a roboty s ich stavom, Offline roboty sú neaktívne. Chyby validácie sa zobrazia pri príslušnom poli. `ROLLER_MOVE` formulár ponúka, ale API ho zatiaľ odmietne s 400 (Q19).
+> **Realizácia (UC1):** formulár s typom misie, prioritou 1–3 (predvolene 2), voliteľným externým kódom a krokmi. Formulár začína s **2 krokmi** a menej ako 2 kroky nedovolí (KUKA FM menej neprijme); poradie krokov sa mení tlačidlami posunu hore / dole. Výber robota ponúka „Automatic (KUKA FM decides)“ a roboty s ich stavom, Offline roboty sú neaktívne. Chyby validácie sa zobrazia pri príslušnom poli. Formulár ponúka len `RACK_MOVE`; `ROLLER_MOVE` je skrytý, kým sa nerozhodne o `binCode` (API ho naďalej odmieta s 400). Ak KUKA FM misiu odmietne (502), panel chyby ukáže dôvod z KUKA FM a odkaz „Open the failed mission“ na detail misie v stave `Failed`.
 
 ### 6.3 Detail misie
 
@@ -398,7 +398,7 @@ Enum hodnoty (`Status`, `Role`, `Action`, …) sa v EF Core ukladajú ako `strin
 
 ![6.4-zrusenie-misie.png](/.attachments/6.4-zrusenie-misie-2b04f3dd-e142-4156-81d8-8fc5bebbec66.png)
 
-> **Realizácia (UC2):** potvrdzovacie dialógové okno „Cancel mission M-…?“ vysvetlí, že misia prejde do stavu `Cancelling` a stav `Cancelled` potvrdí až KUKA FM. Po potvrdení sa zavolá `POST /api/missions/{id}/cancel`; chyba (napr. 404, 409, 502) sa zobrazí priamo v okne.
+> **Realizácia (UC2):** potvrdzovacie dialógové okno „Cancel mission M-…?“ vysvetlí, že misia prejde do stavu `Cancelling` a stav `Cancelled` potvrdí až KUKA FM. Po potvrdení sa zavolá `POST /api/missions/{id}/cancel`; chyba (napr. 404, 409, 502) sa zobrazí priamo v okne; pri 502 s dôvodom z KUKA FM.
 
 ### 6.5 Roboty
 
@@ -652,9 +652,7 @@ Stav k 26. 11. 2026: **322 backend** a **97 frontend** unit testov, všetky úsp
 | Q13 | Ak robot vybraný vo formulári Nová misia prejde do Offline, formulár upozorní, ale misiu odošle – blokovať? |
 | Q14 | Mobilná navigácia sa pri prechode cez 768 px viditeľne vysunie – potlačiť prechod pri zmene šírky? |
 | Q15 | `.impeccable/design.json` je starší ako `DESIGN.md` – zosynchronizovať. |
-| Q16 | Keď kontajner `api` nebeží, nginx vráti vlastnú HTML 502 a UI hlási „KUKA FM did not respond" – rozlíšiť „API nedostupné". |
-| Q19 | `ROLLER_MOVE` vyžaduje `binCode` KUKA FM pre každý krok; API ho odmieta s 400, UI ho stále ponúka – doplniť do kontraktu, konfigurovať, alebo skryť v UI? |
-| Q20 | UI zobrazuje každú 502 ako „KUKA FM did not respond" – zobraziť dôvod odmietnutia z KUKA FM a odkaz na neúspešnú misiu cez `missionId`. |
+| Q19 | `ROLLER_MOVE` vyžaduje `binCode` KUKA FM pre každý krok – doplniť do kontraktu alebo konfigurovať? Dovtedy ho UI neponúka a API ho odmieta s 400. |
 | – | Mierka batérie (podiel vs. percentá) – overiť na robotovi, ktorý nie je plne nabitý. |
 | – | Token KUKA FM a cesta pri 401 neboli overené naživo (token zatiaľ nie je nastavený v konfigurácii, KUKA FM ho nevyžaduje) – vygenerovať token v UI KUKA FM, nastaviť `KukaFm:AccessToken` a overiť. |
 | – | Stav KUKA FM a čas synchronizácie v hlavičke UI (Q-J) sú odložené. |
