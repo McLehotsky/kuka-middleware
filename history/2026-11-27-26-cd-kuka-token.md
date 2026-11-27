@@ -4,6 +4,8 @@ date: 2026-11-27
 phase: 9
 backlog: ["3.1 Prístup ku KUKA FM API s access tokenom", "4.4 CD pipeline"]
 agents: [ops-infra-expert, reviewer, main session]
+pr: 24
+pr_url: https://github.com/McLehotsky/kuka-middleware/pull/24
 ---
 
 # KUKA FM token blanked by macro expansion in CD
